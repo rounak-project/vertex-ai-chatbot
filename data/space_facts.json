@@ -1,0 +1,34 @@
+{
+  "sun": {
+    "keywords": ["sun", "solar"],
+    "answer": "The Sun is a huge star at the center of our solar system. It gives Earth light and heat."
+  },
+  "moon": {
+    "keywords": ["moon", "lunar"],
+    "answer": "The Moon is Earth's natural satellite. It reflects sunlight and affects ocean tides."
+  },
+  "earth": {
+    "keywords": ["earth", "planet earth", "home planet"],
+    "answer": "Earth is our home planet. It has air, water, land, and life."
+  },
+  "mars": {
+    "keywords": ["mars", "red planet"],
+    "answer": "Mars is called the Red Planet because of iron-rich dust on its surface. Scientists study it to learn if life ever existed there."
+  },
+  "jupiter": {
+    "keywords": ["jupiter", "gas giant"],
+    "answer": "Jupiter is the largest planet in our solar system. It is a gas giant with a giant storm called the Great Red Spot."
+  },
+  "isro": {
+    "keywords": ["isro", "india space", "chandrayaan", "mangalyaan"],
+    "answer": "ISRO is India's space agency. It works on missions like Chandrayaan, Mangalyaan, and many satellite launches."
+  },
+  "nasa": {
+    "keywords": ["nasa", "apollo", "artemis"],
+    "answer": "NASA is the space agency of the United States. It studies Earth, planets, stars, and sends missions into space."
+  },
+  "spacex": {
+    "keywords": ["spacex", "falcon", "starship"],
+    "answer": "SpaceX is a private space company. It builds rockets like Falcon 9 and Starship to make space travel more reusable."
+  }
+}

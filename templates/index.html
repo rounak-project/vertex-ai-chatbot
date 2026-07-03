@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VERTEX AI Chatbot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <p class="eyebrow">Space Demo Chatbot</p>
+      <h1>VERTEX</h1>
+      <p class="subtitle">Ask beginner-friendly questions about space, planets, and space agencies.</p>
+    </section>
+
+    <section class="chat-panel" aria-label="VERTEX chatbot">
+      <div id="chatMessages" class="chat-messages">
+        <div class="message bot">
+          <span class="speaker">VERTEX</span>
+          <p>Hello, explorer. Ask me about the Sun, Moon, Earth, Mars, Jupiter, ISRO, NASA, or SpaceX.</p>
+        </div>
+      </div>
+
+      <form id="chatForm" class="chat-form">
+        <input
+          id="userInput"
+          type="text"
+          name="message"
+          placeholder="Ask about Mars..."
+          autocomplete="off"
+          required
+        >
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
