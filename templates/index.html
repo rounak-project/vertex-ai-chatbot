@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <!-- This page is the main VERTEX chatbot screen. -->
   <main class="app">
     <section class="hero">
       <p class="eyebrow">Space Demo Chatbot</p>
@@ -18,8 +19,16 @@
       <div id="chatMessages" class="chat-messages">
         <div class="message bot">
           <span class="speaker">VERTEX</span>
-          <p>Hello, explorer. Ask me about the Sun, Moon, Earth, Mars, Jupiter, ISRO, NASA, or SpaceX.</p>
+          <p>🚀 Hello Explorer! I am Vertex.<br>Ask me anything about space.</p>
         </div>
+      </div>
+
+      <div class="sample-panel" aria-label="Sample questions">
+        <button type="button" class="sample-question">Tell me about Mars</button>
+        <button type="button" class="sample-question">What is NASA?</button>
+        <button type="button" class="sample-question">What is ISRO?</button>
+        <button type="button" class="sample-question">What is a Black Hole?</button>
+        <button type="button" class="sample-question">What is the ISS?</button>
       </div>
 
       <form id="chatForm" class="chat-form">

@@ -1,47 +1,25 @@
-import json
-from pathlib import Path
-
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request
+
+from chatbot import get_vertex_response
 
 
 load_dotenv()
 
 app = Flask(__name__)
 
-BASE_DIR = Path(__file__).resolve().parent
-FACTS_FILE = BASE_DIR / "data" / "space_facts.json"
+# This list stores the most recent chat messages while Flask is running.
+# It resets when the app is restarted, which is fine for a beginner project.
+CHAT_HISTORY = []
+MAX_HISTORY_MESSAGES = 20
 
 
-def load_space_facts():
-    with FACTS_FILE.open("r", encoding="utf-8") as file:
-        return json.load(file)
+def add_to_chat_history(speaker, message):
+    """Add one message to memory and keep only the last 20 messages."""
+    CHAT_HISTORY.append({"speaker": speaker, "message": message})
 
-
-SPACE_FACTS = load_space_facts()
-
-
-def get_vertex_reply(user_message):
-    message = user_message.lower().strip()
-
-    if not message:
-        return "Please type a space question for VERTEX."
-
-    for topic, details in SPACE_FACTS.items():
-        keywords = details["keywords"]
-        if any(keyword in message for keyword in keywords):
-            return details["answer"]
-
-    if "nasa api" in message or "api" in message:
-        return (
-            "NASA API support is planned for a future update. "
-            "Soon VERTEX can show real space pictures and data."
-        )
-
-    return (
-        "I am still learning. Try asking about the Sun, Moon, Earth, Mars, "
-        "Jupiter, ISRO, NASA, or SpaceX."
-    )
+    if len(CHAT_HISTORY) > MAX_HISTORY_MESSAGES:
+        del CHAT_HISTORY[0]
 
 
 @app.route("/")
@@ -53,8 +31,12 @@ def home():
 def chat():
     data = request.get_json(silent=True) or {}
     user_message = data.get("message", "")
-    reply = get_vertex_reply(user_message)
-    return jsonify({"reply": reply})
+    vertex_response = get_vertex_response(user_message)
+
+    add_to_chat_history("user", user_message)
+    add_to_chat_history("vertex", vertex_response)
+
+    return jsonify({"response": vertex_response})
 
 
 if __name__ == "__main__":

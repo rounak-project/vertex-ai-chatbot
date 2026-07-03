@@ -12,6 +12,8 @@ It can answer simple questions about:
 - ISRO
 - NASA
 - SpaceX
+- Black holes
+- International Space Station (ISS)
 
 This is a school demo project, not a production app.
 
@@ -41,10 +43,39 @@ http://127.0.0.1:5000
 ## How It Works
 
 - `main.py` runs the Flask web app.
+- `chatbot.py` loads the JSON knowledge base and searches for answers.
 - `templates/index.html` shows the chatbot page.
 - `static/style.css` makes the space-themed design.
 - `static/script.js` sends messages to Flask.
-- `data/space_facts.json` stores the chatbot answers.
+- `data/space_knowledge.json` stores the chatbot answers.
+- `/chat` is a POST API route. It receives a message and returns a JSON response.
+
+## Day 2 Completed Features
+
+- Added the VERTEX chatbot brain in `chatbot.py`.
+- Added a JSON knowledge base with beginner-friendly space facts.
+- Added answers about the Sun, Moon, Earth, Mars, Jupiter, NASA, ISRO, SpaceX, black holes, and the ISS.
+- Added a `/chat` API endpoint that returns chatbot responses.
+- Added a welcome message, sample question buttons, and a thinking message.
+- Added simple in-memory chat history for the last 20 messages.
+
+## Project Structure
+
+```text
+vertex-ai-chatbot/
+├── chatbot.py
+├── main.py
+├── data/
+│   ├── space_facts.json
+│   └── space_knowledge.json
+├── static/
+│   ├── script.js
+│   └── style.css
+├── templates/
+│   └── index.html
+├── requirements.txt
+└── README.md
+```
 
 ## Future Features
 

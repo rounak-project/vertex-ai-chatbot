@@ -7,6 +7,7 @@
   --muted: #a9bad0;
   --accent: #46d9ff;
   --accent-2: #8fffcb;
+  --warning: #ffd166;
   --user: #244d73;
 }
 
@@ -15,6 +16,7 @@
 }
 
 body {
+  /* The background uses simple CSS gradients to create a space feeling. */
   margin: 0;
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
@@ -85,6 +87,23 @@ h1 {
   background: var(--user);
 }
 
+.message.thinking p {
+  animation: pulse 1s ease-in-out infinite;
+  color: var(--warning);
+  font-style: italic;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
 .speaker {
   display: block;
   margin-bottom: 5px;
@@ -96,6 +115,32 @@ h1 {
 .message p {
   margin: 0;
   line-height: 1.45;
+}
+
+.sample-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(7, 17, 31, 0.75);
+}
+
+.sample-question {
+  min-height: 36px;
+  border: 1px solid rgba(70, 217, 255, 0.28);
+  border-radius: 8px;
+  padding: 0 12px;
+  color: var(--text);
+  background: rgba(23, 38, 60, 0.95);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sample-question:hover {
+  border-color: var(--accent);
+  background: rgba(36, 77, 115, 0.95);
 }
 
 .chat-form {
@@ -122,7 +167,7 @@ input:focus {
   border-color: var(--accent);
 }
 
-button {
+.chat-form button {
   border: 0;
   border-radius: 8px;
   padding: 0 22px;
@@ -133,7 +178,8 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.chat-form button:hover,
+.sample-question:hover {
   filter: brightness(1.08);
 }
 
@@ -142,11 +188,15 @@ button:hover {
     padding: 20px 12px;
   }
 
+  .sample-question {
+    flex: 1 1 100%;
+  }
+
   .chat-form {
     flex-direction: column;
   }
 
-  button {
+  .chat-form button {
     min-height: 46px;
   }
 }

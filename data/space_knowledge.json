@@ -1,0 +1,79 @@
+{
+  "planets": [
+    {
+      "name": "Earth",
+      "keywords": ["earth", "planet earth", "home planet", "blue planet"],
+      "answer": "Earth is our home planet. It has air, water, land, and life, which makes it very special in our solar system."
+    },
+    {
+      "name": "Mars",
+      "keywords": ["mars", "red planet"],
+      "answer": "Mars is called the Red Planet because iron-rich dust gives its surface a rusty red color. Scientists study Mars to learn if life ever existed there."
+    },
+    {
+      "name": "Jupiter",
+      "keywords": ["jupiter", "gas giant", "great red spot"],
+      "answer": "Jupiter is the largest planet in our solar system. It is a gas giant and has a huge storm called the Great Red Spot."
+    }
+  ],
+  "stars": [
+    {
+      "name": "Sun",
+      "keywords": ["sun", "solar", "star"],
+      "answer": "The Sun is a huge star at the center of our solar system. It gives Earth the light and heat needed for life."
+    }
+  ],
+  "moons": [
+    {
+      "name": "Moon",
+      "keywords": ["moon", "lunar"],
+      "answer": "The Moon is Earth's natural satellite. It reflects sunlight, affects ocean tides, and is the only world beyond Earth where humans have walked."
+    }
+  ],
+  "galaxies": [
+    {
+      "name": "Milky Way",
+      "keywords": ["galaxy", "galaxies", "milky way"],
+      "answer": "A galaxy is a giant group of stars, gas, dust, and planets. Our solar system is inside a galaxy called the Milky Way."
+    },
+    {
+      "name": "Black Hole",
+      "keywords": ["black hole", "black holes"],
+      "answer": "A black hole is a place in space where gravity is so strong that nothing, not even light, can escape from it."
+    }
+  ],
+  "space_agencies": [
+    {
+      "name": "NASA",
+      "keywords": ["nasa", "apollo", "artemis"],
+      "answer": "NASA is the space agency of the United States. It studies Earth, planets, stars, and sends astronauts and spacecraft into space."
+    },
+    {
+      "name": "ISRO",
+      "keywords": ["isro", "india space", "indian space", "chandrayaan", "mangalyaan"],
+      "answer": "ISRO is India's space agency. It builds satellites, launches rockets, and works on missions like Chandrayaan and Mangalyaan."
+    },
+    {
+      "name": "SpaceX",
+      "keywords": ["spacex", "space x", "falcon", "starship"],
+      "answer": "SpaceX is a private space company. It builds reusable rockets like Falcon 9 and is developing Starship for future space travel."
+    }
+  ],
+  "missions": [
+    {
+      "name": "International Space Station",
+      "keywords": ["iss", "international space station", "space station"],
+      "answer": "The ISS, or International Space Station, is a science laboratory that orbits Earth. Astronauts live and work there to study space."
+    },
+    {
+      "name": "Chandrayaan",
+      "keywords": ["chandrayaan", "moon mission india"],
+      "answer": "Chandrayaan is a series of Indian Moon missions by ISRO. These missions help scientists learn more about the Moon."
+    },
+    {
+      "name": "Artemis",
+      "keywords": ["artemis", "moon mission nasa"],
+      "answer": "Artemis is NASA's program to send astronauts back to the Moon and prepare for future missions to Mars."
+    }
+  ]
+}
