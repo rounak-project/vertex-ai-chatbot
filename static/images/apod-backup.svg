@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">VERTEX backup space image</title>
+  <desc id="desc">A simple local space illustration used when NASA APOD is unavailable.</desc>
+  <rect width="1200" height="700" fill="#050914"/>
+  <circle cx="970" cy="160" r="82" fill="#ffd166"/>
+  <circle cx="940" cy="135" r="82" fill="#050914"/>
+  <circle cx="230" cy="460" r="120" fill="#46d9ff"/>
+  <circle cx="195" cy="420" r="32" fill="#8fffcb" opacity="0.8"/>
+  <circle cx="265" cy="500" r="46" fill="#244d73" opacity="0.8"/>
+  <path d="M640 310 L700 440 L640 410 L580 440 Z" fill="#eef6ff"/>
+  <path d="M640 310 L640 410 L580 440 Z" fill="#a9bad0"/>
+  <path d="M620 430 L660 430 L640 505 Z" fill="#ff6b6b"/>
+  <g fill="#eef6ff">
+    <circle cx="90" cy="95" r="3"/>
+    <circle cx="180" cy="180" r="2"/>
+    <circle cx="360" cy="90" r="2"/>
+    <circle cx="520" cy="210" r="3"/>
+    <circle cx="740" cy="90" r="2"/>
+    <circle cx="840" cy="330" r="2"/>
+    <circle cx="1050" cy="390" r="3"/>
+    <circle cx="1120" cy="90" r="2"/>
+    <circle cx="1030" cy="610" r="2"/>
+    <circle cx="470" cy="585" r="3"/>
+    <circle cx="145" cy="625" r="2"/>
+  </g>
+  <text x="600" y="620" text-anchor="middle" fill="#eef6ff" font-family="Arial, sans-serif" font-size="36" font-weight="700">VERTEX SPACE VIEW</text>
+</svg>

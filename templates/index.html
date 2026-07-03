@@ -3,47 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VERTEX AI Chatbot</title>
+  <title>VERTEX Space Dashboard</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <!-- This page is the main VERTEX chatbot screen. -->
-  <main class="app">
-    <section class="hero">
-      <p class="eyebrow">Space Demo Chatbot</p>
-      <h1>VERTEX</h1>
-      <p class="subtitle">Ask beginner-friendly questions about space, planets, and space agencies.</p>
-    </section>
+  <!-- The star layers are only for decoration and do not need JavaScript. -->
+  <div class="stars stars-one"></div>
+  <div class="stars stars-two"></div>
 
-    <section class="chat-panel" aria-label="VERTEX chatbot">
-      <div id="chatMessages" class="chat-messages">
-        <div class="message bot">
-          <span class="speaker">VERTEX</span>
-          <p>🚀 Hello Explorer! I am Vertex.<br>Ask me anything about space.</p>
+  <div class="dashboard">
+    <!-- Sidebar buttons jump to each section on the same page. -->
+    <aside class="sidebar" aria-label="VERTEX navigation">
+      <div class="brand">
+        <span class="brand-mark">V</span>
+        <div>
+          <strong>VERTEX</strong>
+          <small>Space Assistant</small>
         </div>
       </div>
 
-      <div class="sample-panel" aria-label="Sample questions">
-        <button type="button" class="sample-question">Tell me about Mars</button>
-        <button type="button" class="sample-question">What is NASA?</button>
-        <button type="button" class="sample-question">What is ISRO?</button>
-        <button type="button" class="sample-question">What is a Black Hole?</button>
-        <button type="button" class="sample-question">What is the ISS?</button>
-      </div>
+      <nav class="nav-links">
+        <a href="#chat">Chat</a>
+        <a href="#nasa-image">NASA Image</a>
+        <a href="#news">News</a>
+        <a href="#planets">Planets</a>
+        <a href="#agencies">Agencies</a>
+        <a href="#about">About Vertex</a>
+      </nav>
+    </aside>
 
-      <form id="chatForm" class="chat-form">
-        <input
-          id="userInput"
-          type="text"
-          name="message"
-          placeholder="Ask about Mars..."
-          autocomplete="off"
-          required
-        >
-        <button type="submit">Send</button>
-      </form>
-    </section>
-  </main>
+    <main class="content">
+      <section class="hero glass-panel">
+        <p class="eyebrow">Day 3 Space Dashboard</p>
+        <h1>VERTEX</h1>
+        <p class="subtitle">
+          Ask space questions, view NASA's picture of the day, explore planets,
+          read demo space news, and learn about space agencies.
+        </p>
+      </section>
+
+      <section id="chat" class="section-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Assistant</p>
+          <h2>Chat With Vertex</h2>
+        </div>
+
+        <div class="chat-panel glass-panel" aria-label="VERTEX chatbot">
+          <div id="chatMessages" class="chat-messages">
+            <div class="message bot">
+              <span class="speaker">VERTEX</span>
+              <p>🚀 Hello Explorer! I am Vertex.<br>Ask me anything about space.</p>
+            </div>
+          </div>
+
+          <div class="sample-panel" aria-label="Sample questions">
+            <button type="button" class="sample-question">Tell me about Mars</button>
+            <button type="button" class="sample-question">What is NASA?</button>
+            <button type="button" class="sample-question">What is ISRO?</button>
+            <button type="button" class="sample-question">What is a Black Hole?</button>
+            <button type="button" class="sample-question">What is the ISS?</button>
+          </div>
+
+          <form id="chatForm" class="chat-form">
+            <input
+              id="userInput"
+              type="text"
+              name="message"
+              placeholder="Ask about Mars..."
+              autocomplete="off"
+              required
+            >
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="nasa-image" class="section-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Live Space Info</p>
+          <h2>NASA Picture of the Day</h2>
+        </div>
+
+        <article id="apodCard" class="apod-card glass-panel">
+          <p class="loading-text">Loading NASA data...</p>
+        </article>
+      </section>
+
+      <section id="news" class="section-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Mission Updates</p>
+          <h2>Space News</h2>
+        </div>
+
+        <div id="newsGrid" class="card-grid">
+          <p class="loading-text">Loading news...</p>
+        </div>
+      </section>
+
+      <section id="planets" class="section-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Solar System</p>
+          <h2>Planet Explorer</h2>
+        </div>
+
+        <div id="planetGrid" class="card-grid planet-grid">
+          <p class="loading-text">Loading planets...</p>
+        </div>
+      </section>
+
+      <section id="agencies" class="section-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Space Teams</p>
+          <h2>Space Agencies</h2>
+        </div>
+
+        <div id="agencyGrid" class="card-grid">
+          <p class="loading-text">Loading agencies...</p>
+        </div>
+      </section>
+
+      <section id="about" class="about-section glass-panel">
+        <p class="eyebrow">About Vertex</p>
+        <h2>Built For A School Demo</h2>
+        <p>
+          VERTEX is a beginner-friendly Flask project. It uses simple Python
+          routes, JSON files, and JavaScript fetch requests to create a space
+          assistant dashboard.
+        </p>
+      </section>
+    </main>
+  </div>
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

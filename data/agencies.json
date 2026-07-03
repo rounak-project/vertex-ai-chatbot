@@ -1,0 +1,37 @@
+[
+  {
+    "name": "NASA",
+    "country": "United States",
+    "founded": 1958,
+    "description": "NASA explores space, studies Earth, and sends astronauts and spacecraft on science missions.",
+    "website": "https://www.nasa.gov"
+  },
+  {
+    "name": "ISRO",
+    "country": "India",
+    "founded": 1969,
+    "description": "ISRO builds rockets and satellites and leads Indian missions such as Chandrayaan and Mangalyaan.",
+    "website": "https://www.isro.gov.in"
+  },
+  {
+    "name": "SpaceX",
+    "country": "United States",
+    "founded": 2002,
+    "description": "SpaceX is a private company that builds reusable rockets and spacecraft.",
+    "website": "https://www.spacex.com"
+  },
+  {
+    "name": "ESA",
+    "country": "Europe",
+    "founded": 1975,
+    "description": "The European Space Agency works with many European countries on space science and exploration.",
+    "website": "https://www.esa.int"
+  },
+  {
+    "name": "JAXA",
+    "country": "Japan",
+    "founded": 2003,
+    "description": "JAXA is Japan's space agency and works on rockets, satellites, astronauts, and asteroid missions.",
+    "website": "https://global.jaxa.jp"
+  }
+]

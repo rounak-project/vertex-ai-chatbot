@@ -1,0 +1,32 @@
+[
+  {
+    "title": "NASA prepares Artemis Moon technology",
+    "summary": "NASA is testing new systems that will help astronauts explore the Moon and prepare for future Mars missions.",
+    "date": "2026-07-03",
+    "agency": "NASA"
+  },
+  {
+    "title": "SpaceX works on reusable launch systems",
+    "summary": "SpaceX continues improving reusable rockets so space launches can become more affordable and frequent.",
+    "date": "2026-07-03",
+    "agency": "SpaceX"
+  },
+  {
+    "title": "ISRO studies the Moon and beyond",
+    "summary": "ISRO uses missions like Chandrayaan to learn more about the Moon and to grow India's space science skills.",
+    "date": "2026-07-03",
+    "agency": "ISRO"
+  },
+  {
+    "title": "James Webb Telescope explores deep space",
+    "summary": "The James Webb Space Telescope helps scientists study faraway galaxies, stars, and planets in amazing detail.",
+    "date": "2026-07-03",
+    "agency": "NASA, ESA, CSA"
+  },
+  {
+    "title": "ISS astronauts run science experiments",
+    "summary": "Astronauts on the International Space Station study how humans, plants, and materials behave in microgravity.",
+    "date": "2026-07-03",
+    "agency": "ISS Partners"
+  }
+]
