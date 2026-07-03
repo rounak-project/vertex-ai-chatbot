@@ -1,0 +1,47 @@
+[
+  {
+    "mission_name": "Artemis Science Cargo",
+    "agency": "NASA",
+    "rocket_name": "Space Launch System",
+    "launch_date": "2026-08-12",
+    "launch_site": "Kennedy Space Center, USA",
+    "status": "Demo upcoming",
+    "description": "A demo Moon mission carrying science tools for future Artemis explorers."
+  },
+  {
+    "mission_name": "Starlink Learning Launch",
+    "agency": "SpaceX",
+    "rocket_name": "Falcon 9",
+    "launch_date": "2026-08-25",
+    "launch_site": "Cape Canaveral, USA",
+    "status": "Demo upcoming",
+    "description": "A reusable rocket launch demo that explains how satellites reach orbit."
+  },
+  {
+    "mission_name": "Gaganyaan Test Flight",
+    "agency": "ISRO",
+    "rocket_name": "LVM3",
+    "launch_date": "2026-09-10",
+    "launch_site": "Satish Dhawan Space Centre, India",
+    "status": "Demo upcoming",
+    "description": "A practice mission for India's human spaceflight program."
+  },
+  {
+    "mission_name": "Ariane Earth Watch",
+    "agency": "ESA",
+    "rocket_name": "Ariane 6",
+    "launch_date": "2026-09-28",
+    "launch_site": "Guiana Space Centre, French Guiana",
+    "status": "Demo upcoming",
+    "description": "A European mission concept for studying weather, oceans, and forests."
+  },
+  {
+    "mission_name": "Hayabusa Classroom Probe",
+    "agency": "JAXA",
+    "rocket_name": "H3",
+    "launch_date": "2026-10-15",
+    "launch_site": "Tanegashima Space Center, Japan",
+    "status": "Demo upcoming",
+    "description": "A demo asteroid mission inspired by JAXA's sample-return spacecraft."
+  }
+]

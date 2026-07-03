@@ -24,6 +24,7 @@
 
       <nav class="nav-links">
         <a href="#chat">Chat</a>
+        <a href="#mission-control">Mission Control</a>
         <a href="#nasa-image">NASA Image</a>
         <a href="#news">News</a>
         <a href="#planets">Planets</a>
@@ -34,11 +35,11 @@
 
     <main class="content">
       <section class="hero glass-panel">
-        <p class="eyebrow">Day 3 Space Dashboard</p>
+        <p class="eyebrow">Day 4 Mission Control</p>
         <h1>VERTEX</h1>
         <p class="subtitle">
           Ask space questions, view NASA's picture of the day, explore planets,
-          read demo space news, and learn about space agencies.
+          track the ISS, review rocket launches, and learn about space agencies.
         </p>
       </section>
 
@@ -73,8 +74,36 @@
               autocomplete="off"
               required
             >
+            <!-- This button uses the browser's Web Speech API when available. -->
+            <button id="voiceButton" class="icon-button" type="button" title="Voice input">Mic</button>
             <button type="submit">Send</button>
           </form>
+        </div>
+      </section>
+
+      <section id="mission-control" class="section-grid">
+        <div class="section-heading with-action">
+          <div>
+            <p class="eyebrow">Live Tracker</p>
+            <h2>Mission Control</h2>
+          </div>
+          <button id="refreshMissionButton" class="secondary-button" type="button">Refresh</button>
+        </div>
+
+        <div class="mission-grid">
+          <article id="issCard" class="info-card glass-panel">
+            <p class="loading-text">Loading ISS location...</p>
+          </article>
+
+          <div class="glass-panel launch-panel">
+            <div class="launch-panel-header">
+              <h3>Rocket Launch Dashboard</h3>
+              <p id="missionUpdatedText" class="card-meta">Last updated: loading...</p>
+            </div>
+            <div id="launchList" class="launch-list">
+              <p class="loading-text">Loading rocket launches...</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -101,9 +130,15 @@
       </section>
 
       <section id="planets" class="section-grid">
-        <div class="section-heading">
-          <p class="eyebrow">Solar System</p>
-          <h2>Planet Explorer</h2>
+        <div class="section-heading with-action">
+          <div>
+            <p class="eyebrow">Solar System</p>
+            <h2>Planet Explorer</h2>
+          </div>
+          <label class="search-label" for="planetSearch">
+            <span>Search planets</span>
+            <input id="planetSearch" type="search" placeholder="Type Mars..." autocomplete="off">
+          </label>
         </div>
 
         <div id="planetGrid" class="card-grid planet-grid">

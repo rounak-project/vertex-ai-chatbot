@@ -51,6 +51,8 @@ http://127.0.0.1:5000
 - `/chat` is a POST API route. It receives a message and returns a JSON response.
 - `/api/nasa/apod` loads NASA's Astronomy Picture of the Day and uses a local backup if NASA is unavailable.
 - `/api/space-news`, `/api/planets`, and `/api/agencies` load local demo dashboard data.
+- `/api/iss` loads the current ISS location or local demo fallback data.
+- `/api/launches` loads local demo rocket launch data.
 
 ## Day 2 Completed Features
 
@@ -73,6 +75,34 @@ http://127.0.0.1:5000
 - Added loading messages for NASA data, news, planets, and agencies.
 - Added friendly error handling so the app still works without internet.
 
+## Day 4 Completed Features
+
+- Added Mission Control with an ISS tracker card and rocket launch dashboard.
+- Added `GET /api/iss` with live ISS data and demo fallback data.
+- Added `GET /api/launches` using `data/launches.json`.
+- Added planet search so cards filter while typing.
+- Added a microphone button for browser voice input.
+- Added speaker buttons for VERTEX replies using browser text-to-speech.
+- Added more chatbot answers for ISS location, launches, Chandrayaan, Artemis, Gaganyaan, satellites, and space stations.
+- Added Mission Control refresh button and last-updated text.
+
+## Mission Control
+
+Mission Control is a dashboard section inside the main page.
+
+- The ISS card asks Flask for `/api/iss`.
+- Flask tries a simple public ISS API first.
+- If the live API fails, Flask returns friendly demo fallback data.
+- The rocket launch list asks Flask for `/api/launches`.
+- Launch data is local, so it works even without internet.
+
+## Voice And Speech Notes
+
+- Voice input uses the browser Web Speech API.
+- Text-to-speech uses the browser SpeechSynthesis API.
+- These features depend on the browser, so they may not work everywhere.
+- If voice input is not supported, VERTEX shows a friendly message and typing still works.
+
 ## API Endpoints
 
 | Endpoint | What it does |
@@ -82,6 +112,8 @@ http://127.0.0.1:5000
 | `GET /api/space-news` | Gets local demo space news. |
 | `GET /api/planets` | Gets local planet card data. |
 | `GET /api/agencies` | Gets local space agency card data. |
+| `GET /api/iss` | Gets live ISS position or demo fallback data. |
+| `GET /api/launches` | Gets local demo rocket launch data. |
 
 ## Architecture Diagram
 
@@ -98,6 +130,10 @@ Flask app in main.py
   |                         data/space_knowledge.json
   |
   |-- /api/nasa/apod -------> NASA API or local backup image
+  |
+  |-- /api/iss -------------> ISS API or demo fallback data
+  |
+  |-- /api/launches --------> data/launches.json
   |
   |-- /api/space-news ------> data/space_news.json
   |
@@ -123,6 +159,7 @@ vertex-ai-chatbot/
 ├── main.py
 ├── data/
 │   ├── agencies.json
+│   ├── launches.json
 │   ├── planets.json
 │   ├── space_facts.json
 │   ├── space_knowledge.json
@@ -140,13 +177,12 @@ vertex-ai-chatbot/
 
 ## Future Features
 
-- Add voice input.
 - Add quiz mode.
 - Save chat history in a database.
-- Add a search box for planet cards.
 - Add real space news from a news API.
 - Add more NASA data, like Mars rover photos.
 - Add better AI answers later.
+- Add a simple map for ISS position.
 
 ## 6-Day Roadmap
 
@@ -164,7 +200,7 @@ Add NASA APOD, demo dashboard data, cards, and sidebar navigation.
 
 ### Day 4
 
-Improve visuals and add more interactive dashboard features.
+Add Mission Control, ISS tracker, launch dashboard, planet search, voice input, and speech output.
 
 ### Day 5
 

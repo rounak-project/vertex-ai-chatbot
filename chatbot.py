@@ -35,11 +35,19 @@ def get_vertex_response(user_message):
     if not message:
         return EMPTY_REPLY
 
+    best_answer = None
+    best_keyword_length = 0
+
     for category in SPACE_KNOWLEDGE.values():
         for topic in category:
             keywords = topic["keywords"]
 
-            if any(keyword in message for keyword in keywords):
-                return topic["answer"]
+            for keyword in keywords:
+                if keyword in message and len(keyword) >= best_keyword_length:
+                    best_answer = topic["answer"]
+                    best_keyword_length = len(keyword)
+
+    if best_answer:
+        return best_answer
 
     return UNKNOWN_REPLY

@@ -16,6 +16,7 @@ app = Flask(__name__)
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 NASA_APOD_URL = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+ISS_API_URL = "http://api.open-notify.org/iss-now.json"
 APOD_CACHE_SECONDS = 60 * 60
 
 # This list stores the most recent chat messages while Flask is running.
@@ -95,6 +96,41 @@ def get_nasa_apod():
         return get_backup_apod()
 
 
+def get_backup_iss_location():
+    """Return demo ISS data when the live tracker is unavailable."""
+    return {
+        "latitude": "20.5937",
+        "longitude": "78.9629",
+        "altitude": "408 km",
+        "speed": "27,600 km/h",
+        "last_updated": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
+        "source": "demo-fallback"
+    }
+
+
+def get_iss_location():
+    """Fetch the current ISS location or use simple fallback data."""
+    try:
+        response = requests.get(ISS_API_URL, timeout=6)
+        response.raise_for_status()
+        iss_data = response.json()
+        position = iss_data.get("iss_position", {})
+
+        if not position:
+            return get_backup_iss_location()
+
+        return {
+            "latitude": position.get("latitude", "Unknown"),
+            "longitude": position.get("longitude", "Unknown"),
+            "altitude": "408 km",
+            "speed": "27,600 km/h",
+            "last_updated": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
+            "source": "live"
+        }
+    except (requests.RequestException, ValueError):
+        return get_backup_iss_location()
+
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -134,6 +170,18 @@ def planets():
 def agencies():
     """API route for local space agency dashboard cards."""
     return jsonify(load_json_file("agencies.json"))
+
+
+@app.route("/api/iss")
+def iss_tracker():
+    """API route for the Mission Control ISS tracker card."""
+    return jsonify(get_iss_location())
+
+
+@app.route("/api/launches")
+def launches():
+    """API route for local demo rocket launch cards."""
+    return jsonify(load_json_file("launches.json"))
 
 
 if __name__ == "__main__":

@@ -61,9 +61,19 @@
   ],
   "missions": [
     {
+      "name": "ISS Location",
+      "keywords": ["where is the iss", "where is iss", "iss location", "track iss", "iss tracker"],
+      "answer": "The ISS keeps moving around Earth very quickly. Open Mission Control in VERTEX to see its latest latitude and longitude."
+    },
+    {
       "name": "International Space Station",
       "keywords": ["iss", "international space station", "space station"],
       "answer": "The ISS, or International Space Station, is a science laboratory that orbits Earth. Astronauts live and work there to study space."
+    },
+    {
+      "name": "Rocket Launch",
+      "keywords": ["rocket launch", "launch rocket", "space launch"],
+      "answer": "A rocket launch is when a rocket lifts off from Earth and carries people, satellites, or science tools into space."
     },
     {
       "name": "Chandrayaan",
@@ -74,6 +84,21 @@
       "name": "Artemis",
       "keywords": ["artemis", "moon mission nasa"],
       "answer": "Artemis is NASA's program to send astronauts back to the Moon and prepare for future missions to Mars."
+    },
+    {
+      "name": "Gaganyaan",
+      "keywords": ["gaganyaan", "india human spaceflight", "indian astronaut mission"],
+      "answer": "Gaganyaan is ISRO's human spaceflight program. Its goal is to send Indian astronauts into space."
+    },
+    {
+      "name": "Satellite",
+      "keywords": ["satellite", "satellites"],
+      "answer": "A satellite is an object that orbits a planet or moon. Some satellites are natural, like the Moon, and some are made by humans for communication, weather, and science."
+    },
+    {
+      "name": "Space Station",
+      "keywords": ["what is a space station", "space laboratory", "orbital station"],
+      "answer": "A space station is a large spacecraft where astronauts can live and work while orbiting Earth."
     }
   ]
 }

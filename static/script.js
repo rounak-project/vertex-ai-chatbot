@@ -2,11 +2,18 @@ const chatForm = document.querySelector("#chatForm");
 const userInput = document.querySelector("#userInput");
 const chatMessages = document.querySelector("#chatMessages");
 const sampleQuestions = document.querySelectorAll(".sample-question");
+const voiceButton = document.querySelector("#voiceButton");
 const apodCard = document.querySelector("#apodCard");
 const newsGrid = document.querySelector("#newsGrid");
 const planetGrid = document.querySelector("#planetGrid");
+const planetSearch = document.querySelector("#planetSearch");
 const agencyGrid = document.querySelector("#agencyGrid");
+const issCard = document.querySelector("#issCard");
+const launchList = document.querySelector("#launchList");
+const refreshMissionButton = document.querySelector("#refreshMissionButton");
+const missionUpdatedText = document.querySelector("#missionUpdatedText");
 const backupSpaceImage = "/static/images/apod-backup.svg";
+let allPlanets = [];
 
 // This function adds a new message bubble to the chat window.
 function addMessage(speaker, text, type) {
@@ -22,6 +29,23 @@ function addMessage(speaker, text, type) {
 
   message.appendChild(speakerLabel);
   message.appendChild(paragraph);
+
+  // SpeechSynthesis is a browser feature. It lets VERTEX read replies aloud.
+  if (type === "bot" && "speechSynthesis" in window) {
+    const speakButton = document.createElement("button");
+    speakButton.className = "speaker-button";
+    speakButton.type = "button";
+    speakButton.textContent = "Speak";
+    speakButton.title = "Read this Vertex reply";
+    speakButton.addEventListener("click", () => {
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.rate = 0.95;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(speech);
+    });
+    message.appendChild(speakButton);
+  }
+
   chatMessages.appendChild(message);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -87,6 +111,42 @@ sampleQuestions.forEach((button) => {
   });
 });
 
+// The Web Speech API is a browser feature. It may not work in every browser.
+function setupVoiceInput() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    voiceButton.addEventListener("click", () => {
+      addMessage("VERTEX", "Voice input is not supported in this browser. You can still type your question.", "bot");
+    });
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+
+  voiceButton.addEventListener("click", () => {
+    voiceButton.textContent = "Listening...";
+    recognition.start();
+  });
+
+  recognition.addEventListener("result", (event) => {
+    userInput.value = event.results[0][0].transcript;
+    voiceButton.textContent = "Mic";
+    userInput.focus();
+  });
+
+  recognition.addEventListener("end", () => {
+    voiceButton.textContent = "Mic";
+  });
+
+  recognition.addEventListener("error", () => {
+    voiceButton.textContent = "Mic";
+    addMessage("VERTEX", "I could not hear that clearly. Please try again or type your question.", "bot");
+  });
+}
+
 // NASA APOD gets one large visual card.
 function renderApod(apod) {
   apodCard.innerHTML = "";
@@ -144,6 +204,11 @@ function renderNews(newsItems) {
 function renderPlanets(planets) {
   planetGrid.innerHTML = "";
 
+  if (planets.length === 0) {
+    planetGrid.innerHTML = "<p class=\"error-text\">No planet found.</p>";
+    return;
+  }
+
   planets.forEach((planet) => {
     const card = document.createElement("article");
     card.className = "planet-card glass-panel";
@@ -168,6 +233,15 @@ function renderPlanets(planets) {
   });
 }
 
+function filterPlanets() {
+  const searchText = planetSearch.value.toLowerCase().trim();
+  const matchingPlanets = allPlanets.filter((planet) => {
+    return planet.name.toLowerCase().includes(searchText);
+  });
+
+  renderPlanets(matchingPlanets);
+}
+
 function renderAgencies(agencies) {
   agencyGrid.innerHTML = "";
 
@@ -184,6 +258,43 @@ function renderAgencies(agencies) {
     `;
 
     agencyGrid.appendChild(card);
+  });
+}
+
+function renderIss(iss) {
+  issCard.innerHTML = `
+    <span class="tag">${iss.source === "live" ? "Live ISS" : "Demo ISS"}</span>
+    <h3>International Space Station</h3>
+    <div class="stat-grid">
+      <p><strong>Latitude</strong><span>${iss.latitude}</span></p>
+      <p><strong>Longitude</strong><span>${iss.longitude}</span></p>
+      <p><strong>Altitude</strong><span>${iss.altitude}</span></p>
+      <p><strong>Speed</strong><span>${iss.speed}</span></p>
+    </div>
+    <p class="card-meta">Last updated: ${iss.last_updated}</p>
+  `;
+}
+
+function renderLaunches(launches) {
+  launchList.innerHTML = "";
+
+  launches.forEach((launch) => {
+    const launchCard = document.createElement("article");
+    launchCard.className = "launch-card";
+    launchCard.innerHTML = `
+      <div>
+        <span class="tag">${launch.status}</span>
+        <h4>${launch.mission_name}</h4>
+        <p class="card-meta">${launch.agency} - ${launch.rocket_name}</p>
+        <p>${launch.description}</p>
+      </div>
+      <div class="launch-details">
+        <p><strong>Date:</strong> ${launch.launch_date}</p>
+        <p><strong>Site:</strong> ${launch.launch_site}</p>
+      </div>
+    `;
+
+    launchList.appendChild(launchCard);
   });
 }
 
@@ -208,7 +319,8 @@ async function loadDashboardData() {
 
   try {
     const planets = await fetchJson("/api/planets");
-    renderPlanets(planets);
+    allPlanets = planets;
+    renderPlanets(allPlanets);
   } catch (error) {
     showCardError(planetGrid, "Planet cards could not load right now.");
   }
@@ -221,4 +333,30 @@ async function loadDashboardData() {
   }
 }
 
+async function loadMissionControl() {
+  issCard.innerHTML = "<p class=\"loading-text\">Loading ISS location...</p>";
+  launchList.innerHTML = "<p class=\"loading-text\">Loading rocket launches...</p>";
+
+  try {
+    const iss = await fetchJson("/api/iss");
+    renderIss(iss);
+  } catch (error) {
+    showCardError(issCard, "ISS location could not load right now.");
+  }
+
+  try {
+    const launches = await fetchJson("/api/launches");
+    renderLaunches(launches);
+  } catch (error) {
+    showCardError(launchList, "Rocket launches could not load right now.");
+  }
+
+  missionUpdatedText.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+}
+
+planetSearch.addEventListener("input", filterPlanets);
+refreshMissionButton.addEventListener("click", loadMissionControl);
+
+setupVoiceInput();
 loadDashboardData();
+loadMissionControl();
