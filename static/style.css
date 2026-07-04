@@ -949,30 +949,184 @@ input:focus {
   text-decoration: underline;
 }
 
-.quiz-panel {
+.quiz-academy {
+  display: grid;
+  gap: 16px;
   padding: 20px;
 }
 
-.quiz-topline {
+.quiz-actions,
+.quiz-command-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quiz-setup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.quiz-setup-grid label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.quiz-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.quiz-category-card {
+  display: grid;
+  min-height: 126px;
+  align-content: start;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.quiz-category-card span {
+  font-size: 28px;
+}
+
+.quiz-category-card small {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.quiz-category-card:hover,
+.quiz-category-card.active {
+  border-color: rgba(143, 255, 203, 0.55);
+  background: rgba(70, 217, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.quiz-category-card.locked {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.quiz-category-card.locked:hover {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  transform: none;
+}
+
+.quiz-dashboard,
+.quiz-learning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.quiz-dashboard article,
+.quiz-learning-grid article,
+.quiz-question-card,
+.quiz-explanation,
+.quiz-review-panel,
+.certificate-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.quiz-dashboard p,
+.progress-summary p,
+.quiz-explanation p,
+.review-card p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.quiz-score-card {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+.score-circle {
+  display: grid;
+  width: 86px;
+  height: 86px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--text);
+  background: conic-gradient(var(--accent-2) 0%, rgba(255, 255, 255, 0.1) 0);
+  box-shadow: inset 0 0 0 10px rgba(5, 9, 20, 0.72);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.quiz-timer {
+  margin: 10px 0;
+  color: var(--gold);
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.progress-track {
+  overflow: hidden;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progress-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent-2), var(--gold), var(--coral));
+  transition: width 220ms linear;
+}
+
+.quiz-play-area {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+  gap: 12px;
+}
+
+.quiz-question-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quiz-image {
+  width: 100%;
+  max-height: 260px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .quiz-choices {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   margin: 14px 0;
 }
 
 .quiz-choice {
-  min-height: 48px;
+  min-height: 54px;
   border: 1px solid rgba(70, 217, 255, 0.36);
   border-radius: 8px;
-  padding: 10px;
+  padding: 12px;
   color: var(--text);
   background: rgba(70, 217, 255, 0.1);
   font-size: 15px;
@@ -982,6 +1136,7 @@ input:focus {
 
 .quiz-choice:hover {
   background: rgba(70, 217, 255, 0.18);
+  transform: translateY(-1px);
 }
 
 .quiz-choice.correct {
@@ -996,12 +1151,80 @@ input:focus {
 
 .quiz-choice:disabled {
   cursor: default;
+  transform: none;
 }
 
-.quiz-feedback {
-  min-height: 24px;
+.fill-blank-form {
+  display: flex;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.quiz-explanation {
+  border-color: rgba(255, 209, 102, 0.28);
+}
+
+.quiz-explanation p {
   color: var(--gold);
   font-weight: 700;
+}
+
+.badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.achievement-badge {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.achievement-badge.unlocked {
+  border-color: rgba(143, 255, 203, 0.5);
+  color: var(--accent-2);
+  background: rgba(143, 255, 203, 0.12);
+}
+
+.leaderboard-list {
+  margin: 0;
+  padding-left: 22px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.review-card {
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.review-card.correct {
+  border-color: rgba(143, 255, 203, 0.4);
+}
+
+.review-card.wrong {
+  border-color: rgba(255, 123, 123, 0.4);
+}
+
+.certificate-card {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  border: 2px solid rgba(255, 209, 102, 0.52);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  background:
+    linear-gradient(135deg, rgba(255, 209, 102, 0.12), rgba(70, 217, 255, 0.1)),
+    rgba(255, 255, 255, 0.05);
 }
 
 .loading-text,
@@ -1120,7 +1343,8 @@ body.presentation-mode .hero {
   }
 
   .about-grid,
-  .quiz-choices {
+  .quiz-choices,
+  .quiz-play-area {
     grid-template-columns: 1fr;
   }
 
@@ -1178,11 +1402,51 @@ body.presentation-mode .hero {
     flex-direction: column;
   }
 
+  .quiz-command-row .hero-button,
+  .quiz-command-row .secondary-button,
+  .quiz-actions .secondary-button {
+    width: 100%;
+  }
+
+  .fill-blank-form {
+    flex-direction: column;
+  }
+
   .chat-form button {
     min-height: 46px;
   }
 
   .chat-messages {
     height: 420px;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #certificatePanel,
+  #certificatePanel * {
+    visibility: visible;
+  }
+
+  #certificatePanel {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: white;
+    color: black;
+  }
+
+  .certificate-card {
+    width: 90%;
+    color: black;
+    box-shadow: none;
+  }
+
+  #printCertificateButton {
+    display: none;
   }
 }

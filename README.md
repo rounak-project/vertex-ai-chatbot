@@ -39,7 +39,7 @@ Suggested screenshot names:
 - Markdown-style chat replies with links, lists, code blocks, tables, and images
 - Optional sound effects with mute button
 - Theme switcher: Deep Space, Blue Neon, and Mars Red
-- Space Quiz game with score and restart
+- Space Quiz Academy with categories, modes, timers, badges, leaderboard, review, and certificate
 - Presentation Mode for teacher demo
 - Final Project Summary section
 
@@ -186,6 +186,8 @@ It shows API key loaded, Groq connected, AI provider, last AI response, response
 | `/api/space-news` | GET | Gets local space news |
 | `/api/planets` | GET | Gets planet cards |
 | `/api/agencies` | GET | Gets space agency cards |
+| `/api/quiz-database` | GET | Loads the local Space Quiz Academy database |
+| `/api/quiz-generate` | POST | Generates quiz questions with Groq or falls back to local questions |
 
 ## Architecture
 
@@ -210,7 +212,58 @@ Flask app in main.py
   |-- /api/space-news ------> data/space_news.json
   |-- /api/planets ---------> data/planets.json
   |-- /api/agencies --------> data/agencies.json
+  |-- /api/quiz-database ---> data/quiz_database.json
+  |-- /api/quiz-generate ---> optional Groq or local quiz fallback
 ```
+
+## Space Quiz Academy
+
+The old five-question quiz is now a full educational quiz platform. It loads local questions first from:
+
+```text
+data/quiz_database.json
+```
+
+The database contains 15 categories and 300 questions. Categories include Solar System, Stars, Galaxies, Space Missions, Rockets, Astronauts, Space Agencies, Moon, Mars, Satellites, Black Holes, Exoplanets, Earth, Sun, and General Space Knowledge.
+
+Question types:
+
+- Multiple Choice
+- True / False
+- Image Quiz
+- Guess the Planet
+- Guess the Space Agency
+- Fill in the Blank
+- Match the Following
+- Rapid Fire
+- Timed Quiz
+- Random Quiz
+
+Quiz modes:
+
+- Practice Mode: no required timer.
+- Challenge Mode: 30-second timer by default.
+- Exam Mode: 20 questions.
+- Adventure Mode: unlocks categories one by one as quizzes are completed.
+- Daily Quiz: 5 random questions.
+
+Scoring:
+
+- Easy: 10 points
+- Medium: 20 points
+- Hard: 30 points
+- Expert: 50 points
+- Speed bonus: extra points when enough time remains
+- Perfect streak bonus: extra points for every third correct answer in a row
+- Daily bonus: extra points in Daily Quiz mode
+
+The quiz stores progress in browser `localStorage`, so it works without a database account. It tracks questions answered, correct percentage, incorrect percentage, favorite category, completed categories, unlocked badges, top 10 leaderboard scores, player name, highest score, and total quizzes completed.
+
+Achievements include Space Cadet, Mission Specialist, Planet Explorer, Galaxy Explorer, Junior Astronaut, Space Scientist, Quiz Champion, and Space Master.
+
+Review Mode shows every question, the student's answer, the correct answer, explanation, and fun fact. If the final score is 80% or higher, VERTEX creates a printable Space Explorer Certificate with the player name, score, date, category, and VERTEX logo.
+
+AI question generation is optional. The buttons for Generate New Quiz, Generate 10 Questions, Generate Hard Quiz, Generate NASA Quiz, Generate Mars Quiz, and Generate Astronomy Quiz call `/api/quiz-generate`. If Groq is connected, VERTEX asks Groq for new questions. If Groq is missing or unavailable, the route returns local questions from `quiz_database.json`.
 
 ## Demo Explanation
 
@@ -330,6 +383,7 @@ vertex-ai-chatbot/
 │   ├── agencies.json
 │   ├── launches.json
 │   ├── planets.json
+│   ├── quiz_database.json
 │   ├── space_facts.json
 │   ├── space_knowledge.json
 │   └── space_news.json

@@ -1,0 +1,5592 @@
+{
+  "categories": [
+    {
+      "id": "solar-system",
+      "name": "Solar System",
+      "icon": "🌍",
+      "description": "Planets and objects that orbit the Sun"
+    },
+    {
+      "id": "stars",
+      "name": "Stars",
+      "icon": "🌟",
+      "description": "How stars form, shine, and change"
+    },
+    {
+      "id": "galaxies",
+      "name": "Galaxies",
+      "icon": "🌌",
+      "description": "Milky Way, nebulae, and the wider universe"
+    },
+    {
+      "id": "space-missions",
+      "name": "Space Missions",
+      "icon": "🛰",
+      "description": "Famous spacecraft and exploration programs"
+    },
+    {
+      "id": "rockets",
+      "name": "Rockets",
+      "icon": "🚀",
+      "description": "Launch vehicles and rocket science"
+    },
+    {
+      "id": "astronauts",
+      "name": "Astronauts",
+      "icon": "👨‍🚀",
+      "description": "Human spaceflight and life in space"
+    },
+    {
+      "id": "space-agencies",
+      "name": "Space Agencies",
+      "icon": "🏢",
+      "description": "NASA, ISRO, ESA, JAXA, Roscosmos, and companies"
+    },
+    {
+      "id": "moon",
+      "name": "Moon",
+      "icon": "🌑",
+      "description": "Earth's Moon and lunar exploration"
+    },
+    {
+      "id": "mars",
+      "name": "Mars",
+      "icon": "🔴",
+      "description": "The Red Planet and Mars missions"
+    },
+    {
+      "id": "satellites",
+      "name": "Satellites",
+      "icon": "🛰",
+      "description": "Artificial satellites and orbits"
+    },
+    {
+      "id": "black-holes",
+      "name": "Black Holes",
+      "icon": "🌠",
+      "description": "Gravity, event horizons, and extreme space"
+    },
+    {
+      "id": "exoplanets",
+      "name": "Exoplanets",
+      "icon": "🪐",
+      "description": "Planets beyond our solar system"
+    },
+    {
+      "id": "earth",
+      "name": "Earth",
+      "icon": "🌎",
+      "description": "Earth as a planet and space observation"
+    },
+    {
+      "id": "sun",
+      "name": "Sun",
+      "icon": "☀",
+      "description": "Our star and solar activity"
+    },
+    {
+      "id": "general-space",
+      "name": "General Space Knowledge",
+      "icon": "🌍",
+      "description": "Mixed astronomy, history, physics, and future exploration"
+    }
+  ],
+  "scoring": {
+    "easy": 10,
+    "medium": 20,
+    "hard": 30,
+    "expert": 50
+  },
+  "questions": [
+    {
+      "id": "solar-system-01",
+      "category": "solar-system",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Solar System",
+      "question": "Which planet is called the Red Planet?",
+      "choices": [
+        "Mars",
+        "Venus",
+        "Jupiter",
+        "Mercury"
+      ],
+      "answer": "Mars",
+      "explanation": "Mars looks red because iron oxide, or rusty dust, covers much of its surface.",
+      "fact": "Mars has the tallest volcano in the Solar System.",
+      "points": 10
+    },
+    {
+      "id": "solar-system-02",
+      "category": "solar-system",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Solar System",
+      "question": "Which planet is closest to the Sun?",
+      "choices": [
+        "Mercury",
+        "Earth",
+        "Mars",
+        "Neptune"
+      ],
+      "answer": "Mercury",
+      "explanation": "Mercury orbits closest to the Sun, but it is not the hottest planet.",
+      "fact": "Venus is hotter than Mercury because of its thick atmosphere.",
+      "points": 20
+    },
+    {
+      "id": "solar-system-03",
+      "category": "solar-system",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Solar System",
+      "question": "Which planet is the largest in our Solar System?",
+      "choices": [
+        "Jupiter",
+        "Saturn",
+        "Earth",
+        "Uranus"
+      ],
+      "answer": "Jupiter",
+      "explanation": "Jupiter is the largest planet and is mostly made of gas.",
+      "fact": "Jupiter's Great Red Spot is a giant storm.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "solar-system-04",
+      "category": "solar-system",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Solar System",
+      "question": "Saturn is famous for its bright ring system.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Saturn's rings are made mostly of ice, rock, and dust.",
+      "fact": "Other giant planets also have rings, but Saturn's are easiest to see.",
+      "points": 50
+    },
+    {
+      "id": "solar-system-05",
+      "category": "solar-system",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Solar System",
+      "question": "The asteroid belt is mostly between Mars and Jupiter.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Most main-belt asteroids orbit between Mars and Jupiter.",
+      "fact": "Ceres is the largest object in the asteroid belt.",
+      "points": 10
+    },
+    {
+      "id": "solar-system-06",
+      "category": "solar-system",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Solar System",
+      "question": "Which object is a dwarf planet?",
+      "choices": [
+        "Pluto",
+        "Earth",
+        "Jupiter",
+        "Venus"
+      ],
+      "answer": "Pluto",
+      "explanation": "Pluto is classified as a dwarf planet because it has not cleared its orbit.",
+      "fact": "Pluto is part of the Kuiper Belt region.",
+      "points": 20
+    },
+    {
+      "id": "solar-system-07",
+      "category": "solar-system",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Solar System",
+      "question": "Fill in the blank: The Solar System is centered on the ___.",
+      "choices": [
+        "Sun",
+        "Moon",
+        "Earth",
+        "Mars"
+      ],
+      "answer": "Sun",
+      "explanation": "The Sun's gravity holds the Solar System together.",
+      "fact": "The Sun contains most of the Solar System's mass.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Solar System",
+          "right": "Sun"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "solar-system-08",
+      "category": "solar-system",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Solar System",
+      "question": "Match: Jupiter -> largest planet",
+      "choices": [
+        "Correct",
+        "Incorrect"
+      ],
+      "answer": "Correct",
+      "explanation": "Jupiter is the largest planet in the Solar System.",
+      "fact": "More than 1,000 Earths could fit inside Jupiter by volume.",
+      "points": 50
+    },
+    {
+      "id": "solar-system-09",
+      "category": "solar-system",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Solar System",
+      "question": "Which planet rotates on its side?",
+      "choices": [
+        "Uranus",
+        "Mars",
+        "Mercury",
+        "Neptune"
+      ],
+      "answer": "Uranus",
+      "explanation": "Uranus has an extreme axial tilt, making it look like it spins sideways.",
+      "fact": "Uranus is an ice giant.",
+      "points": 10
+    },
+    {
+      "id": "solar-system-10",
+      "category": "solar-system",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Solar System",
+      "question": "Which planet is known for very strong winds and deep blue color?",
+      "choices": [
+        "Neptune",
+        "Venus",
+        "Mercury",
+        "Earth"
+      ],
+      "answer": "Neptune",
+      "explanation": "Neptune is an ice giant with powerful winds.",
+      "fact": "Neptune is the farthest major planet from the Sun.",
+      "points": 20
+    },
+    {
+      "id": "solar-system-11",
+      "category": "solar-system",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Solar System",
+      "question": "Comets can grow tails when they approach the Sun.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Solar heat turns comet ice into gas, creating a glowing coma and tail.",
+      "fact": "Comet tails point generally away from the Sun.",
+      "points": 30
+    },
+    {
+      "id": "solar-system-12",
+      "category": "solar-system",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Solar System",
+      "question": "Which planet is hottest on the surface?",
+      "choices": [
+        "Venus",
+        "Mercury",
+        "Mars",
+        "Saturn"
+      ],
+      "answer": "Venus",
+      "explanation": "Venus traps heat with a thick carbon dioxide atmosphere.",
+      "fact": "Venus is sometimes called Earth's twin because of its size.",
+      "points": 50
+    },
+    {
+      "id": "solar-system-13",
+      "category": "solar-system",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Solar System",
+      "question": "A meteorite is a space rock that reaches Earth's surface.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "A meteorite survives its trip through the atmosphere and lands on the ground.",
+      "fact": "A meteor is the bright streak seen in the sky.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "solar-system-14",
+      "category": "solar-system",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Solar System",
+      "question": "Guess the planet: I am blue, far from the Sun, and very windy.",
+      "choices": [
+        "Neptune",
+        "Earth",
+        "Mars",
+        "Jupiter"
+      ],
+      "answer": "Neptune",
+      "explanation": "Neptune is a distant blue ice giant with strong winds.",
+      "fact": "Neptune was predicted mathematically before it was observed clearly.",
+      "points": 20
+    },
+    {
+      "id": "solar-system-15",
+      "category": "solar-system",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Solar System",
+      "question": "Which planet has the most obvious rings?",
+      "choices": [
+        "Saturn",
+        "Mars",
+        "Earth",
+        "Mercury"
+      ],
+      "answer": "Saturn",
+      "explanation": "Saturn's ring system is wide, bright, and easy to recognize.",
+      "fact": "Saturn's rings are thin compared with their width.",
+      "points": 30
+    },
+    {
+      "id": "solar-system-16",
+      "category": "solar-system",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Solar System",
+      "question": "Fill in the blank: Earth is often called the ___ Planet.",
+      "choices": [
+        "Blue",
+        "Red",
+        "Ringed",
+        "Gas"
+      ],
+      "answer": "Blue",
+      "explanation": "Earth appears blue from space because oceans cover much of its surface.",
+      "fact": "Earth is the only known planet with surface life.",
+      "points": 50
+    },
+    {
+      "id": "solar-system-17",
+      "category": "solar-system",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Solar System",
+      "question": "Which planet has the Great Red Spot?",
+      "choices": [
+        "Jupiter",
+        "Mars",
+        "Venus",
+        "Uranus"
+      ],
+      "answer": "Jupiter",
+      "explanation": "The Great Red Spot is a long-lasting storm on Jupiter.",
+      "fact": "The storm is larger than Earth.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Solar System",
+          "right": "Jupiter"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "solar-system-18",
+      "category": "solar-system",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Solar System",
+      "question": "The Kuiper Belt lies beyond Neptune.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The Kuiper Belt is a region of icy objects beyond Neptune.",
+      "fact": "Pluto is one famous Kuiper Belt object.",
+      "points": 20
+    },
+    {
+      "id": "solar-system-19",
+      "category": "solar-system",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Solar System",
+      "question": "Which is not one of the eight major planets?",
+      "choices": [
+        "Pluto",
+        "Mars",
+        "Earth",
+        "Neptune"
+      ],
+      "answer": "Pluto",
+      "explanation": "Pluto is a dwarf planet, not one of the eight major planets.",
+      "fact": "The eight major planets end with Neptune.",
+      "points": 30
+    },
+    {
+      "id": "solar-system-20",
+      "category": "solar-system",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Solar System",
+      "question": "What force keeps planets orbiting the Sun?",
+      "choices": [
+        "Gravity",
+        "Magnetism only",
+        "Sound",
+        "Friction"
+      ],
+      "answer": "Gravity",
+      "explanation": "Gravity pulls planets toward the Sun while their motion carries them forward.",
+      "fact": "Orbits are a balance between motion and gravity.",
+      "points": 50
+    },
+    {
+      "id": "stars-01",
+      "category": "stars",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Stars",
+      "question": "What is the Sun?",
+      "choices": [
+        "A star",
+        "A planet",
+        "A moon",
+        "A comet"
+      ],
+      "answer": "A star",
+      "explanation": "The Sun is a star because it makes light and heat through fusion.",
+      "fact": "The Sun is the closest star to Earth.",
+      "points": 10
+    },
+    {
+      "id": "stars-02",
+      "category": "stars",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Stars",
+      "question": "Stars make energy mainly by nuclear fusion.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Fusion joins light atoms and releases energy inside stars.",
+      "fact": "Hydrogen fusion powers most stars for much of their lives.",
+      "points": 20
+    },
+    {
+      "id": "stars-03",
+      "category": "stars",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Stars",
+      "question": "Which color usually means a star is hotter?",
+      "choices": [
+        "Blue",
+        "Red",
+        "Brown",
+        "Gray"
+      ],
+      "answer": "Blue",
+      "explanation": "Blue stars are usually hotter than red stars.",
+      "fact": "Star color gives clues about temperature.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "stars-04",
+      "category": "stars",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Stars",
+      "question": "A red giant is a later life stage of some stars.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "A red giant forms when a star expands after using much of its core fuel.",
+      "fact": "The Sun will become a red giant far in the future.",
+      "points": 50
+    },
+    {
+      "id": "stars-05",
+      "category": "stars",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Stars",
+      "question": "Fill in the blank: A star is a giant ball of hot ___.",
+      "choices": [
+        "gas",
+        "wood",
+        "water",
+        "ice"
+      ],
+      "answer": "gas",
+      "explanation": "Stars are made mostly of hot gas and plasma.",
+      "fact": "Plasma is a very hot state of matter.",
+      "points": 10
+    },
+    {
+      "id": "stars-06",
+      "category": "stars",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Stars",
+      "question": "Which star is also called the Dog Star?",
+      "choices": [
+        "Sirius",
+        "Polaris",
+        "Betelgeuse",
+        "Vega"
+      ],
+      "answer": "Sirius",
+      "explanation": "Sirius is the brightest star in Earth's night sky.",
+      "fact": "Sirius is part of a two-star system.",
+      "points": 20
+    },
+    {
+      "id": "stars-07",
+      "category": "stars",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Stars",
+      "question": "Polaris is useful because it points near north.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Polaris is close to the north celestial pole, so it helps with navigation.",
+      "fact": "Polaris is also called the North Star.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Stars",
+          "right": "True"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "stars-08",
+      "category": "stars",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Stars",
+      "question": "What can a massive star explosion be called?",
+      "choices": [
+        "Supernova",
+        "Comet",
+        "Eclipse",
+        "Aurora"
+      ],
+      "answer": "Supernova",
+      "explanation": "A supernova is a powerful explosion at the end of some stars' lives.",
+      "fact": "Supernovae help spread heavy elements into space.",
+      "points": 50
+    },
+    {
+      "id": "stars-09",
+      "category": "stars",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Stars",
+      "question": "A white dwarf is a leftover core of some stars.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Small and medium stars can leave behind dense white dwarfs.",
+      "fact": "White dwarfs slowly cool over a very long time.",
+      "points": 10
+    },
+    {
+      "id": "stars-10",
+      "category": "stars",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Stars",
+      "question": "Which object is extremely dense and can form after a supernova?",
+      "choices": [
+        "Neutron star",
+        "Asteroid",
+        "Comet",
+        "Cloud"
+      ],
+      "answer": "Neutron star",
+      "explanation": "A neutron star is the collapsed core of a massive star.",
+      "fact": "Some neutron stars send out beams and are called pulsars.",
+      "points": 20
+    },
+    {
+      "id": "stars-11",
+      "category": "stars",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Stars",
+      "question": "Fill in the blank: A light-year measures ___.",
+      "choices": [
+        "distance",
+        "temperature",
+        "weight",
+        "sound"
+      ],
+      "answer": "distance",
+      "explanation": "A light-year is the distance light travels in one year.",
+      "fact": "Light travels about 9.46 trillion kilometers in one year.",
+      "points": 30
+    },
+    {
+      "id": "stars-12",
+      "category": "stars",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Stars",
+      "question": "Binary stars are two stars orbiting each other.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Many stars are part of binary or multiple-star systems.",
+      "fact": "Studying binary stars helps scientists measure star masses.",
+      "points": 50
+    },
+    {
+      "id": "stars-13",
+      "category": "stars",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Stars",
+      "question": "Which star is in Orion and looks reddish?",
+      "choices": [
+        "Betelgeuse",
+        "Sirius",
+        "Polaris",
+        "Vega"
+      ],
+      "answer": "Betelgeuse",
+      "explanation": "Betelgeuse is a red supergiant in Orion.",
+      "fact": "Its brightness changes over time.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "stars-14",
+      "category": "stars",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Stars",
+      "question": "What does a star's spectrum help reveal?",
+      "choices": [
+        "Composition",
+        "Favorite color",
+        "Sound level",
+        "Shape only"
+      ],
+      "answer": "Composition",
+      "explanation": "Spectra show chemical fingerprints in starlight.",
+      "fact": "Spectroscopy is one of astronomy's most important tools.",
+      "points": 20
+    },
+    {
+      "id": "stars-15",
+      "category": "stars",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Stars",
+      "question": "Stars are born in clouds of gas and dust.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Gravity can pull parts of nebulae together to form new stars.",
+      "fact": "The Orion Nebula is a star-forming region.",
+      "points": 30
+    },
+    {
+      "id": "stars-16",
+      "category": "stars",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Stars",
+      "question": "Which force pulls gas together to form stars?",
+      "choices": [
+        "Gravity",
+        "Friction",
+        "Sound",
+        "Electricity only"
+      ],
+      "answer": "Gravity",
+      "explanation": "Gravity pulls matter together inside star-forming clouds.",
+      "fact": "Gravity shapes planets, stars, and galaxies.",
+      "points": 50
+    },
+    {
+      "id": "stars-17",
+      "category": "stars",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Stars",
+      "question": "A pulsar is a rapidly spinning neutron star.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Pulsars send beams of radiation that sweep past Earth like a lighthouse.",
+      "fact": "Pulsar timing can be extremely precise.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Stars",
+          "right": "True"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "stars-18",
+      "category": "stars",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Stars",
+      "question": "Which star is nearest to Earth after the Sun?",
+      "choices": [
+        "Proxima Centauri",
+        "Sirius",
+        "Polaris",
+        "Rigel"
+      ],
+      "answer": "Proxima Centauri",
+      "explanation": "Proxima Centauri is the closest known star to the Sun.",
+      "fact": "It is part of the Alpha Centauri system.",
+      "points": 20
+    },
+    {
+      "id": "stars-19",
+      "category": "stars",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Stars",
+      "question": "Fill in the blank: The Sun is mostly hydrogen and ___.",
+      "choices": [
+        "helium",
+        "oxygen",
+        "iron",
+        "sand"
+      ],
+      "answer": "helium",
+      "explanation": "The Sun is made mostly of hydrogen and helium.",
+      "fact": "Fusion turns hydrogen into helium in the Sun's core.",
+      "points": 30
+    },
+    {
+      "id": "stars-20",
+      "category": "stars",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Stars",
+      "question": "Which star type is smallest in this list?",
+      "choices": [
+        "White dwarf",
+        "Red giant",
+        "Supergiant",
+        "Main sequence Sun-like star"
+      ],
+      "answer": "White dwarf",
+      "explanation": "White dwarfs are small but very dense stellar remnants.",
+      "fact": "A white dwarf can be about Earth-sized but very massive.",
+      "points": 50
+    },
+    {
+      "id": "galaxies-01",
+      "category": "galaxies",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Galaxies",
+      "question": "What galaxy contains our Solar System?",
+      "choices": [
+        "Milky Way",
+        "Andromeda",
+        "Triangulum",
+        "Sombrero"
+      ],
+      "answer": "Milky Way",
+      "explanation": "Our Solar System is inside the Milky Way galaxy.",
+      "fact": "The Milky Way is a spiral galaxy.",
+      "points": 10
+    },
+    {
+      "id": "galaxies-02",
+      "category": "galaxies",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Galaxies",
+      "question": "A galaxy contains stars, gas, dust, and dark matter.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Galaxies are huge systems held together by gravity.",
+      "fact": "Some galaxies contain billions or trillions of stars.",
+      "points": 20
+    },
+    {
+      "id": "galaxies-03",
+      "category": "galaxies",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Galaxies",
+      "question": "Which nearby large galaxy is moving toward the Milky Way?",
+      "choices": [
+        "Andromeda",
+        "Whirlpool",
+        "Cartwheel",
+        "Pinwheel"
+      ],
+      "answer": "Andromeda",
+      "explanation": "Andromeda is the nearest large spiral galaxy to us.",
+      "fact": "The Milky Way and Andromeda may merge far in the future.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "galaxies-04",
+      "category": "galaxies",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Galaxies",
+      "question": "Fill in the blank: A nebula is a cloud of gas and ___.",
+      "choices": [
+        "dust",
+        "glass",
+        "metal blocks",
+        "lava"
+      ],
+      "answer": "dust",
+      "explanation": "Nebulae are clouds of gas and dust in space.",
+      "fact": "Some nebulae are star nurseries.",
+      "points": 50
+    },
+    {
+      "id": "galaxies-05",
+      "category": "galaxies",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Galaxies",
+      "question": "The Orion Nebula is a star-forming region.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "New stars are forming inside the Orion Nebula.",
+      "fact": "It is visible in the Orion constellation.",
+      "points": 10
+    },
+    {
+      "id": "galaxies-06",
+      "category": "galaxies",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Galaxies",
+      "question": "What invisible material helps explain galaxy rotation?",
+      "choices": [
+        "Dark matter",
+        "Ocean water",
+        "Lightning",
+        "Lava"
+      ],
+      "answer": "Dark matter",
+      "explanation": "Dark matter has gravity but does not shine like normal matter.",
+      "fact": "Scientists infer dark matter from its gravitational effects.",
+      "points": 20
+    },
+    {
+      "id": "galaxies-07",
+      "category": "galaxies",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Galaxies",
+      "question": "Dark energy is linked to the universe's faster expansion.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Dark energy is the name for whatever drives accelerated expansion.",
+      "fact": "It remains one of science's biggest mysteries.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Galaxies",
+          "right": "True"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "galaxies-08",
+      "category": "galaxies",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Galaxies",
+      "question": "Which galaxy shape has arms?",
+      "choices": [
+        "Spiral",
+        "Square",
+        "Triangle",
+        "Flat line"
+      ],
+      "answer": "Spiral",
+      "explanation": "Spiral galaxies have disks with curved arms.",
+      "fact": "The Milky Way has spiral arms.",
+      "points": 50
+    },
+    {
+      "id": "galaxies-09",
+      "category": "galaxies",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Galaxies",
+      "question": "What is the Big Bang theory about?",
+      "choices": [
+        "The early expanding universe",
+        "A rocket launch",
+        "A moon phase",
+        "A comet tail"
+      ],
+      "answer": "The early expanding universe",
+      "explanation": "The Big Bang describes the hot, dense early universe expanding over time.",
+      "fact": "The universe is about 13.8 billion years old.",
+      "points": 10
+    },
+    {
+      "id": "galaxies-10",
+      "category": "galaxies",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Galaxies",
+      "question": "Quasars are powered by active supermassive black holes.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "A quasar is a very bright active galactic center.",
+      "fact": "Quasars can outshine their host galaxies.",
+      "points": 20
+    },
+    {
+      "id": "galaxies-11",
+      "category": "galaxies",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Galaxies",
+      "question": "Which telescope studies distant galaxies in infrared light?",
+      "choices": [
+        "James Webb",
+        "A classroom microscope",
+        "Weather radar",
+        "Compass"
+      ],
+      "answer": "James Webb",
+      "explanation": "JWST observes infrared light from distant objects.",
+      "fact": "Infrared helps see through dust and study early galaxies.",
+      "points": 30
+    },
+    {
+      "id": "galaxies-12",
+      "category": "galaxies",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Galaxies",
+      "question": "Fill in the blank: The universe includes space, time, matter, and ___.",
+      "choices": [
+        "energy",
+        "paper",
+        "wood",
+        "plastic"
+      ],
+      "answer": "energy",
+      "explanation": "The universe includes all matter and energy.",
+      "fact": "Light itself is a form of energy.",
+      "points": 50
+    },
+    {
+      "id": "galaxies-13",
+      "category": "galaxies",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Galaxies",
+      "question": "The Crab Nebula is a supernova remnant.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It is the expanding remains of an exploded star.",
+      "fact": "A neutron star sits near its center.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "galaxies-14",
+      "category": "galaxies",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Galaxies",
+      "question": "What holds galaxies together?",
+      "choices": [
+        "Gravity",
+        "Tape",
+        "Air pressure",
+        "Sound"
+      ],
+      "answer": "Gravity",
+      "explanation": "Gravity pulls the stars, gas, dust, and dark matter in galaxies.",
+      "fact": "Gravity also keeps planets in orbit.",
+      "points": 20
+    },
+    {
+      "id": "galaxies-15",
+      "category": "galaxies",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Galaxies",
+      "question": "Which is bigger: a galaxy or a solar system?",
+      "choices": [
+        "Galaxy",
+        "Solar system",
+        "They are equal",
+        "A moon"
+      ],
+      "answer": "Galaxy",
+      "explanation": "A galaxy can contain billions of solar systems.",
+      "fact": "Our Solar System is tiny compared with the Milky Way.",
+      "points": 30
+    },
+    {
+      "id": "galaxies-16",
+      "category": "galaxies",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Galaxies",
+      "question": "A planetary nebula is not actually a planet.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It got its name because it looked planet-like in early telescopes.",
+      "fact": "It forms from outer layers of a dying Sun-like star.",
+      "points": 50
+    },
+    {
+      "id": "galaxies-17",
+      "category": "galaxies",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Galaxies",
+      "question": "What is the cosmic microwave background?",
+      "choices": [
+        "Leftover early-universe radiation",
+        "Rocket smoke",
+        "Moon dust",
+        "A comet"
+      ],
+      "answer": "Leftover early-universe radiation",
+      "explanation": "It is faint radiation from the young universe.",
+      "fact": "It gives clues about the early cosmos.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Galaxies",
+          "right": "Leftover early-universe radiation"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "galaxies-18",
+      "category": "galaxies",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Galaxies",
+      "question": "Fill in the blank: The Milky Way is a ___ galaxy.",
+      "choices": [
+        "spiral",
+        "square",
+        "cube",
+        "hollow"
+      ],
+      "answer": "spiral",
+      "explanation": "The Milky Way has a disk and spiral arms.",
+      "fact": "We see it as a milky band from Earth.",
+      "points": 20
+    },
+    {
+      "id": "galaxies-19",
+      "category": "galaxies",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Galaxies",
+      "question": "Elliptical galaxies often contain many older stars.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Elliptical galaxies are round or oval and often have older star populations.",
+      "fact": "They usually have less gas than spiral galaxies.",
+      "points": 30
+    },
+    {
+      "id": "galaxies-20",
+      "category": "galaxies",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Galaxies",
+      "question": "Which word means the whole universe?",
+      "choices": [
+        "Cosmos",
+        "Crater",
+        "Booster",
+        "Docking port"
+      ],
+      "answer": "Cosmos",
+      "explanation": "Cosmos is another word for the universe as an ordered whole.",
+      "fact": "Cosmology is the study of the universe.",
+      "points": 50
+    },
+    {
+      "id": "space-missions-01",
+      "category": "space-missions",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Space Missions",
+      "question": "Which mission first landed humans on the Moon?",
+      "choices": [
+        "Apollo 11",
+        "Voyager 1",
+        "Artemis I",
+        "Chandrayaan-1"
+      ],
+      "answer": "Apollo 11",
+      "explanation": "Apollo 11 landed Neil Armstrong and Buzz Aldrin on the Moon in 1969.",
+      "fact": "Michael Collins orbited the Moon during Apollo 11.",
+      "points": 10
+    },
+    {
+      "id": "space-missions-02",
+      "category": "space-missions",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Space Missions",
+      "question": "Voyager spacecraft launched in 1977.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Voyager 1 and 2 launched in 1977 to explore the outer planets.",
+      "fact": "They carry Golden Records from Earth.",
+      "points": 20
+    },
+    {
+      "id": "space-missions-03",
+      "category": "space-missions",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Space Missions",
+      "question": "What is Artemis?",
+      "choices": [
+        "NASA's Moon program",
+        "A Mars rover",
+        "A comet",
+        "A galaxy"
+      ],
+      "answer": "NASA's Moon program",
+      "explanation": "Artemis aims to return astronauts to the Moon and prepare for Mars.",
+      "fact": "Artemis I tested the Orion spacecraft without crew.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "space-missions-04",
+      "category": "space-missions",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Space Missions",
+      "question": "Fill in the blank: Chandrayaan is India's ___ mission series.",
+      "choices": [
+        "Moon",
+        "Jupiter",
+        "Saturn",
+        "Comet"
+      ],
+      "answer": "Moon",
+      "explanation": "Chandrayaan missions study the Moon.",
+      "fact": "Chandrayaan-3 achieved a soft landing near the lunar south polar region.",
+      "points": 50
+    },
+    {
+      "id": "space-missions-05",
+      "category": "space-missions",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Space Missions",
+      "question": "Mangalyaan was India's Mars Orbiter Mission.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Mangalyaan demonstrated India's ability to reach Mars orbit.",
+      "fact": "It was also called MOM.",
+      "points": 10
+    },
+    {
+      "id": "space-missions-06",
+      "category": "space-missions",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Space Missions",
+      "question": "Which mission studies the Sun from India?",
+      "choices": [
+        "Aditya-L1",
+        "Apollo 11",
+        "Voyager 2",
+        "Hubble"
+      ],
+      "answer": "Aditya-L1",
+      "explanation": "Aditya-L1 observes the Sun and space weather.",
+      "fact": "L1 is a stable region between Earth and the Sun.",
+      "points": 20
+    },
+    {
+      "id": "space-missions-07",
+      "category": "space-missions",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Space Missions",
+      "question": "What is Gaganyaan?",
+      "choices": [
+        "India's human spaceflight program",
+        "A telescope",
+        "A comet",
+        "A galaxy"
+      ],
+      "answer": "India's human spaceflight program",
+      "explanation": "Gaganyaan aims to send Indian astronauts to space.",
+      "fact": "Astronauts from India are sometimes called vyomanauts.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Space Missions",
+          "right": "India's human spaceflight program"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "space-missions-08",
+      "category": "space-missions",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Space Missions",
+      "question": "The Hubble Space Telescope orbits Earth.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Hubble observes space from above most of Earth's atmosphere.",
+      "fact": "Hubble has taken many famous deep-space images.",
+      "points": 50
+    },
+    {
+      "id": "space-missions-09",
+      "category": "space-missions",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Space Missions",
+      "question": "Which telescope mainly observes infrared light?",
+      "choices": [
+        "James Webb Space Telescope",
+        "Hubble only",
+        "ISS window",
+        "Sputnik"
+      ],
+      "answer": "James Webb Space Telescope",
+      "explanation": "JWST is optimized for infrared astronomy.",
+      "fact": "Its sunshield is about the size of a tennis court.",
+      "points": 10
+    },
+    {
+      "id": "space-missions-10",
+      "category": "space-missions",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Space Missions",
+      "question": "Fill in the blank: The ISS is a space ___.",
+      "choices": [
+        "station",
+        "comet",
+        "crater",
+        "nebula"
+      ],
+      "answer": "station",
+      "explanation": "The ISS is a laboratory where astronauts live and work in orbit.",
+      "fact": "It travels around Earth many times per day.",
+      "points": 20
+    },
+    {
+      "id": "space-missions-11",
+      "category": "space-missions",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Space Missions",
+      "question": "Which spacecraft studied Jupiter after launch in 2011?",
+      "choices": [
+        "Juno",
+        "Apollo",
+        "Gaganyaan",
+        "Sputnik"
+      ],
+      "answer": "Juno",
+      "explanation": "NASA's Juno mission studies Jupiter's atmosphere, gravity, and magnetic field.",
+      "fact": "Juno uses solar panels at Jupiter.",
+      "points": 30
+    },
+    {
+      "id": "space-missions-12",
+      "category": "space-missions",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Space Missions",
+      "question": "Cassini studied Saturn and its moons.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Cassini spent years exploring Saturn, its rings, and moons.",
+      "fact": "Huygens landed on Saturn's moon Titan.",
+      "points": 50
+    },
+    {
+      "id": "space-missions-13",
+      "category": "space-missions",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Space Missions",
+      "question": "Which mission carried the first artificial satellite?",
+      "choices": [
+        "Sputnik 1",
+        "Apollo 13",
+        "JWST",
+        "Voyager 2"
+      ],
+      "answer": "Sputnik 1",
+      "explanation": "Sputnik 1 was launched by the Soviet Union in 1957.",
+      "fact": "It began the Space Age.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "space-missions-14",
+      "category": "space-missions",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Space Missions",
+      "question": "Fill in the blank: Perseverance is a Mars ___.",
+      "choices": [
+        "rover",
+        "star",
+        "ring",
+        "galaxy"
+      ],
+      "answer": "rover",
+      "explanation": "Perseverance drives on Mars to study rocks and search for signs of ancient environments.",
+      "fact": "It carried the Ingenuity helicopter.",
+      "points": 20
+    },
+    {
+      "id": "space-missions-15",
+      "category": "space-missions",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Space Missions",
+      "question": "New Horizons flew past Pluto.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "New Horizons gave humanity close-up images of Pluto in 2015.",
+      "fact": "It later studied a Kuiper Belt object.",
+      "points": 30
+    },
+    {
+      "id": "space-missions-16",
+      "category": "space-missions",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Space Missions",
+      "question": "Which mission repaired Hubble?",
+      "choices": [
+        "Space Shuttle servicing missions",
+        "Voyager flybys",
+        "Apollo landings",
+        "Mangalyaan"
+      ],
+      "answer": "Space Shuttle servicing missions",
+      "explanation": "Astronauts visited Hubble using the Space Shuttle to repair and upgrade it.",
+      "fact": "Servicing helped Hubble work for decades.",
+      "points": 50
+    },
+    {
+      "id": "space-missions-17",
+      "category": "space-missions",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Space Missions",
+      "question": "What did Apollo 13 become famous for?",
+      "choices": [
+        "A safe return after an accident",
+        "Landing on Mars",
+        "Discovering Neptune",
+        "Building ISS"
+      ],
+      "answer": "A safe return after an accident",
+      "explanation": "Apollo 13 had an oxygen tank explosion but the crew returned safely.",
+      "fact": "It is known as a successful failure.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Space Missions",
+          "right": "A safe return after an accident"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "space-missions-18",
+      "category": "space-missions",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Space Missions",
+      "question": "Fill in the blank: Voyager carries a Golden ___.",
+      "choices": [
+        "Record",
+        "Rocket",
+        "Ring",
+        "Rover"
+      ],
+      "answer": "Record",
+      "explanation": "The Golden Record includes sounds and images from Earth.",
+      "fact": "It is a message for any future finder.",
+      "points": 20
+    },
+    {
+      "id": "space-missions-19",
+      "category": "space-missions",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Space Missions",
+      "question": "Artemis missions use the Orion spacecraft.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Orion is designed to carry astronauts beyond low Earth orbit.",
+      "fact": "The Space Launch System launches Orion for Artemis missions.",
+      "points": 30
+    },
+    {
+      "id": "space-missions-20",
+      "category": "space-missions",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Space Missions",
+      "question": "Which mission name means vehicle/craft for the sky in Sanskrit-inspired wording?",
+      "choices": [
+        "Gaganyaan",
+        "Hubble",
+        "Juno",
+        "Cassini"
+      ],
+      "answer": "Gaganyaan",
+      "explanation": "Gaganyaan is ISRO's human spaceflight program.",
+      "fact": "It is a major step for Indian human spaceflight.",
+      "points": 50
+    },
+    {
+      "id": "rockets-01",
+      "category": "rockets",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Rockets",
+      "question": "What do rockets push backward to move forward?",
+      "choices": [
+        "Hot gas",
+        "Cold water only",
+        "Sunlight",
+        "Sound"
+      ],
+      "answer": "Hot gas",
+      "explanation": "Rockets move by action and reaction: exhaust goes backward, rocket goes forward.",
+      "fact": "This is related to Newton's third law.",
+      "points": 10
+    },
+    {
+      "id": "rockets-02",
+      "category": "rockets",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Rockets",
+      "question": "Rockets can work in space because they carry their own oxidizer.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Rocket engines carry fuel and oxidizer, so they do not need air from outside.",
+      "fact": "Jet engines need air, but rockets do not.",
+      "points": 20
+    },
+    {
+      "id": "rockets-03",
+      "category": "rockets",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Rockets",
+      "question": "Which SpaceX rocket has a reusable first stage?",
+      "choices": [
+        "Falcon 9",
+        "Saturn V",
+        "PSLV",
+        "Sputnik"
+      ],
+      "answer": "Falcon 9",
+      "explanation": "Falcon 9 boosters can land and fly again.",
+      "fact": "Reusability can reduce launch costs.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "rockets-04",
+      "category": "rockets",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Rockets",
+      "question": "Fill in the blank: PSLV stands for Polar Satellite Launch ___.",
+      "choices": [
+        "Vehicle",
+        "Village",
+        "Voltage",
+        "Voyager"
+      ],
+      "answer": "Vehicle",
+      "explanation": "PSLV is ISRO's Polar Satellite Launch Vehicle.",
+      "fact": "PSLV is known as a reliable workhorse rocket.",
+      "points": 50
+    },
+    {
+      "id": "rockets-05",
+      "category": "rockets",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Rockets",
+      "question": "GSLV can launch heavier satellites than PSLV in many missions.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "GSLV is designed for heavier payloads, including geosynchronous missions.",
+      "fact": "GSLV uses cryogenic upper-stage technology.",
+      "points": 10
+    },
+    {
+      "id": "rockets-06",
+      "category": "rockets",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Rockets",
+      "question": "Which giant Moon rocket launched Apollo astronauts?",
+      "choices": [
+        "Saturn V",
+        "Falcon 1",
+        "New Shepard",
+        "Electron"
+      ],
+      "answer": "Saturn V",
+      "explanation": "Saturn V launched Apollo missions to the Moon.",
+      "fact": "It remains one of the most powerful rockets ever flown.",
+      "points": 20
+    },
+    {
+      "id": "rockets-07",
+      "category": "rockets",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Rockets",
+      "question": "What is a payload?",
+      "choices": [
+        "Cargo carried by a rocket",
+        "Rocket smoke",
+        "Launch noise",
+        "A crater"
+      ],
+      "answer": "Cargo carried by a rocket",
+      "explanation": "Payload means the satellite, spacecraft, cargo, or people carried by a rocket.",
+      "fact": "Payload fairings protect satellites during launch.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Rockets",
+          "right": "Cargo carried by a rocket"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "rockets-08",
+      "category": "rockets",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Rockets",
+      "question": "A launch pad supports rockets before liftoff.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Launch pads provide support, fuel systems, and safety systems.",
+      "fact": "Many launch pads are near oceans for safety.",
+      "points": 50
+    },
+    {
+      "id": "rockets-09",
+      "category": "rockets",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Rockets",
+      "question": "Which rocket system is SpaceX developing for full reusability?",
+      "choices": [
+        "Starship",
+        "Saturn I",
+        "Ariane 4",
+        "Vostok 1"
+      ],
+      "answer": "Starship",
+      "explanation": "Starship is designed as a large fully reusable rocket system.",
+      "fact": "It is planned for cargo, Moon, Mars, and orbital missions.",
+      "points": 10
+    },
+    {
+      "id": "rockets-10",
+      "category": "rockets",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Rockets",
+      "question": "Fill in the blank: A rocket stage is a section that can separate during ___.",
+      "choices": [
+        "flight",
+        "sleep",
+        "reading",
+        "rain"
+      ],
+      "answer": "flight",
+      "explanation": "Stages separate when their fuel is used, making the remaining rocket lighter.",
+      "fact": "Staging helps rockets reach orbit.",
+      "points": 20
+    },
+    {
+      "id": "rockets-11",
+      "category": "rockets",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Rockets",
+      "question": "New Shepard is a Blue Origin suborbital rocket.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "New Shepard flies above the edge of space and returns.",
+      "fact": "It is named after astronaut Alan Shepard.",
+      "points": 30
+    },
+    {
+      "id": "rockets-12",
+      "category": "rockets",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Rockets",
+      "question": "What does a heat shield protect during reentry?",
+      "choices": [
+        "Spacecraft",
+        "Telescope mirror only",
+        "Launch tower",
+        "Mission logo"
+      ],
+      "answer": "Spacecraft",
+      "explanation": "Heat shields protect spacecraft from extreme reentry heating.",
+      "fact": "Reentry heat comes from high-speed compression of air.",
+      "points": 50
+    },
+    {
+      "id": "rockets-13",
+      "category": "rockets",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Rockets",
+      "question": "Which European rocket family includes Ariane?",
+      "choices": [
+        "ESA/Arianespace",
+        "NASA only",
+        "ISRO only",
+        "JAXA only"
+      ],
+      "answer": "ESA/Arianespace",
+      "explanation": "Ariane rockets are connected with European launch services.",
+      "fact": "Ariane 5 launched the James Webb Space Telescope.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "rockets-14",
+      "category": "rockets",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Rockets",
+      "question": "Fill in the blank: Rocket science uses Newton's laws of ___.",
+      "choices": [
+        "motion",
+        "music",
+        "painting",
+        "cooking"
+      ],
+      "answer": "motion",
+      "explanation": "Newton's laws explain forces, acceleration, and action-reaction.",
+      "fact": "Physics is central to rocket design.",
+      "points": 20
+    },
+    {
+      "id": "rockets-15",
+      "category": "rockets",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Rockets",
+      "question": "A rocket must reach orbital speed to stay in orbit.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Orbit requires enough sideways speed so the spacecraft keeps falling around Earth.",
+      "fact": "Low Earth orbit speed is about 7.8 km/s.",
+      "points": 30
+    },
+    {
+      "id": "rockets-16",
+      "category": "rockets",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Rockets",
+      "question": "Which rocket launched JWST?",
+      "choices": [
+        "Ariane 5",
+        "Saturn V",
+        "PSLV",
+        "New Shepard"
+      ],
+      "answer": "Ariane 5",
+      "explanation": "JWST launched on an Ariane 5 rocket from French Guiana.",
+      "fact": "The launch was very accurate and saved telescope fuel.",
+      "points": 50
+    },
+    {
+      "id": "rockets-17",
+      "category": "rockets",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Rockets",
+      "question": "What is thrust?",
+      "choices": [
+        "Pushing force from an engine",
+        "Moonlight",
+        "A star type",
+        "A crater"
+      ],
+      "answer": "Pushing force from an engine",
+      "explanation": "Thrust pushes a rocket upward and forward.",
+      "fact": "Thrust must overcome weight for liftoff.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Rockets",
+          "right": "Pushing force from an engine"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "rockets-18",
+      "category": "rockets",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Rockets",
+      "question": "Fill in the blank: Cryogenic rocket engines use very cold liquid ___.",
+      "choices": [
+        "propellants",
+        "sand",
+        "plastic",
+        "stone"
+      ],
+      "answer": "propellants",
+      "explanation": "Cryogenic engines use very cold fuels or oxidizers such as liquid hydrogen and liquid oxygen.",
+      "fact": "Cryogenic systems are powerful but technically challenging.",
+      "points": 20
+    },
+    {
+      "id": "rockets-19",
+      "category": "rockets",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Rockets",
+      "question": "Reusable boosters land after launch.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Some boosters can guide themselves back and land for reuse.",
+      "fact": "Falcon 9 made propulsive booster landing common.",
+      "points": 30
+    },
+    {
+      "id": "rockets-20",
+      "category": "rockets",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Rockets",
+      "question": "Which rocket does ISRO use for many polar orbit satellite launches?",
+      "choices": [
+        "PSLV",
+        "Saturn V",
+        "Falcon Heavy",
+        "New Shepard"
+      ],
+      "answer": "PSLV",
+      "explanation": "PSLV is widely used by ISRO for satellite launches.",
+      "fact": "It has launched many Indian and international satellites.",
+      "points": 50
+    },
+    {
+      "id": "astronauts-01",
+      "category": "astronauts",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Astronauts",
+      "question": "What is an astronaut?",
+      "choices": [
+        "A person trained to work in space",
+        "A planet",
+        "A telescope",
+        "A comet"
+      ],
+      "answer": "A person trained to work in space",
+      "explanation": "Astronauts train for spacecraft systems, science, and survival.",
+      "fact": "Different countries may use words like cosmonaut or vyomanaut.",
+      "points": 10
+    },
+    {
+      "id": "astronauts-02",
+      "category": "astronauts",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Astronauts",
+      "question": "Astronauts exercise on the ISS to keep muscles and bones strong.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Microgravity can weaken muscles and bones, so exercise is important.",
+      "fact": "ISS crews exercise about two hours per day.",
+      "points": 20
+    },
+    {
+      "id": "astronauts-03",
+      "category": "astronauts",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Astronauts",
+      "question": "Who was the first human in space?",
+      "choices": [
+        "Yuri Gagarin",
+        "Neil Armstrong",
+        "Kalpana Chawla",
+        "Buzz Aldrin"
+      ],
+      "answer": "Yuri Gagarin",
+      "explanation": "Yuri Gagarin orbited Earth in 1961.",
+      "fact": "His spacecraft was Vostok 1.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "astronauts-04",
+      "category": "astronauts",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Astronauts",
+      "question": "Fill in the blank: Neil Armstrong first walked on the ___.",
+      "choices": [
+        "Moon",
+        "Mars",
+        "Sun",
+        "Jupiter"
+      ],
+      "answer": "Moon",
+      "explanation": "Neil Armstrong became the first person to walk on the Moon in 1969.",
+      "fact": "Buzz Aldrin walked on the Moon soon after him.",
+      "points": 50
+    },
+    {
+      "id": "astronauts-05",
+      "category": "astronauts",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Astronauts",
+      "question": "Kalpana Chawla was an astronaut of Indian origin.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Kalpana Chawla flew on Space Shuttle missions.",
+      "fact": "She inspired many students in India and around the world.",
+      "points": 10
+    },
+    {
+      "id": "astronauts-06",
+      "category": "astronauts",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Astronauts",
+      "question": "What does a spacesuit provide?",
+      "choices": [
+        "Oxygen and protection",
+        "Only style",
+        "Rain only",
+        "Music"
+      ],
+      "answer": "Oxygen and protection",
+      "explanation": "Spacesuits protect astronauts from vacuum, temperature extremes, and radiation.",
+      "fact": "A spacesuit is like a tiny spacecraft.",
+      "points": 20
+    },
+    {
+      "id": "astronauts-07",
+      "category": "astronauts",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Astronauts",
+      "question": "Which astronaut spent time on the ISS and is known for long missions?",
+      "choices": [
+        "Sunita Williams",
+        "Galileo",
+        "Isaac Newton",
+        "Edwin Hubble"
+      ],
+      "answer": "Sunita Williams",
+      "explanation": "Sunita Williams is a NASA astronaut who has lived and worked on the ISS.",
+      "fact": "She has performed spacewalks.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Astronauts",
+          "right": "Sunita Williams"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "astronauts-08",
+      "category": "astronauts",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Astronauts",
+      "question": "Astronauts float in orbit because they are in continuous free fall.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The ISS and astronauts are falling around Earth together, creating microgravity.",
+      "fact": "Gravity still exists strongly at ISS altitude.",
+      "points": 50
+    },
+    {
+      "id": "astronauts-09",
+      "category": "astronauts",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Astronauts",
+      "question": "Fill in the blank: A spacewalk is also called an ___.",
+      "choices": [
+        "EVA",
+        "APOD",
+        "LEO",
+        "CMB"
+      ],
+      "answer": "EVA",
+      "explanation": "EVA means extravehicular activity.",
+      "fact": "Spacewalks can repair equipment and install experiments.",
+      "points": 10
+    },
+    {
+      "id": "astronauts-10",
+      "category": "astronauts",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Astronauts",
+      "question": "What do astronauts use to return safely through the atmosphere?",
+      "choices": [
+        "Heat shield",
+        "Umbrella",
+        "Bicycle",
+        "Solar sail only"
+      ],
+      "answer": "Heat shield",
+      "explanation": "Heat shields protect capsules during reentry.",
+      "fact": "Parachutes or engines may help with landing.",
+      "points": 20
+    },
+    {
+      "id": "astronauts-11",
+      "category": "astronauts",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Astronauts",
+      "question": "The ISS crew often includes people from different countries.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The ISS is an international partnership.",
+      "fact": "Space teamwork crosses national borders.",
+      "points": 30
+    },
+    {
+      "id": "astronauts-12",
+      "category": "astronauts",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Astronauts",
+      "question": "Who was the first woman in space?",
+      "choices": [
+        "Valentina Tereshkova",
+        "Sally Ride",
+        "Mae Jemison",
+        "Peggy Whitson"
+      ],
+      "answer": "Valentina Tereshkova",
+      "explanation": "Valentina Tereshkova flew in 1963.",
+      "fact": "She orbited Earth in Vostok 6.",
+      "points": 50
+    },
+    {
+      "id": "astronauts-13",
+      "category": "astronauts",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Astronauts",
+      "question": "Fill in the blank: Astronauts sleep in small crew ___.",
+      "choices": [
+        "quarters",
+        "gardens",
+        "oceans",
+        "rings"
+      ],
+      "answer": "quarters",
+      "explanation": "ISS astronauts sleep in small crew quarters or sleeping bags attached to walls.",
+      "fact": "In microgravity there is no up or down.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "astronauts-14",
+      "category": "astronauts",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Astronauts",
+      "question": "Training underwater can help astronauts practice spacewalks.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Neutral buoyancy underwater can simulate some parts of spacewalk movement.",
+      "fact": "NASA uses a large pool for EVA training.",
+      "points": 20
+    },
+    {
+      "id": "astronauts-15",
+      "category": "astronauts",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Astronauts",
+      "question": "What is microgravity?",
+      "choices": [
+        "A feeling of weightlessness",
+        "No gravity anywhere",
+        "A moon rock",
+        "A rocket fuel"
+      ],
+      "answer": "A feeling of weightlessness",
+      "explanation": "Microgravity happens when people and spacecraft fall together around Earth.",
+      "fact": "It lets scientists study how things behave with very little apparent weight.",
+      "points": 30
+    },
+    {
+      "id": "astronauts-16",
+      "category": "astronauts",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Astronauts",
+      "question": "Which mission carried Neil Armstrong?",
+      "choices": [
+        "Apollo 11",
+        "Artemis I",
+        "Voyager 1",
+        "Gaganyaan"
+      ],
+      "answer": "Apollo 11",
+      "explanation": "Apollo 11 was the first crewed Moon landing mission.",
+      "fact": "The lunar module was named Eagle.",
+      "points": 50
+    },
+    {
+      "id": "astronauts-17",
+      "category": "astronauts",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Astronauts",
+      "question": "Astronaut food must be planned carefully.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Food in space must be safe, nutritious, and easy to eat in microgravity.",
+      "fact": "Some food is dehydrated to save mass.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Astronauts",
+          "right": "True"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "astronauts-18",
+      "category": "astronauts",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Astronauts",
+      "question": "Fill in the blank: A commander leads a space mission ___.",
+      "choices": [
+        "crew",
+        "crater",
+        "galaxy",
+        "comet"
+      ],
+      "answer": "crew",
+      "explanation": "The commander is responsible for crew safety and mission operations.",
+      "fact": "Space missions use teamwork and checklists.",
+      "points": 20
+    },
+    {
+      "id": "astronauts-19",
+      "category": "astronauts",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Astronauts",
+      "question": "What skill is important for astronauts?",
+      "choices": [
+        "Teamwork",
+        "Only singing",
+        "Ignoring instructions",
+        "Holding breath in space"
+      ],
+      "answer": "Teamwork",
+      "explanation": "Astronauts must communicate, solve problems, and work together.",
+      "fact": "Crew training includes emergency practice.",
+      "points": 30
+    },
+    {
+      "id": "astronauts-20",
+      "category": "astronauts",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Astronauts",
+      "question": "A person cannot survive in space without protection.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Space has vacuum, radiation, and extreme temperatures.",
+      "fact": "Spacesuits and spacecraft provide life support.",
+      "points": 50
+    },
+    {
+      "id": "space-agencies-01",
+      "category": "space-agencies",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Space Agencies",
+      "question": "What is NASA?",
+      "choices": [
+        "United States space agency",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "United States space agency",
+      "explanation": "NASA studies Earth, space, planets, and sends missions.",
+      "fact": "NASA is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "space-agencies-02",
+      "category": "space-agencies",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Space Agencies",
+      "question": "NASA is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "NASA studies Earth, space, planets, and sends missions.",
+      "fact": "Learning about NASA helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "space-agencies-03",
+      "category": "space-agencies",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Space Agencies",
+      "question": "What is ISRO?",
+      "choices": [
+        "India's space agency",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "India's space agency",
+      "explanation": "ISRO builds rockets, satellites, and missions like Chandrayaan.",
+      "fact": "ISRO is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "space-agencies-04",
+      "category": "space-agencies",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Space Agencies",
+      "question": "ISRO is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "ISRO builds rockets, satellites, and missions like Chandrayaan.",
+      "fact": "Learning about ISRO helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "space-agencies-05",
+      "category": "space-agencies",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Space Agencies",
+      "question": "What is ESA?",
+      "choices": [
+        "European Space Agency",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "European Space Agency",
+      "explanation": "ESA coordinates many European space missions.",
+      "fact": "ESA is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "space-agencies-06",
+      "category": "space-agencies",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Space Agencies",
+      "question": "ESA is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "ESA coordinates many European space missions.",
+      "fact": "Learning about ESA helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "space-agencies-07",
+      "category": "space-agencies",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Space Agencies",
+      "question": "What is JAXA?",
+      "choices": [
+        "Japan's space agency",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Japan's space agency",
+      "explanation": "JAXA works on rockets, satellites, and asteroid missions.",
+      "fact": "JAXA is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Space Agencies",
+          "right": "Japan's space agency"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "space-agencies-08",
+      "category": "space-agencies",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Space Agencies",
+      "question": "JAXA is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "JAXA works on rockets, satellites, and asteroid missions.",
+      "fact": "Learning about JAXA helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "space-agencies-09",
+      "category": "space-agencies",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Space Agencies",
+      "question": "What is Roscosmos?",
+      "choices": [
+        "Russia's space agency",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Russia's space agency",
+      "explanation": "Roscosmos has a long history in human spaceflight.",
+      "fact": "Roscosmos is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "space-agencies-10",
+      "category": "space-agencies",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Space Agencies",
+      "question": "Roscosmos is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Roscosmos has a long history in human spaceflight.",
+      "fact": "Learning about Roscosmos helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "space-agencies-11",
+      "category": "space-agencies",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Space Agencies",
+      "question": "What is SpaceX?",
+      "choices": [
+        "Private company with Falcon 9 and Starship",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Private company with Falcon 9 and Starship",
+      "explanation": "SpaceX develops reusable rockets.",
+      "fact": "SpaceX is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "space-agencies-12",
+      "category": "space-agencies",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Space Agencies",
+      "question": "SpaceX is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "SpaceX develops reusable rockets.",
+      "fact": "Learning about SpaceX helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "space-agencies-13",
+      "category": "space-agencies",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Space Agencies",
+      "question": "What is Blue Origin?",
+      "choices": [
+        "Private company with New Shepard",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Private company with New Shepard",
+      "explanation": "Blue Origin works on reusable space vehicles.",
+      "fact": "Blue Origin is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "space-agencies-14",
+      "category": "space-agencies",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Space Agencies",
+      "question": "Blue Origin is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Blue Origin works on reusable space vehicles.",
+      "fact": "Learning about Blue Origin helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "space-agencies-15",
+      "category": "space-agencies",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Space Agencies",
+      "question": "What is Arianespace?",
+      "choices": [
+        "European launch provider",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "European launch provider",
+      "explanation": "Arianespace launches missions using Ariane rockets.",
+      "fact": "Arianespace is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "space-agencies-16",
+      "category": "space-agencies",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Space Agencies",
+      "question": "Arianespace is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Arianespace launches missions using Ariane rockets.",
+      "fact": "Learning about Arianespace helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "space-agencies-17",
+      "category": "space-agencies",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Space Agencies",
+      "question": "Fill in the blank: NASA is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Space Agencies",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "space-agencies-18",
+      "category": "space-agencies",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Space Agencies",
+      "question": "Which choice best matches ISRO?",
+      "choices": [
+        "India's space agency",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "India's space agency",
+      "explanation": "ISRO builds rockets, satellites, and missions like Chandrayaan.",
+      "fact": "ISRO is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "space-agencies-19",
+      "category": "space-agencies",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Space Agencies",
+      "question": "Rapid fire: Is ESA a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "space-agencies-20",
+      "category": "space-agencies",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Space Agencies",
+      "question": "Timed quiz: Pick the space answer for JAXA",
+      "choices": [
+        "Japan's space agency",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "Japan's space agency",
+      "explanation": "JAXA works on rockets, satellites, and asteroid missions.",
+      "fact": "JAXA is an important space topic for explorers.",
+      "points": 50
+    },
+    {
+      "id": "moon-01",
+      "category": "moon",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Moon",
+      "question": "What is Moon?",
+      "choices": [
+        "Earth's natural satellite",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Earth's natural satellite",
+      "explanation": "The Moon reflects sunlight and affects tides.",
+      "fact": "Moon is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "moon-02",
+      "category": "moon",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Moon",
+      "question": "Moon is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The Moon reflects sunlight and affects tides.",
+      "fact": "Learning about Moon helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "moon-03",
+      "category": "moon",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Moon",
+      "question": "What is Apollo 11?",
+      "choices": [
+        "First crewed Moon landing",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "First crewed Moon landing",
+      "explanation": "Apollo 11 landed in 1969.",
+      "fact": "Apollo 11 is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "moon-04",
+      "category": "moon",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Moon",
+      "question": "Apollo 11 is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Apollo 11 landed in 1969.",
+      "fact": "Learning about Apollo 11 helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "moon-05",
+      "category": "moon",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Moon",
+      "question": "What is Chandrayaan?",
+      "choices": [
+        "Indian Moon mission series",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Indian Moon mission series",
+      "explanation": "Chandrayaan studies the Moon.",
+      "fact": "Chandrayaan is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "moon-06",
+      "category": "moon",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Moon",
+      "question": "Chandrayaan is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Chandrayaan studies the Moon.",
+      "fact": "Learning about Chandrayaan helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "moon-07",
+      "category": "moon",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Moon",
+      "question": "What is Lunar phases?",
+      "choices": [
+        "Changing sunlit view of Moon",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Changing sunlit view of Moon",
+      "explanation": "Phases depend on the Moon's orbit around Earth.",
+      "fact": "Lunar phases is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Moon",
+          "right": "Changing sunlit view of Moon"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "moon-08",
+      "category": "moon",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Moon",
+      "question": "Lunar phases is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Phases depend on the Moon's orbit around Earth.",
+      "fact": "Learning about Lunar phases helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "moon-09",
+      "category": "moon",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Moon",
+      "question": "What is Lunar eclipse?",
+      "choices": [
+        "Earth's shadow on Moon",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Earth's shadow on Moon",
+      "explanation": "A lunar eclipse happens when Earth blocks sunlight to the Moon.",
+      "fact": "Lunar eclipse is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "moon-10",
+      "category": "moon",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Moon",
+      "question": "Lunar eclipse is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "A lunar eclipse happens when Earth blocks sunlight to the Moon.",
+      "fact": "Learning about Lunar eclipse helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "moon-11",
+      "category": "moon",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Moon",
+      "question": "What is Craters?",
+      "choices": [
+        "Impact marks on the Moon",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Impact marks on the Moon",
+      "explanation": "Craters form when objects hit the Moon.",
+      "fact": "Craters is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "moon-12",
+      "category": "moon",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Moon",
+      "question": "Craters is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Craters form when objects hit the Moon.",
+      "fact": "Learning about Craters helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "moon-13",
+      "category": "moon",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Moon",
+      "question": "What is Regolith?",
+      "choices": [
+        "Moon dust and broken rock",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Moon dust and broken rock",
+      "explanation": "The Moon's surface is covered in regolith.",
+      "fact": "Regolith is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "moon-14",
+      "category": "moon",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Moon",
+      "question": "Regolith is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The Moon's surface is covered in regolith.",
+      "fact": "Learning about Regolith helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "moon-15",
+      "category": "moon",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Moon",
+      "question": "What is South pole?",
+      "choices": [
+        "Important lunar exploration region",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Important lunar exploration region",
+      "explanation": "The lunar south pole may contain water ice.",
+      "fact": "South pole is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "moon-16",
+      "category": "moon",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Moon",
+      "question": "South pole is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The lunar south pole may contain water ice.",
+      "fact": "Learning about South pole helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "moon-17",
+      "category": "moon",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Moon",
+      "question": "Fill in the blank: Moon is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Moon",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "moon-18",
+      "category": "moon",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Moon",
+      "question": "Which choice best matches Apollo 11?",
+      "choices": [
+        "First crewed Moon landing",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "First crewed Moon landing",
+      "explanation": "Apollo 11 landed in 1969.",
+      "fact": "Apollo 11 is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "moon-19",
+      "category": "moon",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Moon",
+      "question": "Rapid fire: Is Chandrayaan a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "moon-20",
+      "category": "moon",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Moon",
+      "question": "Timed quiz: Pick the space answer for Lunar phases",
+      "choices": [
+        "Changing sunlit view of Moon",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "Changing sunlit view of Moon",
+      "explanation": "Phases depend on the Moon's orbit around Earth.",
+      "fact": "Lunar phases is an important space topic for explorers.",
+      "points": 50
+    },
+    {
+      "id": "mars-01",
+      "category": "mars",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Mars",
+      "question": "What is Mars?",
+      "choices": [
+        "The Red Planet",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "The Red Planet",
+      "explanation": "Iron oxide dust makes Mars look red.",
+      "fact": "Mars is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "mars-02",
+      "category": "mars",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Mars",
+      "question": "Mars is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Iron oxide dust makes Mars look red.",
+      "fact": "Learning about Mars helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "mars-03",
+      "category": "mars",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Mars",
+      "question": "What is Olympus Mons?",
+      "choices": [
+        "Tallest volcano in Solar System",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Tallest volcano in Solar System",
+      "explanation": "Olympus Mons is much taller than Mount Everest.",
+      "fact": "Olympus Mons is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "mars-04",
+      "category": "mars",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Mars",
+      "question": "Olympus Mons is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Olympus Mons is much taller than Mount Everest.",
+      "fact": "Learning about Olympus Mons helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "mars-05",
+      "category": "mars",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Mars",
+      "question": "What is Valles Marineris?",
+      "choices": [
+        "Huge canyon system",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Huge canyon system",
+      "explanation": "It is one of the largest canyons known.",
+      "fact": "Valles Marineris is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "mars-06",
+      "category": "mars",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Mars",
+      "question": "Valles Marineris is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It is one of the largest canyons known.",
+      "fact": "Learning about Valles Marineris helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "mars-07",
+      "category": "mars",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Mars",
+      "question": "What is Perseverance?",
+      "choices": [
+        "NASA Mars rover",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "NASA Mars rover",
+      "explanation": "Perseverance studies rocks and ancient environments.",
+      "fact": "Perseverance is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Mars",
+          "right": "NASA Mars rover"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "mars-08",
+      "category": "mars",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Mars",
+      "question": "Perseverance is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Perseverance studies rocks and ancient environments.",
+      "fact": "Learning about Perseverance helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "mars-09",
+      "category": "mars",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Mars",
+      "question": "What is Curiosity?",
+      "choices": [
+        "NASA Mars rover",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "NASA Mars rover",
+      "explanation": "Curiosity explores Gale Crater.",
+      "fact": "Curiosity is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "mars-10",
+      "category": "mars",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Mars",
+      "question": "Curiosity is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Curiosity explores Gale Crater.",
+      "fact": "Learning about Curiosity helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "mars-11",
+      "category": "mars",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Mars",
+      "question": "What is Mangalyaan?",
+      "choices": [
+        "India's Mars Orbiter Mission",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "India's Mars Orbiter Mission",
+      "explanation": "Mangalyaan reached Mars orbit.",
+      "fact": "Mangalyaan is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "mars-12",
+      "category": "mars",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Mars",
+      "question": "Mangalyaan is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Mangalyaan reached Mars orbit.",
+      "fact": "Learning about Mangalyaan helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "mars-13",
+      "category": "mars",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Mars",
+      "question": "What is Phobos?",
+      "choices": [
+        "One of Mars's moons",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "One of Mars's moons",
+      "explanation": "Phobos is the larger inner moon.",
+      "fact": "Phobos is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "mars-14",
+      "category": "mars",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Mars",
+      "question": "Phobos is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Phobos is the larger inner moon.",
+      "fact": "Learning about Phobos helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "mars-15",
+      "category": "mars",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Mars",
+      "question": "What is Deimos?",
+      "choices": [
+        "One of Mars's moons",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "One of Mars's moons",
+      "explanation": "Deimos is the smaller outer moon.",
+      "fact": "Deimos is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "mars-16",
+      "category": "mars",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Mars",
+      "question": "Deimos is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Deimos is the smaller outer moon.",
+      "fact": "Learning about Deimos helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "mars-17",
+      "category": "mars",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Mars",
+      "question": "Fill in the blank: Mars is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Mars",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "mars-18",
+      "category": "mars",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Mars",
+      "question": "Which choice best matches Olympus Mons?",
+      "choices": [
+        "Tallest volcano in Solar System",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "Tallest volcano in Solar System",
+      "explanation": "Olympus Mons is much taller than Mount Everest.",
+      "fact": "Olympus Mons is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "mars-19",
+      "category": "mars",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Mars",
+      "question": "Rapid fire: Is Valles Marineris a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "mars-20",
+      "category": "mars",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Mars",
+      "question": "Timed quiz: Pick the space answer for Perseverance",
+      "choices": [
+        "NASA Mars rover",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "NASA Mars rover",
+      "explanation": "Perseverance studies rocks and ancient environments.",
+      "fact": "Perseverance is an important space topic for explorers.",
+      "points": 50
+    },
+    {
+      "id": "satellites-01",
+      "category": "satellites",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Satellites",
+      "question": "What is Satellite?",
+      "choices": [
+        "Object orbiting a planet",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Object orbiting a planet",
+      "explanation": "Satellites can be natural or human-made.",
+      "fact": "Satellite is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "satellites-02",
+      "category": "satellites",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Satellites",
+      "question": "Satellite is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Satellites can be natural or human-made.",
+      "fact": "Learning about Satellite helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "satellites-03",
+      "category": "satellites",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Satellites",
+      "question": "What is GPS?",
+      "choices": [
+        "Navigation satellite system",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Navigation satellite system",
+      "explanation": "GPS helps devices find location.",
+      "fact": "GPS is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "satellites-04",
+      "category": "satellites",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Satellites",
+      "question": "GPS is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "GPS helps devices find location.",
+      "fact": "Learning about GPS helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "satellites-05",
+      "category": "satellites",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Satellites",
+      "question": "What is Weather satellite?",
+      "choices": [
+        "Tracks clouds and storms",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Tracks clouds and storms",
+      "explanation": "Weather satellites help forecasting.",
+      "fact": "Weather satellite is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "satellites-06",
+      "category": "satellites",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Satellites",
+      "question": "Weather satellite is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Weather satellites help forecasting.",
+      "fact": "Learning about Weather satellite helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "satellites-07",
+      "category": "satellites",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Satellites",
+      "question": "What is Communication satellite?",
+      "choices": [
+        "Relays signals",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Relays signals",
+      "explanation": "They support TV, internet, and phone links.",
+      "fact": "Communication satellite is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Satellites",
+          "right": "Relays signals"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "satellites-08",
+      "category": "satellites",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Satellites",
+      "question": "Communication satellite is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "They support TV, internet, and phone links.",
+      "fact": "Learning about Communication satellite helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "satellites-09",
+      "category": "satellites",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Satellites",
+      "question": "What is Low Earth orbit?",
+      "choices": [
+        "Orbit close to Earth",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Orbit close to Earth",
+      "explanation": "Many Earth observation satellites use LEO.",
+      "fact": "Low Earth orbit is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "satellites-10",
+      "category": "satellites",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Satellites",
+      "question": "Low Earth orbit is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Many Earth observation satellites use LEO.",
+      "fact": "Learning about Low Earth orbit helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "satellites-11",
+      "category": "satellites",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Satellites",
+      "question": "What is Geostationary orbit?",
+      "choices": [
+        "Satellite appears fixed over Earth",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Satellite appears fixed over Earth",
+      "explanation": "Useful for communication and weather.",
+      "fact": "Geostationary orbit is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "satellites-12",
+      "category": "satellites",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Satellites",
+      "question": "Geostationary orbit is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Useful for communication and weather.",
+      "fact": "Learning about Geostationary orbit helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "satellites-13",
+      "category": "satellites",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Satellites",
+      "question": "What is ISS?",
+      "choices": [
+        "Large crewed satellite",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Large crewed satellite",
+      "explanation": "The ISS is an artificial satellite with astronauts.",
+      "fact": "ISS is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "satellites-14",
+      "category": "satellites",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Satellites",
+      "question": "ISS is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The ISS is an artificial satellite with astronauts.",
+      "fact": "Learning about ISS helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "satellites-15",
+      "category": "satellites",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Satellites",
+      "question": "What is CubeSat?",
+      "choices": [
+        "Small box-shaped satellite",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Small box-shaped satellite",
+      "explanation": "CubeSats help students and scientists test ideas.",
+      "fact": "CubeSat is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "satellites-16",
+      "category": "satellites",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Satellites",
+      "question": "CubeSat is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "CubeSats help students and scientists test ideas.",
+      "fact": "Learning about CubeSat helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "satellites-17",
+      "category": "satellites",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Satellites",
+      "question": "Fill in the blank: Satellite is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Satellites",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "satellites-18",
+      "category": "satellites",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Satellites",
+      "question": "Which choice best matches GPS?",
+      "choices": [
+        "Navigation satellite system",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "Navigation satellite system",
+      "explanation": "GPS helps devices find location.",
+      "fact": "GPS is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "satellites-19",
+      "category": "satellites",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Satellites",
+      "question": "Rapid fire: Is Weather satellite a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "satellites-20",
+      "category": "satellites",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Satellites",
+      "question": "Timed quiz: Pick the space answer for Communication satellite",
+      "choices": [
+        "Relays signals",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "Relays signals",
+      "explanation": "They support TV, internet, and phone links.",
+      "fact": "Communication satellite is an important space topic for explorers.",
+      "points": 50
+    },
+    {
+      "id": "black-holes-01",
+      "category": "black-holes",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Black Holes",
+      "question": "What is Black hole?",
+      "choices": [
+        "Gravity so strong light cannot escape",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Gravity so strong light cannot escape",
+      "explanation": "Black holes have event horizons.",
+      "fact": "Black hole is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "black-holes-02",
+      "category": "black-holes",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Black Holes",
+      "question": "Black hole is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Black holes have event horizons.",
+      "fact": "Learning about Black hole helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "black-holes-03",
+      "category": "black-holes",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Black Holes",
+      "question": "What is Event horizon?",
+      "choices": [
+        "Boundary of no return",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Boundary of no return",
+      "explanation": "Nothing can escape after crossing it.",
+      "fact": "Event horizon is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "black-holes-04",
+      "category": "black-holes",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Black Holes",
+      "question": "Event horizon is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Nothing can escape after crossing it.",
+      "fact": "Learning about Event horizon helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "black-holes-05",
+      "category": "black-holes",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Black Holes",
+      "question": "What is Singularity?",
+      "choices": [
+        "Predicted dense center",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Predicted dense center",
+      "explanation": "Physics is extreme near singularities.",
+      "fact": "Singularity is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "black-holes-06",
+      "category": "black-holes",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Black Holes",
+      "question": "Singularity is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Physics is extreme near singularities.",
+      "fact": "Learning about Singularity helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "black-holes-07",
+      "category": "black-holes",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Black Holes",
+      "question": "What is Accretion disk?",
+      "choices": [
+        "Hot material around compact object",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Hot material around compact object",
+      "explanation": "Accretion disks can glow brightly.",
+      "fact": "Accretion disk is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Black Holes",
+          "right": "Hot material around compact object"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "black-holes-08",
+      "category": "black-holes",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Black Holes",
+      "question": "Accretion disk is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Accretion disks can glow brightly.",
+      "fact": "Learning about Accretion disk helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "black-holes-09",
+      "category": "black-holes",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Black Holes",
+      "question": "What is Supermassive black hole?",
+      "choices": [
+        "Huge black hole in galaxy centers",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Huge black hole in galaxy centers",
+      "explanation": "Many galaxies have one.",
+      "fact": "Supermassive black hole is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "black-holes-10",
+      "category": "black-holes",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Black Holes",
+      "question": "Supermassive black hole is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Many galaxies have one.",
+      "fact": "Learning about Supermassive black hole helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "black-holes-11",
+      "category": "black-holes",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Black Holes",
+      "question": "What is Sagittarius A*?",
+      "choices": [
+        "Milky Way central black hole",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Milky Way central black hole",
+      "explanation": "It sits near our galaxy's center.",
+      "fact": "Sagittarius A* is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "black-holes-12",
+      "category": "black-holes",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Black Holes",
+      "question": "Sagittarius A* is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It sits near our galaxy's center.",
+      "fact": "Learning about Sagittarius A* helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "black-holes-13",
+      "category": "black-holes",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Black Holes",
+      "question": "What is Gravitational waves?",
+      "choices": [
+        "Ripples in spacetime",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Ripples in spacetime",
+      "explanation": "Merging black holes can create them.",
+      "fact": "Gravitational waves is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "black-holes-14",
+      "category": "black-holes",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Black Holes",
+      "question": "Gravitational waves is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Merging black holes can create them.",
+      "fact": "Learning about Gravitational waves helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "black-holes-15",
+      "category": "black-holes",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Black Holes",
+      "question": "What is Spaghettification?",
+      "choices": [
+        "Stretching by gravity",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Stretching by gravity",
+      "explanation": "Strong tidal forces can stretch objects.",
+      "fact": "Spaghettification is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "black-holes-16",
+      "category": "black-holes",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Black Holes",
+      "question": "Spaghettification is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Strong tidal forces can stretch objects.",
+      "fact": "Learning about Spaghettification helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "black-holes-17",
+      "category": "black-holes",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Black Holes",
+      "question": "Fill in the blank: Black hole is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Black Holes",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "black-holes-18",
+      "category": "black-holes",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Black Holes",
+      "question": "Which choice best matches Event horizon?",
+      "choices": [
+        "Boundary of no return",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "Boundary of no return",
+      "explanation": "Nothing can escape after crossing it.",
+      "fact": "Event horizon is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "black-holes-19",
+      "category": "black-holes",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Black Holes",
+      "question": "Rapid fire: Is Singularity a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "black-holes-20",
+      "category": "black-holes",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Black Holes",
+      "question": "Timed quiz: Pick the space answer for Accretion disk",
+      "choices": [
+        "Hot material around compact object",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "Hot material around compact object",
+      "explanation": "Accretion disks can glow brightly.",
+      "fact": "Accretion disk is an important space topic for explorers.",
+      "points": 50
+    },
+    {
+      "id": "exoplanets-01",
+      "category": "exoplanets",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Exoplanets",
+      "question": "What is Exoplanet?",
+      "choices": [
+        "Planet outside Solar System",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Planet outside Solar System",
+      "explanation": "Thousands have been discovered.",
+      "fact": "Exoplanet is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "exoplanets-02",
+      "category": "exoplanets",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Exoplanets",
+      "question": "Exoplanet is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Thousands have been discovered.",
+      "fact": "Learning about Exoplanet helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "exoplanets-03",
+      "category": "exoplanets",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Exoplanets",
+      "question": "What is Transit method?",
+      "choices": [
+        "Star dimming from planet crossing",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Star dimming from planet crossing",
+      "explanation": "It helps find many exoplanets.",
+      "fact": "Transit method is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "exoplanets-04",
+      "category": "exoplanets",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Exoplanets",
+      "question": "Transit method is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It helps find many exoplanets.",
+      "fact": "Learning about Transit method helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "exoplanets-05",
+      "category": "exoplanets",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Exoplanets",
+      "question": "What is Radial velocity?",
+      "choices": [
+        "Star wobble method",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Star wobble method",
+      "explanation": "Planet gravity can make stars wobble.",
+      "fact": "Radial velocity is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "exoplanets-06",
+      "category": "exoplanets",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Exoplanets",
+      "question": "Radial velocity is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Planet gravity can make stars wobble.",
+      "fact": "Learning about Radial velocity helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "exoplanets-07",
+      "category": "exoplanets",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Exoplanets",
+      "question": "What is Habitable zone?",
+      "choices": [
+        "Where liquid water may exist",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Where liquid water may exist",
+      "explanation": "It is also called the Goldilocks zone.",
+      "fact": "Habitable zone is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Exoplanets",
+          "right": "Where liquid water may exist"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "exoplanets-08",
+      "category": "exoplanets",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Exoplanets",
+      "question": "Habitable zone is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It is also called the Goldilocks zone.",
+      "fact": "Learning about Habitable zone helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "exoplanets-09",
+      "category": "exoplanets",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Exoplanets",
+      "question": "What is Hot Jupiter?",
+      "choices": [
+        "Large planet close to star",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Large planet close to star",
+      "explanation": "Hot Jupiters orbit very near their stars.",
+      "fact": "Hot Jupiter is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "exoplanets-10",
+      "category": "exoplanets",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Exoplanets",
+      "question": "Hot Jupiter is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Hot Jupiters orbit very near their stars.",
+      "fact": "Learning about Hot Jupiter helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "exoplanets-11",
+      "category": "exoplanets",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Exoplanets",
+      "question": "What is Super-Earth?",
+      "choices": [
+        "Rocky planet larger than Earth",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Rocky planet larger than Earth",
+      "explanation": "It may be rocky but not always Earth-like.",
+      "fact": "Super-Earth is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "exoplanets-12",
+      "category": "exoplanets",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Exoplanets",
+      "question": "Super-Earth is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It may be rocky but not always Earth-like.",
+      "fact": "Learning about Super-Earth helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "exoplanets-13",
+      "category": "exoplanets",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Exoplanets",
+      "question": "What is TRAPPIST-1?",
+      "choices": [
+        "Star with several rocky planets",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Star with several rocky planets",
+      "explanation": "Some planets are in the habitable zone.",
+      "fact": "TRAPPIST-1 is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "exoplanets-14",
+      "category": "exoplanets",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Exoplanets",
+      "question": "TRAPPIST-1 is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Some planets are in the habitable zone.",
+      "fact": "Learning about TRAPPIST-1 helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "exoplanets-15",
+      "category": "exoplanets",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Exoplanets",
+      "question": "What is Biosignature?",
+      "choices": [
+        "Possible sign of life",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Possible sign of life",
+      "explanation": "Scientists look for gases and chemistry clues.",
+      "fact": "Biosignature is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "exoplanets-16",
+      "category": "exoplanets",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Exoplanets",
+      "question": "Biosignature is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Scientists look for gases and chemistry clues.",
+      "fact": "Learning about Biosignature helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "exoplanets-17",
+      "category": "exoplanets",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Exoplanets",
+      "question": "Fill in the blank: Exoplanet is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Exoplanets",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "exoplanets-18",
+      "category": "exoplanets",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Exoplanets",
+      "question": "Which choice best matches Transit method?",
+      "choices": [
+        "Star dimming from planet crossing",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "Star dimming from planet crossing",
+      "explanation": "It helps find many exoplanets.",
+      "fact": "Transit method is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "exoplanets-19",
+      "category": "exoplanets",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Exoplanets",
+      "question": "Rapid fire: Is Radial velocity a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "exoplanets-20",
+      "category": "exoplanets",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Exoplanets",
+      "question": "Timed quiz: Pick the space answer for Habitable zone",
+      "choices": [
+        "Where liquid water may exist",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "Where liquid water may exist",
+      "explanation": "It is also called the Goldilocks zone.",
+      "fact": "Habitable zone is an important space topic for explorers.",
+      "points": 50
+    },
+    {
+      "id": "earth-01",
+      "category": "earth",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Earth",
+      "question": "What is Earth?",
+      "choices": [
+        "Our home planet",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Our home planet",
+      "explanation": "Earth has air, water, land, and life.",
+      "fact": "Earth is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "earth-02",
+      "category": "earth",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Earth",
+      "question": "Earth is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Earth has air, water, land, and life.",
+      "fact": "Learning about Earth helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "earth-03",
+      "category": "earth",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Earth",
+      "question": "What is Atmosphere?",
+      "choices": [
+        "Layer of gases around Earth",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Layer of gases around Earth",
+      "explanation": "It protects life and shapes weather.",
+      "fact": "Atmosphere is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "earth-04",
+      "category": "earth",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Earth",
+      "question": "Atmosphere is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It protects life and shapes weather.",
+      "fact": "Learning about Atmosphere helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "earth-05",
+      "category": "earth",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Earth",
+      "question": "What is Magnetosphere?",
+      "choices": [
+        "Magnetic shield around Earth",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Magnetic shield around Earth",
+      "explanation": "It helps protect from solar particles.",
+      "fact": "Magnetosphere is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "earth-06",
+      "category": "earth",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Earth",
+      "question": "Magnetosphere is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It helps protect from solar particles.",
+      "fact": "Learning about Magnetosphere helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "earth-07",
+      "category": "earth",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Earth",
+      "question": "What is Aurora?",
+      "choices": [
+        "Polar lights",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Polar lights",
+      "explanation": "Auroras come from solar particles interacting with air.",
+      "fact": "Aurora is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Earth",
+          "right": "Polar lights"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "earth-08",
+      "category": "earth",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Earth",
+      "question": "Aurora is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Auroras come from solar particles interacting with air.",
+      "fact": "Learning about Aurora helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "earth-09",
+      "category": "earth",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Earth",
+      "question": "What is Tides?",
+      "choices": [
+        "Ocean rise and fall",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Ocean rise and fall",
+      "explanation": "The Moon's gravity causes most tides.",
+      "fact": "Tides is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "earth-10",
+      "category": "earth",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Earth",
+      "question": "Tides is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The Moon's gravity causes most tides.",
+      "fact": "Learning about Tides helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "earth-11",
+      "category": "earth",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Earth",
+      "question": "What is Eclipse?",
+      "choices": [
+        "One object blocks light",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "One object blocks light",
+      "explanation": "Solar and lunar eclipses involve Sun, Earth, and Moon.",
+      "fact": "Eclipse is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "earth-12",
+      "category": "earth",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Earth",
+      "question": "Eclipse is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Solar and lunar eclipses involve Sun, Earth, and Moon.",
+      "fact": "Learning about Eclipse helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "earth-13",
+      "category": "earth",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Earth",
+      "question": "What is Earth observation?",
+      "choices": [
+        "Studying Earth from space",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Studying Earth from space",
+      "explanation": "Satellites monitor weather, forests, oceans, and cities.",
+      "fact": "Earth observation is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "earth-14",
+      "category": "earth",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Earth",
+      "question": "Earth observation is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Satellites monitor weather, forests, oceans, and cities.",
+      "fact": "Learning about Earth observation helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "earth-15",
+      "category": "earth",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Earth",
+      "question": "What is Blue Planet?",
+      "choices": [
+        "Nickname for Earth",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Nickname for Earth",
+      "explanation": "Earth looks blue because of its oceans.",
+      "fact": "Blue Planet is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "earth-16",
+      "category": "earth",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Earth",
+      "question": "Blue Planet is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Earth looks blue because of its oceans.",
+      "fact": "Learning about Blue Planet helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "earth-17",
+      "category": "earth",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Earth",
+      "question": "Fill in the blank: Earth is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Earth",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "earth-18",
+      "category": "earth",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Earth",
+      "question": "Which choice best matches Atmosphere?",
+      "choices": [
+        "Layer of gases around Earth",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "Layer of gases around Earth",
+      "explanation": "It protects life and shapes weather.",
+      "fact": "Atmosphere is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "earth-19",
+      "category": "earth",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Earth",
+      "question": "Rapid fire: Is Magnetosphere a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "earth-20",
+      "category": "earth",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Earth",
+      "question": "Timed quiz: Pick the space answer for Aurora",
+      "choices": [
+        "Polar lights",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "Polar lights",
+      "explanation": "Auroras come from solar particles interacting with air.",
+      "fact": "Aurora is an important space topic for explorers.",
+      "points": 50
+    },
+    {
+      "id": "sun-01",
+      "category": "sun",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "Sun",
+      "question": "What is Sun?",
+      "choices": [
+        "Nearest star to Earth",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Nearest star to Earth",
+      "explanation": "The Sun powers life and weather on Earth.",
+      "fact": "Sun is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "sun-02",
+      "category": "sun",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Sun",
+      "question": "Sun is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The Sun powers life and weather on Earth.",
+      "fact": "Learning about Sun helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "sun-03",
+      "category": "sun",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "Sun",
+      "question": "What is Solar flare?",
+      "choices": [
+        "Burst of solar energy",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Burst of solar energy",
+      "explanation": "Flares can affect radio communication.",
+      "fact": "Solar flare is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "sun-04",
+      "category": "sun",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "Sun",
+      "question": "Solar flare is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Flares can affect radio communication.",
+      "fact": "Learning about Solar flare helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "sun-05",
+      "category": "sun",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "Sun",
+      "question": "What is Sunspot?",
+      "choices": [
+        "Cooler dark solar region",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Cooler dark solar region",
+      "explanation": "Sunspots are linked to magnetic activity.",
+      "fact": "Sunspot is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "sun-06",
+      "category": "sun",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Sun",
+      "question": "Sunspot is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Sunspots are linked to magnetic activity.",
+      "fact": "Learning about Sunspot helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "sun-07",
+      "category": "sun",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "Sun",
+      "question": "What is Solar wind?",
+      "choices": [
+        "Particles from the Sun",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Particles from the Sun",
+      "explanation": "Solar wind can cause auroras.",
+      "fact": "Solar wind is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "Sun",
+          "right": "Particles from the Sun"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "sun-08",
+      "category": "sun",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "Sun",
+      "question": "Solar wind is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Solar wind can cause auroras.",
+      "fact": "Learning about Solar wind helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "sun-09",
+      "category": "sun",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "Sun",
+      "question": "What is Corona?",
+      "choices": [
+        "Sun's outer atmosphere",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Sun's outer atmosphere",
+      "explanation": "The corona is visible during total solar eclipses.",
+      "fact": "Corona is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "sun-10",
+      "category": "sun",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "Sun",
+      "question": "Corona is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "The corona is visible during total solar eclipses.",
+      "fact": "Learning about Corona helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "sun-11",
+      "category": "sun",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "Sun",
+      "question": "What is Fusion?",
+      "choices": [
+        "Power source of stars",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Power source of stars",
+      "explanation": "Hydrogen fuses into helium in the Sun.",
+      "fact": "Fusion is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "sun-12",
+      "category": "sun",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "Sun",
+      "question": "Fusion is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Hydrogen fuses into helium in the Sun.",
+      "fact": "Learning about Fusion helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "sun-13",
+      "category": "sun",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "Sun",
+      "question": "What is Aditya-L1?",
+      "choices": [
+        "India's solar mission",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "India's solar mission",
+      "explanation": "It studies the Sun and space weather.",
+      "fact": "Aditya-L1 is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "sun-14",
+      "category": "sun",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "Sun",
+      "question": "Aditya-L1 is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It studies the Sun and space weather.",
+      "fact": "Learning about Aditya-L1 helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "sun-15",
+      "category": "sun",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "Sun",
+      "question": "What is Parker Solar Probe?",
+      "choices": [
+        "NASA solar mission",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "NASA solar mission",
+      "explanation": "It flies very close to the Sun.",
+      "fact": "Parker Solar Probe is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "sun-16",
+      "category": "sun",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "Sun",
+      "question": "Parker Solar Probe is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "It flies very close to the Sun.",
+      "fact": "Learning about Parker Solar Probe helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "sun-17",
+      "category": "sun",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "Sun",
+      "question": "Fill in the blank: Sun is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "Sun",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "sun-18",
+      "category": "sun",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "Sun",
+      "question": "Which choice best matches Solar flare?",
+      "choices": [
+        "Burst of solar energy",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "Burst of solar energy",
+      "explanation": "Flares can affect radio communication.",
+      "fact": "Solar flare is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "sun-19",
+      "category": "sun",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "Sun",
+      "question": "Rapid fire: Is Sunspot a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "sun-20",
+      "category": "sun",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "Sun",
+      "question": "Timed quiz: Pick the space answer for Solar wind",
+      "choices": [
+        "Particles from the Sun",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "Particles from the Sun",
+      "explanation": "Solar wind can cause auroras.",
+      "fact": "Solar wind is an important space topic for explorers.",
+      "points": 50
+    },
+    {
+      "id": "general-space-01",
+      "category": "general-space",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "topic": "General Space Knowledge",
+      "question": "What is Gravity?",
+      "choices": [
+        "Force pulling mass together",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Force pulling mass together",
+      "explanation": "Gravity keeps planets, moons, and satellites in orbit.",
+      "fact": "Gravity is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "general-space-02",
+      "category": "general-space",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "General Space Knowledge",
+      "question": "Gravity is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Gravity keeps planets, moons, and satellites in orbit.",
+      "fact": "Learning about Gravity helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "general-space-03",
+      "category": "general-space",
+      "type": "image_quiz",
+      "difficulty": "hard",
+      "topic": "General Space Knowledge",
+      "question": "What is Astronomy?",
+      "choices": [
+        "Study of space objects",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Study of space objects",
+      "explanation": "Astronomy studies planets, stars, galaxies, and the universe.",
+      "fact": "Astronomy is an important space topic for explorers.",
+      "points": 30,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "general-space-04",
+      "category": "general-space",
+      "type": "guess_planet",
+      "difficulty": "expert",
+      "topic": "General Space Knowledge",
+      "question": "Astronomy is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Astronomy studies planets, stars, galaxies, and the universe.",
+      "fact": "Learning about Astronomy helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "general-space-05",
+      "category": "general-space",
+      "type": "guess_agency",
+      "difficulty": "easy",
+      "topic": "General Space Knowledge",
+      "question": "What is Physics?",
+      "choices": [
+        "Science of matter and energy",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Science of matter and energy",
+      "explanation": "Space exploration uses physics every day.",
+      "fact": "Physics is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "general-space-06",
+      "category": "general-space",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "General Space Knowledge",
+      "question": "Physics is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Space exploration uses physics every day.",
+      "fact": "Learning about Physics helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "general-space-07",
+      "category": "general-space",
+      "type": "match_following",
+      "difficulty": "hard",
+      "topic": "General Space Knowledge",
+      "question": "What is Comet?",
+      "choices": [
+        "Icy object with possible tail",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Icy object with possible tail",
+      "explanation": "Comets heat up near the Sun.",
+      "fact": "Comet is an important space topic for explorers.",
+      "points": 30,
+      "pairs": [
+        {
+          "left": "General Space Knowledge",
+          "right": "Icy object with possible tail"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "general-space-08",
+      "category": "general-space",
+      "type": "rapid_fire",
+      "difficulty": "expert",
+      "topic": "General Space Knowledge",
+      "question": "Comet is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Comets heat up near the Sun.",
+      "fact": "Learning about Comet helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "general-space-09",
+      "category": "general-space",
+      "type": "timed",
+      "difficulty": "easy",
+      "topic": "General Space Knowledge",
+      "question": "What is Asteroid?",
+      "choices": [
+        "Rocky object orbiting Sun",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Rocky object orbiting Sun",
+      "explanation": "Many asteroids are in the asteroid belt.",
+      "fact": "Asteroid is an important space topic for explorers.",
+      "points": 10
+    },
+    {
+      "id": "general-space-10",
+      "category": "general-space",
+      "type": "random",
+      "difficulty": "medium",
+      "topic": "General Space Knowledge",
+      "question": "Asteroid is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Many asteroids are in the asteroid belt.",
+      "fact": "Learning about Asteroid helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "general-space-11",
+      "category": "general-space",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "topic": "General Space Knowledge",
+      "question": "What is Meteorite?",
+      "choices": [
+        "Space rock that lands on Earth",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Space rock that lands on Earth",
+      "explanation": "Meteorites survive atmospheric entry.",
+      "fact": "Meteorite is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "general-space-12",
+      "category": "general-space",
+      "type": "true_false",
+      "difficulty": "expert",
+      "topic": "General Space Knowledge",
+      "question": "Meteorite is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Meteorites survive atmospheric entry.",
+      "fact": "Learning about Meteorite helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "general-space-13",
+      "category": "general-space",
+      "type": "image_quiz",
+      "difficulty": "easy",
+      "topic": "General Space Knowledge",
+      "question": "What is Constellation?",
+      "choices": [
+        "Star pattern or sky region",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Star pattern or sky region",
+      "explanation": "There are 88 official constellations.",
+      "fact": "Constellation is an important space topic for explorers.",
+      "points": 10,
+      "image_url": "/static/images/apod-backup.svg"
+    },
+    {
+      "id": "general-space-14",
+      "category": "general-space",
+      "type": "guess_planet",
+      "difficulty": "medium",
+      "topic": "General Space Knowledge",
+      "question": "Constellation is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "There are 88 official constellations.",
+      "fact": "Learning about Constellation helps explain the universe.",
+      "points": 20
+    },
+    {
+      "id": "general-space-15",
+      "category": "general-space",
+      "type": "guess_agency",
+      "difficulty": "hard",
+      "topic": "General Space Knowledge",
+      "question": "What is Future exploration?",
+      "choices": [
+        "Next steps in space",
+        "A type of ocean fish",
+        "A classroom tool",
+        "A musical note"
+      ],
+      "answer": "Next steps in space",
+      "explanation": "Future missions may return to the Moon and visit Mars.",
+      "fact": "Future exploration is an important space topic for explorers.",
+      "points": 30
+    },
+    {
+      "id": "general-space-16",
+      "category": "general-space",
+      "type": "fill_blank",
+      "difficulty": "expert",
+      "topic": "General Space Knowledge",
+      "question": "Future exploration is connected to space science.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "explanation": "Future missions may return to the Moon and visit Mars.",
+      "fact": "Learning about Future exploration helps explain the universe.",
+      "points": 50
+    },
+    {
+      "id": "general-space-17",
+      "category": "general-space",
+      "type": "match_following",
+      "difficulty": "easy",
+      "topic": "General Space Knowledge",
+      "question": "Fill in the blank: Gravity is part of ___ learning.",
+      "choices": [
+        "space",
+        "cooking",
+        "painting",
+        "football"
+      ],
+      "answer": "space",
+      "explanation": "This topic belongs in space science and exploration.",
+      "fact": "Space learning connects science, history, and technology.",
+      "points": 10,
+      "pairs": [
+        {
+          "left": "General Space Knowledge",
+          "right": "space"
+        },
+        {
+          "left": "Difficulty",
+          "right": "Easy"
+        }
+      ]
+    },
+    {
+      "id": "general-space-18",
+      "category": "general-space",
+      "type": "rapid_fire",
+      "difficulty": "medium",
+      "topic": "General Space Knowledge",
+      "question": "Which choice best matches Astronomy?",
+      "choices": [
+        "Study of space objects",
+        "A kitchen item",
+        "A board game",
+        "A type of shoe"
+      ],
+      "answer": "Study of space objects",
+      "explanation": "Astronomy studies planets, stars, galaxies, and the universe.",
+      "fact": "Astronomy is an important space topic for explorers.",
+      "points": 20
+    },
+    {
+      "id": "general-space-19",
+      "category": "general-space",
+      "type": "timed",
+      "difficulty": "hard",
+      "topic": "General Space Knowledge",
+      "question": "Rapid fire: Is Physics a useful space topic?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "explanation": "It is included because it helps explain space science.",
+      "fact": "Rapid fire questions test quick recall.",
+      "points": 30
+    },
+    {
+      "id": "general-space-20",
+      "category": "general-space",
+      "type": "random",
+      "difficulty": "expert",
+      "topic": "General Space Knowledge",
+      "question": "Timed quiz: Pick the space answer for Comet",
+      "choices": [
+        "Icy object with possible tail",
+        "A bicycle",
+        "A sandwich",
+        "A pencil"
+      ],
+      "answer": "Icy object with possible tail",
+      "explanation": "Comets heat up near the Sun.",
+      "fact": "Comet is an important space topic for explorers.",
+      "points": 50
+    }
+  ]
+}

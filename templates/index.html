@@ -196,23 +196,172 @@
       </section>
 
       <section id="space-quiz" class="section-grid">
-        <div class="section-heading">
-          <p class="eyebrow">Game</p>
-          <h2>Space Quiz</h2>
+        <div class="section-heading with-action">
+          <div>
+            <p class="eyebrow">Game Academy</p>
+            <h2>Space Quiz Academy</h2>
+          </div>
+          <div class="quiz-actions">
+            <button id="dailyQuizButton" class="secondary-button" type="button">Daily Quiz</button>
+            <button id="randomQuizButton" class="secondary-button" type="button">Random Quiz</button>
+          </div>
         </div>
 
-        <div class="quiz-panel glass-panel">
-          <div class="quiz-topline">
-            <span id="quizProgress" class="tag">Question 1 of 5</span>
-            <strong id="quizScore">Score: 0</strong>
+        <div class="quiz-academy glass-panel">
+          <div class="quiz-setup-grid">
+            <label>
+              <span>Player Name</span>
+              <input id="quizPlayerName" type="text" maxlength="24" placeholder="Explorer" autocomplete="off">
+            </label>
+            <label>
+              <span>Mode</span>
+              <select id="quizModeSelect">
+                <option value="practice">Practice Mode</option>
+                <option value="challenge">Challenge Mode</option>
+                <option value="exam">Exam Mode</option>
+                <option value="adventure">Adventure Mode</option>
+                <option value="daily">Daily Quiz</option>
+              </select>
+            </label>
+            <label>
+              <span>Difficulty</span>
+              <select id="quizDifficultySelect">
+                <option value="all">All Levels</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="expert">Expert</option>
+              </select>
+            </label>
+            <label>
+              <span>Question Type</span>
+              <select id="quizTypeSelect">
+                <option value="all">All Types</option>
+                <option value="multiple_choice">Multiple Choice</option>
+                <option value="true_false">True / False</option>
+                <option value="image_quiz">Image Quiz</option>
+                <option value="guess_planet">Guess the Planet</option>
+                <option value="guess_agency">Guess the Space Agency</option>
+                <option value="fill_blank">Fill in the Blank</option>
+                <option value="match_following">Match the Following</option>
+                <option value="rapid_fire">Rapid Fire</option>
+                <option value="timed">Timed Quiz</option>
+                <option value="random">Random Quiz</option>
+              </select>
+            </label>
+            <label>
+              <span>Progress Filter</span>
+              <select id="quizCompletionSelect">
+                <option value="all">All Questions</option>
+                <option value="unanswered">Unanswered</option>
+                <option value="completed">Completed</option>
+              </select>
+            </label>
+            <label>
+              <span>Timer</span>
+              <select id="quizTimerSelect">
+                <option value="0">No Timer</option>
+                <option value="30">30 seconds</option>
+                <option value="60">60 seconds</option>
+                <option value="90">90 seconds</option>
+              </select>
+            </label>
+            <label>
+              <span>Search</span>
+              <input id="quizSearchInput" type="search" placeholder="Search Mars, NASA, rockets..." autocomplete="off">
+            </label>
           </div>
-          <h3 id="quizQuestion">Loading quiz...</h3>
-          <div id="quizChoices" class="quiz-choices"></div>
-          <p id="quizFeedback" class="quiz-feedback"></p>
-          <button id="restartQuizButton" class="secondary-button" type="button">Restart Quiz</button>
+
+          <div id="quizCategoryGrid" class="quiz-category-grid" aria-label="Quiz categories">
+            <p class="loading-text">Loading quiz categories...</p>
+          </div>
+
+          <div class="quiz-command-row">
+            <button id="startQuizButton" class="hero-button primary" type="button">Start Quiz</button>
+            <button id="restartQuizButton" class="secondary-button" type="button">Restart</button>
+            <button id="reviewQuizButton" class="secondary-button" type="button">Review</button>
+            <button id="aiQuizButton" class="secondary-button" type="button">Generate New Quiz</button>
+            <button id="tenAiQuizButton" class="secondary-button" type="button">Generate 10 Questions</button>
+            <button id="hardAiQuizButton" class="secondary-button" type="button">Generate Hard Quiz</button>
+            <button id="nasaAiQuizButton" class="secondary-button" type="button">Generate NASA Quiz</button>
+            <button id="marsAiQuizButton" class="secondary-button" type="button">Generate Mars Quiz</button>
+            <button id="astronomyAiQuizButton" class="secondary-button" type="button">Generate Astronomy Quiz</button>
+          </div>
+
+          <div class="quiz-dashboard">
+            <article class="quiz-score-card">
+              <div id="quizScoreCircle" class="score-circle">0%</div>
+              <strong id="quizScore">Score: 0</strong>
+              <span id="quizProgress" class="tag">Choose a category</span>
+            </article>
+            <article>
+              <strong>Timer</strong>
+              <div id="quizTimer" class="quiz-timer">No timer</div>
+              <div class="progress-track"><span id="quizTimerBar"></span></div>
+            </article>
+            <article>
+              <strong>Streak</strong>
+              <p id="quizStreak">0 correct in a row</p>
+            </article>
+            <article>
+              <strong>Question Bank</strong>
+              <p id="quizBankCount">Loading...</p>
+            </article>
+          </div>
+
+          <div class="quiz-play-area">
+            <article class="quiz-question-card">
+              <div class="quiz-question-meta">
+                <span id="quizQuestionType" class="tag">Ready</span>
+                <span id="quizDifficultyTag" class="tag">All levels</span>
+              </div>
+              <img id="quizImage" class="quiz-image" src="" alt="" hidden>
+              <h3 id="quizQuestion">Choose a category and press Start Quiz.</h3>
+              <div id="quizChoices" class="quiz-choices"></div>
+              <form id="fillBlankForm" class="fill-blank-form" hidden>
+                <input id="fillBlankInput" type="text" placeholder="Type your answer">
+                <button class="secondary-button" type="submit">Submit</button>
+              </form>
+              <button id="nextQuizButton" class="hero-button primary" type="button" hidden>Next Question</button>
+            </article>
+
+            <article id="quizExplanation" class="quiz-explanation">
+              <h3>Explanation</h3>
+              <p id="quizFeedback">Answer a question to see the explanation and fun fact.</p>
+            </article>
+          </div>
+
+          <div class="quiz-learning-grid">
+            <article>
+              <h3>Achievements</h3>
+              <div id="achievementList" class="badge-list"></div>
+            </article>
+            <article>
+              <h3>Leaderboard</h3>
+              <ol id="leaderboardList" class="leaderboard-list"></ol>
+            </article>
+            <article>
+              <h3>Progress Tracker</h3>
+              <div id="progressTracker" class="progress-summary"></div>
+            </article>
+          </div>
+
+          <section id="quizReviewPanel" class="quiz-review-panel" hidden>
+            <h3>Review Mode</h3>
+            <div id="quizReviewList"></div>
+          </section>
+
+          <section id="certificatePanel" class="certificate-panel" hidden>
+            <div class="certificate-card">
+              <span class="brand-mark">V</span>
+              <p class="eyebrow">VERTEX Space Explorer Certificate</p>
+              <h3 id="certificateName">Explorer</h3>
+              <p id="certificateDetails">Completed Space Quiz Academy.</p>
+              <button id="printCertificateButton" class="secondary-button" type="button">Print Certificate</button>
+            </div>
+          </section>
         </div>
       </section>
-
       <section id="project-summary" class="about-section glass-panel">
         <p class="eyebrow">Final Summary</p>
         <h2>Project Summary</h2>

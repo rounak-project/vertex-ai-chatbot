@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import random
 import time
 from pathlib import Path
 
@@ -14,7 +15,14 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s: %(message)s"
 )
 
-from chatbot import get_ai_diagnostics, get_ai_status, get_vertex_response
+from chatbot import (
+    GROQ_MODEL,
+    create_groq_client,
+    get_ai_diagnostics,
+    get_ai_status,
+    get_vertex_response,
+    should_use_groq
+)
 
 app = Flask(__name__)
 
@@ -51,6 +59,93 @@ def load_json_file_or_default(file_name, default_value):
         return load_json_file(file_name)
     except (OSError, json.JSONDecodeError):
         return default_value
+
+
+def get_quiz_database():
+    """Load the large local quiz database."""
+    return load_json_file_or_default("quiz_database.json", {"categories": [], "questions": []})
+
+
+def get_local_quiz_questions(topic="", difficulty="", limit=10):
+    """Pick local quiz questions when AI generation is unavailable."""
+    quiz_database = get_quiz_database()
+    all_questions = quiz_database.get("questions", [])
+    questions = all_questions
+    topic_text = str(topic or "").lower().strip()
+    difficulty_text = str(difficulty or "").lower().strip()
+
+    if topic_text:
+        questions = [
+            question for question in questions
+            if topic_text in question.get("category", "").lower()
+            or topic_text in question.get("topic", "").lower()
+            or topic_text in question.get("question", "").lower()
+        ]
+
+    if difficulty_text:
+        questions = [
+            question for question in questions
+            if question.get("difficulty", "").lower() == difficulty_text
+        ]
+
+    # Backfill from nearby local questions so the AI fallback still gives a full quiz.
+    fallback_questions = [
+        question for question in all_questions
+        if question not in questions
+        and (
+            not difficulty_text
+            or question.get("difficulty", "").lower() == difficulty_text
+            or topic_text in question.get("category", "").lower()
+            or topic_text in question.get("topic", "").lower()
+        )
+    ]
+    combined_questions = questions + fallback_questions
+
+    if len(combined_questions) < limit:
+        combined_questions += [
+            question for question in all_questions
+            if question not in combined_questions
+        ]
+
+    return random.sample(combined_questions, min(limit, len(combined_questions)))
+
+
+def generate_ai_quiz_questions(topic, difficulty, limit):
+    """Ask Groq for quiz questions and return None if anything goes wrong."""
+    if not should_use_groq():
+        return None
+
+    try:
+        client = create_groq_client()
+        response = client.chat.completions.create(
+            model=GROQ_MODEL,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You create beginner-friendly educational space quiz questions. "
+                        "Return only valid JSON with a top-level questions array. Each question "
+                        "must include id, category, type, difficulty, question, choices, answer, "
+                        "explanation, fact, and points. Use simple language for students."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        f"Generate {limit} {difficulty or 'mixed'} space quiz questions about "
+                        f"{topic or 'general space knowledge'}. Use multiple_choice questions."
+                    )
+                }
+            ],
+            temperature=0.5,
+            max_tokens=2200
+        )
+        content = response.choices[0].message.content.strip()
+        parsed = json.loads(content)
+        return parsed.get("questions", [])[:limit]
+    except Exception:
+        app.logger.exception("AI quiz generation failed; using local quiz questions.")
+        return None
 
 
 def add_to_chat_history(speaker, message):
@@ -215,6 +310,30 @@ def iss_tracker():
 def launches():
     """API route for local demo rocket launch cards."""
     return jsonify(load_json_file_or_default("launches.json", []))
+
+
+@app.route("/api/quiz-database")
+def quiz_database():
+    """API route for the local Space Quiz Academy database."""
+    return jsonify(get_quiz_database())
+
+
+@app.route("/api/quiz-generate", methods=["POST"])
+def quiz_generate():
+    """Generate a quiz with Groq when available, otherwise use local questions."""
+    data = request.get_json(silent=True) or {}
+    topic = data.get("topic", "")
+    difficulty = data.get("difficulty", "")
+    limit = min(int(data.get("limit", 10) or 10), 20)
+
+    ai_questions = generate_ai_quiz_questions(topic, difficulty, limit)
+    if ai_questions:
+        return jsonify({"source": "groq", "questions": ai_questions})
+
+    return jsonify({
+        "source": "local",
+        "questions": get_local_quiz_questions(topic=topic, difficulty=difficulty, limit=limit)
+    })
 
 
 if __name__ == "__main__":
