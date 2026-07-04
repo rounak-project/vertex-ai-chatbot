@@ -512,7 +512,7 @@ body.mission-body.is-ready .frame-scanner {
   100% { opacity: 0; transform: translateY(120%); }
 }
 
-.mission-portrait {
+.mission-profile-image {
   display: block;
   width: 100%;
   height: 100%;

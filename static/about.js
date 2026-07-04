@@ -2,7 +2,7 @@
 
 const missionBody = document.body;
 const missionLog = document.querySelector("#missionLog");
-const missionPortrait = document.querySelector(".mission-portrait");
+const missionPortrait = document.querySelector(".mission-profile-image");
 const missionImageFallback = document.querySelector("#missionImageFallback");
 const counterNodes = document.querySelectorAll("[data-counter]");
 const barNodes = document.querySelectorAll("[data-width]");
