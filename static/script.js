@@ -26,6 +26,8 @@ const voiceAutoSpeakToggle = document.querySelector("#voiceAutoSpeakToggle");
 const voiceModeStatus = document.querySelector("#voiceModeStatus");
 const voiceStatusText = document.querySelector("#voiceStatusText");
 const voiceWaveform = document.querySelector("#voiceWaveform");
+const missionClock = document.querySelector("#missionClock");
+const missionStatusText = document.querySelector("#missionStatusText");
 const quizPlayerName = document.querySelector("#quizPlayerName");
 const quizModeSelect = document.querySelector("#quizModeSelect");
 const quizDifficultySelect = document.querySelector("#quizDifficultySelect");
@@ -87,6 +89,7 @@ let recognition = null;
 let recognitionActive = false;
 let voiceMode = "ready";
 let lastCompletedReplyText = "";
+let missionClockTimer = null;
 
 const quizStorageKey = "vertex-quiz-academy";
 const quizLeaderboardKey = "vertex-quiz-leaderboard";
@@ -163,6 +166,22 @@ function setThinkingState(isThinking) {
     setVoiceMode("thinking", "VERTEX is thinking about the answer.");
   } else if (!recognitionActive && voiceMode !== "speaking" && voiceMode !== "unsupported") {
     setVoiceMode("ready");
+  }
+}
+
+function updateMissionClock() {
+  if (missionClock) {
+    missionClock.textContent = new Date().toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+      timeZoneName: "short"
+    });
+  }
+
+  if (missionStatusText) {
+    missionStatusText.textContent = "ONLINE";
   }
 }
 
@@ -1651,6 +1670,7 @@ printCertificateButton.addEventListener("click", () => window.print());
 applyTheme(savedTheme);
 updateAutoSpeakToggle();
 updateMuteButton();
+updateMissionClock();
 setupVoiceInput();
 setupSpeechVoices();
 if (autoSpeakToggle) {
@@ -1667,6 +1687,7 @@ if (voiceAutoSpeakToggle) {
     updateAutoSpeakToggle();
   });
 }
+missionClockTimer = window.setInterval(updateMissionClock, 1000);
 loadAiStatus();
 loadDashboardData();
 loadMissionControl();
