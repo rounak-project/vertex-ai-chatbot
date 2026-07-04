@@ -21,59 +21,137 @@
       <strong>VERTEX</strong>
     </div>
     <div class="mission-header-right">
-      <div class="status-indicator">
+      <div class="status-indicator status-indicator-inline" aria-label="System status">
         <span class="status-dot status-dot-live" aria-hidden="true"></span>
         <strong id="missionStatusText">ONLINE</strong>
-      </div>
-      <div class="status-indicator">
-        <span class="status-dot status-dot-neutral" aria-hidden="true"></span>
+        <span class="status-separator" aria-hidden="true">•</span>
         <strong id="missionClock">18:02:15</strong>
-      </div>
-      <div class="status-indicator">
-        <span class="status-dot status-dot-accent" aria-hidden="true"></span>
+        <span class="status-separator" aria-hidden="true">•</span>
         <strong>IST</strong>
       </div>
     </div>
   </header>
 
+  <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-controls="vertexSidebar" aria-expanded="true" aria-label="Collapse navigation">
+    ✕
+  </button>
+  <div id="sidebarOverlay" class="sidebar-overlay" hidden></div>
+
   <div class="dashboard">
-    <!-- Sidebar buttons jump to each section on the same page. -->
     <aside class="sidebar" aria-label="VERTEX navigation">
-      <div class="brand">
-        <span class="brand-mark">V</span>
-        <div>
-          <strong>VERTEX</strong>
-          <small>Space Assistant</small>
+      <div id="vertexSidebar" class="sidebar-inner">
+        <div class="brand">
+          <span class="brand-mark">V</span>
+          <div class="brand-copy">
+            <strong>VERTEX</strong>
+            <small>Space Assistant</small>
+          </div>
         </div>
-      </div>
 
-      <nav class="nav-links">
-        <a href="{{ url_for('mission_commander') }}">Mission Commander</a>
-        <a href="#chat">Chat</a>
-        <a href="#mission-control">Mission Control</a>
-        <a href="{{ url_for('sky_explorer') }}">Sky Explorer</a>
-        <a href="#nasa-image">NASA Image</a>
-        <a href="#news">News</a>
-        <a href="#planets">Planets</a>
-        <a href="#agencies">Agencies</a>
-        <a href="#space-quiz">Space Quiz</a>
-        <a href="#project-summary">Project Summary</a>
-        <a href="#about">About Vertex</a>
-      </nav>
+        <nav class="nav-groups" aria-label="Grouped navigation">
+          <section class="nav-group" data-group="main">
+            <button class="nav-group-toggle" type="button" aria-expanded="true" data-group-key="main" title="MAIN">
+              <span class="nav-group-badge" aria-hidden="true">M</span>
+              <span class="nav-group-label">MAIN</span>
+              <span class="nav-group-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-group-items">
+              <a class="nav-link" href="{{ url_for('home') }}" data-nav-group="main" data-nav-icon="⌂" data-nav-label="Home" title="Home" aria-label="Home">
+                <span class="nav-icon" aria-hidden="true">⌂</span>
+                <span class="nav-label">Home</span>
+              </a>
+              <a class="nav-link" href="#chat" data-nav-group="main" data-nav-icon="✦" data-nav-label="Vertex Chat" title="Vertex Chat" aria-label="Vertex Chat">
+                <span class="nav-icon" aria-hidden="true">✦</span>
+                <span class="nav-label">Vertex Chat</span>
+              </a>
+            </div>
+          </section>
 
-      <div class="sidebar-tools" aria-label="Display settings">
-        <label for="themeSelect">Theme</label>
-        <select id="themeSelect">
-          <option value="deep-space">Deep Space</option>
-          <option value="blue-neon">Blue Neon</option>
-          <option value="mars-red">Mars Red</option>
-        </select>
-        <label class="toggle-row" for="autoSpeakToggle">
-          <span>🔊 Auto Speak</span>
-          <input id="autoSpeakToggle" type="checkbox" checked>
-        </label>
-        <button id="muteButton" class="secondary-button" type="button">Sound On</button>
-        <button id="presentationButton" class="secondary-button" type="button">Presentation Mode</button>
+          <section class="nav-group" data-group="space">
+            <button class="nav-group-toggle" type="button" aria-expanded="true" data-group-key="space" title="SPACE">
+              <span class="nav-group-badge" aria-hidden="true">S</span>
+              <span class="nav-group-label">SPACE</span>
+              <span class="nav-group-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-group-items">
+              <a class="nav-link" href="#mission-control" data-nav-group="space" data-nav-icon="◉" data-nav-label="Mission Control" title="Mission Control" aria-label="Mission Control">
+                <span class="nav-icon" aria-hidden="true">◉</span>
+                <span class="nav-label">Mission Control</span>
+              </a>
+              <a class="nav-link" href="{{ url_for('sky_explorer') }}" data-nav-group="space" data-nav-icon="☄" data-nav-label="Sky Explorer" title="Sky Explorer" aria-label="Sky Explorer">
+                <span class="nav-icon" aria-hidden="true">☄</span>
+                <span class="nav-label">Sky Explorer</span>
+              </a>
+              <a class="nav-link" href="#planets" data-nav-group="space" data-nav-icon="⬤" data-nav-label="Planets" title="Planets" aria-label="Planets">
+                <span class="nav-icon" aria-hidden="true">⬤</span>
+                <span class="nav-label">Planets</span>
+              </a>
+              <a class="nav-link" href="#nasa-image" data-nav-group="space" data-nav-icon="◌" data-nav-label="NASA Image" title="NASA Image" aria-label="NASA Image">
+                <span class="nav-icon" aria-hidden="true">◌</span>
+                <span class="nav-label">NASA Image</span>
+              </a>
+              <a class="nav-link" href="#news" data-nav-group="space" data-nav-icon="▦" data-nav-label="Space News" title="Space News" aria-label="Space News">
+                <span class="nav-icon" aria-hidden="true">▦</span>
+                <span class="nav-label">Space News</span>
+              </a>
+              <a class="nav-link" href="#agencies" data-nav-group="space" data-nav-icon="✧" data-nav-label="Agencies" title="Agencies" aria-label="Agencies">
+                <span class="nav-icon" aria-hidden="true">✧</span>
+                <span class="nav-label">Agencies</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="nav-group" data-group="learning">
+            <button class="nav-group-toggle" type="button" aria-expanded="true" data-group-key="learning" title="LEARNING">
+              <span class="nav-group-badge" aria-hidden="true">L</span>
+              <span class="nav-group-label">LEARNING</span>
+              <span class="nav-group-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-group-items">
+              <a class="nav-link" href="#space-quiz" data-nav-group="learning" data-nav-icon="✎" data-nav-label="Space Quiz Academy" title="Space Quiz Academy" aria-label="Space Quiz Academy">
+                <span class="nav-icon" aria-hidden="true">✎</span>
+                <span class="nav-label">Space Quiz Academy</span>
+              </a>
+              <a class="nav-link" href="#project-summary" data-nav-group="learning" data-nav-icon="▣" data-nav-label="Project Summary" title="Project Summary" aria-label="Project Summary">
+                <span class="nav-icon" aria-hidden="true">▣</span>
+                <span class="nav-label">Project Summary</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="nav-group" data-group="creator">
+            <button class="nav-group-toggle" type="button" aria-expanded="true" data-group-key="creator" title="CREATOR">
+              <span class="nav-group-badge" aria-hidden="true">C</span>
+              <span class="nav-group-label">CREATOR</span>
+              <span class="nav-group-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-group-items">
+              <a class="nav-link" href="{{ url_for('mission_commander') }}" data-nav-group="creator" data-nav-icon="⟡" data-nav-label="Mission Commander" title="Mission Commander" aria-label="Mission Commander">
+                <span class="nav-icon" aria-hidden="true">⟡</span>
+                <span class="nav-label">Mission Commander</span>
+              </a>
+              <a class="nav-link" href="#about" data-nav-group="creator" data-nav-icon="i" data-nav-label="About" title="About Vertex" aria-label="About Vertex">
+                <span class="nav-icon" aria-hidden="true">i</span>
+                <span class="nav-label">About</span>
+              </a>
+            </div>
+          </section>
+        </nav>
+
+        <div class="sidebar-tools" aria-label="Display settings">
+          <label for="themeSelect">Theme</label>
+          <select id="themeSelect">
+            <option value="deep-space">Deep Space</option>
+            <option value="blue-neon">Blue Neon</option>
+            <option value="mars-red">Mars Red</option>
+          </select>
+          <label class="toggle-row" for="autoSpeakToggle">
+            <span>🔊 Auto Speak</span>
+            <input id="autoSpeakToggle" type="checkbox" checked>
+          </label>
+          <button id="muteButton" class="secondary-button" type="button">Sound On</button>
+          <button id="presentationButton" class="secondary-button" type="button">Presentation Mode</button>
+        </div>
       </div>
     </aside>
 

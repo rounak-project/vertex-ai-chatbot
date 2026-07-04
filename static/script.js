@@ -21,6 +21,11 @@ const themeSelect = document.querySelector("#themeSelect");
 const muteButton = document.querySelector("#muteButton");
 const presentationButton = document.querySelector("#presentationButton");
 const exitPresentationButton = document.querySelector("#exitPresentationButton");
+const sidebarToggle = document.querySelector("#sidebarToggle");
+const sidebarOverlay = document.querySelector("#sidebarOverlay");
+const sidebarGroups = document.querySelectorAll(".nav-group");
+const sidebarGroupToggles = document.querySelectorAll(".nav-group-toggle");
+const sidebarLinks = document.querySelectorAll(".nav-link");
 const autoSpeakToggle = document.querySelector("#autoSpeakToggle");
 const voiceAutoSpeakToggle = document.querySelector("#voiceAutoSpeakToggle");
 const voiceModeStatus = document.querySelector("#voiceModeStatus");
@@ -78,9 +83,15 @@ const backupSpaceImage = "/static/images/apod-backup.svg";
 const savedTheme = localStorage.getItem("vertex-theme") || "deep-space";
 const savedMute = localStorage.getItem("vertex-muted") === "true";
 const savedAutoSpeak = localStorage.getItem("vertex-auto-speak");
+const savedSidebarCollapsed = localStorage.getItem("vertex-sidebar-collapsed");
+const savedSidebarGroups = localStorage.getItem("vertex-sidebar-groups");
+const sidebarMediaQuery = window.matchMedia("(max-width: 980px)");
 let allPlanets = [];
 let soundsMuted = savedMute;
 let autoSpeakEnabled = savedAutoSpeak === null ? true : savedAutoSpeak === "true";
+let sidebarCollapsed = savedSidebarCollapsed === null ? false : savedSidebarCollapsed === "true";
+let sidebarDrawerOpen = false;
+let sidebarGroupState = {};
 let preferredVoice = null;
 let activeReplyTurnId = 0;
 let activeThinkingCleanup = null;
@@ -193,6 +204,202 @@ function updateAutoSpeakToggle() {
   autoSpeakToggle.checked = autoSpeakEnabled;
   if (voiceAutoSpeakToggle) {
     voiceAutoSpeakToggle.checked = autoSpeakEnabled;
+  }
+}
+
+function isMobileSidebarLayout() {
+  return sidebarMediaQuery.matches;
+}
+
+function readSidebarGroups() {
+  if (!savedSidebarGroups) {
+    return {};
+  }
+
+  try {
+    const parsed = JSON.parse(savedSidebarGroups);
+    return typeof parsed === "object" && parsed ? parsed : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function saveSidebarGroups() {
+  localStorage.setItem("vertex-sidebar-groups", JSON.stringify(sidebarGroupState));
+}
+
+function setSidebarGroupState(groupKey, isOpen, persist = true) {
+  sidebarGroupState[groupKey] = Boolean(isOpen);
+
+  const group = document.querySelector(`.nav-group[data-group="${groupKey}"]`);
+  const toggle = document.querySelector(`.nav-group-toggle[data-group-key="${groupKey}"]`);
+
+  if (group) {
+    group.classList.toggle("is-collapsed", !isOpen);
+  }
+
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  }
+
+  if (persist) {
+    saveSidebarGroups();
+  }
+}
+
+function openSidebarGroupForLink(link) {
+  const groupKey = link?.dataset?.navGroup;
+  if (!groupKey) {
+    return;
+  }
+
+  setSidebarGroupState(groupKey, true);
+}
+
+function updateSidebarLinks() {
+  const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+  const currentHash = window.location.hash || "";
+
+  sidebarLinks.forEach((link) => {
+    const url = new URL(link.getAttribute("href"), window.location.origin);
+    const linkPath = url.pathname.replace(/\/+$/, "") || "/";
+    const linkHash = url.hash || "";
+    const isHashLink = link.getAttribute("href").startsWith("#");
+    let isActive = false;
+
+    if (isHashLink) {
+      if (currentPath === "/") {
+        isActive = linkHash === currentHash || (linkHash === "" && currentHash === "");
+      }
+    } else {
+      isActive = linkPath === currentPath;
+    }
+
+    link.classList.toggle("is-active", isActive);
+
+    if (isActive) {
+      openSidebarGroupForLink(link);
+    }
+  });
+}
+
+function updateSidebarToggleButton() {
+  if (!sidebarToggle) {
+    return;
+  }
+
+  const isMobile = isMobileSidebarLayout();
+  const isOpen = isMobile ? sidebarDrawerOpen : !sidebarCollapsed;
+  sidebarToggle.textContent = isOpen ? "✕" : "☰";
+  sidebarToggle.setAttribute("aria-expanded", String(isOpen));
+  sidebarToggle.setAttribute("aria-label", isOpen ? "Collapse navigation" : "Expand navigation");
+}
+
+function syncSidebarLayout() {
+  const isMobile = isMobileSidebarLayout();
+
+  document.body.classList.toggle("sidebar-collapsed", !isMobile && sidebarCollapsed);
+  document.body.classList.toggle("sidebar-open", isMobile && sidebarDrawerOpen);
+
+  if (sidebarOverlay) {
+    sidebarOverlay.hidden = !(isMobile && sidebarDrawerOpen);
+  }
+
+  if (isMobile) {
+    document.body.classList.remove("sidebar-collapsed");
+  }
+
+  updateSidebarToggleButton();
+}
+
+function toggleSidebarDrawer() {
+  if (isMobileSidebarLayout()) {
+    sidebarDrawerOpen = !sidebarDrawerOpen;
+    syncSidebarLayout();
+    return;
+  }
+
+  sidebarCollapsed = !sidebarCollapsed;
+  localStorage.setItem("vertex-sidebar-collapsed", String(sidebarCollapsed));
+  syncSidebarLayout();
+}
+
+function closeSidebarDrawer() {
+  if (!isMobileSidebarLayout() || !sidebarDrawerOpen) {
+    return;
+  }
+
+  sidebarDrawerOpen = false;
+  syncSidebarLayout();
+}
+
+function restoreSidebarState() {
+  sidebarGroupState = {
+    main: true,
+    space: true,
+    learning: true,
+    creator: true,
+    ...readSidebarGroups()
+  };
+
+  sidebarGroups.forEach((group) => {
+    const groupKey = group.dataset.group;
+    setSidebarGroupState(groupKey, sidebarGroupState[groupKey] !== false, false);
+  });
+
+  updateSidebarLinks();
+  syncSidebarLayout();
+}
+
+function bindSidebarNavigation() {
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", () => {
+      toggleSidebarDrawer();
+    });
+  }
+
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener("click", () => {
+      closeSidebarDrawer();
+    });
+  }
+
+  sidebarGroupToggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const groupKey = toggle.dataset.groupKey;
+      const isOpen = toggle.getAttribute("aria-expanded") !== "true";
+      setSidebarGroupState(groupKey, isOpen);
+    });
+  });
+
+  sidebarLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      openSidebarGroupForLink(link);
+      if (isMobileSidebarLayout()) {
+        closeSidebarDrawer();
+      }
+    });
+  });
+
+  window.addEventListener("hashchange", updateSidebarLinks);
+  window.addEventListener("popstate", updateSidebarLinks);
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeSidebarDrawer();
+    }
+  });
+
+  const handleMediaChange = () => {
+    if (!isMobileSidebarLayout()) {
+      sidebarDrawerOpen = false;
+    }
+    syncSidebarLayout();
+  };
+
+  if (typeof sidebarMediaQuery.addEventListener === "function") {
+    sidebarMediaQuery.addEventListener("change", handleMediaChange);
+  } else if (typeof sidebarMediaQuery.addListener === "function") {
+    sidebarMediaQuery.addListener(handleMediaChange);
   }
 }
 
@@ -1671,6 +1878,8 @@ applyTheme(savedTheme);
 updateAutoSpeakToggle();
 updateMuteButton();
 updateMissionClock();
+bindSidebarNavigation();
+restoreSidebarState();
 setupVoiceInput();
 setupSpeechVoices();
 if (autoSpeakToggle) {
