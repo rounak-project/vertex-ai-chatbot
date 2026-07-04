@@ -21,6 +21,11 @@
       "name": "Sun",
       "keywords": ["sun", "solar", "star"],
       "answer": "The Sun is a huge star at the center of our solar system. It gives Earth the light and heat needed for life."
+    },
+    {
+      "name": "Constellations",
+      "keywords": ["constellation", "constellations", "orion", "ursa major", "star pattern"],
+      "answer": "Constellations are patterns of stars that people imagine as shapes in the night sky.\n- Orion looks like a hunter and is easy to spot.\n- Ursa Major contains the Big Dipper pattern.\n- Astronomers use constellations like a map of the sky.\nFun fact: There are 88 official constellations."
     }
   ],
   "moons": [
@@ -35,6 +40,11 @@
       "name": "Milky Way",
       "keywords": ["galaxy", "galaxies", "milky way"],
       "answer": "A galaxy is a giant group of stars, gas, dust, and planets. Our solar system is inside a galaxy called the Milky Way."
+    },
+    {
+      "name": "Exoplanets",
+      "keywords": ["exoplanet", "exoplanets", "planet outside solar system", "planets outside our solar system"],
+      "answer": "Exoplanets are planets that orbit stars outside our solar system.\n- Some are rocky like Earth.\n- Some are huge gas giants like Jupiter.\n- Scientists find them by watching stars dim slightly.\nFun fact: Thousands of exoplanets have already been discovered."
     },
     {
       "name": "Black Hole",

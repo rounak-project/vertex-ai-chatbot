@@ -34,6 +34,7 @@ let soundsMuted = savedMute;
 let currentQuizIndex = 0;
 let currentQuizScore = 0;
 let quizAnswered = false;
+let preferredVoice = null;
 
 const quizQuestions = [
   {
@@ -109,6 +110,168 @@ function updateMuteButton() {
   muteButton.textContent = soundsMuted ? "Sound Off" : "Sound On";
 }
 
+function getCurrentTimeText() {
+  return new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+function escapeHtml(text) {
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function renderInlineMarkdown(text) {
+  let html = escapeHtml(text);
+  const savedItems = [];
+
+  html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g, (match, altText, imageUrl) => {
+    const token = `__VERTEX_ITEM_${savedItems.length}__`;
+    savedItems.push(`<img class="chat-image" src="${imageUrl}" alt="${altText}">`);
+    return token;
+  });
+
+  html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (match, linkText, linkUrl) => {
+    const token = `__VERTEX_ITEM_${savedItems.length}__`;
+    savedItems.push(`<a href="${linkUrl}" target="_blank" rel="noreferrer">${linkText}</a>`);
+    return token;
+  });
+
+  html = html.replace(/(https?:\/\/[^\s<]+)/g, "<a href=\"$1\" target=\"_blank\" rel=\"noreferrer\">$1</a>");
+  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
+  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+
+  savedItems.forEach((item, index) => {
+    html = html.replace(`__VERTEX_ITEM_${index}__`, item);
+  });
+
+  return html;
+}
+
+function renderMarkdown(text) {
+  const lines = text.split("\n");
+  const htmlParts = [];
+  let listOpen = false;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+
+    if (!line) {
+      if (listOpen) {
+        htmlParts.push("</ul>");
+        listOpen = false;
+      }
+      continue;
+    }
+
+    if (line.startsWith("|") && line.endsWith("|")) {
+      const tableLines = [];
+      while (index < lines.length && lines[index].trim().startsWith("|")) {
+        tableLines.push(lines[index].trim());
+        index += 1;
+      }
+      index -= 1;
+
+      const rows = tableLines
+        .filter((tableLine) => !/^\|\s*-/.test(tableLine))
+        .map((tableLine) => tableLine.split("|").slice(1, -1).map((cell) => renderInlineMarkdown(cell.trim())));
+
+      if (rows.length > 0) {
+        htmlParts.push("<table>");
+        htmlParts.push(`<thead><tr>${rows[0].map((cell) => `<th>${cell}</th>`).join("")}</tr></thead>`);
+        htmlParts.push("<tbody>");
+        rows.slice(1).forEach((row) => {
+          htmlParts.push(`<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`);
+        });
+        htmlParts.push("</tbody></table>");
+      }
+      continue;
+    }
+
+    if (line.startsWith("- ") || line.startsWith("* ")) {
+      if (!listOpen) {
+        htmlParts.push("<ul>");
+        listOpen = true;
+      }
+      htmlParts.push(`<li>${renderInlineMarkdown(line.slice(2))}</li>`);
+      continue;
+    }
+
+    if (/^\d+\.\s/.test(line)) {
+      if (!listOpen) {
+        htmlParts.push("<ul>");
+        listOpen = true;
+      }
+      htmlParts.push(`<li>${renderInlineMarkdown(line.replace(/^\d+\.\s/, ""))}</li>`);
+      continue;
+    }
+
+    if (listOpen) {
+      htmlParts.push("</ul>");
+      listOpen = false;
+    }
+
+    if (line.startsWith("```")) {
+      const codeLines = [];
+      index += 1;
+      while (index < lines.length && !lines[index].trim().startsWith("```")) {
+        codeLines.push(lines[index]);
+        index += 1;
+      }
+      htmlParts.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+      continue;
+    }
+
+    htmlParts.push(`<p>${renderInlineMarkdown(line)}</p>`);
+  }
+
+  if (listOpen) {
+    htmlParts.push("</ul>");
+  }
+
+  return htmlParts.join("");
+}
+
+function chooseBestVoice() {
+  if (!("speechSynthesis" in window)) {
+    return null;
+  }
+
+  const voices = window.speechSynthesis.getVoices();
+  const preferredNames = [
+    "Google UK English Female",
+    "Google US English",
+    "Microsoft Aria",
+    "Microsoft Jenny",
+    "Microsoft David"
+  ];
+
+  for (const voiceName of preferredNames) {
+    const match = voices.find((voice) => voice.name.includes(voiceName));
+    if (match) {
+      return match;
+    }
+  }
+
+  return voices.find((voice) => voice.lang.toLowerCase().startsWith("en")) || voices[0] || null;
+}
+
+function setupSpeechVoices() {
+  if (!("speechSynthesis" in window)) {
+    return;
+  }
+
+  preferredVoice = chooseBestVoice();
+  window.speechSynthesis.addEventListener("voiceschanged", () => {
+    preferredVoice = chooseBestVoice();
+  });
+}
+
 // This function adds a new message bubble to the chat window.
 function addMessage(speaker, text, type) {
   const message = document.createElement("div");
@@ -118,26 +281,65 @@ function addMessage(speaker, text, type) {
   speakerLabel.className = "speaker";
   speakerLabel.textContent = speaker;
 
-  const paragraph = document.createElement("p");
+  const paragraph = document.createElement("div");
+  paragraph.className = "message-body";
   paragraph.textContent = text;
+
+  const timestamp = document.createElement("time");
+  timestamp.className = "message-time";
+  timestamp.dateTime = new Date().toISOString();
+  timestamp.textContent = getCurrentTimeText();
 
   message.appendChild(speakerLabel);
   message.appendChild(paragraph);
+  message.appendChild(timestamp);
 
   // SpeechSynthesis is a browser feature. It lets VERTEX read replies aloud.
+  if (type === "bot" && !("speechSynthesis" in window)) {
+    const unavailable = document.createElement("span");
+    unavailable.className = "voice-unavailable";
+    unavailable.textContent = "Voice is not available in this browser.";
+    message.appendChild(unavailable);
+  }
+
   if (type === "bot" && "speechSynthesis" in window) {
+    const actions = document.createElement("div");
+    actions.className = "message-actions";
+
     const speakButton = document.createElement("button");
     speakButton.className = "speaker-button";
     speakButton.type = "button";
     speakButton.textContent = "Speak";
     speakButton.title = "Read this Vertex reply";
     speakButton.addEventListener("click", () => {
+      preferredVoice = preferredVoice || chooseBestVoice();
+
+      if (!preferredVoice) {
+        addMessage("VERTEX", "Voice is not available in this browser, but you can still read my reply.", "bot");
+        return;
+      }
+
       const speech = new SpeechSynthesisUtterance(text);
       speech.rate = 0.95;
+      speech.pitch = 1.0;
+      speech.volume = 1;
+      speech.voice = preferredVoice;
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(speech);
     });
-    message.appendChild(speakButton);
+
+    const stopButton = document.createElement("button");
+    stopButton.className = "speaker-button stop-button";
+    stopButton.type = "button";
+    stopButton.textContent = "Stop Speaking";
+    stopButton.title = "Stop reading this Vertex reply";
+    stopButton.addEventListener("click", () => {
+      window.speechSynthesis.cancel();
+    });
+
+    actions.appendChild(speakButton);
+    actions.appendChild(stopButton);
+    message.appendChild(actions);
   }
 
   chatMessages.appendChild(message);
@@ -159,6 +361,7 @@ function typeBotReply(paragraph, fullText) {
 
       if (letterIndex >= fullText.length) {
         clearInterval(typingTimer);
+        paragraph.innerHTML = renderMarkdown(fullText);
         resolve();
       }
     }, 28);
@@ -597,6 +800,7 @@ applyTheme(savedTheme);
 updateMuteButton();
 showQuizQuestion();
 setupVoiceInput();
+setupSpeechVoices();
 loadAiStatus();
 loadDashboardData();
 loadMissionControl();

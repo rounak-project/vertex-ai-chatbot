@@ -26,20 +26,32 @@ Render can host Flask apps online.
 1. Push the project to GitHub.
 2. Create a new Web Service on Render.
 3. Connect the GitHub repository.
-4. Set the build command:
+4. Choose Python 3 as the runtime.
+5. Set the build command:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-5. Set the start command:
+6. Set the start command:
 
 ```bash
 gunicorn main:app
 ```
 
-6. `gunicorn` is included in `requirements.txt` for Render.
-7. Add environment variables like `GROQ_API_KEY` only in Render settings.
+7. `gunicorn` is included in `requirements.txt` for Render.
+8. Add environment variables only in Render settings:
+
+```env
+GROQ_API_KEY=your_real_groq_key
+AI_PROVIDER=groq
+FLASK_ENV=production
+```
+
+9. Open the public Render URL.
+10. Verify `/api/ai-status` shows `Groq AI Active`.
+
+This project also includes `render.yaml`, `Procfile`, and `runtime.txt` so it is ready for Render deployment.
 
 ## Option 3: PythonAnywhere
 

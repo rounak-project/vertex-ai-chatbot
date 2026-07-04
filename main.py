@@ -1,4 +1,5 @@
 import json
+import os
 import time
 from pathlib import Path
 
@@ -14,7 +15,7 @@ app = Flask(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
-NASA_APOD_URL = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+NASA_APOD_URL = "https://api.nasa.gov/planetary/apod"
 ISS_API_URL = "http://api.open-notify.org/iss-now.json"
 APOD_CACHE_SECONDS = 60 * 60
 
@@ -37,6 +38,14 @@ def load_json_file(file_name):
 
     with file_path.open("r", encoding="utf-8") as file:
         return json.load(file)
+
+
+def load_json_file_or_default(file_name, default_value):
+    """Load local JSON safely so one bad file does not crash the demo."""
+    try:
+        return load_json_file(file_name)
+    except (OSError, json.JSONDecodeError):
+        return default_value
 
 
 def add_to_chat_history(speaker, message):
@@ -70,7 +79,8 @@ def get_nasa_apod():
         return cached_data
 
     try:
-        response = requests.get(NASA_APOD_URL, timeout=8)
+        nasa_api_key = os.getenv("NASA_API_KEY", "DEMO_KEY")
+        response = requests.get(NASA_APOD_URL, params={"api_key": nasa_api_key}, timeout=8)
         response.raise_for_status()
         nasa_data = response.json()
 
@@ -91,7 +101,7 @@ def get_nasa_apod():
         APOD_CACHE["saved_at"] = current_time
         APOD_CACHE["data"] = apod_data
         return apod_data
-    except requests.RequestException:
+    except (requests.RequestException, ValueError):
         return get_backup_apod()
 
 
@@ -162,19 +172,19 @@ def nasa_apod():
 @app.route("/api/space-news")
 def space_news():
     """API route for local demo space news cards."""
-    return jsonify(load_json_file("space_news.json"))
+    return jsonify(load_json_file_or_default("space_news.json", []))
 
 
 @app.route("/api/planets")
 def planets():
     """API route for local planet information cards."""
-    return jsonify(load_json_file("planets.json"))
+    return jsonify(load_json_file_or_default("planets.json", []))
 
 
 @app.route("/api/agencies")
 def agencies():
     """API route for local space agency dashboard cards."""
-    return jsonify(load_json_file("agencies.json"))
+    return jsonify(load_json_file_or_default("agencies.json", []))
 
 
 @app.route("/api/iss")
@@ -186,8 +196,9 @@ def iss_tracker():
 @app.route("/api/launches")
 def launches():
     """API route for local demo rocket launch cards."""
-    return jsonify(load_json_file("launches.json"))
+    return jsonify(load_json_file_or_default("launches.json", []))
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    debug_mode = os.getenv("FLASK_ENV", "development") != "production"
+    app.run(host="127.0.0.1", port=5000, debug=debug_mode)

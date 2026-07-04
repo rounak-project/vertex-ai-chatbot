@@ -25,7 +25,7 @@ Suggested screenshot names:
 ## Main Features
 
 - Space chatbot with a beginner-friendly local JSON brain
-- Optional Groq AI support for extra questions
+- Optional Groq AI support for extra questions when a real API key is available
 - AI status indicator: Local Brain Active, Groq AI Active, or Offline Demo Mode
 - NASA Astronomy Picture of the Day with backup image
 - Mission Control with ISS tracker and launch dashboard
@@ -33,8 +33,10 @@ Suggested screenshot names:
 - Space Agency cards
 - Voice input using the browser Web Speech API
 - Text-to-speech using browser SpeechSynthesis
+- Better voice selection with a Stop Speaking button
 - Futuristic VERTEX avatar with thinking animation
 - Typing animation for VERTEX replies
+- Markdown-style chat replies with links, lists, code blocks, tables, and images
 - Optional sound effects with mute button
 - Theme switcher: Deep Space, Blue Neon, and Mars Red
 - Space Quiz game with score and restart
@@ -100,8 +102,32 @@ How the chatbot chooses answers:
 
 1. First it checks `data/space_knowledge.json`.
 2. If a local answer is found, it uses that answer.
-3. If no local answer is found and `GROQ_API_KEY` exists, it asks Groq.
+3. If no local answer is found and a real `GROQ_API_KEY` exists, it asks Groq.
 4. If no key exists, it shows a friendly fallback answer.
+
+## AI Flow
+
+```text
+User question
+  |
+  v
+Local JSON brain in data/space_knowledge.json
+  |
+  |-- answer found --> return local answer
+  |
+  v
+No local answer
+  |
+  |-- GROQ_API_KEY exists --> ask Groq AI
+  |
+  v
+No key, timeout, or internet issue
+  |
+  v
+Friendly offline fallback
+```
+
+The Groq prompt tells VERTEX to behave like a NASA assistant, ISRO assistant, space teacher, and friendly AI. Answers should stay space-related, be safe, be easy for Class 7, and avoid guessing.
 
 ## API Endpoints
 
@@ -116,6 +142,28 @@ How the chatbot chooses answers:
 | `/api/space-news` | GET | Gets local space news |
 | `/api/planets` | GET | Gets planet cards |
 | `/api/agencies` | GET | Gets space agency cards |
+
+## Architecture
+
+```text
+Browser UI
+  |
+  | fetch()
+  v
+Flask app in main.py
+  |
+  |-- /chat -----------------> chatbot.py
+  |                              |
+  |                              |-- local JSON brain
+  |                              |-- optional Groq AI
+  |
+  |-- /api/nasa/apod -------> NASA API or local backup image
+  |-- /api/iss -------------> ISS API or demo fallback data
+  |-- /api/launches --------> data/launches.json
+  |-- /api/space-news ------> data/space_news.json
+  |-- /api/planets ---------> data/planets.json
+  |-- /api/agencies --------> data/agencies.json
+```
 
 ## Demo Explanation
 
@@ -132,6 +180,44 @@ For the school demo:
 9. Explain the Project Summary section.
 
 Use `DEMO_SCRIPT.md` for a 2-3 minute speaking script.
+
+## Render Deployment
+
+This repository is prepared for Render with:
+
+- `render.yaml`
+- `Procfile`
+- `runtime.txt`
+- `gunicorn` in `requirements.txt`
+
+Render setup:
+
+1. Connect the GitHub repository to Render.
+2. Create a Python Web Service.
+3. Use build command:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Use start command:
+
+```bash
+gunicorn main:app
+```
+
+5. Add environment variables in Render:
+
+```env
+GROQ_API_KEY=your_real_groq_key
+AI_PROVIDER=groq
+FLASK_ENV=production
+```
+
+6. Deploy and open the Render URL.
+7. Test `/api/ai-status` and ask a question like "What are exoplanets?"
+
+The public Render URL will be available after the service is created in the Render dashboard.
 
 ## 6-Day Roadmap
 
@@ -192,7 +278,8 @@ Then test the checklist in `FINAL_CHECKLIST.md`.
 - Add saved chat history.
 - Add more quiz questions.
 - Add real space news from a news API.
-- Deploy the app online after local testing.
+- Deploy the app online on Render.
+- Add automated browser tests with Playwright.
 
 ## School Project Note
 

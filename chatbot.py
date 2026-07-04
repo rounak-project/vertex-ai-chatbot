@@ -12,7 +12,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 KNOWLEDGE_FILE = BASE_DIR / "data" / "space_knowledge.json"
-UNKNOWN_REPLY = "I am still learning about space. Please ask me another space question."
+UNKNOWN_REPLY = (
+    "I can answer that best with my online AI brain, but it is not connected right now.\n"
+    "For the demo, try asking about Mars, NASA, ISRO, the ISS, exoplanets, constellations, "
+    "black holes, rockets, or satellites."
+)
 EMPTY_REPLY = "Please type a space question for VERTEX."
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 
@@ -70,17 +74,20 @@ def ask_groq_ai(user_message):
     try:
         from groq import Groq
 
-        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"), timeout=8.0)
         response = client.chat.completions.create(
             model=GROQ_MODEL,
             messages=[
                 {
                     "role": "system",
                     "content": (
-                        "You are VERTEX, a school-friendly space AI assistant. "
-                        "Answer only in a safe, educational way. Keep answers "
-                        "simple enough for a Class 7 student. Prefer space and "
-                        "science topics. Use 5 to 8 short lines maximum."
+                        "You are VERTEX, a friendly space AI for a Class 7 school project. "
+                        "Behave like a NASA assistant, ISRO assistant, space teacher, and "
+                        "friendly AI helper. Answer only space, astronomy, rocket, satellite, "
+                        "planet, and science-learning questions. Keep answers educational, "
+                        "safe, and easy for Class 7. Use 5 to 8 short lines maximum. Include "
+                        "one simple fun fact when useful. If you are unsure, say so clearly "
+                        "instead of guessing. Do not invent missions, dates, or discoveries."
                     )
                 },
                 {
@@ -102,7 +109,7 @@ def get_ai_status():
     """Explain which VERTEX brain mode is currently available."""
     provider = os.getenv("AI_PROVIDER", "local").lower()
 
-    if provider == "groq" and has_groq_key():
+    if has_groq_key():
         return {
             "provider": "groq",
             "mode": "Groq AI Active",
@@ -134,7 +141,9 @@ def get_vertex_response(user_message):
     if local_answer:
         return local_answer
 
-    if os.getenv("AI_PROVIDER", "local").lower() == "groq" and has_groq_key():
+    # The local brain always gets first chance. If it does not know the answer,
+    # VERTEX tries Groq whenever a real key exists.
+    if has_groq_key():
         return ask_groq_ai(clean_message)
 
     return UNKNOWN_REPLY
