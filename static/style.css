@@ -224,6 +224,7 @@ select {
   min-height: 260px;
   display: grid;
   align-content: center;
+  gap: 18px;
   padding: 34px;
 }
 
@@ -296,6 +297,48 @@ h4 {
   max-width: 740px;
   margin-bottom: 0;
   font-size: 18px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  border: 1px solid rgba(70, 217, 255, 0.36);
+  border-radius: 8px;
+  padding: 0 16px;
+  color: var(--text);
+  background: rgba(70, 217, 255, 0.1);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hero-button.primary {
+  color: #041018;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.hero-button:hover {
+  filter: brightness(1.08);
+}
+
+.ai-status-card {
+  width: min(520px, 100%);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ai-status-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .section-grid {
@@ -831,6 +874,7 @@ body.presentation-mode .chat-form,
 body.presentation-mode #news,
 body.presentation-mode #planets,
 body.presentation-mode #agencies,
+body.presentation-mode #project-summary,
 body.presentation-mode #about {
   display: none;
 }
@@ -929,6 +973,11 @@ body.presentation-mode .hero {
 
   .sample-question {
     flex: 1 1 100%;
+  }
+
+  .hero-button {
+    justify-content: center;
+    width: 100%;
   }
 
   .with-action,

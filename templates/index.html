@@ -30,6 +30,7 @@
         <a href="#planets">Planets</a>
         <a href="#agencies">Agencies</a>
         <a href="#space-quiz">Space Quiz</a>
+        <a href="#project-summary">Project Summary</a>
         <a href="#about">About Vertex</a>
       </nav>
 
@@ -51,13 +52,21 @@
         <button id="exitPresentationButton" class="secondary-button" type="button">Exit Presentation Mode</button>
       </div>
 
-      <section class="hero glass-panel">
-        <p class="eyebrow">Day 5 Futuristic Assistant</p>
-        <h1>VERTEX</h1>
+      <section id="demo-start" class="hero glass-panel">
+        <p class="eyebrow">Final School Demo</p>
+        <h1>VERTEX – Space AI Assistant</h1>
         <p class="subtitle">
-          Ask space questions, view NASA's picture of the day, explore planets,
-          track the ISS, review rocket launches, play a quiz, and present your school demo.
+          A Class 7 school project powered by Flask, NASA data, and AI.
         </p>
+        <div class="hero-actions">
+          <a class="hero-button primary" href="#demo-start">Start Demo</a>
+          <a class="hero-button" href="#chat">Ask Vertex</a>
+          <a class="hero-button" href="#mission-control">Mission Control</a>
+        </div>
+        <article class="ai-status-card" aria-label="AI brain status">
+          <span id="aiStatusMode" class="tag">Checking AI status...</span>
+          <p id="aiStatusMessage">VERTEX is checking which brain is active.</p>
+        </article>
       </section>
 
       <section id="chat" class="section-grid">
@@ -201,6 +210,51 @@
           <div id="quizChoices" class="quiz-choices"></div>
           <p id="quizFeedback" class="quiz-feedback"></p>
           <button id="restartQuizButton" class="secondary-button" type="button">Restart Quiz</button>
+        </div>
+      </section>
+
+      <section id="project-summary" class="about-section glass-panel">
+        <p class="eyebrow">Final Summary</p>
+        <h2>Project Summary</h2>
+
+        <div class="about-grid">
+          <article>
+            <h3>What Is Vertex?</h3>
+            <p>
+              VERTEX is a space-themed AI assistant dashboard made with Python, Flask,
+              HTML, CSS, JavaScript, NASA data, and an optional Groq AI brain.
+            </p>
+          </article>
+          <article>
+            <h3>What Problem Does It Solve?</h3>
+            <p>
+              It makes space learning more interactive by combining chatbot answers,
+              space facts, NASA images, mission data, and a quiz in one demo.
+            </p>
+          </article>
+          <article>
+            <h3>Features</h3>
+            <ul>
+              <li>Chatbot with local brain and optional AI API.</li>
+              <li>NASA image, ISS tracker, launches, planets, and agencies.</li>
+              <li>Voice input, speech output, themes, quiz, and presentation mode.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Technologies Used</h3>
+            <ul>
+              <li>Python, Flask, JSON, and environment variables.</li>
+              <li>HTML, CSS variables, JavaScript fetch, and browser APIs.</li>
+              <li>NASA API, ISS API, and optional Groq API.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>What I Learned</h3>
+            <p>
+              I learned how a web app sends requests, loads data, handles errors,
+              stores settings, and connects a simple chatbot to optional AI.
+            </p>
+          </article>
         </div>
       </section>
 

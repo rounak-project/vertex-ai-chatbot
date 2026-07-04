@@ -24,6 +24,8 @@ const quizQuestion = document.querySelector("#quizQuestion");
 const quizChoices = document.querySelector("#quizChoices");
 const quizFeedback = document.querySelector("#quizFeedback");
 const restartQuizButton = document.querySelector("#restartQuizButton");
+const aiStatusMode = document.querySelector("#aiStatusMode");
+const aiStatusMessage = document.querySelector("#aiStatusMessage");
 const backupSpaceImage = "/static/images/apod-backup.svg";
 const savedTheme = localStorage.getItem("vertex-theme") || "deep-space";
 const savedMute = localStorage.getItem("vertex-muted") === "true";
@@ -473,6 +475,17 @@ async function loadMissionControl() {
   missionUpdatedText.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
 }
 
+async function loadAiStatus() {
+  try {
+    const status = await fetchJson("/api/ai-status");
+    aiStatusMode.textContent = status.mode;
+    aiStatusMessage.textContent = status.message;
+  } catch (error) {
+    aiStatusMode.textContent = "Offline Demo Mode";
+    aiStatusMessage.textContent = "AI status could not load, but the local demo can still run.";
+  }
+}
+
 planetSearch.addEventListener("input", filterPlanets);
 refreshMissionButton.addEventListener("click", loadMissionControl);
 
@@ -584,5 +597,6 @@ applyTheme(savedTheme);
 updateMuteButton();
 showQuizQuestion();
 setupVoiceInput();
+loadAiStatus();
 loadDashboardData();
 loadMissionControl();

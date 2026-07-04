@@ -6,10 +6,9 @@ import requests
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, url_for
 
-from chatbot import get_vertex_response
-
-
 load_dotenv()
+
+from chatbot import get_ai_status, get_vertex_response
 
 app = Flask(__name__)
 
@@ -146,6 +145,12 @@ def chat():
     add_to_chat_history("vertex", vertex_response)
 
     return jsonify({"response": vertex_response})
+
+
+@app.route("/api/ai-status")
+def ai_status():
+    """API route that tells the frontend which VERTEX brain is active."""
+    return jsonify(get_ai_status())
 
 
 @app.route("/api/nasa/apod")
