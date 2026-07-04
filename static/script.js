@@ -18,6 +18,7 @@ const themeSelect = document.querySelector("#themeSelect");
 const muteButton = document.querySelector("#muteButton");
 const presentationButton = document.querySelector("#presentationButton");
 const exitPresentationButton = document.querySelector("#exitPresentationButton");
+const autoSpeakToggle = document.querySelector("#autoSpeakToggle");
 const quizPlayerName = document.querySelector("#quizPlayerName");
 const quizModeSelect = document.querySelector("#quizModeSelect");
 const quizDifficultySelect = document.querySelector("#quizDifficultySelect");
@@ -67,9 +68,14 @@ const tenAiQuizButton = document.querySelector("#tenAiQuizButton");
 const backupSpaceImage = "/static/images/apod-backup.svg";
 const savedTheme = localStorage.getItem("vertex-theme") || "deep-space";
 const savedMute = localStorage.getItem("vertex-muted") === "true";
+const savedAutoSpeak = localStorage.getItem("vertex-auto-speak");
 let allPlanets = [];
 let soundsMuted = savedMute;
+let autoSpeakEnabled = savedAutoSpeak === null ? true : savedAutoSpeak === "true";
 let preferredVoice = null;
+let activeReplyTurnId = 0;
+let activeThinkingCleanup = null;
+let activeTypingCleanup = null;
 
 const quizStorageKey = "vertex-quiz-academy";
 const quizLeaderboardKey = "vertex-quiz-leaderboard";
@@ -142,6 +148,14 @@ function playSound(soundName) {
 function setThinkingState(isThinking) {
   vertexAvatar.classList.toggle("is-thinking", isThinking);
   avatarStatus.textContent = isThinking ? "Thinking about your question..." : "Ready for your next space question.";
+}
+
+function updateAutoSpeakToggle() {
+  if (!autoSpeakToggle) {
+    return;
+  }
+
+  autoSpeakToggle.checked = autoSpeakEnabled;
 }
 
 function updateMuteButton() {
@@ -282,14 +296,18 @@ function chooseBestVoice() {
 
   const voices = window.speechSynthesis.getVoices();
   const preferredNames = [
-    "Google UK English Female",
-    "Google US English",
     "Microsoft Aria",
     "Microsoft Jenny",
-    "Microsoft David"
+    "Google UK English Female",
+    "Google US English",
+    "Any English voice"
   ];
 
   for (const voiceName of preferredNames) {
+    if (voiceName === "Any English voice") {
+      continue;
+    }
+
     const match = voices.find((voice) => voice.name.includes(voiceName));
     if (match) {
       return match;
@@ -297,6 +315,69 @@ function chooseBestVoice() {
   }
 
   return voices.find((voice) => voice.lang.toLowerCase().startsWith("en")) || voices[0] || null;
+}
+
+function stopSpeaking() {
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+  }
+}
+
+function shouldAutoSpeakReply(text) {
+  return autoSpeakEnabled && Boolean(String(text || "").trim());
+}
+
+function stripMarkdownForSpeech(text) {
+  return String(text || "")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g, "$1")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, "$1")
+    .replace(/[*_`>#]/g, " ")
+    .replace(/^\s*[-*]\s+/gm, "")
+    .replace(/^\s*\d+\.\s+/gm, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function speakCompletedReply(text) {
+  if (!("speechSynthesis" in window)) {
+    return;
+  }
+
+  const replyText = stripMarkdownForSpeech(text);
+  if (!replyText) {
+    return;
+  }
+
+  preferredVoice = preferredVoice || chooseBestVoice();
+  if (!preferredVoice) {
+    return;
+  }
+
+  const speech = new SpeechSynthesisUtterance(replyText);
+  speech.rate = 0.95;
+  speech.pitch = 1.0;
+  speech.volume = 1;
+  speech.voice = preferredVoice;
+  speech.lang = preferredVoice.lang || "en-US";
+  stopSpeaking();
+  window.speechSynthesis.speak(speech);
+}
+
+function beginNewReplyTurn() {
+  activeReplyTurnId += 1;
+  activeThinkingCleanup?.();
+  activeThinkingCleanup = null;
+  activeTypingCleanup?.();
+  activeTypingCleanup = null;
+  stopSpeaking();
+  return activeReplyTurnId;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
 }
 
 function setupSpeechVoices() {
@@ -311,7 +392,7 @@ function setupSpeechVoices() {
 }
 
 // This function adds a new message bubble to the chat window.
-function addMessage(speaker, text, type) {
+function addMessage(speaker, text, type, options = {}) {
   const message = document.createElement("div");
   message.className = `message ${type}`;
 
@@ -340,30 +421,23 @@ function addMessage(speaker, text, type) {
     message.appendChild(unavailable);
   }
 
-  if (type === "bot" && "speechSynthesis" in window) {
+  if (type === "bot" && options.speakable !== false && "speechSynthesis" in window) {
     const actions = document.createElement("div");
     actions.className = "message-actions";
 
     const speakButton = document.createElement("button");
     speakButton.className = "speaker-button";
     speakButton.type = "button";
-    speakButton.textContent = "Speak";
+    speakButton.textContent = "Speak Again";
     speakButton.title = "Read this Vertex reply";
     speakButton.addEventListener("click", () => {
       preferredVoice = preferredVoice || chooseBestVoice();
 
       if (!preferredVoice) {
-        addMessage("VERTEX", "Voice is not available in this browser, but you can still read my reply.", "bot");
         return;
       }
 
-      const speech = new SpeechSynthesisUtterance(text);
-      speech.rate = 0.95;
-      speech.pitch = 1.0;
-      speech.volume = 1;
-      speech.voice = preferredVoice;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(speech);
+      speakCompletedReply(text);
     });
 
     const stopButton = document.createElement("button");
@@ -372,7 +446,7 @@ function addMessage(speaker, text, type) {
     stopButton.textContent = "Stop Speaking";
     stopButton.title = "Stop reading this Vertex reply";
     stopButton.addEventListener("click", () => {
-      window.speechSynthesis.cancel();
+      stopSpeaking();
     });
 
     actions.appendChild(speakButton);
@@ -387,12 +461,18 @@ function addMessage(speaker, text, type) {
 }
 
 // This function types one VERTEX reply letter by letter.
-function typeBotReply(paragraph, fullText) {
+function typeBotReply(messageNode, paragraph, fullText, turnId) {
   let letterIndex = 0;
   paragraph.textContent = "";
 
   return new Promise((resolve) => {
     const typingTimer = setInterval(() => {
+      if (turnId !== activeReplyTurnId) {
+        clearInterval(typingTimer);
+        resolve(false);
+        return;
+      }
+
       paragraph.textContent += fullText.charAt(letterIndex);
       letterIndex += 1;
       chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -400,9 +480,15 @@ function typeBotReply(paragraph, fullText) {
       if (letterIndex >= fullText.length) {
         clearInterval(typingTimer);
         paragraph.innerHTML = renderMarkdown(fullText);
-        resolve();
+        resolve(true);
       }
     }, 28);
+
+    activeTypingCleanup = () => {
+      clearInterval(typingTimer);
+      messageNode.remove();
+      resolve(false);
+    };
   });
 }
 
@@ -432,12 +518,16 @@ chatForm.addEventListener("submit", async (event) => {
     return;
   }
 
+  const replyTurnId = beginNewReplyTurn();
   addMessage("You", message, "user");
   playSound("send");
   userInput.value = "";
 
   setThinkingState(true);
   const thinkingMessage = addMessage("VERTEX", "Vertex is thinking...", "bot thinking");
+  activeThinkingCleanup = () => {
+    thinkingMessage.message.remove();
+  };
 
   try {
     const fetchReply = fetch("/chat", {
@@ -449,19 +539,42 @@ chatForm.addEventListener("submit", async (event) => {
     });
 
     const [response] = await Promise.all([fetchReply, waitOneSecond()]);
+    if (replyTurnId !== activeReplyTurnId) {
+      return;
+    }
+
     const data = await response.json();
     thinkingMessage.message.remove();
+    activeThinkingCleanup = null;
     const botReply = addMessage("VERTEX", data.response, "bot");
-    await typeBotReply(botReply.paragraph, data.response);
+    const finishedTyping = await typeBotReply(botReply.message, botReply.paragraph, data.response, replyTurnId);
+    activeTypingCleanup = null;
+    if (!finishedTyping || replyTurnId !== activeReplyTurnId) {
+      return;
+    }
+
     playSound("reply");
+    await sleep(300);
+    if (replyTurnId === activeReplyTurnId && shouldAutoSpeakReply(data.response)) {
+      speakCompletedReply(data.response);
+    }
   } catch (error) {
     await waitOneSecond();
+    if (replyTurnId !== activeReplyTurnId) {
+      return;
+    }
+
     thinkingMessage.message.remove();
+    activeThinkingCleanup = null;
     const errorText = "Connection problem. Please check if Flask is running.";
-    const botReply = addMessage("VERTEX", errorText, "bot");
-    await typeBotReply(botReply.paragraph, errorText);
+    const botReply = addMessage("VERTEX", errorText, "bot", { speakable: false });
+    await typeBotReply(botReply.message, botReply.paragraph, errorText, replyTurnId);
+    activeTypingCleanup = null;
   } finally {
-    setThinkingState(false);
+    if (replyTurnId === activeReplyTurnId) {
+      setThinkingState(false);
+      activeThinkingCleanup = null;
+    }
   }
 });
 
@@ -1329,9 +1442,16 @@ fillBlankForm.addEventListener("submit", (event) => {
 printCertificateButton.addEventListener("click", () => window.print());
 
 applyTheme(savedTheme);
+updateAutoSpeakToggle();
 updateMuteButton();
 setupVoiceInput();
 setupSpeechVoices();
+if (autoSpeakToggle) {
+  autoSpeakToggle.addEventListener("change", () => {
+    autoSpeakEnabled = autoSpeakToggle.checked;
+    localStorage.setItem("vertex-auto-speak", String(autoSpeakEnabled));
+  });
+}
 loadAiStatus();
 loadDashboardData();
 loadMissionControl();

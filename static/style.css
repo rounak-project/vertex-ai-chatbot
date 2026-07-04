@@ -199,6 +199,31 @@ body::before {
   font-weight: 700;
 }
 
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 12px;
+  background: var(--input-bg);
+}
+
+.toggle-row span {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.toggle-row input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent-2);
+}
+
 select {
   min-height: 40px;
   border: 1px solid var(--line);
