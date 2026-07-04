@@ -26,7 +26,7 @@ Suggested screenshot names:
 
 - Space chatbot with a beginner-friendly local JSON brain
 - Optional Groq AI support for extra questions when a real API key is available
-- AI status indicator: Local Brain Active, Groq AI Active, or Offline Demo Mode
+- AI status indicator and `/admin/ai-test` diagnostics page
 - NASA Astronomy Picture of the Day with backup image
 - Mission Control with ISS tracker and launch dashboard
 - Planet Explorer cards
@@ -102,8 +102,10 @@ How the chatbot chooses answers:
 
 1. First it checks `data/space_knowledge.json`.
 2. If a local answer is found, it uses that answer.
-3. If no local answer is found and a real `GROQ_API_KEY` exists, it asks Groq.
-4. If no key exists, it shows a friendly fallback answer.
+3. If no local answer is found, `AI_PROVIDER=groq`, and a real `GROQ_API_KEY` exists, it asks Groq.
+4. If Groq is missing, rejected, rate limited, timed out, or unreachable, it shows: `I'm currently offline, but here's what I know.`
+
+Never commit a real Groq key. Add it locally in `.env` or in the Render environment variable dashboard.
 
 ## AI Flow
 
@@ -118,10 +120,10 @@ Local JSON brain in data/space_knowledge.json
   v
 No local answer
   |
-  |-- GROQ_API_KEY exists --> ask Groq AI
+  |-- AI_PROVIDER=groq and GROQ_API_KEY exists --> ask Groq AI
   |
   v
-No key, timeout, or internet issue
+No key, timeout, rate limit, bad model, or internet issue
   |
   v
 Friendly offline fallback
@@ -129,13 +131,55 @@ Friendly offline fallback
 
 The Groq prompt tells VERTEX to behave like a NASA assistant, ISRO assistant, space teacher, and friendly AI. Answers should stay space-related, be safe, be easy for Class 7, and avoid guessing.
 
+The local knowledge base contains 100+ beginner-friendly topics, including planets, stars, galaxies, nebulae, constellations, exoplanets, black holes, dark matter, dark energy, asteroids, comets, meteors, meteorites, the ISS, rockets, Apollo, Artemis, Voyager, Hubble, James Webb, Chandrayaan, Mangalyaan, Gaganyaan, Aditya-L1, PSLV, GSLV, Falcon 9, Starship, Blue Origin, ESA, JAXA, Roscosmos, SpaceX, NASA, and ISRO.
+
+## AI Health Checks
+
+Open:
+
+```text
+/api/ai-status
+```
+
+Online example:
+
+```json
+{
+  "provider": "groq",
+  "connected": true,
+  "api_key_loaded": true,
+  "mode": "online"
+}
+```
+
+Offline example:
+
+```json
+{
+  "provider": "local",
+  "connected": false,
+  "api_key_loaded": false,
+  "mode": "offline"
+}
+```
+
+For a browser diagnostics page, open:
+
+```text
+/admin/ai-test
+```
+
+It shows API key loaded, Groq connected, AI provider, last AI response, response time, and local knowledge count. The app logs useful diagnostics such as provider, model, key status, response time, and friendly error reason, but it never logs the API key value.
+
 ## API Endpoints
 
 | Endpoint | Method | What it does |
 | --- | --- | --- |
 | `/` | GET | Opens the VERTEX dashboard |
+| `/admin/ai-test` | GET | Opens the AI diagnostics page |
 | `/chat` | POST | Sends a user message to the chatbot brain |
 | `/api/ai-status` | GET | Shows current AI mode |
+| `/api/ai-test` | GET | Shows detailed AI diagnostics |
 | `/api/nasa/apod` | GET | Gets NASA Picture of the Day or backup image |
 | `/api/iss` | GET | Gets ISS location or demo fallback |
 | `/api/launches` | GET | Gets local rocket launch data |
@@ -154,9 +198,12 @@ Flask app in main.py
   |
   |-- /chat -----------------> chatbot.py
   |                              |
-  |                              |-- local JSON brain
-  |                              |-- optional Groq AI
+  |                              |-- local JSON brain first
+  |                              |-- optional Groq AI second
+  |                              |-- friendly offline fallback
   |
+  |-- /api/ai-status -------> chatbot.py diagnostics
+  |-- /admin/ai-test -------> admin diagnostics page
   |-- /api/nasa/apod -------> NASA API or local backup image
   |-- /api/iss -------------> ISS API or demo fallback data
   |-- /api/launches --------> data/launches.json
@@ -211,13 +258,56 @@ gunicorn main:app
 ```env
 GROQ_API_KEY=your_real_groq_key
 AI_PROVIDER=groq
+GROQ_MODEL=llama-3.1-8b-instant
 FLASK_ENV=production
 ```
 
 6. Deploy and open the Render URL.
-7. Test `/api/ai-status` and ask a question like "What are exoplanets?"
+7. Test `/api/ai-status`, `/admin/ai-test`, and ask a question like "What are exoplanets?"
 
 The public Render URL will be available after the service is created in the Render dashboard.
+
+The repository deployment files are:
+
+- `render.yaml`: Python web service, `pip install -r requirements.txt`, `gunicorn main:app`, `AI_PROVIDER=groq`, `GROQ_MODEL=llama-3.1-8b-instant`, `FLASK_ENV=production`, and secret `GROQ_API_KEY`.
+- `Procfile`: `web: gunicorn main:app`
+- `runtime.txt`: Python 3.11.9
+- `requirements.txt`: includes Flask, gunicorn, groq, python-dotenv, and requests.
+
+## Troubleshooting Groq
+
+If `/api/ai-status` says `api_key_loaded: false`:
+
+- Add `GROQ_API_KEY` in Render Dashboard -> Service -> Environment.
+- Make sure the value is the real key, not `your_groq_api_key_here`.
+- Redeploy or restart the Render service after saving the variable.
+
+If Groq returns 401:
+
+- The key is missing, copied incorrectly, revoked, or belongs to the wrong account.
+
+If Groq returns 403:
+
+- The account or key does not have permission for the requested model.
+
+If Groq returns 429:
+
+- The Groq account is rate limited. Wait and try again.
+
+If Groq times out or shows a network error:
+
+- The app could not reach Groq from the server at that moment. The local knowledge base still works.
+
+If the model is invalid:
+
+- Set `GROQ_MODEL=llama-3.1-8b-instant` in Render and redeploy.
+
+If Render still behaves like no key exists:
+
+- Check the variable name exactly: `GROQ_API_KEY`.
+- Check that it is added to the correct Render service.
+- Open `/admin/ai-test` and inspect API key loaded, Groq connected, response time, and last error.
+- Read Render logs. VERTEX logs key status as `missing`, `placeholder`, or `loaded`, but never prints the key.
 
 ## 6-Day Roadmap
 
@@ -249,6 +339,7 @@ vertex-ai-chatbot/
 │   ├── script.js
 │   └── style.css
 ├── templates/
+│   ├── ai_test.html
 │   └── index.html
 ├── DEMO_SCRIPT.md
 ├── DEPLOYMENT.md

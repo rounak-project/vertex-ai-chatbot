@@ -1,114 +1,619 @@
 {
   "planets": [
     {
+      "name": "Mercury",
+      "keywords": ["mercury", "smallest planet", "closest planet"],
+      "answer": "Mercury is the smallest planet and the closest planet to the Sun. It has almost no atmosphere, so days are extremely hot and nights are extremely cold."
+    },
+    {
+      "name": "Venus",
+      "keywords": ["venus", "hottest planet", "evening star", "morning star"],
+      "answer": "Venus is the hottest planet because its thick carbon dioxide atmosphere traps heat. It is similar in size to Earth, but its surface is far too hot and pressurized for humans."
+    },
+    {
       "name": "Earth",
       "keywords": ["earth", "planet earth", "home planet", "blue planet"],
-      "answer": "Earth is our home planet. It has air, water, land, and life, which makes it very special in our solar system."
+      "answer": "Earth is our home planet. It has liquid water, breathable air, land, oceans, and life, which makes it very special in our solar system."
     },
     {
       "name": "Mars",
       "keywords": ["mars", "red planet"],
-      "answer": "Mars is called the Red Planet because iron-rich dust gives its surface a rusty red color. Scientists study Mars to learn if life ever existed there."
+      "answer": "Mars is called the Red Planet because iron-rich dust gives its surface a rusty red color. Scientists study Mars to learn whether life ever existed there."
     },
     {
       "name": "Jupiter",
       "keywords": ["jupiter", "gas giant", "great red spot"],
-      "answer": "Jupiter is the largest planet in our solar system. It is a gas giant and has a huge storm called the Great Red Spot."
+      "answer": "Jupiter is the largest planet in our solar system. It is a gas giant with many moons and a huge storm called the Great Red Spot."
+    },
+    {
+      "name": "Saturn",
+      "keywords": ["saturn", "rings of saturn", "ringed planet"],
+      "answer": "Saturn is famous for its bright rings made of ice, rock, and dust. It is a gas giant and is much larger than Earth."
+    },
+    {
+      "name": "Uranus",
+      "keywords": ["uranus", "ice giant", "sideways planet"],
+      "answer": "Uranus is an ice giant that rotates on its side. Its blue-green color comes from methane gas in its atmosphere."
+    },
+    {
+      "name": "Neptune",
+      "keywords": ["neptune", "windy planet", "farthest planet"],
+      "answer": "Neptune is the farthest major planet from the Sun. It is an ice giant with powerful winds and a deep blue color."
+    },
+    {
+      "name": "Dwarf Planets",
+      "keywords": ["dwarf planet", "dwarf planets", "pluto", "ceres", "eris"],
+      "answer": "Dwarf planets are worlds that orbit the Sun but have not cleared their orbital path. Pluto, Ceres, Eris, Haumea, and Makemake are examples."
+    },
+    {
+      "name": "Solar System",
+      "keywords": ["solar system", "our solar system", "planets around the sun"],
+      "answer": "The solar system includes the Sun, eight planets, dwarf planets, moons, asteroids, comets, dust, and gas. Gravity keeps all these objects moving around the Sun."
+    },
+    {
+      "name": "Planet",
+      "keywords": ["what is a planet", "planet meaning", "define planet"],
+      "answer": "A planet is a large round object that orbits a star and does not make its own light. Planets shine because they reflect light from their star."
+    },
+    {
+      "name": "Terrestrial Planets",
+      "keywords": ["terrestrial planet", "rocky planet", "inner planets"],
+      "answer": "Terrestrial planets are rocky planets with solid surfaces. Mercury, Venus, Earth, and Mars are the rocky planets in our solar system."
+    },
+    {
+      "name": "Gas Giants",
+      "keywords": ["gas giant", "gas giants", "outer planets"],
+      "answer": "Gas giants are huge planets made mostly of hydrogen and helium. Jupiter and Saturn are gas giants in our solar system."
+    },
+    {
+      "name": "Ice Giants",
+      "keywords": ["ice giant", "ice giants"],
+      "answer": "Ice giants are large planets with gases plus icy materials like water, ammonia, and methane. Uranus and Neptune are ice giants."
+    },
+    {
+      "name": "Planetary Atmosphere",
+      "keywords": ["atmosphere", "planet atmosphere", "air on planets"],
+      "answer": "A planetary atmosphere is a layer of gases around a planet. Atmospheres can protect planets, affect temperature, and create weather."
     }
   ],
   "stars": [
     {
       "name": "Sun",
-      "keywords": ["sun", "solar", "star"],
+      "keywords": ["sun", "solar", "our star"],
       "answer": "The Sun is a huge star at the center of our solar system. It gives Earth the light and heat needed for life."
     },
     {
-      "name": "Constellations",
-      "keywords": ["constellation", "constellations", "orion", "ursa major", "star pattern"],
-      "answer": "Constellations are patterns of stars that people imagine as shapes in the night sky.\n- Orion looks like a hunter and is easy to spot.\n- Ursa Major contains the Big Dipper pattern.\n- Astronomers use constellations like a map of the sky.\nFun fact: There are 88 official constellations."
-    }
-  ],
-  "moons": [
+      "name": "Star",
+      "keywords": ["what is a star", "star", "stars"],
+      "answer": "A star is a giant ball of hot gas that makes light and heat through nuclear fusion. The Sun is the closest star to Earth."
+    },
     {
-      "name": "Moon",
-      "keywords": ["moon", "lunar"],
-      "answer": "The Moon is Earth's natural satellite. It reflects sunlight, affects ocean tides, and is the only world beyond Earth where humans have walked."
+      "name": "Nuclear Fusion",
+      "keywords": ["fusion", "nuclear fusion", "how stars shine"],
+      "answer": "Nuclear fusion is the process that powers stars. In a star's core, hydrogen atoms join to form helium and release a huge amount of energy."
+    },
+    {
+      "name": "Red Giant",
+      "keywords": ["red giant", "giant star"],
+      "answer": "A red giant is an older star that has expanded and cooled on the outside. Our Sun will become a red giant far in the future."
+    },
+    {
+      "name": "White Dwarf",
+      "keywords": ["white dwarf", "dead star"],
+      "answer": "A white dwarf is the hot leftover core of a small or medium star after it runs out of fuel. It slowly cools over a very long time."
+    },
+    {
+      "name": "Supernova",
+      "keywords": ["supernova", "exploding star", "star explosion"],
+      "answer": "A supernova is a giant star explosion. It can create heavy elements and leave behind a neutron star or black hole."
+    },
+    {
+      "name": "Neutron Star",
+      "keywords": ["neutron star", "pulsar"],
+      "answer": "A neutron star is an extremely dense leftover core from a massive star. A sugar-cube-sized piece would have enormous mass."
+    },
+    {
+      "name": "Binary Stars",
+      "keywords": ["binary star", "binary stars", "double star"],
+      "answer": "Binary stars are two stars that orbit each other. Many stars in the galaxy are part of binary or multiple-star systems."
+    },
+    {
+      "name": "Sirius",
+      "keywords": ["sirius", "dog star", "brightest star"],
+      "answer": "Sirius, also called the Dog Star, is the brightest star in Earth's night sky. It is actually a two-star system."
+    },
+    {
+      "name": "Light Year",
+      "keywords": ["light year", "light-year", "distance in space"],
+      "answer": "A light-year is a distance, not a time. It is how far light travels in one year, about 9.46 trillion kilometers."
     }
   ],
-  "galaxies": [
+  "galaxies_and_cosmos": [
+    {
+      "name": "Galaxy",
+      "keywords": ["galaxy", "galaxies"],
+      "answer": "A galaxy is a giant group of stars, gas, dust, planets, and dark matter held together by gravity. Our solar system is in the Milky Way galaxy."
+    },
     {
       "name": "Milky Way",
-      "keywords": ["galaxy", "galaxies", "milky way"],
-      "answer": "A galaxy is a giant group of stars, gas, dust, and planets. Our solar system is inside a galaxy called the Milky Way."
+      "keywords": ["milky way", "our galaxy"],
+      "answer": "The Milky Way is our home galaxy. It is a spiral galaxy with billions of stars, including our Sun."
     },
     {
-      "name": "Exoplanets",
-      "keywords": ["exoplanet", "exoplanets", "planet outside solar system", "planets outside our solar system"],
-      "answer": "Exoplanets are planets that orbit stars outside our solar system.\n- Some are rocky like Earth.\n- Some are huge gas giants like Jupiter.\n- Scientists find them by watching stars dim slightly.\nFun fact: Thousands of exoplanets have already been discovered."
+      "name": "Andromeda Galaxy",
+      "keywords": ["andromeda", "andromeda galaxy"],
+      "answer": "The Andromeda Galaxy is the nearest large spiral galaxy to the Milky Way. It is slowly moving toward our galaxy."
     },
     {
-      "name": "Black Hole",
-      "keywords": ["black hole", "black holes"],
-      "answer": "A black hole is a place in space where gravity is so strong that nothing, not even light, can escape from it."
+      "name": "Spiral Galaxy",
+      "keywords": ["spiral galaxy", "spiral galaxies"],
+      "answer": "A spiral galaxy has a flat disk with curved arms of stars, gas, and dust. The Milky Way is a spiral galaxy."
+    },
+    {
+      "name": "Elliptical Galaxy",
+      "keywords": ["elliptical galaxy", "oval galaxy"],
+      "answer": "An elliptical galaxy looks round or oval and often contains many older stars. It usually has less gas and dust than a spiral galaxy."
+    },
+    {
+      "name": "Nebula",
+      "keywords": ["nebula", "nebulae", "space cloud"],
+      "answer": "A nebula is a huge cloud of gas and dust in space. Some nebulae are star nurseries where new stars form."
+    },
+    {
+      "name": "Orion Nebula",
+      "keywords": ["orion nebula", "m42"],
+      "answer": "The Orion Nebula is a bright star-forming cloud in the Orion constellation. It is one of the easiest nebulae to see with binoculars or a small telescope."
+    },
+    {
+      "name": "Crab Nebula",
+      "keywords": ["crab nebula"],
+      "answer": "The Crab Nebula is the leftover cloud from a supernova seen from Earth in 1054. A fast-spinning neutron star sits near its center."
+    },
+    {
+      "name": "Planetary Nebula",
+      "keywords": ["planetary nebula", "ring nebula"],
+      "answer": "A planetary nebula forms when a dying Sun-like star sheds its outer layers. It is not actually a planet; early telescopes just made it look planet-shaped."
+    },
+    {
+      "name": "Dark Matter",
+      "keywords": ["dark matter", "invisible matter"],
+      "answer": "Dark matter is invisible material that does not give off light, but its gravity affects galaxies. Scientists know it exists because galaxies move as if extra mass is present."
+    },
+    {
+      "name": "Dark Energy",
+      "keywords": ["dark energy", "expanding universe"],
+      "answer": "Dark energy is the name for the mysterious cause of the universe's faster expansion. Scientists are still trying to understand what it really is."
+    },
+    {
+      "name": "Big Bang",
+      "keywords": ["big bang", "beginning of universe"],
+      "answer": "The Big Bang is the idea that the universe began in a very hot, dense state about 13.8 billion years ago and has been expanding ever since."
+    },
+    {
+      "name": "Universe",
+      "keywords": ["universe", "cosmos", "what is outer space"],
+      "answer": "The universe is everything that exists: space, time, matter, energy, planets, stars, galaxies, and more."
+    },
+    {
+      "name": "Cosmic Microwave Background",
+      "keywords": ["cosmic microwave background", "cmb"],
+      "answer": "The cosmic microwave background is faint leftover radiation from the early universe. It helps scientists study what the universe was like when it was young."
+    },
+    {
+      "name": "Gravity",
+      "keywords": ["gravity", "gravitational force"],
+      "answer": "Gravity is the force that pulls objects with mass toward each other. It keeps planets in orbit, holds galaxies together, and pulls us toward Earth."
     }
   ],
-  "space_agencies": [
+  "constellations": [
     {
-      "name": "NASA",
-      "keywords": ["nasa", "apollo", "artemis"],
-      "answer": "NASA is the space agency of the United States. It studies Earth, planets, stars, and sends astronauts and spacecraft into space."
+      "name": "Constellations",
+      "keywords": ["constellation", "constellations", "star pattern"],
+      "answer": "Constellations are official patterns or regions of stars in the sky. Astronomers use 88 constellations like a map for finding objects in space."
     },
     {
-      "name": "ISRO",
-      "keywords": ["isro", "india space", "indian space", "chandrayaan", "mangalyaan"],
-      "answer": "ISRO is India's space agency. It builds satellites, launches rockets, and works on missions like Chandrayaan and Mangalyaan."
+      "name": "Orion",
+      "keywords": ["orion", "orion constellation", "hunter constellation"],
+      "answer": "Orion is a famous constellation that looks like a hunter. Its three bright belt stars are easy to spot in the night sky."
     },
     {
-      "name": "SpaceX",
-      "keywords": ["spacex", "space x", "falcon", "starship"],
-      "answer": "SpaceX is a private space company. It builds reusable rockets like Falcon 9 and is developing Starship for future space travel."
+      "name": "Ursa Major",
+      "keywords": ["ursa major", "big dipper", "great bear"],
+      "answer": "Ursa Major means Great Bear. It contains the Big Dipper pattern, which can help people find the North Star."
+    },
+    {
+      "name": "Ursa Minor",
+      "keywords": ["ursa minor", "little dipper", "north star", "polaris"],
+      "answer": "Ursa Minor means Little Bear. Polaris, the North Star, is part of this constellation and helps show the direction north."
+    },
+    {
+      "name": "Cassiopeia",
+      "keywords": ["cassiopeia", "w shaped constellation"],
+      "answer": "Cassiopeia is a constellation that often looks like a W or M in the sky. It is useful for finding your way around the northern sky."
+    },
+    {
+      "name": "Scorpius",
+      "keywords": ["scorpius", "scorpio constellation"],
+      "answer": "Scorpius is a constellation shaped like a scorpion. It contains Antares, a bright reddish star."
+    },
+    {
+      "name": "Leo",
+      "keywords": ["leo constellation", "leo"],
+      "answer": "Leo is a constellation named after a lion. It is one of the zodiac constellations and is easy to recognize by its sickle-shaped pattern."
+    },
+    {
+      "name": "Zodiac",
+      "keywords": ["zodiac", "zodiac constellations"],
+      "answer": "The zodiac is a band of constellations along the Sun's apparent path in the sky. Astronomers use it to describe positions, but astrology is not science."
     }
   ],
-  "missions": [
+  "small_bodies": [
     {
-      "name": "ISS Location",
-      "keywords": ["where is the iss", "where is iss", "iss location", "track iss", "iss tracker"],
-      "answer": "The ISS keeps moving around Earth very quickly. Open Mission Control in VERTEX to see its latest latitude and longitude."
+      "name": "Asteroid",
+      "keywords": ["asteroid", "asteroids"],
+      "answer": "Asteroids are rocky objects that orbit the Sun. Many are found in the asteroid belt between Mars and Jupiter."
     },
     {
-      "name": "International Space Station",
-      "keywords": ["iss", "international space station", "space station"],
-      "answer": "The ISS, or International Space Station, is a science laboratory that orbits Earth. Astronauts live and work there to study space."
+      "name": "Asteroid Belt",
+      "keywords": ["asteroid belt", "main belt"],
+      "answer": "The asteroid belt is a region between Mars and Jupiter where many rocky asteroids orbit the Sun."
+    },
+    {
+      "name": "Comet",
+      "keywords": ["comet", "comets"],
+      "answer": "Comets are icy objects that orbit the Sun. When they get close to the Sun, ice turns to gas and can form a glowing tail."
+    },
+    {
+      "name": "Kuiper Belt",
+      "keywords": ["kuiper belt", "pluto region"],
+      "answer": "The Kuiper Belt is a faraway region beyond Neptune filled with icy objects. Pluto is one of its most famous worlds."
+    },
+    {
+      "name": "Oort Cloud",
+      "keywords": ["oort cloud"],
+      "answer": "The Oort Cloud is a distant, icy cloud thought to surround the solar system. Many long-period comets may come from there."
+    },
+    {
+      "name": "Meteor",
+      "keywords": ["meteor", "shooting star"],
+      "answer": "A meteor is the bright streak of light you see when a small space rock burns up in Earth's atmosphere. People often call it a shooting star."
+    },
+    {
+      "name": "Meteoroid",
+      "keywords": ["meteoroid", "space rock"],
+      "answer": "A meteoroid is a small rock or metal object traveling through space. If it enters Earth's atmosphere and glows, it becomes a meteor."
+    },
+    {
+      "name": "Meteorite",
+      "keywords": ["meteorite", "space rock on earth"],
+      "answer": "A meteorite is a piece of space rock that survives its fall through the atmosphere and lands on Earth's surface."
+    },
+    {
+      "name": "Meteor Shower",
+      "keywords": ["meteor shower", "perseids", "leonids"],
+      "answer": "A meteor shower happens when Earth passes through dust left by a comet or asteroid. Many meteors can appear in the sky during the shower."
+    },
+    {
+      "name": "Near-Earth Object",
+      "keywords": ["near earth object", "neo", "near-earth object"],
+      "answer": "A near-Earth object is an asteroid or comet whose orbit brings it close to Earth. Scientists track them carefully for safety."
+    }
+  ],
+  "spaceflight": [
+    {
+      "name": "Rocket",
+      "keywords": ["rocket", "rockets"],
+      "answer": "A rocket is a vehicle that pushes itself forward by throwing hot gas backward. Rockets can work in space because they carry their own fuel and oxygen source."
     },
     {
       "name": "Rocket Launch",
-      "keywords": ["rocket launch", "launch rocket", "space launch"],
-      "answer": "A rocket launch is when a rocket lifts off from Earth and carries people, satellites, or science tools into space."
+      "keywords": ["rocket launch", "launch rocket", "space launch", "launches"],
+      "answer": "A rocket launch is when a rocket lifts off from Earth and carries people, satellites, cargo, or science tools into space."
     },
     {
-      "name": "Chandrayaan",
-      "keywords": ["chandrayaan", "moon mission india"],
-      "answer": "Chandrayaan is a series of Indian Moon missions by ISRO. These missions help scientists learn more about the Moon."
-    },
-    {
-      "name": "Artemis",
-      "keywords": ["artemis", "moon mission nasa"],
-      "answer": "Artemis is NASA's program to send astronauts back to the Moon and prepare for future missions to Mars."
-    },
-    {
-      "name": "Gaganyaan",
-      "keywords": ["gaganyaan", "india human spaceflight", "indian astronaut mission"],
-      "answer": "Gaganyaan is ISRO's human spaceflight program. Its goal is to send Indian astronauts into space."
+      "name": "Orbit",
+      "keywords": ["orbit", "orbits", "orbiting"],
+      "answer": "An orbit is the curved path one object follows around another because of gravity. Earth orbits the Sun, and the Moon orbits Earth."
     },
     {
       "name": "Satellite",
       "keywords": ["satellite", "satellites"],
-      "answer": "A satellite is an object that orbits a planet or moon. Some satellites are natural, like the Moon, and some are made by humans for communication, weather, and science."
+      "answer": "A satellite is an object that orbits a planet or moon. Some are natural, like the Moon, and some are human-made for communication, weather, navigation, and science."
     },
     {
       "name": "Space Station",
-      "keywords": ["what is a space station", "space laboratory", "orbital station"],
-      "answer": "A space station is a large spacecraft where astronauts can live and work while orbiting Earth."
+      "keywords": ["space station", "space stations", "orbital station", "space laboratory"],
+      "answer": "A space station is a large spacecraft where astronauts can live and work while orbiting Earth. It is like a laboratory in space."
+    },
+    {
+      "name": "International Space Station",
+      "keywords": ["iss", "international space station", "where is the iss", "iss location", "track iss"],
+      "answer": "The ISS, or International Space Station, is a science laboratory that orbits Earth. Astronauts live and work there while studying space, medicine, materials, and Earth."
+    },
+    {
+      "name": "Tiangong",
+      "keywords": ["tiangong", "chinese space station"],
+      "answer": "Tiangong is China's space station in low Earth orbit. Astronauts live there to perform science experiments and test space technology."
+    },
+    {
+      "name": "Astronaut",
+      "keywords": ["astronaut", "astronauts", "cosmonaut", "vyomanaut"],
+      "answer": "An astronaut is a person trained to travel and work in space. Different countries may also use words like cosmonaut or vyomanaut."
+    },
+    {
+      "name": "Spacesuit",
+      "keywords": ["spacesuit", "space suit"],
+      "answer": "A spacesuit protects astronauts from vacuum, extreme temperatures, and harmful radiation. It also provides oxygen and helps remove carbon dioxide."
+    },
+    {
+      "name": "Reentry",
+      "keywords": ["reentry", "re-entry", "return to earth"],
+      "answer": "Reentry is when a spacecraft comes back into Earth's atmosphere. Heat shields protect it from the intense heat caused by fast-moving air."
+    },
+    {
+      "name": "Reusable Rocket",
+      "keywords": ["reusable rocket", "rocket landing", "booster landing"],
+      "answer": "A reusable rocket can fly more than once. Landing and reusing boosters can reduce the cost of launching things into space."
+    },
+    {
+      "name": "Payload",
+      "keywords": ["payload", "rocket payload"],
+      "answer": "A payload is the cargo carried by a rocket, such as a satellite, spacecraft, telescope, or supplies for astronauts."
+    },
+    {
+      "name": "Launch Pad",
+      "keywords": ["launch pad", "launch site"],
+      "answer": "A launch pad is the place where a rocket stands before liftoff. It includes support towers, fuel systems, safety equipment, and control systems."
+    },
+    {
+      "name": "Low Earth Orbit",
+      "keywords": ["low earth orbit", "leo orbit", "leo"],
+      "answer": "Low Earth orbit is a region fairly close to Earth where many satellites and the ISS travel. It is commonly used for science, Earth observation, and communication."
+    }
+  ],
+  "missions_and_telescopes": [
+    {
+      "name": "Apollo",
+      "keywords": ["apollo", "apollo mission", "apollo 11", "moon landing"],
+      "answer": "Apollo was NASA's program that sent astronauts to the Moon. Apollo 11 landed humans on the Moon in 1969."
+    },
+    {
+      "name": "Artemis",
+      "keywords": ["artemis", "moon mission nasa", "nasa moon program"],
+      "answer": "Artemis is NASA's program to return astronauts to the Moon and prepare for future missions to Mars."
+    },
+    {
+      "name": "Voyager",
+      "keywords": ["voyager", "voyager 1", "voyager 2", "golden record"],
+      "answer": "Voyager 1 and Voyager 2 are NASA spacecraft launched in 1977. They explored outer planets and now travel through interstellar space or toward it."
+    },
+    {
+      "name": "James Webb Space Telescope",
+      "keywords": ["james webb", "jwst", "webb telescope", "james webb telescope"],
+      "answer": "The James Webb Space Telescope observes the universe mostly in infrared light. It studies early galaxies, star formation, exoplanets, and distant objects."
+    },
+    {
+      "name": "Hubble Space Telescope",
+      "keywords": ["hubble", "hubble telescope", "space telescope"],
+      "answer": "The Hubble Space Telescope has taken famous images of planets, nebulae, galaxies, and deep space. It observes mostly visible and ultraviolet light."
+    },
+    {
+      "name": "Chandrayaan",
+      "keywords": ["chandrayaan", "moon mission india", "chandrayaan 1", "chandrayaan 2", "chandrayaan 3"],
+      "answer": "Chandrayaan is India's Moon mission series by ISRO. These missions study the Moon's surface, minerals, and polar regions."
+    },
+    {
+      "name": "Mangalyaan",
+      "keywords": ["mangalyaan", "mars orbiter mission", "mom mission"],
+      "answer": "Mangalyaan, also called the Mars Orbiter Mission, was India's first mission to Mars. It showed ISRO could reach Mars orbit with smart engineering."
+    },
+    {
+      "name": "Gaganyaan",
+      "keywords": ["gaganyaan", "india human spaceflight", "indian astronaut mission"],
+      "answer": "Gaganyaan is ISRO's human spaceflight program. Its goal is to send Indian astronauts into space and bring them safely back to Earth."
+    },
+    {
+      "name": "Aditya-L1",
+      "keywords": ["aditya-l1", "aditya l1", "india sun mission", "solar mission india"],
+      "answer": "Aditya-L1 is India's solar mission to study the Sun. It observes solar activity, the solar wind, and space weather from a stable point in space."
+    },
+    {
+      "name": "PSLV",
+      "keywords": ["pslv", "polar satellite launch vehicle"],
+      "answer": "PSLV stands for Polar Satellite Launch Vehicle. It is one of ISRO's trusted rockets for launching satellites into different orbits."
+    },
+    {
+      "name": "GSLV",
+      "keywords": ["gslv", "geosynchronous satellite launch vehicle"],
+      "answer": "GSLV stands for Geosynchronous Satellite Launch Vehicle. ISRO uses it to launch heavier satellites, including communication satellites."
+    },
+    {
+      "name": "Falcon 9",
+      "keywords": ["falcon 9", "falcon rocket"],
+      "answer": "Falcon 9 is a SpaceX rocket with a reusable first stage. It launches satellites, cargo, and crew missions."
+    },
+    {
+      "name": "Starship",
+      "keywords": ["starship", "spacex starship"],
+      "answer": "Starship is SpaceX's large fully reusable rocket system under development. It is designed for carrying cargo and people to orbit, the Moon, and possibly Mars."
+    },
+    {
+      "name": "Blue Origin New Shepard",
+      "keywords": ["new shepard", "blue origin rocket"],
+      "answer": "New Shepard is Blue Origin's reusable suborbital rocket. It is designed to carry experiments and people briefly above the edge of space."
+    },
+    {
+      "name": "Parker Solar Probe",
+      "keywords": ["parker solar probe", "touch the sun"],
+      "answer": "Parker Solar Probe is a NASA spacecraft that flies very close to the Sun. It studies the solar corona and solar wind."
+    },
+    {
+      "name": "Mars Rovers",
+      "keywords": ["mars rover", "mars rovers", "curiosity", "perseverance"],
+      "answer": "Mars rovers are robotic vehicles that drive on Mars. They study rocks, soil, weather, and clues about ancient water."
+    },
+    {
+      "name": "Lunar Rover",
+      "keywords": ["lunar rover", "moon rover", "pragyan rover"],
+      "answer": "A lunar rover is a vehicle made to move on the Moon. Rovers can carry instruments, cameras, and sometimes astronauts."
+    }
+  ],
+  "agencies_and_companies": [
+    {
+      "name": "NASA",
+      "keywords": ["nasa", "national aeronautics and space administration"],
+      "answer": "NASA is the space agency of the United States. It studies Earth, planets, stars, galaxies, and sends spacecraft and astronauts into space."
+    },
+    {
+      "name": "ISRO",
+      "keywords": ["isro", "india space", "indian space", "indian space research organisation", "indian space research organization"],
+      "answer": "ISRO is India's space agency. It builds satellites, launches rockets, and runs missions like Chandrayaan, Mangalyaan, Gaganyaan, and Aditya-L1."
+    },
+    {
+      "name": "ESA",
+      "keywords": ["esa", "european space agency"],
+      "answer": "ESA is the European Space Agency. It works on rockets, satellites, Earth observation, science missions, and international space projects."
+    },
+    {
+      "name": "JAXA",
+      "keywords": ["jaxa", "japan aerospace exploration agency"],
+      "answer": "JAXA is Japan's space agency. It works on satellites, asteroid missions, rockets, science spacecraft, and astronaut activities."
+    },
+    {
+      "name": "Roscosmos",
+      "keywords": ["roscosmos", "russian space agency"],
+      "answer": "Roscosmos is Russia's space agency. It has worked on human spaceflight, rockets, satellites, and space station missions."
+    },
+    {
+      "name": "SpaceX",
+      "keywords": ["spacex", "space x"],
+      "answer": "SpaceX is a private space company known for Falcon 9, Dragon spacecraft, Starlink satellites, and the Starship rocket system."
+    },
+    {
+      "name": "Blue Origin",
+      "keywords": ["blue origin", "jeff bezos space company"],
+      "answer": "Blue Origin is a private space company that builds reusable rockets and space technology. Its vehicles include New Shepard and New Glenn."
+    },
+    {
+      "name": "Commercial Spaceflight",
+      "keywords": ["commercial spaceflight", "private space company", "private space companies"],
+      "answer": "Commercial spaceflight means private companies build or operate space vehicles and services. They can launch satellites, cargo, astronauts, and experiments."
+    }
+  ],
+  "black_holes_and_extreme_space": [
+    {
+      "name": "Black Hole",
+      "keywords": ["black hole", "black holes"],
+      "answer": "A black hole is a region in space where gravity is so strong that nothing, not even light, can escape after crossing the event horizon."
+    },
+    {
+      "name": "Event Horizon",
+      "keywords": ["event horizon", "black hole boundary"],
+      "answer": "The event horizon is the boundary around a black hole. Once something crosses it, it cannot escape the black hole's gravity."
+    },
+    {
+      "name": "Singularity",
+      "keywords": ["singularity", "black hole center"],
+      "answer": "A singularity is the extremely dense center predicted inside a black hole. Scientists use advanced physics to study what might happen there."
+    },
+    {
+      "name": "Supermassive Black Hole",
+      "keywords": ["supermassive black hole", "galaxy center black hole"],
+      "answer": "A supermassive black hole is a black hole with millions or billions of times the Sun's mass. Many large galaxies have one at their center."
+    },
+    {
+      "name": "Accretion Disk",
+      "keywords": ["accretion disk", "black hole disk"],
+      "answer": "An accretion disk is a spinning disk of hot gas and dust falling toward a compact object like a black hole. It can glow very brightly."
+    },
+    {
+      "name": "Quasar",
+      "keywords": ["quasar", "active galaxy"],
+      "answer": "A quasar is an extremely bright center of a distant galaxy powered by a supermassive black hole feeding on gas and dust."
+    }
+  ],
+  "earth_and_observation": [
+    {
+      "name": "Moon",
+      "keywords": ["moon", "lunar", "earth's moon"],
+      "answer": "The Moon is Earth's natural satellite. It reflects sunlight, affects ocean tides, and is the only world beyond Earth where humans have walked."
+    },
+    {
+      "name": "Moon Phases",
+      "keywords": ["moon phases", "phases of the moon", "new moon", "full moon"],
+      "answer": "Moon phases happen because we see different sunlit parts of the Moon as it orbits Earth. Main phases include new moon, first quarter, full moon, and last quarter."
+    },
+    {
+      "name": "Eclipse",
+      "keywords": ["eclipse", "solar eclipse", "lunar eclipse"],
+      "answer": "An eclipse happens when one space object blocks light from another. A solar eclipse involves the Moon blocking the Sun, and a lunar eclipse involves Earth shading the Moon."
+    },
+    {
+      "name": "Tides",
+      "keywords": ["tides", "ocean tides", "moon tides"],
+      "answer": "Tides are the rise and fall of ocean water mainly caused by the Moon's gravity and also affected by the Sun's gravity."
+    },
+    {
+      "name": "Aurora",
+      "keywords": ["aurora", "northern lights", "southern lights"],
+      "answer": "Auroras are colorful lights near Earth's poles. They happen when charged particles from the Sun interact with gases in Earth's atmosphere."
+    },
+    {
+      "name": "Space Weather",
+      "keywords": ["space weather", "solar storm", "geomagnetic storm"],
+      "answer": "Space weather is activity from the Sun that can affect Earth and satellites. Strong solar storms can disturb radio signals, power systems, and auroras."
+    },
+    {
+      "name": "Telescope",
+      "keywords": ["telescope", "telescopes"],
+      "answer": "A telescope gathers light to help us see faraway objects. Some telescopes use lenses, some use mirrors, and some work in space."
+    },
+    {
+      "name": "Radio Telescope",
+      "keywords": ["radio telescope", "radio astronomy"],
+      "answer": "A radio telescope detects radio waves from space. It can study objects that may be invisible to normal optical telescopes."
+    },
+    {
+      "name": "Spectroscopy",
+      "keywords": ["spectroscopy", "spectrum", "space rainbow"],
+      "answer": "Spectroscopy splits light into colors or wavelengths. Scientists use it to learn what stars, planets, and galaxies are made of."
+    },
+    {
+      "name": "NASA APOD",
+      "keywords": ["apod", "astronomy picture of the day"],
+      "answer": "NASA's Astronomy Picture of the Day, or APOD, shares a space image or video with an explanation. VERTEX shows APOD with a local backup if NASA data is unavailable."
+    }
+  ],
+  "exoplanets_and_life": [
+    {
+      "name": "Exoplanet",
+      "keywords": ["exoplanet", "exoplanets", "planet outside solar system", "planets outside our solar system"],
+      "answer": "Exoplanets are planets that orbit stars outside our solar system. Scientists have discovered thousands of them."
+    },
+    {
+      "name": "Habitable Zone",
+      "keywords": ["habitable zone", "goldilocks zone"],
+      "answer": "The habitable zone is the region around a star where temperatures could allow liquid water on a planet's surface. It does not automatically mean life exists there."
+    },
+    {
+      "name": "Transit Method",
+      "keywords": ["transit method", "planet transit", "how find exoplanets"],
+      "answer": "The transit method finds exoplanets by watching a star dim slightly when a planet crosses in front of it from our view."
+    },
+    {
+      "name": "Radial Velocity",
+      "keywords": ["radial velocity", "wobble method"],
+      "answer": "The radial velocity method finds planets by measuring tiny star wobbles caused by an orbiting planet's gravity."
+    },
+    {
+      "name": "Astrobiology",
+      "keywords": ["astrobiology", "life in space", "alien life"],
+      "answer": "Astrobiology is the study of possible life beyond Earth. Scientists look for water, useful chemistry, energy sources, and stable environments."
+    },
+    {
+      "name": "Biosignature",
+      "keywords": ["biosignature", "sign of life"],
+      "answer": "A biosignature is a possible sign of life, such as certain gases in a planet's atmosphere. Scientists must be careful because non-living processes can sometimes make similar signs."
     }
   ]
 }

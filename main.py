@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import time
 from pathlib import Path
@@ -8,8 +9,12 @@ from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, url_for
 
 load_dotenv()
+logging.basicConfig(
+    level=os.getenv("LOG_LEVEL", "INFO"),
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s"
+)
 
-from chatbot import get_ai_status, get_vertex_response
+from chatbot import get_ai_diagnostics, get_ai_status, get_vertex_response
 
 app = Flask(__name__)
 
@@ -161,6 +166,19 @@ def chat():
 def ai_status():
     """API route that tells the frontend which VERTEX brain is active."""
     return jsonify(get_ai_status())
+
+
+@app.route("/api/ai-test")
+def ai_test_api():
+    """API route with detailed AI diagnostics for the admin test page."""
+    force = request.args.get("force", "").lower() in {"1", "true", "yes"}
+    return jsonify(get_ai_diagnostics(force=force))
+
+
+@app.route("/admin/ai-test")
+def ai_test_page():
+    """Admin page for checking Groq and local knowledge status."""
+    return render_template("ai_test.html", diagnostics=get_ai_diagnostics(force=True))
 
 
 @app.route("/api/nasa/apod")

@@ -343,6 +343,83 @@ h4 {
   line-height: 1.45;
 }
 
+.admin-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 28px;
+}
+
+.admin-panel {
+  width: min(980px, 100%);
+  padding: 28px;
+}
+
+.admin-panel h1 {
+  font-size: clamp(38px, 7vw, 72px);
+}
+
+.admin-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.admin-status-grid article {
+  display: flex;
+  gap: 12px;
+  min-height: 104px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-status-grid span {
+  display: grid;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  color: #041018;
+  background: var(--accent-2);
+  font-weight: 800;
+}
+
+.admin-status-grid strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.admin-status-grid p,
+.admin-response p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.admin-response {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-error {
+  margin-top: 12px !important;
+  color: var(--coral) !important;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
 .section-grid {
   display: grid;
   gap: 14px;

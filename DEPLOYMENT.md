@@ -45,11 +45,13 @@ gunicorn main:app
 ```env
 GROQ_API_KEY=your_real_groq_key
 AI_PROVIDER=groq
+GROQ_MODEL=llama-3.1-8b-instant
 FLASK_ENV=production
 ```
 
 9. Open the public Render URL.
-10. Verify `/api/ai-status` shows `Groq AI Active`.
+10. Verify `/api/ai-status` shows `"provider": "groq"`, `"api_key_loaded": true`, and `"mode": "online"`.
+11. Open `/admin/ai-test` to confirm API key loaded, Groq connected, AI provider, last AI response, response time, and local knowledge count.
 
 This project also includes `render.yaml`, `Procfile`, and `runtime.txt` so it is ready for Render deployment.
 
