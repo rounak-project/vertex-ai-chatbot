@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import random
+import re
 import time
 from functools import lru_cache
 from pathlib import Path
@@ -217,6 +218,39 @@ def get_local_quiz_questions(topic="", difficulty="", limit=10):
     return random.sample(combined_questions, min(limit, len(combined_questions)))
 
 
+def extract_json_from_groq_response(content):
+    """Pull a JSON object or array out of a Groq response safely."""
+    text = str(content or "").strip()
+    if not text:
+        raise ValueError("Groq quiz response was empty")
+
+    # Groq often wraps JSON in markdown fences or adds an explanation above it.
+    fence_match = re.search(r"```(?:json)?\s*(.*?)```", text, flags=re.IGNORECASE | re.DOTALL)
+    if fence_match:
+        text = fence_match.group(1).strip()
+
+    decoder = json.JSONDecoder()
+
+    # First try the cleaned text directly.
+    for candidate in (text,):
+        try:
+            parsed, _ = decoder.raw_decode(candidate)
+            return parsed
+        except json.JSONDecodeError:
+            pass
+
+    # If the text has extra prose, scan for the first plausible JSON start.
+    for match in re.finditer(r"[\{\[]", text):
+        candidate = text[match.start():]
+        try:
+            parsed, _ = decoder.raw_decode(candidate)
+            return parsed
+        except json.JSONDecodeError:
+            continue
+
+    raise ValueError("No valid JSON object found in Groq response")
+
+
 def generate_ai_quiz_questions(topic, difficulty, limit):
     """Ask Groq for quiz questions and return None if anything goes wrong."""
     if not should_use_groq():
@@ -247,11 +281,23 @@ def generate_ai_quiz_questions(topic, difficulty, limit):
             temperature=0.5,
             max_tokens=2200
         )
-        content = response.choices[0].message.content.strip()
-        parsed = json.loads(content)
-        return parsed.get("questions", [])[:limit]
-    except Exception:
-        app.logger.exception("AI quiz generation failed; using local quiz questions.")
+        content = response.choices[0].message.content
+        parsed = extract_json_from_groq_response(content)
+
+        if isinstance(parsed, list):
+            return parsed[:limit]
+
+        if isinstance(parsed, dict):
+            questions = parsed.get("questions", [])
+            if isinstance(questions, list):
+                return questions[:limit]
+
+        raise ValueError("Groq quiz response did not contain a questions array")
+    except Exception as error:
+        app.logger.warning(
+            "AI quiz generation failed; using local quiz questions. error=%s",
+            error
+        )
         return None
 
 
