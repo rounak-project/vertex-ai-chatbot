@@ -29,17 +29,34 @@
         <a href="#news">News</a>
         <a href="#planets">Planets</a>
         <a href="#agencies">Agencies</a>
+        <a href="#space-quiz">Space Quiz</a>
         <a href="#about">About Vertex</a>
       </nav>
+
+      <div class="sidebar-tools" aria-label="Display settings">
+        <label for="themeSelect">Theme</label>
+        <select id="themeSelect">
+          <option value="deep-space">Deep Space</option>
+          <option value="blue-neon">Blue Neon</option>
+          <option value="mars-red">Mars Red</option>
+        </select>
+        <button id="muteButton" class="secondary-button" type="button">Sound On</button>
+        <button id="presentationButton" class="secondary-button" type="button">Presentation Mode</button>
+      </div>
     </aside>
 
     <main class="content">
+      <div id="presentationBanner" class="presentation-banner glass-panel">
+        <h1>VERTEX – Space AI Assistant</h1>
+        <button id="exitPresentationButton" class="secondary-button" type="button">Exit Presentation Mode</button>
+      </div>
+
       <section class="hero glass-panel">
-        <p class="eyebrow">Day 4 Mission Control</p>
+        <p class="eyebrow">Day 5 Futuristic Assistant</p>
         <h1>VERTEX</h1>
         <p class="subtitle">
           Ask space questions, view NASA's picture of the day, explore planets,
-          track the ISS, review rocket launches, and learn about space agencies.
+          track the ISS, review rocket launches, play a quiz, and present your school demo.
         </p>
       </section>
 
@@ -50,10 +67,22 @@
         </div>
 
         <div class="chat-panel glass-panel" aria-label="VERTEX chatbot">
+          <div class="avatar-bar">
+            <!-- The avatar is built with simple HTML and CSS so it stays lightweight. -->
+            <div id="vertexAvatar" class="vertex-avatar" aria-hidden="true">
+              <span class="avatar-ring"></span>
+              <span class="avatar-core">V</span>
+            </div>
+            <div>
+              <h3>VERTEX AI Core</h3>
+              <p id="avatarStatus">Ready for your next space question.</p>
+            </div>
+          </div>
+
           <div id="chatMessages" class="chat-messages">
             <div class="message bot">
               <span class="speaker">VERTEX</span>
-              <p>🚀 Hello Explorer! I am Vertex.<br>Ask me anything about space.</p>
+              <p>Hello Explorer! I am Vertex.<br>Ask me anything about space.</p>
             </div>
           </div>
 
@@ -157,13 +186,71 @@
         </div>
       </section>
 
+      <section id="space-quiz" class="section-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Game</p>
+          <h2>Space Quiz</h2>
+        </div>
+
+        <div class="quiz-panel glass-panel">
+          <div class="quiz-topline">
+            <span id="quizProgress" class="tag">Question 1 of 5</span>
+            <strong id="quizScore">Score: 0</strong>
+          </div>
+          <h3 id="quizQuestion">Loading quiz...</h3>
+          <div id="quizChoices" class="quiz-choices"></div>
+          <p id="quizFeedback" class="quiz-feedback"></p>
+          <button id="restartQuizButton" class="secondary-button" type="button">Restart Quiz</button>
+        </div>
+      </section>
+
       <section id="about" class="about-section glass-panel">
         <p class="eyebrow">About Vertex</p>
         <h2>Built For A School Demo</h2>
-        <p>
-          VERTEX is a beginner-friendly Flask project. It uses simple Python
-          routes, JSON files, and JavaScript fetch requests to create a space
-          assistant dashboard.
+
+        <div class="about-grid">
+          <article>
+            <h3>What Vertex Is</h3>
+            <p>
+              VERTEX is a futuristic space-themed AI chatbot made as a beginner-friendly
+              school project. It helps students ask questions and explore space facts.
+            </p>
+          </article>
+          <article>
+            <h3>What It Can Do</h3>
+            <ul>
+              <li>Answer simple space questions.</li>
+              <li>Show NASA's picture of the day.</li>
+              <li>Track the ISS with live or demo data.</li>
+              <li>Show planets, agencies, launches, and news.</li>
+              <li>Use voice input, speech output, themes, quiz mode, and presentation mode.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Technologies Used</h3>
+            <ul>
+              <li>Python and Flask for the web server.</li>
+              <li>HTML, CSS, and JavaScript for the dashboard.</li>
+              <li>JSON files for beginner-friendly data.</li>
+              <li>NASA APOD and ISS APIs with safe fallback data.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>6-Day Roadmap</h3>
+            <ol>
+              <li>Day 1: Project setup.</li>
+              <li>Day 2: Chatbot brain.</li>
+              <li>Day 3: NASA API and dashboard.</li>
+              <li>Day 4: Mission Control, voice, and speech.</li>
+              <li>Day 5: Futuristic assistant experience.</li>
+              <li>Day 6: Final testing and presentation.</li>
+            </ol>
+          </article>
+        </div>
+
+        <p class="school-note">
+          School project note: VERTEX is designed for learning and demos. It keeps the code
+          simple, uses comments, and avoids heavy libraries so a Class 7 student can explain it.
         </p>
       </section>
     </main>

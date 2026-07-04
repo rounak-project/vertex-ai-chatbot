@@ -12,8 +12,100 @@ const issCard = document.querySelector("#issCard");
 const launchList = document.querySelector("#launchList");
 const refreshMissionButton = document.querySelector("#refreshMissionButton");
 const missionUpdatedText = document.querySelector("#missionUpdatedText");
+const vertexAvatar = document.querySelector("#vertexAvatar");
+const avatarStatus = document.querySelector("#avatarStatus");
+const themeSelect = document.querySelector("#themeSelect");
+const muteButton = document.querySelector("#muteButton");
+const presentationButton = document.querySelector("#presentationButton");
+const exitPresentationButton = document.querySelector("#exitPresentationButton");
+const quizProgress = document.querySelector("#quizProgress");
+const quizScore = document.querySelector("#quizScore");
+const quizQuestion = document.querySelector("#quizQuestion");
+const quizChoices = document.querySelector("#quizChoices");
+const quizFeedback = document.querySelector("#quizFeedback");
+const restartQuizButton = document.querySelector("#restartQuizButton");
 const backupSpaceImage = "/static/images/apod-backup.svg";
+const savedTheme = localStorage.getItem("vertex-theme") || "deep-space";
+const savedMute = localStorage.getItem("vertex-muted") === "true";
 let allPlanets = [];
+let soundsMuted = savedMute;
+let currentQuizIndex = 0;
+let currentQuizScore = 0;
+let quizAnswered = false;
+
+const quizQuestions = [
+  {
+    question: "Which planet is called the Red Planet?",
+    choices: ["Mars", "Venus", "Jupiter"],
+    answer: "Mars"
+  },
+  {
+    question: "Which agency is from India?",
+    choices: ["ISRO", "NASA", "ESA"],
+    answer: "ISRO"
+  },
+  {
+    question: "What does ISS stand for?",
+    choices: ["International Space Station", "Indian Space Ship", "Interstellar Solar System"],
+    answer: "International Space Station"
+  },
+  {
+    question: "Which planet is the largest?",
+    choices: ["Jupiter", "Earth", "Mars"],
+    answer: "Jupiter"
+  },
+  {
+    question: "What is the Sun?",
+    choices: ["A star", "A planet", "A moon"],
+    answer: "A star"
+  }
+];
+
+function playSound(soundName) {
+  if (soundsMuted) {
+    return;
+  }
+
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) {
+      return;
+    }
+
+    const audioContext = new AudioContext();
+    const oscillator = audioContext.createOscillator();
+    const volume = audioContext.createGain();
+    const soundMap = {
+      send: 520,
+      reply: 740,
+      click: 360
+    };
+
+    oscillator.frequency.value = soundMap[soundName] || 440;
+    oscillator.type = "sine";
+    volume.gain.value = 0.04;
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.08);
+
+    oscillator.addEventListener("ended", () => {
+      audioContext.close();
+    });
+  } catch (error) {
+    // Some browsers block audio until the user interacts. VERTEX just stays quiet.
+  }
+}
+
+function setThinkingState(isThinking) {
+  vertexAvatar.classList.toggle("is-thinking", isThinking);
+  avatarStatus.textContent = isThinking ? "Thinking about your question..." : "Ready for your next space question.";
+}
+
+function updateMuteButton() {
+  muteButton.textContent = soundsMuted ? "Sound Off" : "Sound On";
+}
 
 // This function adds a new message bubble to the chat window.
 function addMessage(speaker, text, type) {
@@ -49,7 +141,26 @@ function addMessage(speaker, text, type) {
   chatMessages.appendChild(message);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  return message;
+  return { message, paragraph };
+}
+
+// This function types one VERTEX reply letter by letter.
+function typeBotReply(paragraph, fullText) {
+  let letterIndex = 0;
+  paragraph.textContent = "";
+
+  return new Promise((resolve) => {
+    const typingTimer = setInterval(() => {
+      paragraph.textContent += fullText.charAt(letterIndex);
+      letterIndex += 1;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      if (letterIndex >= fullText.length) {
+        clearInterval(typingTimer);
+        resolve();
+      }
+    }, 28);
+  });
 }
 
 // This small delay makes VERTEX feel like it is thinking.
@@ -79,8 +190,10 @@ chatForm.addEventListener("submit", async (event) => {
   }
 
   addMessage("You", message, "user");
+  playSound("send");
   userInput.value = "";
 
+  setThinkingState(true);
   const thinkingMessage = addMessage("VERTEX", "Vertex is thinking...", "bot thinking");
 
   try {
@@ -94,12 +207,18 @@ chatForm.addEventListener("submit", async (event) => {
 
     const [response] = await Promise.all([fetchReply, waitOneSecond()]);
     const data = await response.json();
-    thinkingMessage.remove();
-    addMessage("VERTEX", data.response, "bot");
+    thinkingMessage.message.remove();
+    const botReply = addMessage("VERTEX", data.response, "bot");
+    await typeBotReply(botReply.paragraph, data.response);
+    playSound("reply");
   } catch (error) {
     await waitOneSecond();
-    thinkingMessage.remove();
-    addMessage("VERTEX", "Connection problem. Please check if Flask is running.", "bot");
+    thinkingMessage.message.remove();
+    const errorText = "Connection problem. Please check if Flask is running.";
+    const botReply = addMessage("VERTEX", errorText, "bot");
+    await typeBotReply(botReply.paragraph, errorText);
+  } finally {
+    setThinkingState(false);
   }
 });
 
@@ -357,6 +476,113 @@ async function loadMissionControl() {
 planetSearch.addEventListener("input", filterPlanets);
 refreshMissionButton.addEventListener("click", loadMissionControl);
 
+function applyTheme(themeName) {
+  document.body.dataset.theme = themeName;
+  themeSelect.value = themeName;
+  localStorage.setItem("vertex-theme", themeName);
+}
+
+themeSelect.addEventListener("change", () => {
+  applyTheme(themeSelect.value);
+});
+
+muteButton.addEventListener("click", () => {
+  soundsMuted = !soundsMuted;
+  localStorage.setItem("vertex-muted", String(soundsMuted));
+  updateMuteButton();
+});
+
+// A tiny click sound runs for normal buttons. Audio errors are ignored in playSound().
+document.addEventListener("click", (event) => {
+  if (event.target.closest("button")) {
+    playSound("click");
+  }
+});
+
+function enterPresentationMode() {
+  document.body.classList.add("presentation-mode");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function exitPresentationMode() {
+  document.body.classList.remove("presentation-mode");
+}
+
+presentationButton.addEventListener("click", enterPresentationMode);
+exitPresentationButton.addEventListener("click", exitPresentationMode);
+
+function showQuizQuestion() {
+  const currentQuestion = quizQuestions[currentQuizIndex];
+  quizAnswered = false;
+  quizChoices.innerHTML = "";
+  quizFeedback.textContent = "";
+  quizProgress.textContent = `Question ${currentQuizIndex + 1} of ${quizQuestions.length}`;
+  quizScore.textContent = `Score: ${currentQuizScore}`;
+  quizQuestion.textContent = currentQuestion.question;
+
+  currentQuestion.choices.forEach((choice) => {
+    const choiceButton = document.createElement("button");
+    choiceButton.type = "button";
+    choiceButton.className = "quiz-choice";
+    choiceButton.textContent = choice;
+    choiceButton.addEventListener("click", () => checkQuizAnswer(choice));
+    quizChoices.appendChild(choiceButton);
+  });
+}
+
+function checkQuizAnswer(choice) {
+  if (quizAnswered) {
+    return;
+  }
+
+  const currentQuestion = quizQuestions[currentQuizIndex];
+  const choiceButtons = quizChoices.querySelectorAll("button");
+  quizAnswered = true;
+
+  choiceButtons.forEach((button) => {
+    button.disabled = true;
+
+    if (button.textContent === currentQuestion.answer) {
+      button.classList.add("correct");
+    }
+
+    if (button.textContent === choice && choice !== currentQuestion.answer) {
+      button.classList.add("wrong");
+    }
+  });
+
+  if (choice === currentQuestion.answer) {
+    currentQuizScore += 1;
+    quizFeedback.textContent = "Correct!";
+  } else {
+    quizFeedback.textContent = `Not quite. Correct answer: ${currentQuestion.answer}`;
+  }
+
+  quizScore.textContent = `Score: ${currentQuizScore}`;
+
+  setTimeout(() => {
+    currentQuizIndex += 1;
+
+    if (currentQuizIndex < quizQuestions.length) {
+      showQuizQuestion();
+    } else {
+      quizProgress.textContent = "Quiz Complete";
+      quizQuestion.textContent = `Final score: ${currentQuizScore} out of ${quizQuestions.length}`;
+      quizChoices.innerHTML = "";
+      quizFeedback.textContent = "Press Restart Quiz to play again.";
+    }
+  }, 1400);
+}
+
+restartQuizButton.addEventListener("click", () => {
+  currentQuizIndex = 0;
+  currentQuizScore = 0;
+  showQuizQuestion();
+});
+
+applyTheme(savedTheme);
+updateMuteButton();
+showQuizQuestion();
 setupVoiceInput();
 loadDashboardData();
 loadMissionControl();

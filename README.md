@@ -14,6 +14,7 @@ It can answer simple questions about:
 - SpaceX
 - Black holes
 - International Space Station (ISS)
+- Space quiz questions
 
 This is a school demo project, not a production app.
 
@@ -86,6 +87,18 @@ http://127.0.0.1:5000
 - Added more chatbot answers for ISS location, launches, Chandrayaan, Artemis, Gaganyaan, satellites, and space stations.
 - Added Mission Control refresh button and last-updated text.
 
+## Day 5 Completed Features
+
+- Added a glowing VERTEX AI avatar in the chat area.
+- Added a typing animation for VERTEX replies.
+- Added optional sound effects for message sent, VERTEX reply, and button clicks.
+- Added a mute/unmute button that saves the sound choice in `localStorage`.
+- Added a theme switcher with Deep Space, Blue Neon, and Mars Red themes.
+- Added a Space Quiz game with 5 multiple-choice questions, score, answers, and restart.
+- Expanded the About Vertex section with project details, technologies, roadmap, and school note.
+- Added Presentation Mode for a cleaner teacher demo screen.
+- Improved mobile, tablet, and small laptop layout rules.
+
 ## Mission Control
 
 Mission Control is a dashboard section inside the main page.
@@ -102,6 +115,34 @@ Mission Control is a dashboard section inside the main page.
 - Text-to-speech uses the browser SpeechSynthesis API.
 - These features depend on the browser, so they may not work everywhere.
 - If voice input is not supported, VERTEX shows a friendly message and typing still works.
+
+## Theme Switcher
+
+The theme switcher is in the sidebar.
+
+- Deep Space is the default theme.
+- Blue Neon gives the dashboard a brighter AI assistant look.
+- Mars Red gives the dashboard a red planet style.
+- The selected theme is saved in the browser with `localStorage`, so it stays selected after refresh.
+- The colors are controlled with CSS variables in `static/style.css`.
+
+## Space Quiz
+
+The Space Quiz section has 5 beginner-friendly space questions.
+
+- Each question has multiple-choice buttons.
+- VERTEX shows the correct answer after each question.
+- The score updates as the student plays.
+- The Restart Quiz button starts the quiz again from question 1.
+
+## Presentation Mode
+
+Presentation Mode is useful when showing the project to a teacher.
+
+- It shows a large title: `VERTEX – Space AI Assistant`.
+- It hides extra controls and some dashboard sections.
+- It keeps the main demo sections clean and easy to explain.
+- The Exit Presentation Mode button returns to the normal dashboard.
 
 ## API Endpoints
 
@@ -177,12 +218,20 @@ vertex-ai-chatbot/
 
 ## Future Features
 
-- Add quiz mode.
 - Save chat history in a database.
 - Add real space news from a news API.
 - Add more NASA data, like Mars rover photos.
 - Add better AI answers later.
 - Add a simple map for ISS position.
+
+## Current Project Status
+
+- Day 1: Project setup complete.
+- Day 2: Chatbot brain complete.
+- Day 3: NASA API and space dashboard complete.
+- Day 4: Mission Control, ISS tracker, launches, voice input, and text-to-speech complete.
+- Day 5: Futuristic assistant experience complete.
+- Day 6: Final polish, screenshots, and school presentation preparation next.
 
 ## 6-Day Roadmap
 
@@ -204,11 +253,11 @@ Add Mission Control, ISS tracker, launch dashboard, planet search, voice input, 
 
 ### Day 5
 
-Test the app, fix bugs, and update the README.
+Add futuristic assistant features: avatar, typing effect, sound effects, themes, quiz, About section, presentation mode, and better mobile layout.
 
 ### Day 6
 
-Push the project to GitHub and prepare the school demo.
+Final testing, screenshots, and school demo preparation.
 
 ## GitHub Push Commands
 
