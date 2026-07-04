@@ -93,7 +93,31 @@
               <h3>VERTEX AI Core</h3>
               <p id="avatarStatus">Ready for your next space question.</p>
             </div>
+            <div class="voice-waveform" id="voiceWaveform" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
           </div>
+
+          <section class="voice-console" aria-label="Voice conversation mode">
+            <div class="voice-console-topline">
+              <div>
+                <p class="eyebrow">Voice Conversation</p>
+                <h3>Talk to Vertex</h3>
+              </div>
+              <span id="voiceModeStatus" class="voice-status-pill">Voice Mode: Ready</span>
+            </div>
+            <p id="voiceStatusText" class="voice-status-text" aria-live="polite">Tap Talk to Vertex and ask a question out loud.</p>
+            <div class="voice-control-grid">
+              <button id="voiceButton" class="hero-button primary voice-cta" type="button" aria-label="Talk to Vertex by voice">🎤 Talk to Vertex</button>
+              <button id="stopListeningButton" class="secondary-button" type="button" aria-label="Stop listening to microphone">⏹ Stop Listening</button>
+              <button id="voiceSpeakLastButton" class="secondary-button" type="button" aria-label="Speak the last Vertex answer again">🔁 Speak Last Answer</button>
+              <button id="voiceStopSpeakingButton" class="secondary-button" type="button" aria-label="Stop Vertex speaking aloud">⏹ Stop Speaking</button>
+            </div>
+            <label class="voice-toggle-row" for="voiceAutoSpeakToggle">
+              <span>🔊 Auto Speak</span>
+              <input id="voiceAutoSpeakToggle" type="checkbox" checked>
+            </label>
+          </section>
 
           <div id="chatMessages" class="chat-messages">
             <div class="message bot">
@@ -119,8 +143,6 @@
               autocomplete="off"
               required
             >
-            <!-- This button uses the browser's Web Speech API when available. -->
-            <button id="voiceButton" class="icon-button" type="button" title="Voice input">Mic</button>
             <button type="submit">Send</button>
           </form>
         </div>

@@ -3,6 +3,9 @@ const userInput = document.querySelector("#userInput");
 const chatMessages = document.querySelector("#chatMessages");
 const sampleQuestions = document.querySelectorAll(".sample-question");
 const voiceButton = document.querySelector("#voiceButton");
+const stopListeningButton = document.querySelector("#stopListeningButton");
+const voiceSpeakLastButton = document.querySelector("#voiceSpeakLastButton");
+const voiceStopSpeakingButton = document.querySelector("#voiceStopSpeakingButton");
 const apodCard = document.querySelector("#apodCard");
 const newsGrid = document.querySelector("#newsGrid");
 const planetGrid = document.querySelector("#planetGrid");
@@ -19,6 +22,10 @@ const muteButton = document.querySelector("#muteButton");
 const presentationButton = document.querySelector("#presentationButton");
 const exitPresentationButton = document.querySelector("#exitPresentationButton");
 const autoSpeakToggle = document.querySelector("#autoSpeakToggle");
+const voiceAutoSpeakToggle = document.querySelector("#voiceAutoSpeakToggle");
+const voiceModeStatus = document.querySelector("#voiceModeStatus");
+const voiceStatusText = document.querySelector("#voiceStatusText");
+const voiceWaveform = document.querySelector("#voiceWaveform");
 const quizPlayerName = document.querySelector("#quizPlayerName");
 const quizModeSelect = document.querySelector("#quizModeSelect");
 const quizDifficultySelect = document.querySelector("#quizDifficultySelect");
@@ -76,6 +83,10 @@ let preferredVoice = null;
 let activeReplyTurnId = 0;
 let activeThinkingCleanup = null;
 let activeTypingCleanup = null;
+let recognition = null;
+let recognitionActive = false;
+let voiceMode = "ready";
+let lastCompletedReplyText = "";
 
 const quizStorageKey = "vertex-quiz-academy";
 const quizLeaderboardKey = "vertex-quiz-leaderboard";
@@ -148,6 +159,11 @@ function playSound(soundName) {
 function setThinkingState(isThinking) {
   vertexAvatar.classList.toggle("is-thinking", isThinking);
   avatarStatus.textContent = isThinking ? "Thinking about your question..." : "Ready for your next space question.";
+  if (isThinking) {
+    setVoiceMode("thinking", "VERTEX is thinking about the answer.");
+  } else if (!recognitionActive && voiceMode !== "speaking" && voiceMode !== "unsupported") {
+    setVoiceMode("ready");
+  }
 }
 
 function updateAutoSpeakToggle() {
@@ -156,6 +172,169 @@ function updateAutoSpeakToggle() {
   }
 
   autoSpeakToggle.checked = autoSpeakEnabled;
+  if (voiceAutoSpeakToggle) {
+    voiceAutoSpeakToggle.checked = autoSpeakEnabled;
+  }
+}
+
+function setVoiceMode(mode, message) {
+  voiceMode = mode;
+
+  if (voiceButton) {
+    voiceButton.classList.toggle("is-listening", mode === "listening");
+    voiceButton.classList.toggle("is-speaking", mode === "speaking");
+  }
+
+  if (voiceModeStatus) {
+    const labelMap = {
+      ready: "Voice Mode: Ready",
+      listening: "Voice Mode: Listening...",
+      thinking: "Voice Mode: Thinking...",
+      speaking: "Voice Mode: Speaking...",
+      stopped: "Voice Mode: Stopped",
+      unsupported: "Voice Unsupported"
+    };
+    voiceModeStatus.textContent = labelMap[mode] || "Voice Mode: Ready";
+  }
+
+  if (voiceStatusText) {
+    const messageMap = {
+      ready: "Tap Talk to Vertex and ask a question out loud.",
+      listening: "Speak your question now. VERTEX is listening.",
+      thinking: "VERTEX is preparing an answer.",
+      speaking: "VERTEX is speaking the completed answer.",
+      stopped: "Voice interaction stopped.",
+      unsupported: "Voice recognition is not supported in this browser. Please use Chrome or Edge."
+    };
+    voiceStatusText.textContent = message || messageMap[mode] || messageMap.ready;
+  }
+
+  if (!voiceWaveform) {
+    return;
+  }
+
+  const activeModes = new Set(["listening", "thinking", "speaking"]);
+  voiceWaveform.className = "voice-waveform";
+  if (activeModes.has(mode)) {
+    voiceWaveform.classList.add("is-active");
+    voiceWaveform.classList.add(`is-${mode}`);
+  }
+}
+
+function ensureRecognition() {
+  if (recognition) {
+    return recognition;
+  }
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    return null;
+  }
+
+  recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+  recognition.continuous = false;
+
+  recognition.addEventListener("start", () => {
+    recognitionActive = true;
+    setVoiceMode("listening");
+    if (voiceButton) {
+      voiceButton.textContent = "Listening...";
+    }
+  });
+
+  recognition.addEventListener("result", (event) => {
+    const transcript = event.results?.[0]?.[0]?.transcript?.trim() || "";
+    if (!transcript) {
+      setVoiceMode("stopped", "No speech was detected. Please try again.");
+      return;
+    }
+
+    userInput.value = transcript;
+    userInput.focus();
+    stopListening();
+    chatForm.requestSubmit();
+  });
+
+  recognition.addEventListener("speechend", () => {
+    if (recognitionActive) {
+      setVoiceMode("listening", "Speech detected. Listening for the end of your question...");
+    }
+  });
+
+  recognition.addEventListener("end", () => {
+    recognitionActive = false;
+    if (voiceButton) {
+      voiceButton.textContent = "🎤 Talk to Vertex";
+    }
+
+    if (voiceMode === "listening") {
+      setVoiceMode("stopped", "Voice recognition stopped.");
+    }
+  });
+
+  recognition.addEventListener("error", (event) => {
+    recognitionActive = false;
+    if (voiceButton) {
+      voiceButton.textContent = "🎤 Talk to Vertex";
+    }
+
+    const errorMap = {
+      "not-allowed": "Microphone permission was denied. Please allow access and try again.",
+      "service-not-allowed": "Microphone access is blocked in this browser. Please use Chrome or Edge.",
+      "no-speech": "No speech was detected. Please try again.",
+      "audio-capture": "No microphone was found. Please check your device.",
+      "network": "Speech recognition could not reach the service right now."
+    };
+    const friendly = errorMap[event.error] || "Voice recognition stopped because of an error.";
+    setVoiceMode("stopped", friendly);
+  });
+
+  return recognition;
+}
+
+function stopListening() {
+  if (!recognitionActive || !recognition) {
+    return;
+  }
+
+  try {
+    recognition.stop();
+  } catch (error) {
+    try {
+      recognition.abort();
+    } catch (abortError) {
+      // Ignore abort failures. The browser may already have stopped recognition.
+    }
+  }
+
+  recognitionActive = false;
+  if (voiceButton) {
+    voiceButton.textContent = "🎤 Talk to Vertex";
+  }
+  if (voiceMode === "listening") {
+    setVoiceMode("stopped", "Voice recognition stopped.");
+  }
+}
+
+function startListening() {
+  const activeRecognition = ensureRecognition();
+
+  if (!activeRecognition) {
+    setVoiceMode("unsupported");
+    addMessage("VERTEX", "Voice recognition is not supported in this browser. Please use Chrome or Edge.", "bot", { speakable: false });
+    return;
+  }
+
+  stopSpeaking();
+
+  try {
+    activeRecognition.start();
+  } catch (error) {
+    // Some browsers throw if start is called twice quickly. We recover by resetting the state.
+    setVoiceMode("stopped", "Voice recognition could not start. Please try again.");
+  }
 }
 
 function updateMuteButton() {
@@ -308,18 +487,21 @@ function chooseBestVoice() {
       continue;
     }
 
-    const match = voices.find((voice) => voice.name.includes(voiceName));
+    const match = voices.find((voice) => String(voice.name || "").includes(voiceName));
     if (match) {
       return match;
     }
   }
 
-  return voices.find((voice) => voice.lang.toLowerCase().startsWith("en")) || voices[0] || null;
+  return voices.find((voice) => String(voice.lang || "").toLowerCase().startsWith("en")) || voices[0] || null;
 }
 
 function stopSpeaking() {
   if ("speechSynthesis" in window) {
     window.speechSynthesis.cancel();
+  }
+  if (voiceMode === "speaking") {
+    setVoiceMode("stopped", "Speech stopped.");
   }
 }
 
@@ -341,6 +523,7 @@ function stripMarkdownForSpeech(text) {
 
 function speakCompletedReply(text) {
   if (!("speechSynthesis" in window)) {
+    setVoiceMode("unsupported");
     return;
   }
 
@@ -360,8 +543,28 @@ function speakCompletedReply(text) {
   speech.volume = 1;
   speech.voice = preferredVoice;
   speech.lang = preferredVoice.lang || "en-US";
+  speech.onstart = () => {
+    setVoiceMode("speaking", "VERTEX is speaking the answer.");
+  };
+  speech.onend = () => {
+    if (voiceMode === "speaking") {
+      setVoiceMode("ready");
+    }
+  };
+  speech.onerror = () => {
+    setVoiceMode("stopped", "Speech output could not play.");
+  };
   stopSpeaking();
   window.speechSynthesis.speak(speech);
+}
+
+function speakLastAnswer() {
+  if (!lastCompletedReplyText) {
+    setVoiceMode("stopped", "No completed answer is available yet.");
+    return;
+  }
+
+  speakCompletedReply(lastCompletedReplyText);
 }
 
 function beginNewReplyTurn() {
@@ -370,6 +573,7 @@ function beginNewReplyTurn() {
   activeThinkingCleanup = null;
   activeTypingCleanup?.();
   activeTypingCleanup = null;
+  stopListening();
   stopSpeaking();
   return activeReplyTurnId;
 }
@@ -553,6 +757,7 @@ chatForm.addEventListener("submit", async (event) => {
       return;
     }
 
+    lastCompletedReplyText = data.response;
     playSound("reply");
     await sleep(300);
     if (replyTurnId === activeReplyTurnId && shouldAutoSpeakReply(data.response)) {
@@ -591,34 +796,36 @@ function setupVoiceInput() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   if (!SpeechRecognition) {
-    voiceButton.addEventListener("click", () => {
-      addMessage("VERTEX", "Voice input is not supported in this browser. You can still type your question.", "bot");
-    });
+    setVoiceMode("unsupported");
+    if (voiceButton) {
+      voiceButton.disabled = true;
+      voiceButton.setAttribute("aria-disabled", "true");
+    }
     return;
   }
 
-  const recognition = new SpeechRecognition();
-  recognition.lang = "en-US";
-  recognition.interimResults = false;
+  ensureRecognition();
+  setVoiceMode("ready");
 
   voiceButton.addEventListener("click", () => {
-    voiceButton.textContent = "Listening...";
-    recognition.start();
+    if (recognitionActive) {
+      stopListening();
+      return;
+    }
+
+    startListening();
   });
 
-  recognition.addEventListener("result", (event) => {
-    userInput.value = event.results[0][0].transcript;
-    voiceButton.textContent = "Mic";
-    userInput.focus();
+  stopListeningButton?.addEventListener("click", () => {
+    stopListening();
   });
 
-  recognition.addEventListener("end", () => {
-    voiceButton.textContent = "Mic";
+  voiceStopSpeakingButton?.addEventListener("click", () => {
+    stopSpeaking();
   });
 
-  recognition.addEventListener("error", () => {
-    voiceButton.textContent = "Mic";
-    addMessage("VERTEX", "I could not hear that clearly. Please try again or type your question.", "bot");
+  voiceSpeakLastButton?.addEventListener("click", () => {
+    speakLastAnswer();
   });
 }
 
@@ -1450,6 +1657,14 @@ if (autoSpeakToggle) {
   autoSpeakToggle.addEventListener("change", () => {
     autoSpeakEnabled = autoSpeakToggle.checked;
     localStorage.setItem("vertex-auto-speak", String(autoSpeakEnabled));
+    updateAutoSpeakToggle();
+  });
+}
+if (voiceAutoSpeakToggle) {
+  voiceAutoSpeakToggle.addEventListener("change", () => {
+    autoSpeakEnabled = voiceAutoSpeakToggle.checked;
+    localStorage.setItem("vertex-auto-speak", String(autoSpeakEnabled));
+    updateAutoSpeakToggle();
   });
 }
 loadAiStatus();
