@@ -2,6 +2,8 @@
 
 const missionBody = document.body;
 const missionLog = document.querySelector("#missionLog");
+const missionPortrait = document.querySelector(".mission-portrait");
+const missionImageFallback = document.querySelector("#missionImageFallback");
 const counterNodes = document.querySelectorAll("[data-counter]");
 const barNodes = document.querySelectorAll("[data-width]");
 const navCards = document.querySelectorAll(".mission-nav-card");
@@ -34,8 +36,8 @@ function animateCounter(node) {
 
   function frame(now) {
     const progress = Math.min((now - startTime) / duration, 1);
-      const value = Math.round(target * progress);
-      node.textContent = `${value}${suffix}`;
+    const value = Math.round(target * progress);
+    node.textContent = `${value}${suffix}`;
 
     if (progress < 1) {
       requestAnimationFrame(frame);
@@ -133,10 +135,32 @@ function setupParallax() {
   }, { passive: true });
 }
 
+function setupImageFallback() {
+  if (!missionPortrait || !missionImageFallback) {
+    return;
+  }
+
+  missionPortrait.addEventListener("error", () => {
+    missionPortrait.hidden = true;
+    missionImageFallback.hidden = false;
+  });
+
+  missionPortrait.addEventListener("load", () => {
+    missionPortrait.hidden = false;
+    missionImageFallback.hidden = true;
+  });
+
+  if (missionPortrait.complete && missionPortrait.naturalWidth === 0) {
+    missionPortrait.hidden = true;
+    missionImageFallback.hidden = false;
+  }
+}
+
 window.addEventListener("load", () => {
   missionBody.classList.add("is-ready");
   typeMissionLog();
   setupScrollSpy();
   setupRevealAnimations();
   setupParallax();
+  setupImageFallback();
 });

@@ -47,12 +47,21 @@
         <div class="mission-hero-copy">
           <p class="eyebrow">MISSION COMMANDER</p>
           <h1>ROUNAK SINGH</h1>
+          <div class="mission-hero-badges">
+            <span class="mission-pill isro-pill">ISRO</span>
+            <span class="mission-pill flag-pill">{{ profile.flag }}</span>
+            <span class="mission-pill mission-pill-wide">Mission Commander Rounak Singh</span>
+          </div>
           <p class="mission-subtitle">{{ profile.subtitle }}</p>
         </div>
 
         <div class="mission-status-stack">
           <div class="isro-seal" aria-label="ISRO logo inspired seal">
             <span>ISRO</span>
+          </div>
+          <div class="mission-status-card mission-status-card--highlight">
+            <small>Chandrayaan-3</small>
+            <strong>{{ profile.mission_status.chandrayaan_card }}</strong>
           </div>
           <div class="mission-status-card">
             <small>System Status</small>
@@ -69,11 +78,13 @@
         <article class="mission-profile-frame glass-panel">
           <div class="frame-glow"></div>
           <div class="frame-scanner"></div>
+          <div id="missionImageFallback" class="mission-image-fallback" hidden>Mission Commander Image</div>
           <img
             src="{{ url_for('static', filename=profile.mission_image) }}"
             alt="Rounak Singh astronaut portrait"
             class="mission-portrait"
             loading="lazy"
+            data-fallback="#missionImageFallback"
           >
         </article>
 
@@ -85,8 +96,8 @@
 
           <div class="status-grid">
             <div>
-              <span>NAME</span>
-              <strong>{{ profile.name }}</strong>
+              <span>FULL NAME</span>
+              <strong>{{ profile.full_name }}</strong>
             </div>
             <div>
               <span>CLASS</span>
@@ -108,6 +119,10 @@
               <span>MISSION</span>
               <strong>{{ profile.mission_status.mission }}</strong>
             </div>
+            <div>
+              <span>PROJECT</span>
+              <strong>{{ profile.project }}</strong>
+            </div>
           </div>
         </article>
       </section>
@@ -118,10 +133,10 @@
           <h2>Commander Identity</h2>
         </div>
 
-        <div class="info-rail">
+        <div class="info-rail info-rail-full">
           <article class="info-tile glass-panel">
-            <span>Name</span>
-            <strong>{{ profile.name }}</strong>
+            <span>Full Name</span>
+            <strong>{{ profile.full_name }}</strong>
           </article>
           <article class="info-tile glass-panel">
             <span>Class</span>
@@ -133,11 +148,15 @@
           </article>
           <article class="info-tile glass-panel">
             <span>Location</span>
-            <strong>{{ profile.location }} 🇮🇳</strong>
+            <strong>{{ profile.location }} {{ profile.flag }}</strong>
           </article>
           <article class="info-tile glass-panel">
-            <span>Age</span>
-            <strong>{{ profile.age }}</strong>
+            <span>Interests</span>
+            <strong>Space, AI, Coding, Robotics</strong>
+          </article>
+          <article class="info-tile glass-panel">
+            <span>Skills</span>
+            <strong>Python, HTML, CSS, JavaScript, Flask</strong>
           </article>
         </div>
       </section>
@@ -222,7 +241,7 @@
       <section id="mission-log" class="mission-section mission-log-section">
         <div class="section-heading">
           <p class="eyebrow">Mission Log</p>
-          <h2>About VERTEX</h2>
+          <h2>Mission Message</h2>
         </div>
 
         <div class="terminal-shell glass-panel">

@@ -49,29 +49,32 @@ APOD_CACHE = {
 MISSION_COMMANDER_PROFILE = {
     "role": "Mission Commander",
     "name": "Rounak Singh",
+    "full_name": "Rounak Singh",
     "subtitle": "Space Explorer • AI Innovator • Future Scientist",
     "status": "ONLINE",
     "mission_day": "001",
-    "class_name": "VII-E",
+    "class_name": "7 E",
     "school": "Delhi World Public School",
     "location": "Greater Noida, India",
     "age": "Class 7 Student",
+    "project": "VERTEX – Space AI Assistant",
+    "flag": "🇮🇳",
     "mission_status": {
         "status": "ONLINE",
         "clearance": "LEVEL 7",
         "agency": "ISRO",
-        "mission": "Exploring the Universe using AI and Curiosity"
+        "mission": "Exploring the Universe using AI and Curiosity",
+        "chandrayaan_card": "Chandrayaan-3 Mission Profile"
     },
     "mission_log": (
-        "Hello!\n\n"
-        "I'm Rounak Singh, a Class 7 student who loves space and technology.\n\n"
-        "I created VERTEX (Space Assistant) to make learning about the universe fun and interactive.\n\n"
-        "My goal is to inspire students to explore science, ask questions, and dream big.\n\n"
-        "Every great mission starts with curiosity."
+        "Hello! I'm Rounak, a Class 7 student who loves space and technology. "
+        "I created VERTEX Space Assistant to make learning about the universe fun and interactive. "
+        "I hope this project inspires others to explore science, ask questions, and dream big! "
+        "Every great mission starts with curiosity!"
     ),
     "interests": [
         {"icon": "🚀", "title": "Space"},
-        {"icon": "🤖", "title": "Artificial Intelligence"},
+        {"icon": "🤖", "title": "AI"},
         {"icon": "💻", "title": "Coding"},
         {"icon": "🦾", "title": "Robotics"}
     ],
@@ -85,12 +88,12 @@ MISSION_COMMANDER_PROFILE = {
     "favorites": [
         {"label": "Favorite Planet", "value": "Mars"},
         {"label": "Favorite Mission", "value": "Chandrayaan-3"},
-        {"label": "Favorite Agency", "value": "ISRO"},
+        {"label": "Favorite Space Agency", "value": "ISRO"},
         {"label": "Favorite Rocket", "value": "LVM3"},
         {"label": "Favorite Telescope", "value": "James Webb Space Telescope"}
     ],
     "dream_careers": [
-        {"title": "AI Engineer", "description": "Design intelligent systems that help people learn faster."},
+        {"title": "AI Engineer", "description": "Build intelligent systems that help people learn faster."},
         {"title": "ISRO Scientist", "description": "Build missions that explore the Moon, Mars, and beyond."},
         {"title": "Aerospace Engineer", "description": "Create rockets and spacecraft that can travel safely."},
         {"title": "Space Technology Innovator", "description": "Build tools for the next generation of explorers."}
@@ -121,12 +124,13 @@ MISSION_COMMANDER_PROFILE = {
         {"year": "Future", "title": "Dreaming of joining ISRO.", "detail": "Continuing to study science, code, and space technology."}
     ],
     "contact": [
-        {"label": "GitHub", "value": "github.com/rounak-project", "href": "https://github.com/rounak-project"},
-        {"label": "Email", "value": "rounak@example.com", "href": "mailto:rounak@example.com"},
+        {"label": "Email", "value": "rounak.singh1711@gmail.com", "href": "mailto:rounak.singh1711@gmail.com"},
+        {"label": "GitHub", "value": "https://github.com/rounak-project", "href": "https://github.com/rounak-project"},
+        {"label": "Project", "value": "VERTEX – Space AI Assistant", "href": "/#project-summary"},
         {"label": "LinkedIn", "value": "Coming Soon", "href": "#"},
         {"label": "Portfolio", "value": "Coming Soon", "href": "#"}
     ],
-    "mission_image": "images/about/rounak-astronaut.png"
+    "mission_image": "images/rounak-astronaut.png"
 }
 
 
