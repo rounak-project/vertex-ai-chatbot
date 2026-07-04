@@ -178,6 +178,14 @@ def get_quiz_database():
     return load_json_file_or_default("quiz_database.json", {"categories": [], "questions": []})
 
 
+def get_sky_explorer_data():
+    """Load the local Stellarium companion data for the Sky Explorer page."""
+    return load_json_file_or_default(
+        "sky_explorer.json",
+        {"featured_objects": [], "control_actions": []}
+    )
+
+
 def get_local_quiz_questions(topic="", difficulty="", limit=10):
     """Pick local quiz questions when AI generation is unavailable."""
     quiz_database = get_quiz_database()
@@ -451,6 +459,12 @@ def planets():
     return jsonify(load_json_file_or_default("planets.json", []))
 
 
+@app.route("/api/sky-explorer-data")
+def sky_explorer_data():
+    """API route for the Sky Explorer Stellarium companion data."""
+    return jsonify(get_sky_explorer_data())
+
+
 @app.route("/api/agencies")
 def agencies():
     """API route for local space agency dashboard cards."""
@@ -479,6 +493,16 @@ def mission_commander():
         repo_code_lines=get_repo_code_lines(),
         about_css=url_for("static", filename="about.css"),
         about_js=url_for("static", filename="about.js")
+    )
+
+
+@app.route("/sky-explorer")
+def sky_explorer():
+    """Render the Stellarium-powered Sky Explorer page."""
+    return render_template(
+        "sky_explorer.html",
+        sky_explorer_css=url_for("static", filename="sky-explorer.css"),
+        sky_explorer_js=url_for("static", filename="sky-explorer.js")
     )
 
 

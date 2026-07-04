@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VERTEX Sky Explorer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ sky_explorer_css }}">
+</head>
+<body class="sky-body">
+  <div class="sky-stars sky-stars-one"></div>
+  <div class="sky-stars sky-stars-two"></div>
+  <div class="sky-nebula"></div>
+  <div class="sky-planet sky-planet-one"></div>
+  <div class="sky-planet sky-planet-two"></div>
+
+  <main class="sky-shell">
+    <section class="sky-hero glass-panel">
+      <div>
+        <p class="eyebrow">VERTEX Module</p>
+        <h1>Sky Explorer</h1>
+        <p class="sky-subtitle">Explore the night sky in real time.</p>
+      </div>
+      <div class="sky-hero-meta">
+        <span class="sky-pill">Stellarium Web</span>
+        <span class="sky-pill sky-pill-accent">Real-time sky map</span>
+        <a class="hero-button" href="{{ url_for('home') }}">Back to Dashboard</a>
+      </div>
+    </section>
+
+    <section class="sky-grid">
+      <article class="sky-view-panel glass-panel">
+        <div class="sky-panel-head">
+          <div>
+            <p class="eyebrow">Sky View</p>
+            <h2>Stellarium Observatory</h2>
+          </div>
+          <div class="sky-panel-actions">
+            <button id="skyFullscreenButton" class="secondary-button" type="button">Fullscreen</button>
+            <a class="secondary-button" href="https://stellarium-web.org/" target="_blank" rel="noreferrer">Open Stellarium</a>
+          </div>
+        </div>
+
+        <div id="skyStage" class="sky-stage">
+          <iframe
+            id="stellariumFrame"
+            class="stellarium-frame"
+            src="https://stellarium-web.org/"
+            title="Stellarium Web night sky explorer"
+            loading="lazy"
+            allow="fullscreen; geolocation; clipboard-read; clipboard-write"
+            allowfullscreen
+          ></iframe>
+          <div id="skyStageOverlay" class="sky-stage-overlay">
+            Loading Stellarium Web...
+          </div>
+        </div>
+      </article>
+
+      <aside class="sky-side-column">
+        <section class="sky-card glass-panel">
+          <div class="sky-panel-head compact">
+            <div>
+              <p class="eyebrow">Quick Controls</p>
+              <h3>Sky Presets</h3>
+            </div>
+            <span id="skyLocationState" class="sky-status-tag">Location not set</span>
+          </div>
+          <div id="skyControlGrid" class="sky-control-grid" aria-label="Sky presets"></div>
+        </section>
+
+        <section class="sky-card glass-panel">
+          <div class="sky-panel-head compact">
+            <div>
+              <p class="eyebrow">Search</p>
+              <h3>Find Objects</h3>
+            </div>
+          </div>
+          <input
+            id="skySearchInput"
+            class="sky-search-input"
+            type="search"
+            placeholder="Search planets, stars, galaxies, nebulae..."
+            autocomplete="off"
+          >
+          <div id="skySearchResults" class="sky-search-results"></div>
+        </section>
+
+        <section class="sky-card glass-panel">
+          <div class="sky-panel-head compact">
+            <div>
+              <p class="eyebrow">Information</p>
+              <h3>Selected Object</h3>
+            </div>
+            <span id="skyObjectCategory" class="sky-status-tag">No object selected</span>
+          </div>
+          <div class="sky-info-grid">
+            <div><small>Name</small><strong id="skyObjectName">Choose an object</strong></div>
+            <div><small>Type</small><strong id="skyObjectType">---</strong></div>
+            <div><small>Distance</small><strong id="skyObjectDistance">---</strong></div>
+            <div><small>Magnitude</small><strong id="skyObjectMagnitude">---</strong></div>
+          </div>
+          <p id="skyObjectDescription" class="sky-description">Select an object from search or a control button to learn more.</p>
+          <div>
+            <h4>Interesting Facts</h4>
+            <ul id="skyObjectFacts" class="sky-fact-list"></ul>
+          </div>
+        </section>
+
+        <section class="sky-card glass-panel">
+          <div class="sky-panel-head compact">
+            <div>
+              <p class="eyebrow">VERTEX AI</p>
+              <h3>Ask About the Sky</h3>
+            </div>
+          </div>
+          <form id="skyAiForm" class="sky-ai-form">
+            <input
+              id="skyAiInput"
+              type="text"
+              placeholder="Tell me about Orion. Explain Jupiter."
+              autocomplete="off"
+              required
+            >
+            <button class="hero-button primary" type="submit">Ask VERTEX</button>
+          </form>
+          <p class="sky-ai-hint">Local knowledge is checked first. Groq is used only when needed.</p>
+          <div id="skyAiResponse" class="sky-ai-response">
+            Ask a question to see an explanation here.
+          </div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script src="{{ sky_explorer_js }}"></script>
+</body>
+</html>

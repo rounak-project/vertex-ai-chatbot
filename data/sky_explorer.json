@@ -1,0 +1,224 @@
+{
+  "featured_objects": [
+    {
+      "name": "Moon",
+      "type": "Natural satellite",
+      "category": "moon",
+      "distance": "384,400 km",
+      "magnitude": "-12.7",
+      "description": "Earth's only natural satellite, visible with the naked eye and full of craters, maria, and mountain ranges.",
+      "interesting_facts": [
+        "The Moon shows the same face to Earth because it is tidally locked.",
+        "Its phases are caused by how much sunlight we can see from Earth."
+      ],
+      "ai_prompt": "Explain the Moon in beginner-friendly space terms."
+    },
+    {
+      "name": "Sun",
+      "type": "Star",
+      "category": "sun",
+      "distance": "149.6 million km",
+      "magnitude": "-26.74",
+      "description": "The Sun is the star at the center of our solar system. It gives Earth light, heat, and energy.",
+      "interesting_facts": [
+        "The Sun contains more than 99% of the solar system's mass.",
+        "Its surface temperature is about 5,500°C."
+      ],
+      "ai_prompt": "Explain the Sun in simple space language."
+    },
+    {
+      "name": "Jupiter",
+      "type": "Gas giant planet",
+      "category": "planets",
+      "distance": "588 million km",
+      "magnitude": "-2.94",
+      "description": "Jupiter is the largest planet in our solar system. It is famous for its Great Red Spot and many moons.",
+      "interesting_facts": [
+        "Jupiter could fit more than 1,300 Earths inside it.",
+        "Its day is very short because it spins quickly."
+      ],
+      "ai_prompt": "Explain Jupiter for a class 7 student."
+    },
+    {
+      "name": "Mars",
+      "type": "Rocky planet",
+      "category": "planets",
+      "distance": "225 million km",
+      "magnitude": "-2.0",
+      "description": "Mars is the Red Planet. Its dusty surface looks red because of iron oxide, and it is a major target for exploration.",
+      "interesting_facts": [
+        "Mars has the tallest volcano in the solar system, Olympus Mons.",
+        "Robots like Curiosity and Perseverance have explored Mars."
+      ],
+      "ai_prompt": "Explain Mars and why it matters to space exploration."
+    },
+    {
+      "name": "Betelgeuse",
+      "type": "Red supergiant star",
+      "category": "stars",
+      "distance": "642 light-years",
+      "magnitude": "0.0 to 1.6",
+      "description": "Betelgeuse is a huge red star in Orion. It is easy to spot because of its orange-red color.",
+      "interesting_facts": [
+        "It is much larger than the Sun.",
+        "Astronomers watch it closely because it is nearing the end of its life."
+      ],
+      "ai_prompt": "What is Betelgeuse?"
+    },
+    {
+      "name": "Sirius",
+      "type": "Bright star",
+      "category": "stars",
+      "distance": "8.6 light-years",
+      "magnitude": "-1.46",
+      "description": "Sirius is the brightest star in Earth's night sky. It is part of the Canis Major constellation.",
+      "interesting_facts": [
+        "Sirius is actually a star system with two stars.",
+        "It was important in many ancient calendars."
+      ],
+      "ai_prompt": "Explain Sirius in beginner-friendly language."
+    },
+    {
+      "name": "Andromeda Galaxy",
+      "type": "Spiral galaxy",
+      "category": "galaxies",
+      "distance": "2.5 million light-years",
+      "magnitude": "3.4",
+      "description": "The Andromeda Galaxy is our nearest large galaxy neighbor and is slowly moving toward the Milky Way.",
+      "interesting_facts": [
+        "It can sometimes be seen with the naked eye from dark locations.",
+        "Andromeda and the Milky Way may merge far in the future."
+      ],
+      "ai_prompt": "How far is Andromeda?"
+    },
+    {
+      "name": "Milky Way",
+      "type": "Barred spiral galaxy",
+      "category": "galaxies",
+      "distance": "We live inside it",
+      "magnitude": "Varies",
+      "description": "The Milky Way is the galaxy that contains Earth, the Sun, and our solar system.",
+      "interesting_facts": [
+        "We see it as a bright band across the sky on dark nights.",
+        "It has hundreds of billions of stars."
+      ],
+      "ai_prompt": "Explain the Milky Way galaxy."
+    },
+    {
+      "name": "Orion Nebula",
+      "type": "Emission nebula",
+      "category": "nebulae",
+      "distance": "1,344 light-years",
+      "magnitude": "4.0",
+      "description": "The Orion Nebula is a bright cloud of gas and dust where new stars are forming.",
+      "interesting_facts": [
+        "It is one of the easiest nebulae to observe with binoculars.",
+        "It sits inside the Orion constellation."
+      ],
+      "ai_prompt": "Tell me about Orion."
+    },
+    {
+      "name": "Pleiades",
+      "type": "Open star cluster",
+      "category": "stars",
+      "distance": "444 light-years",
+      "magnitude": "1.6",
+      "description": "The Pleiades is a famous star cluster that looks like a tiny dipper of bright stars.",
+      "interesting_facts": [
+        "It is also called the Seven Sisters.",
+        "Many cultures have stories about these stars."
+      ],
+      "ai_prompt": "What are the Pleiades?"
+    },
+    {
+      "name": "Orion",
+      "type": "Constellation",
+      "category": "constellations",
+      "distance": "Visible in our sky",
+      "magnitude": "Varies",
+      "description": "Orion is a famous winter constellation with a recognizable belt of three bright stars.",
+      "interesting_facts": [
+        "It contains Betelgeuse and Rigel.",
+        "Orion is easy for beginners to find in the night sky."
+      ],
+      "ai_prompt": "Tell me about Orion."
+    },
+    {
+      "name": "Ursa Major",
+      "type": "Constellation",
+      "category": "constellations",
+      "distance": "Visible in our sky",
+      "magnitude": "Varies",
+      "description": "Ursa Major is a big constellation that includes the Big Dipper asterism.",
+      "interesting_facts": [
+        "It helps stargazers find the North Star.",
+        "Its shape is one of the easiest to recognize."
+      ],
+      "ai_prompt": "Explain Ursa Major and the Big Dipper."
+    },
+    {
+      "name": "International Space Station",
+      "type": "Space station",
+      "category": "satellites",
+      "distance": "About 408 km above Earth",
+      "magnitude": "-2 to -4",
+      "description": "The ISS is a large research station orbiting Earth where astronauts live and work.",
+      "interesting_facts": [
+        "It travels around Earth in about 90 minutes.",
+        "It is visible from the ground as a moving bright point."
+      ],
+      "ai_prompt": "What is the ISS?"
+    },
+    {
+      "name": "Starlink Satellite Train",
+      "type": "Satellite constellation",
+      "category": "satellites",
+      "distance": "Low Earth orbit",
+      "magnitude": "Varies",
+      "description": "Starlink satellites often appear as a moving line of lights soon after launch.",
+      "interesting_facts": [
+        "They support internet connectivity from orbit.",
+        "Their visibility changes after deployment."
+      ],
+      "ai_prompt": "Explain satellites in orbit."
+    },
+    {
+      "name": "Perseid Meteors",
+      "type": "Meteor shower",
+      "category": "meteors",
+      "distance": "Burn up in Earth's atmosphere",
+      "magnitude": "Bright streaks",
+      "description": "The Perseids are a famous meteor shower caused by debris from Comet Swift-Tuttle.",
+      "interesting_facts": [
+        "Meteor showers are best seen away from city lights.",
+        "Meteors are tiny space rocks that glow as they burn."
+      ],
+      "ai_prompt": "What are meteors?"
+    },
+    {
+      "name": "Deep Sky Objects",
+      "type": "Astronomical collection",
+      "category": "deep-sky",
+      "distance": "Many light-years away",
+      "magnitude": "Varies",
+      "description": "Deep sky objects include galaxies, nebulae, clusters, and other faint targets viewed through telescopes.",
+      "interesting_facts": [
+        "Many need binoculars or telescopes to see clearly.",
+        "They are a favorite target for astrophotography."
+      ],
+      "ai_prompt": "What are deep sky objects?"
+    }
+  ],
+  "control_actions": [
+    {"id": "current-location", "label": "Current Location", "query": "Show me the sky from my current location.", "mode": "location"},
+    {"id": "tonight-sky", "label": "Tonight's Sky", "query": "What should I look for in tonight's sky?", "mode": "sky"},
+    {"id": "planets", "label": "Planets", "query": "Show me the planets.", "mode": "filter", "filter": "planets"},
+    {"id": "constellations", "label": "Constellations", "query": "Show me constellations.", "mode": "filter", "filter": "constellations"},
+    {"id": "meteors", "label": "Meteors", "query": "Show me meteors.", "mode": "filter", "filter": "meteors"},
+    {"id": "satellites", "label": "Satellites", "query": "Show me satellites.", "mode": "filter", "filter": "satellites"},
+    {"id": "deep-sky", "label": "Deep Sky Objects", "query": "Show me deep sky objects.", "mode": "filter", "filter": "deep-sky"},
+    {"id": "sun", "label": "Sun", "query": "Show me the Sun.", "mode": "select", "target": "Sun"},
+    {"id": "moon", "label": "Moon", "query": "Show me the Moon.", "mode": "select", "target": "Moon"},
+    {"id": "telescope", "label": "Telescope Mode", "query": "Help me switch to telescope mode.", "mode": "telescope"}
+  ]
+}

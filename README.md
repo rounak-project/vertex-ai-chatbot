@@ -192,6 +192,7 @@ It shows API key loaded, Groq connected, AI provider, last AI response, response
 | `/api/quiz-database` | GET | Loads the local Space Quiz Academy database |
 | `/api/quiz-generate` | POST | Generates quiz questions with Groq or falls back to local questions |
 | `/mission-commander` | GET | Opens the futuristic Mission Commander profile |
+| `/sky-explorer` | GET | Opens the Stellarium-powered Sky Explorer module |
 
 ## Architecture
 
@@ -218,6 +219,7 @@ Flask app in main.py
   |-- /api/agencies --------> data/agencies.json
   |-- /api/quiz-database ---> data/quiz_database.json
   |-- /api/quiz-generate ---> optional Groq or local quiz fallback
+  |-- /sky-explorer -------> Stellarium Web embed + local sky object companion data
 ```
 
 ## Space Quiz Academy
@@ -338,6 +340,17 @@ The Mission Commander profile uses:
 - `static/about.js`
 - `static/images/about/rounak-astronaut.png`
 
+## Sky Explorer
+
+Sky Explorer is a separate VERTEX module for real-time sky watching. It embeds Stellarium Web inside a responsive glassmorphism layout, then adds a local companion panel for quick object search, curated sky presets, object facts, and optional AI explanations.
+
+The Sky Explorer page uses:
+
+- `templates/sky_explorer.html`
+- `static/sky-explorer.css`
+- `static/sky-explorer.js`
+- `data/sky_explorer.json`
+
 ## Troubleshooting Groq
 
 If `/api/ai-status` says `api_key_loaded: false`:
@@ -393,6 +406,7 @@ vertex-ai-chatbot/
 ├── data/
 │   ├── agencies.json
 │   ├── launches.json
+│   ├── sky_explorer.json
 │   ├── planets.json
 │   ├── quiz_database.json
 │   ├── space_facts.json
@@ -401,6 +415,8 @@ vertex-ai-chatbot/
 ├── static/
 │   ├── about.css
 │   ├── about.js
+│   ├── sky-explorer.css
+│   ├── sky-explorer.js
 │   ├── images/
 │   │   └── apod-backup.svg
 │   │   └── about/
@@ -410,6 +426,7 @@ vertex-ai-chatbot/
 ├── templates/
 │   ├── ai_test.html
 │   ├── about.html
+│   ├── sky_explorer.html
 │   └── index.html
 ├── DEMO_SCRIPT.md
 ├── DEPLOYMENT.md
