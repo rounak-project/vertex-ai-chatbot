@@ -38,7 +38,8 @@ pip install -r requirements.txt
 gunicorn main:app
 ```
 
-6. Add environment variables like `GROQ_API_KEY` only in Render settings.
+6. `gunicorn` is included in `requirements.txt` for Render.
+7. Add environment variables like `GROQ_API_KEY` only in Render settings.
 
 ## Option 3: PythonAnywhere
 

@@ -14,6 +14,14 @@ Add final screenshots before submission:
 - Space Quiz screen
 - Presentation Mode screen
 
+Suggested screenshot names:
+
+- `screenshots/home-chat.png`
+- `screenshots/mission-control.png`
+- `screenshots/nasa-apod.png`
+- `screenshots/space-quiz.png`
+- `screenshots/presentation-mode.png`
+
 ## Main Features
 
 - Space chatbot with a beginner-friendly local JSON brain
@@ -62,6 +70,12 @@ Then open:
 
 ```text
 http://127.0.0.1:5000
+```
+
+If port `5000` is busy, run Flask on port `5001`:
+
+```bash
+flask --app main run --host 127.0.0.1 --port 5001
 ```
 
 ## Optional Groq AI Setup
@@ -164,6 +178,7 @@ Run:
 ```bash
 python3 -m py_compile main.py chatbot.py
 node --check static/script.js
+git diff --check
 python main.py
 ```
 
