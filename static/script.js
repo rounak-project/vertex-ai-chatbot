@@ -176,7 +176,7 @@ function updateMissionClock() {
       minute: "2-digit",
       second: "2-digit",
       hour12: false,
-      timeZoneName: "short"
+      timeZone: "Asia/Kolkata"
     });
   }
 

@@ -17,27 +17,21 @@
 
   <header class="mission-header glass-panel" aria-label="System header">
     <div class="mission-header-left">
-      <span class="mission-mark" aria-hidden="true">V</span>
-      <div>
-        <strong>VERTEX Space Operating System</strong>
-        <small>Mission-grade AI interface</small>
-      </div>
+      <span class="mission-mark" aria-hidden="true">🚀</span>
+      <strong>VERTEX</strong>
     </div>
     <div class="mission-header-right">
       <div class="status-indicator">
         <span class="status-dot status-dot-live" aria-hidden="true"></span>
-        <span>Mission Status</span>
         <strong id="missionStatusText">ONLINE</strong>
       </div>
       <div class="status-indicator">
         <span class="status-dot status-dot-neutral" aria-hidden="true"></span>
-        <span>Clock</span>
-        <strong id="missionClock">00:00:00 UTC</strong>
+        <strong id="missionClock">18:02:15</strong>
       </div>
       <div class="status-indicator">
         <span class="status-dot status-dot-accent" aria-hidden="true"></span>
-        <span>Mode</span>
-        <strong>Command</strong>
+        <strong>IST</strong>
       </div>
     </div>
   </header>
@@ -85,27 +79,8 @@
 
     <main class="content">
       <div id="presentationBanner" class="presentation-banner glass-panel">
-        <h1>VERTEX – Space AI Assistant</h1>
         <button id="exitPresentationButton" class="secondary-button" type="button">Exit Presentation Mode</button>
       </div>
-
-      <section id="demo-start" class="hero glass-panel">
-        <p class="eyebrow">Final School Demo</p>
-        <h1>VERTEX – Space AI Assistant</h1>
-        <p class="subtitle">
-          A Class 7 school project powered by Flask, NASA data, and AI.
-        </p>
-        <div class="hero-actions">
-          <a class="hero-button primary" href="#demo-start">Start Demo</a>
-          <a class="hero-button" href="#chat">Ask Vertex</a>
-          <a class="hero-button" href="#mission-control">Mission Control</a>
-          <a class="hero-button" href="{{ url_for('mission_commander') }}">Mission Commander</a>
-        </div>
-        <article class="ai-status-card" aria-label="AI brain status">
-          <span id="aiStatusMode" class="tag">Checking AI status...</span>
-          <p id="aiStatusMessage">VERTEX is checking which brain is active.</p>
-        </article>
-      </section>
 
       <section id="chat" class="section-grid">
         <div class="section-heading">
