@@ -3,6 +3,7 @@ import logging
 import os
 import random
 import time
+from functools import lru_cache
 from pathlib import Path
 
 import requests
@@ -44,6 +45,89 @@ APOD_CACHE = {
     "data": None
 }
 
+MISSION_COMMANDER_PROFILE = {
+    "role": "Mission Commander",
+    "name": "Rounak Singh",
+    "subtitle": "Space Explorer • AI Innovator • Future Scientist",
+    "status": "ONLINE",
+    "mission_day": "001",
+    "class_name": "VII-E",
+    "school": "Delhi World Public School",
+    "location": "Greater Noida, India",
+    "age": "Class 7 Student",
+    "mission_status": {
+        "status": "ONLINE",
+        "clearance": "LEVEL 7",
+        "agency": "ISRO",
+        "mission": "Exploring the Universe using AI and Curiosity"
+    },
+    "mission_log": (
+        "Hello!\n\n"
+        "I'm Rounak Singh, a Class 7 student who loves space and technology.\n\n"
+        "I created VERTEX (Space Assistant) to make learning about the universe fun and interactive.\n\n"
+        "My goal is to inspire students to explore science, ask questions, and dream big.\n\n"
+        "Every great mission starts with curiosity."
+    ),
+    "interests": [
+        {"icon": "🚀", "title": "Space"},
+        {"icon": "🤖", "title": "Artificial Intelligence"},
+        {"icon": "💻", "title": "Coding"},
+        {"icon": "🦾", "title": "Robotics"}
+    ],
+    "skills": [
+        {"name": "Python", "value": 92},
+        {"name": "HTML", "value": 96},
+        {"name": "CSS", "value": 94},
+        {"name": "JavaScript", "value": 90},
+        {"name": "Flask", "value": 88}
+    ],
+    "favorites": [
+        {"label": "Favorite Planet", "value": "Mars"},
+        {"label": "Favorite Mission", "value": "Chandrayaan-3"},
+        {"label": "Favorite Agency", "value": "ISRO"},
+        {"label": "Favorite Rocket", "value": "LVM3"},
+        {"label": "Favorite Telescope", "value": "James Webb Space Telescope"}
+    ],
+    "dream_careers": [
+        {"title": "AI Engineer", "description": "Design intelligent systems that help people learn faster."},
+        {"title": "ISRO Scientist", "description": "Build missions that explore the Moon, Mars, and beyond."},
+        {"title": "Aerospace Engineer", "description": "Create rockets and spacecraft that can travel safely."},
+        {"title": "Space Technology Innovator", "description": "Build tools for the next generation of explorers."}
+    ],
+    "achievements": [
+        "Built VERTEX",
+        "NASA API Integration",
+        "ISRO Dashboard",
+        "Mission Control",
+        "Space Quiz Academy",
+        "300+ Questions",
+        "Groq AI",
+        "Render Deployment"
+    ],
+    "mission_stats": [
+        {"label": "Lines of Code", "value": 6800, "suffix": "+"},
+        {"label": "Features", "value": 18, "suffix": "+"},
+        {"label": "Quiz Questions", "value": 300, "suffix": "+"},
+        {"label": "APIs Integrated", "value": 8, "suffix": "+"},
+        {"label": "AI Models", "value": 1, "suffix": "+"},
+        {"label": "Current Version", "value": 3, "suffix": ".0"}
+    ],
+    "timeline": [
+        {"year": "2024", "title": "Started learning programming.", "detail": "Built a foundation with Python, HTML, CSS, and simple projects."},
+        {"year": "2024", "title": "Built first websites.", "detail": "Learned how to create interactive pages and connect them with data."},
+        {"year": "2025", "title": "Started AI projects.", "detail": "Explored APIs, local knowledge bases, and smarter experiences."},
+        {"year": "2025", "title": "Built VERTEX Space Assistant.", "detail": "Created a space learning dashboard with chatbot, quiz, and mission control."},
+        {"year": "Future", "title": "Dreaming of joining ISRO.", "detail": "Continuing to study science, code, and space technology."}
+    ],
+    "contact": [
+        {"label": "GitHub", "value": "github.com/rounak-project", "href": "https://github.com/rounak-project"},
+        {"label": "Email", "value": "rounak@example.com", "href": "mailto:rounak@example.com"},
+        {"label": "LinkedIn", "value": "Coming Soon", "href": "#"},
+        {"label": "Portfolio", "value": "Coming Soon", "href": "#"}
+    ],
+    "mission_image": "images/about/rounak-astronaut.png"
+}
+
 
 def load_json_file(file_name):
     """Load a JSON file from the data folder."""
@@ -59,6 +143,29 @@ def load_json_file_or_default(file_name, default_value):
         return load_json_file(file_name)
     except (OSError, json.JSONDecodeError):
         return default_value
+
+
+@lru_cache(maxsize=1)
+def get_repo_code_lines():
+    """Count the approximate code size for the mission commander profile."""
+    total_lines = 0
+    for path in BASE_DIR.rglob("*"):
+        if not path.is_file():
+            continue
+
+        if ".git" in path.parts or "node_modules" in path.parts:
+            continue
+
+        if path.suffix.lower() not in {".py", ".js", ".html", ".css", ".json", ".md"}:
+            continue
+
+        try:
+            with path.open("r", encoding="utf-8") as file:
+                total_lines += sum(1 for _ in file)
+        except (OSError, UnicodeDecodeError):
+            continue
+
+    return total_lines
 
 
 def get_quiz_database():
@@ -310,6 +417,19 @@ def iss_tracker():
 def launches():
     """API route for local demo rocket launch cards."""
     return jsonify(load_json_file_or_default("launches.json", []))
+
+
+@app.route("/mission-commander")
+@app.route("/about")
+def mission_commander():
+    """Render the futuristic Mission Commander profile."""
+    return render_template(
+        "about.html",
+        profile=MISSION_COMMANDER_PROFILE,
+        repo_code_lines=get_repo_code_lines(),
+        about_css=url_for("static", filename="about.css"),
+        about_js=url_for("static", filename="about.js")
+    )
 
 
 @app.route("/api/quiz-database")

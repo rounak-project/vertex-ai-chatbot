@@ -12,6 +12,7 @@ Add final screenshots before submission:
 - Mission Control screen
 - NASA Picture of the Day screen
 - Space Quiz screen
+- Mission Commander profile screen
 - Presentation Mode screen
 
 Suggested screenshot names:
@@ -20,6 +21,7 @@ Suggested screenshot names:
 - `screenshots/mission-control.png`
 - `screenshots/nasa-apod.png`
 - `screenshots/space-quiz.png`
+- `screenshots/mission-commander.png`
 - `screenshots/presentation-mode.png`
 
 ## Main Features
@@ -40,6 +42,7 @@ Suggested screenshot names:
 - Optional sound effects with mute button
 - Theme switcher: Deep Space, Blue Neon, and Mars Red
 - Space Quiz Academy with categories, modes, timers, badges, leaderboard, review, and certificate
+- Futuristic Mission Commander profile for the creator of VERTEX
 - Presentation Mode for teacher demo
 - Final Project Summary section
 
@@ -188,6 +191,7 @@ It shows API key loaded, Groq connected, AI provider, last AI response, response
 | `/api/agencies` | GET | Gets space agency cards |
 | `/api/quiz-database` | GET | Loads the local Space Quiz Academy database |
 | `/api/quiz-generate` | POST | Generates quiz questions with Groq or falls back to local questions |
+| `/mission-commander` | GET | Opens the futuristic Mission Commander profile |
 
 ## Architecture
 
@@ -327,6 +331,13 @@ The repository deployment files are:
 - `runtime.txt`: Python 3.11.9
 - `requirements.txt`: includes Flask, gunicorn, groq, python-dotenv, and requests.
 
+The Mission Commander profile uses:
+
+- `templates/about.html`
+- `static/about.css`
+- `static/about.js`
+- `static/images/about/rounak-astronaut.png`
+
 ## Troubleshooting Groq
 
 If `/api/ai-status` says `api_key_loaded: false`:
@@ -388,12 +399,17 @@ vertex-ai-chatbot/
 │   ├── space_knowledge.json
 │   └── space_news.json
 ├── static/
+│   ├── about.css
+│   ├── about.js
 │   ├── images/
 │   │   └── apod-backup.svg
+│   │   └── about/
+│   │       └── rounak-astronaut.png
 │   ├── script.js
 │   └── style.css
 ├── templates/
 │   ├── ai_test.html
+│   ├── about.html
 │   └── index.html
 ├── DEMO_SCRIPT.md
 ├── DEPLOYMENT.md
