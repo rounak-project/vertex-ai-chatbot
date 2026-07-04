@@ -3,7 +3,6 @@
 const missionBody = document.body;
 const missionLog = document.querySelector("#missionLog");
 const missionPortrait = document.querySelector(".mission-profile-image");
-const missionImageFallback = document.querySelector("#missionImageFallback");
 const counterNodes = document.querySelectorAll("[data-counter]");
 const barNodes = document.querySelectorAll("[data-width]");
 const navCards = document.querySelectorAll(".mission-nav-card");
@@ -135,32 +134,10 @@ function setupParallax() {
   }, { passive: true });
 }
 
-function setupImageFallback() {
-  if (!missionPortrait || !missionImageFallback) {
-    return;
-  }
-
-  missionPortrait.addEventListener("error", () => {
-    missionPortrait.hidden = true;
-    missionImageFallback.hidden = false;
-  });
-
-  missionPortrait.addEventListener("load", () => {
-    missionPortrait.hidden = false;
-    missionImageFallback.hidden = true;
-  });
-
-  if (missionPortrait.complete && missionPortrait.naturalWidth === 0) {
-    missionPortrait.hidden = true;
-    missionImageFallback.hidden = false;
-  }
-}
-
 window.addEventListener("load", () => {
   missionBody.classList.add("is-ready");
   typeMissionLog();
   setupScrollSpy();
   setupRevealAnimations();
   setupParallax();
-  setupImageFallback();
 });

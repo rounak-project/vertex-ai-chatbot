@@ -76,15 +76,13 @@
 
       <section class="mission-grid-top">
         <article class="mission-profile-frame glass-panel">
-          <div class="frame-glow"></div>
-          <div class="frame-scanner"></div>
-          <div id="missionImageFallback" class="mission-image-fallback" hidden>Mission Commander Image</div>
           <img
             src="{{ url_for('static', filename='images/rounak-astronaut.png') }}"
-            alt="Mission Commander Rounak Singh"
+            alt="Mission Commander Rounak Singh astronaut profile"
             class="mission-profile-image"
-            loading="lazy"
-          >
+            loading="eager"
+            decoding="async"
+          />
         </article>
 
         <article class="mission-status-panel glass-panel">
