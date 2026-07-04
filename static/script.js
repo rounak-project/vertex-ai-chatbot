@@ -3,6 +3,7 @@ const userInput = document.querySelector("#userInput");
 const chatMessages = document.querySelector("#chatMessages");
 const sampleQuestions = document.querySelectorAll(".sample-question");
 const voiceButton = document.querySelector("#voiceButton");
+const voiceRetryButton = document.querySelector("#voiceRetryButton");
 const stopListeningButton = document.querySelector("#stopListeningButton");
 const voiceSpeakLastButton = document.querySelector("#voiceSpeakLastButton");
 const voiceStopSpeakingButton = document.querySelector("#voiceStopSpeakingButton");
@@ -98,6 +99,8 @@ let activeThinkingCleanup = null;
 let activeTypingCleanup = null;
 let recognition = null;
 let recognitionActive = false;
+let recognitionStopRequested = false;
+let recognitionRestartTimer = null;
 let voiceMode = "ready";
 let lastCompletedReplyText = "";
 let missionClockTimer = null;
@@ -174,7 +177,7 @@ function setThinkingState(isThinking) {
   vertexAvatar.classList.toggle("is-thinking", isThinking);
   avatarStatus.textContent = isThinking ? "Thinking about your question..." : "Ready for your next space question.";
   if (isThinking) {
-    setVoiceMode("thinking", "VERTEX is thinking about the answer.");
+    setVoiceMode("processing", "VERTEX is thinking about the answer.");
   } else if (!recognitionActive && voiceMode !== "speaking" && voiceMode !== "unsupported") {
     setVoiceMode("ready");
   }
@@ -415,10 +418,10 @@ function setVoiceMode(mode, message) {
     const labelMap = {
       ready: "Voice Mode: Ready",
       listening: "Voice Mode: Listening...",
-      thinking: "Voice Mode: Thinking...",
+      processing: "Voice Mode: Processing...",
       speaking: "Voice Mode: Speaking...",
-      stopped: "Voice Mode: Stopped",
-      unsupported: "Voice Unsupported"
+      "permission-denied": "Permission denied",
+      unsupported: "Unsupported browser"
     };
     voiceModeStatus.textContent = labelMap[mode] || "Voice Mode: Ready";
   }
@@ -427,19 +430,25 @@ function setVoiceMode(mode, message) {
     const messageMap = {
       ready: "Tap Talk to Vertex and ask a question out loud.",
       listening: "Speak your question now. VERTEX is listening.",
-      thinking: "VERTEX is preparing an answer.",
+      processing: "VERTEX is preparing an answer.",
       speaking: "VERTEX is speaking the completed answer.",
-      stopped: "Voice interaction stopped.",
-      unsupported: "Voice recognition is not supported in this browser. Please use Chrome or Edge."
+      "permission-denied": "Microphone permission is turned off. Open your browser settings, allow microphone access, then try again.",
+      unsupported: "Voice input is supported in Chrome and Microsoft Edge."
     };
     voiceStatusText.textContent = message || messageMap[mode] || messageMap.ready;
+  }
+
+  if (voiceRetryButton) {
+    const showRetry = mode === "permission-denied";
+    voiceRetryButton.hidden = !showRetry;
+    voiceRetryButton.disabled = !showRetry;
   }
 
   if (!voiceWaveform) {
     return;
   }
 
-  const activeModes = new Set(["listening", "thinking", "speaking"]);
+  const activeModes = new Set(["listening", "processing", "speaking"]);
   voiceWaveform.className = "voice-waveform";
   if (activeModes.has(mode)) {
     voiceWaveform.classList.add("is-active");
@@ -464,6 +473,7 @@ function ensureRecognition() {
 
   recognition.addEventListener("start", () => {
     recognitionActive = true;
+    recognitionStopRequested = false;
     setVoiceMode("listening");
     if (voiceButton) {
       voiceButton.textContent = "Listening...";
@@ -473,19 +483,20 @@ function ensureRecognition() {
   recognition.addEventListener("result", (event) => {
     const transcript = event.results?.[0]?.[0]?.transcript?.trim() || "";
     if (!transcript) {
-      setVoiceMode("stopped", "No speech was detected. Please try again.");
+      setVoiceMode("ready", "No speech was detected. Please try again.");
       return;
     }
 
     userInput.value = transcript;
     userInput.focus();
+    recognitionStopRequested = true;
     stopListening();
     chatForm.requestSubmit();
   });
 
-  recognition.addEventListener("speechend", () => {
+  recognition.addEventListener("speechstart", () => {
     if (recognitionActive) {
-      setVoiceMode("listening", "Speech detected. Listening for the end of your question...");
+      setVoiceMode("listening", "Speech detected. Keep speaking your question.");
     }
   });
 
@@ -495,26 +506,46 @@ function ensureRecognition() {
       voiceButton.textContent = "🎤 Talk to Vertex";
     }
 
-    if (voiceMode === "listening") {
-      setVoiceMode("stopped", "Voice recognition stopped.");
+    if (!recognitionStopRequested && voiceMode === "listening") {
+      setVoiceMode("processing", "Microphone stopped unexpectedly. Trying again...");
+      clearTimeout(recognitionRestartTimer);
+      recognitionRestartTimer = window.setTimeout(() => {
+        if (!recognitionActive && !recognitionStopRequested) {
+          startListening();
+        }
+      }, 500);
+      return;
+    }
+
+    if (voiceMode === "listening" || voiceMode === "processing") {
+      setVoiceMode("ready");
     }
   });
 
   recognition.addEventListener("error", (event) => {
     recognitionActive = false;
+    recognitionStopRequested = true;
     if (voiceButton) {
       voiceButton.textContent = "🎤 Talk to Vertex";
     }
+    clearTimeout(recognitionRestartTimer);
 
     const errorMap = {
-      "not-allowed": "Microphone permission was denied. Please allow access and try again.",
-      "service-not-allowed": "Microphone access is blocked in this browser. Please use Chrome or Edge.",
+      "not-allowed": "Microphone permission is turned off. Open your browser settings, allow microphone access, then try again.",
+      "service-not-allowed": "Microphone access is blocked in this browser. Voice input is supported in Chrome and Microsoft Edge.",
       "no-speech": "No speech was detected. Please try again.",
-      "audio-capture": "No microphone was found. Please check your device.",
-      "network": "Speech recognition could not reach the service right now."
+      "audio-capture": "No microphone was found. Please check your device settings.",
+      "network": "Speech recognition could not reach the service right now.",
+      "aborted": "Voice recognition was stopped."
     };
     const friendly = errorMap[event.error] || "Voice recognition stopped because of an error.";
-    setVoiceMode("stopped", friendly);
+    if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+      setVoiceMode("permission-denied", friendly);
+    } else if (event.error === "no-speech") {
+      setVoiceMode("ready", friendly);
+    } else {
+      setVoiceMode("ready", friendly);
+    }
   });
 
   return recognition;
@@ -524,6 +555,9 @@ function stopListening() {
   if (!recognitionActive || !recognition) {
     return;
   }
+
+  recognitionStopRequested = true;
+  clearTimeout(recognitionRestartTimer);
 
   try {
     recognition.stop();
@@ -539,12 +573,25 @@ function stopListening() {
   if (voiceButton) {
     voiceButton.textContent = "🎤 Talk to Vertex";
   }
-  if (voiceMode === "listening") {
-    setVoiceMode("stopped", "Voice recognition stopped.");
+  if (voiceMode === "listening" || voiceMode === "processing") {
+    setVoiceMode("ready", "Voice recognition stopped.");
   }
 }
 
-function startListening() {
+async function checkMicrophonePermission() {
+  if (!navigator.permissions?.query) {
+    return "unknown";
+  }
+
+  try {
+    const result = await navigator.permissions.query({ name: "microphone" });
+    return result.state || "unknown";
+  } catch (error) {
+    return "unknown";
+  }
+}
+
+async function startListening() {
   const activeRecognition = ensureRecognition();
 
   if (!activeRecognition) {
@@ -553,13 +600,25 @@ function startListening() {
     return;
   }
 
+  clearTimeout(recognitionRestartTimer);
   stopSpeaking();
+  setVoiceMode("processing", "Checking microphone permission...");
+
+  const permissionState = await checkMicrophonePermission();
+  if (permissionState === "denied") {
+    recognitionStopRequested = true;
+    setVoiceMode("permission-denied");
+    return;
+  }
+
+  recognitionStopRequested = false;
 
   try {
     activeRecognition.start();
   } catch (error) {
     // Some browsers throw if start is called twice quickly. We recover by resetting the state.
-    setVoiceMode("stopped", "Voice recognition could not start. Please try again.");
+    recognitionStopRequested = true;
+    setVoiceMode("ready", "Voice recognition could not start. Please try again.");
   }
 }
 
@@ -727,7 +786,7 @@ function stopSpeaking() {
     window.speechSynthesis.cancel();
   }
   if (voiceMode === "speaking") {
-    setVoiceMode("stopped", "Speech stopped.");
+    setVoiceMode("ready", "Speech stopped.");
   }
 }
 
@@ -778,7 +837,7 @@ function speakCompletedReply(text) {
     }
   };
   speech.onerror = () => {
-    setVoiceMode("stopped", "Speech output could not play.");
+    setVoiceMode("ready", "Speech output could not play.");
   };
   stopSpeaking();
   window.speechSynthesis.speak(speech);
@@ -786,7 +845,7 @@ function speakCompletedReply(text) {
 
 function speakLastAnswer() {
   if (!lastCompletedReplyText) {
-    setVoiceMode("stopped", "No completed answer is available yet.");
+    setVoiceMode("ready", "No completed answer is available yet.");
     return;
   }
 
@@ -930,14 +989,40 @@ function waitOneSecond() {
 }
 
 // This helper asks Flask for JSON data and reports errors clearly.
-async function fetchJson(url) {
-  const response = await fetch(url);
+async function fetchJson(url, options = {}) {
+  const controller = new AbortController();
+  const timeoutMs = options.timeoutMs || 10000;
+  const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
 
-  if (!response.ok) {
-    throw new Error(`Request failed: ${url}`);
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      throw new Error("The server returned an unexpected response.");
+    }
+
+    return await response.json();
+  } catch (error) {
+    if (error.name === "AbortError") {
+      throw new Error("The request timed out. Please try again.");
+    }
+
+    if (!navigator.onLine) {
+      throw new Error("You appear to be offline. Check your connection and try again.");
+    }
+
+    throw error;
+  } finally {
+    window.clearTimeout(timeoutId);
   }
-
-  return response.json();
 }
 
 chatForm.addEventListener("submit", async (event) => {
@@ -960,7 +1045,7 @@ chatForm.addEventListener("submit", async (event) => {
   };
 
   try {
-    const fetchReply = fetch("/chat", {
+    const fetchReply = fetchJson("/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -968,12 +1053,11 @@ chatForm.addEventListener("submit", async (event) => {
       body: JSON.stringify({ message })
     });
 
-    const [response] = await Promise.all([fetchReply, waitOneSecond()]);
+    const [data] = await Promise.all([fetchReply, waitOneSecond()]);
     if (replyTurnId !== activeReplyTurnId) {
       return;
     }
 
-    const data = await response.json();
     thinkingMessage.message.remove();
     activeThinkingCleanup = null;
     const botReply = addMessage("VERTEX", data.response, "bot");
@@ -997,7 +1081,7 @@ chatForm.addEventListener("submit", async (event) => {
 
     thinkingMessage.message.remove();
     activeThinkingCleanup = null;
-    const errorText = "Connection problem. Please check if Flask is running.";
+    const errorText = error?.message || "Connection problem. Please check if Flask is running.";
     const botReply = addMessage("VERTEX", errorText, "bot", { speakable: false });
     await typeBotReply(botReply.message, botReply.paragraph, errorText, replyTurnId);
     activeTypingCleanup = null;
@@ -1039,6 +1123,10 @@ function setupVoiceInput() {
       return;
     }
 
+    startListening();
+  });
+
+  voiceRetryButton?.addEventListener("click", () => {
     startListening();
   });
 
@@ -1207,7 +1295,11 @@ function renderLaunches(launches) {
 }
 
 function showCardError(container, message) {
-  container.innerHTML = `<p class="error-text">${message}</p>`;
+  container.innerHTML = "";
+  const paragraph = document.createElement("p");
+  paragraph.className = "error-text";
+  paragraph.textContent = message;
+  container.appendChild(paragraph);
 }
 
 async function loadDashboardData() {
@@ -1215,14 +1307,14 @@ async function loadDashboardData() {
     const apod = await fetchJson("/api/nasa/apod");
     renderApod(apod);
   } catch (error) {
-    showCardError(apodCard, "NASA data could not load, but the chatbot still works.");
+    showCardError(apodCard, error?.message || "NASA data could not load, but the chatbot still works.");
   }
 
   try {
     const news = await fetchJson("/api/space-news");
     renderNews(news);
   } catch (error) {
-    showCardError(newsGrid, "Space news could not load right now.");
+    showCardError(newsGrid, error?.message || "Space news could not load right now.");
   }
 
   try {
@@ -1230,14 +1322,14 @@ async function loadDashboardData() {
     allPlanets = planets;
     renderPlanets(allPlanets);
   } catch (error) {
-    showCardError(planetGrid, "Planet cards could not load right now.");
+    showCardError(planetGrid, error?.message || "Planet cards could not load right now.");
   }
 
   try {
     const agencies = await fetchJson("/api/agencies");
     renderAgencies(agencies);
   } catch (error) {
-    showCardError(agencyGrid, "Agency cards could not load right now.");
+    showCardError(agencyGrid, error?.message || "Agency cards could not load right now.");
   }
 }
 
@@ -1249,14 +1341,14 @@ async function loadMissionControl() {
     const iss = await fetchJson("/api/iss");
     renderIss(iss);
   } catch (error) {
-    showCardError(issCard, "ISS location could not load right now.");
+    showCardError(issCard, error?.message || "ISS location could not load right now.");
   }
 
   try {
     const launches = await fetchJson("/api/launches");
     renderLaunches(launches);
   } catch (error) {
-    showCardError(launchList, "Rocket launches could not load right now.");
+    showCardError(launchList, error?.message || "Rocket launches could not load right now.");
   }
 
   missionUpdatedText.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
@@ -1805,7 +1897,7 @@ async function generateQuiz(topic, difficulty) {
   quizFeedback.textContent = "VERTEX will use Groq if available, otherwise local questions.";
 
   try {
-    const data = await fetchJsonWithOptions("/api/quiz-generate", {
+    const data = await fetchJson("/api/quiz-generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ topic, difficulty, limit: 10 })
@@ -1819,16 +1911,6 @@ async function generateQuiz(topic, difficulty) {
     quizFeedback.textContent = "AI generation is unavailable. Starting a local quiz.";
     startQuiz(fallback);
   }
-}
-
-async function fetchJsonWithOptions(url, options) {
-  const response = await fetch(url, options);
-
-  if (!response.ok) {
-    throw new Error(`Request failed: ${url}`);
-  }
-
-  return response.json();
 }
 
 async function loadQuizDatabase() {

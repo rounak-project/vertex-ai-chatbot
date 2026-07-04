@@ -31,6 +31,38 @@ function clearChildren(node) {
   }
 }
 
+async function fetchJson(url, options = {}) {
+  const controller = new AbortController();
+  const timeoutMs = options.timeoutMs || 10000;
+  const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      throw new Error("Unexpected response format.");
+    }
+
+    return await response.json();
+  } catch (error) {
+    if (error.name === "AbortError") {
+      throw new Error("The request timed out.");
+    }
+
+    throw error;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
+
 function setSelectedObject(objectItem) {
   if (!objectItem) {
     return;
@@ -85,6 +117,11 @@ function renderObjectCards(list) {
 
 function renderSearch() {
   const query = normalize(skySearchInput.value);
+  if (!skyData.featured_objects.length) {
+    skySearchResults.innerHTML = "<div class=\"sky-search-item\">Sky data is unavailable right now.</div>";
+    return;
+  }
+
   const filtered = skyData.featured_objects.filter((item) => {
     if (!query) {
       return true;
@@ -113,7 +150,7 @@ function handleControlAction(action) {
         skyLocationState.textContent = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
       },
       () => {
-        skyLocationState.textContent = "Location denied";
+        skyLocationState.textContent = "Location permission denied";
       },
       { enableHighAccuracy: false, timeout: 6000 }
     );
@@ -170,20 +207,14 @@ async function askVertex(event) {
   skyAiResponse.textContent = "VERTEX is thinking...";
 
   try {
-    const response = await fetch("/chat", {
+    const payload = await fetchJson("/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message })
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to contact VERTEX.");
-    }
-
-    const payload = await response.json();
     skyAiResponse.textContent = payload.response || "No response returned.";
   } catch (error) {
-    skyAiResponse.textContent = "VERTEX could not answer right now. Local page features still work.";
+    skyAiResponse.textContent = error.message || "VERTEX could not answer right now. Local page features still work.";
   }
 }
 
@@ -202,10 +233,10 @@ function setOverlayReady() {
 
 async function loadSkyData() {
   try {
-    const response = await fetch("/api/sky-explorer-data");
-    skyData = await response.json();
+    skyData = await fetchJson("/api/sky-explorer-data");
   } catch (error) {
     skyData = { featured_objects: [], control_actions: [] };
+    skyStageOverlay.textContent = "Sky data could not load right now.";
   }
 
   skyControlGrid.innerHTML = "";

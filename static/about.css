@@ -312,7 +312,8 @@ body.mission-body.is-ready .mission-scan {
   background: rgba(40, 184, 255, 0.14);
   box-shadow: 0 0 24px rgba(70, 217, 255, 0.12);
   transform: translateY(-2px);
-  outline: none;
+  outline: 2px solid rgba(85, 247, 255, 0.6);
+  outline-offset: 2px;
 }
 
 .mission-nav-card.is-active {
@@ -761,7 +762,8 @@ body.mission-body.is-ready .mission-scan {
   transform: translateY(-3px);
   border-color: rgba(85, 247, 255, 0.44);
   box-shadow: 0 0 24px rgba(70, 217, 255, 0.14);
-  outline: none;
+  outline: 2px solid rgba(85, 247, 255, 0.6);
+  outline-offset: 2px;
 }
 
 .about-page-footer {
