@@ -25,8 +25,10 @@ from chatbot import (
     get_vertex_response,
     should_use_groq
 )
+from website_builder import website_builder_bp
 
 app = Flask(__name__)
+app.register_blueprint(website_builder_bp)
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"

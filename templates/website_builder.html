@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Builder | VERTEX AI OS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='website_builder.css') }}">
+</head>
+<body>
+  <div class="tech-bg" aria-hidden="true">
+    <div class="neural-field"></div>
+    <div class="data-grid"></div>
+    <div class="matrix-rain"></div>
+    <div class="circuit-field"></div>
+    <div class="energy-stream stream-one"></div>
+    <div class="energy-stream stream-two"></div>
+    <div class="pulse-wave pulse-one"></div>
+    <div class="pulse-wave pulse-two"></div>
+    <div class="floating-node node-one"></div>
+    <div class="floating-node node-two"></div>
+    <div class="floating-node node-three"></div>
+  </div>
+
+  <header class="topbar" aria-label="VERTEX system header">
+    <a class="topbar-brand" href="{{ url_for('home') }}" aria-label="VERTEX AI OS dashboard">
+      <span class="brand-mark">V</span>
+      <span>VERTEX AI OS</span>
+    </a>
+    <div class="topbar-actions">
+      <span class="online-pill"><span></span>BUILDER ONLINE</span>
+      <a class="secondary-button" href="{{ url_for('home') }}">Dashboard</a>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="VERTEX navigation">
+      <div class="sidebar-brand">
+        <span class="brand-mark">V</span>
+        <div>
+          <strong>VERTEX</strong>
+          <small>The Intelligence Operating System</small>
+        </div>
+      </div>
+
+      <nav class="nav-list" aria-label="Primary navigation">
+        <a class="nav-link" href="{{ url_for('home') }}#dashboard"><span>01</span>Dashboard</a>
+        <a class="nav-link" href="{{ url_for('home') }}#chat"><span>02</span>Vertex Chat</a>
+        <a class="nav-link" href="{{ url_for('home') }}#voice"><span>09</span>Voice Assistant</a>
+        <a class="nav-link is-active" href="{{ url_for('website_builder.website_builder_page') }}"><span>12</span>🌐 Website Builder</a>
+        <a class="nav-link" href="{{ url_for('mission_commander') }}"><span>13</span>About Creator</a>
+      </nav>
+    </aside>
+
+    <main class="content website-builder-content">
+      <section class="builder-shell" aria-label="AI Website Builder">
+        <div class="builder-panel builder-controls glass-panel">
+          <div class="section-heading builder-heading">
+            <div>
+              <p class="eyebrow">AI Website Builder</p>
+              <h1>Generate static websites from plain English.</h1>
+            </div>
+            <span id="builderStatus" class="status-chip">Ready</span>
+          </div>
+
+          <form id="websiteBuilderForm" class="builder-form">
+            <label for="websitePrompt">
+              <span>Website prompt</span>
+              <textarea id="websitePrompt" name="prompt" rows="9" placeholder="Create a landing page for an AI startup." required></textarea>
+            </label>
+
+            <label for="websiteTheme">
+              <span>Theme</span>
+              <select id="websiteTheme" name="theme">
+                <option value="modern">Modern</option>
+                <option value="minimal">Minimal</option>
+                <option value="startup">Startup</option>
+                <option value="portfolio">Portfolio</option>
+                <option value="dark">Dark</option>
+                <option value="glassmorphism">Glassmorphism</option>
+              </select>
+            </label>
+
+            <div class="builder-actions">
+              <button id="generateWebsiteButton" class="primary-button" type="submit">Generate</button>
+              <button id="regenerateWebsiteButton" class="secondary-button" type="button">Regenerate</button>
+            </div>
+          </form>
+
+          <div class="builder-quick-prompts" aria-label="Example prompts">
+            <button type="button" data-prompt="Build a portfolio website.">Portfolio</button>
+            <button type="button" data-prompt="Create a restaurant website.">Restaurant</button>
+            <button type="button" data-prompt="Create a landing page for an AI startup.">AI Startup</button>
+            <button type="button" data-prompt="Build a personal blog.">Blog</button>
+          </div>
+        </div>
+
+        <div class="builder-panel builder-output glass-panel">
+          <div class="preview-toolbar">
+            <div>
+              <p class="eyebrow">Live Preview</p>
+              <h2>Generated Website</h2>
+            </div>
+            <div class="file-actions">
+              <button id="copyCodeButton" class="secondary-button" type="button">Copy Code</button>
+              <button id="downloadFilesButton" class="secondary-button" type="button">Download Files</button>
+            </div>
+          </div>
+
+          <iframe id="websitePreview" class="website-preview" title="Generated website preview" sandbox="allow-scripts"></iframe>
+
+          <div class="generated-files">
+            <div class="file-tabs" role="tablist" aria-label="Generated files">
+              <button class="file-tab is-active" type="button" data-file="index.html">index.html</button>
+              <button class="file-tab" type="button" data-file="style.css">style.css</button>
+              <button class="file-tab" type="button" data-file="script.js">script.js</button>
+            </div>
+            <pre class="code-output"><code id="generatedCode">// Generated code will appear here.</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='website_builder.js') }}"></script>
+</body>
+</html>
