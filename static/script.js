@@ -98,7 +98,11 @@ let recognitionActive = false;
 let recognitionStopRequested = false;
 let recognitionRestartTimer = null;
 let voiceMode = "ready";
-let lastCompletedReplyText = "";
+let messageSequence = 0;
+let lastCompletedReply = null;
+let lastSpokenMessageId = null;
+let currentSpeakingMessageId = null;
+let speakingLock = false;
 let activeReplyTurnId = 0;
 let activeTypingCleanup = null;
 let quizDatabase = { categories: [], questions: [] };
@@ -192,6 +196,11 @@ function getCurrentTimeText() {
   return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
+function getNextMessageId() {
+  messageSequence += 1;
+  return `msg-${Date.now()}-${messageSequence}`;
+}
+
 function escapeHtml(text) {
   return String(text || "")
     .replaceAll("&", "&amp;")
@@ -278,7 +287,10 @@ function renderMarkdown(text) {
 
 function addMessage(speaker, text, type, options = {}) {
   const message = document.createElement("div");
+  const messageId = options.messageId || getNextMessageId();
   message.className = `message ${type}`;
+  message.dataset.messageId = messageId;
+  message.dataset.rawText = text;
 
   const speakerLabel = document.createElement("span");
   speakerLabel.className = "speaker";
@@ -303,7 +315,7 @@ function addMessage(speaker, text, type, options = {}) {
     speakButton.className = "secondary-button";
     speakButton.type = "button";
     speakButton.textContent = "Speak";
-    speakButton.addEventListener("click", () => speakCompletedReply(text));
+    speakButton.addEventListener("click", () => speakAssistantMessage(messageId, text, { force: true }));
 
     const stopButton = document.createElement("button");
     stopButton.className = "secondary-button";
@@ -316,7 +328,7 @@ function addMessage(speaker, text, type, options = {}) {
 
   chatMessages.appendChild(message);
   chatMessages.scrollTop = chatMessages.scrollHeight;
-  return { message, body };
+  return { message, body, messageId };
 }
 
 function setThinkingState(isThinking) {
@@ -423,11 +435,11 @@ chatForm?.addEventListener("submit", async (event) => {
     const finished = await typeBotReply(reply.message, reply.body, data.response, turnId);
     activeTypingCleanup = null;
     if (!finished || turnId !== activeReplyTurnId) return;
-    lastCompletedReplyText = data.response;
+    lastCompletedReply = { messageId: reply.messageId, text: data.response };
     playSound("reply");
     if (autoSpeakEnabled) {
       await sleep(180);
-      if (turnId === activeReplyTurnId) speakCompletedReply(data.response);
+      if (turnId === activeReplyTurnId) speakAssistantMessage(reply.messageId, data.response);
     }
   } catch (error) {
     thinking.message.remove();
@@ -452,13 +464,23 @@ function chooseBestVoice() {
   return voices.find((voice) => String(voice.lang || "").toLowerCase().startsWith("en")) || voices[0] || null;
 }
 
-function stripMarkdownForSpeech(text) {
+function cleanTextForSpeech(text) {
   return String(text || "")
     .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^\s{0,3}#{1,6}\s+/gm, "")
     .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, "$1")
-    .replace(/[*_`>#|]/g, " ")
-    .replace(/^\s*[-*]\s+/gm, "")
-    .replace(/^\s*\d+\.\s+/gm, "")
+    .replace(/https?:\/\/\S{30,}/g, " ")
+    .replace(/https?:\/\/\S+/g, " link ")
+    .replace(/^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/gm, " ")
+    .replace(/[|]/g, " ")
+    .replace(/<\/?[^>]+>/g, " ")
+    .replace(/[*_~`>#]/g, " ")
+    .replace(/^\s*[-+*]\s+/gm, "")
+    .replace(/^\s*\d+[.)]\s+/gm, "")
+    .replace(/\b(?:Speak Last Answer|Stop Speaking|Talk to Vertex|Try Again|Speak|Stop|Listening)\b/gi, " ")
+    .replace(/\b\d{1,2}:\d{2}(?:\s?[AP]M)?\b/gi, " ")
+    .replace(/\b(?:Neural inference running|Loading AI signals|Loading|Typing)\.{0,3}\b/gi, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -478,7 +500,7 @@ function setVoiceMode(mode, message) {
     listening: "Speak now. VERTEX is listening.",
     processing: "Neural waves are processing the question.",
     speaking: "VERTEX is speaking the completed answer.",
-    "permission-denied": "Microphone permission is blocked. Allow microphone access in your browser settings.",
+    "permission-denied": "Click the lock icon in the address bar \u2192 Site settings \u2192 Microphone \u2192 Allow \u2192 Reload.",
     unsupported: "Voice input works best in Chrome or Microsoft Edge."
   };
   if (voiceModeStatus) voiceModeStatus.textContent = labels[mode] || labels.ready;
@@ -501,36 +523,65 @@ function setVoiceMode(mode, message) {
   }
 }
 
-function speakCompletedReply(text) {
+function speakAssistantMessage(messageId, rawText, options = {}) {
   if (!("speechSynthesis" in window)) {
     setVoiceMode("unsupported");
     return;
   }
-  const speechText = stripMarkdownForSpeech(text);
+  const normalizedMessageId = String(messageId || "");
+  if (!normalizedMessageId) return;
+  if (!options.force && lastSpokenMessageId === normalizedMessageId) return;
+  if (speakingLock && currentSpeakingMessageId === normalizedMessageId && !options.force) return;
+
+  const speechText = cleanTextForSpeech(rawText);
   if (!speechText) return;
   preferredVoice = preferredVoice || chooseBestVoice();
   const utterance = new SpeechSynthesisUtterance(speechText);
+  currentSpeakingMessageId = normalizedMessageId;
+  speakingLock = true;
+  lastSpokenMessageId = normalizedMessageId;
   utterance.voice = preferredVoice;
   utterance.lang = preferredVoice?.lang || "en-US";
   utterance.rate = 0.96;
-  utterance.onstart = () => setVoiceMode("speaking");
-  utterance.onend = () => setVoiceMode("ready");
-  utterance.onerror = () => setVoiceMode("ready", "Speech output could not play.");
   stopSpeaking();
+  currentSpeakingMessageId = normalizedMessageId;
+  speakingLock = true;
+  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+    console.debug("Speaking message", normalizedMessageId);
+  }
+  utterance.onstart = () => {
+    if (currentSpeakingMessageId === normalizedMessageId) setVoiceMode("speaking");
+  };
+  utterance.onend = () => {
+    if (currentSpeakingMessageId === normalizedMessageId) {
+      currentSpeakingMessageId = null;
+      speakingLock = false;
+      setVoiceMode("ready");
+    }
+  };
+  utterance.onerror = () => {
+    if (currentSpeakingMessageId === normalizedMessageId) {
+      currentSpeakingMessageId = null;
+      speakingLock = false;
+      setVoiceMode("ready", "Speech output could not play.");
+    }
+  };
   window.speechSynthesis.speak(utterance);
 }
 
 function stopSpeaking() {
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  currentSpeakingMessageId = null;
+  speakingLock = false;
   if (voiceMode === "speaking") setVoiceMode("ready", "Speech stopped.");
 }
 
 function speakLastAnswer() {
-  if (!lastCompletedReplyText) {
+  if (!lastCompletedReply?.text) {
     setVoiceMode("ready", "No completed answer is available yet.");
     return;
   }
-  speakCompletedReply(lastCompletedReplyText);
+  speakAssistantMessage(lastCompletedReply.messageId, lastCompletedReply.text, { force: true });
 }
 
 function ensureRecognition() {
@@ -576,6 +627,7 @@ function ensureRecognition() {
     clearTimeout(recognitionRestartTimer);
     if (voiceButton) voiceButton.textContent = "Talk to Vertex";
     if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+      stopListening();
       setVoiceMode("permission-denied");
     } else if (event.error === "no-speech") {
       setVoiceMode("ready", "No speech was detected. Try again.");
@@ -621,6 +673,9 @@ async function startListening() {
   setVoiceMode("processing", "Checking microphone permission...");
   const permission = await checkMicrophonePermission();
   if (permission === "denied") {
+    recognitionActive = false;
+    recognitionStopRequested = true;
+    if (voiceButton) voiceButton.textContent = "Talk to Vertex";
     setVoiceMode("permission-denied");
     return;
   }
