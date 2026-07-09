@@ -470,10 +470,13 @@ def quiz_database():
     return jsonify(get_quiz_database())
 
 
-@app.route("/api/quiz-generate", methods=["POST"])
+@app.route("/api/quiz-generate", methods=["GET", "POST"])
 def quiz_generate():
     """Generate a quiz with Groq when available, otherwise use local questions."""
-    data = request.get_json(silent=True) or {}
+    if request.method == "GET":
+        data = request.args
+    else:
+        data = request.get_json(silent=True) or {}
     topic = data.get("topic", "")
     difficulty = data.get("difficulty", "")
     limit = min(int(data.get("limit", 10) or 10), 20)
