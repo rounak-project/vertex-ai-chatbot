@@ -1,32 +1,38 @@
 [
   {
-    "title": "NASA prepares Artemis Moon technology",
-    "summary": "NASA is testing new systems that will help astronauts explore the Moon and prepare for future Mars missions.",
-    "date": "2026-07-03",
-    "agency": "NASA"
+    "title": "OpenAI pushes AI agents and coding workflows forward",
+    "summary": "AI assistants are becoming more capable at planning, coding, debugging, and working with tools across real software projects.",
+    "date": "2026-07-09",
+    "agency": "OpenAI"
   },
   {
-    "title": "SpaceX works on reusable launch systems",
-    "summary": "SpaceX continues improving reusable rockets so space launches can become more affordable and frequent.",
-    "date": "2026-07-03",
-    "agency": "SpaceX"
+    "title": "Anthropic advances long-context assistant experiences",
+    "summary": "Long-context AI systems make it easier to analyze large codebases, documents, policies, and research material in one workflow.",
+    "date": "2026-07-09",
+    "agency": "Anthropic"
   },
   {
-    "title": "ISRO studies the Moon and beyond",
-    "summary": "ISRO uses missions like Chandrayaan to learn more about the Moon and to grow India's space science skills.",
-    "date": "2026-07-03",
-    "agency": "ISRO"
+    "title": "Google DeepMind expands multimodal AI systems",
+    "summary": "Modern AI models increasingly understand text, images, audio, video, and code inside unified product experiences.",
+    "date": "2026-07-09",
+    "agency": "Google DeepMind"
   },
   {
-    "title": "James Webb Telescope explores deep space",
-    "summary": "The James Webb Space Telescope helps scientists study faraway galaxies, stars, and planets in amazing detail.",
-    "date": "2026-07-03",
-    "agency": "NASA, ESA, CSA"
+    "title": "Open-source AI keeps accelerating developer adoption",
+    "summary": "Open models help teams experiment locally, fine-tune systems, and build private AI applications with more control.",
+    "date": "2026-07-09",
+    "agency": "Open Source AI"
   },
   {
-    "title": "ISS astronauts run science experiments",
-    "summary": "Astronauts on the International Space Station study how humans, plants, and materials behave in microgravity.",
-    "date": "2026-07-03",
-    "agency": "ISS Partners"
+    "title": "Robotics and AI are converging",
+    "summary": "Vision models, language models, and reinforcement learning are making robots better at perception, planning, and physical tasks.",
+    "date": "2026-07-09",
+    "agency": "Robotics"
+  },
+  {
+    "title": "AI regulation becomes a product requirement",
+    "summary": "Teams building AI products need stronger privacy, security, evaluation, logging, and human oversight practices.",
+    "date": "2026-07-09",
+    "agency": "AI Governance"
   }
 ]

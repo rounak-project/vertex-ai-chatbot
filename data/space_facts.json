@@ -1,34 +1,26 @@
 {
-  "sun": {
-    "keywords": ["sun", "solar"],
-    "answer": "The Sun is a huge star at the center of our solar system. It gives Earth light and heat."
+  "ai": {
+    "keywords": ["ai", "artificial intelligence"],
+    "answer": "Artificial intelligence is software that can perform tasks such as understanding language, recognizing images, writing code, and making predictions."
   },
-  "moon": {
-    "keywords": ["moon", "lunar"],
-    "answer": "The Moon is Earth's natural satellite. It reflects sunlight and affects ocean tides."
+  "python": {
+    "keywords": ["python"],
+    "answer": "Python is a beginner-friendly programming language used for AI, automation, web apps, and data science."
   },
-  "earth": {
-    "keywords": ["earth", "planet earth", "home planet"],
-    "answer": "Earth is our home planet. It has air, water, land, and life."
+  "javascript": {
+    "keywords": ["javascript", "js"],
+    "answer": "JavaScript makes websites interactive and can also power backend apps through Node.js."
   },
-  "mars": {
-    "keywords": ["mars", "red planet"],
-    "answer": "Mars is called the Red Planet because of iron-rich dust on its surface. Scientists study it to learn if life ever existed there."
+  "linux": {
+    "keywords": ["linux", "terminal"],
+    "answer": "Linux is widely used for servers, development, cybersecurity, cloud computing, and DevOps."
   },
-  "jupiter": {
-    "keywords": ["jupiter", "gas giant"],
-    "answer": "Jupiter is the largest planet in our solar system. It is a gas giant with a giant storm called the Great Red Spot."
+  "docker": {
+    "keywords": ["docker", "container"],
+    "answer": "Docker packages apps into containers so they run consistently across different machines."
   },
-  "isro": {
-    "keywords": ["isro", "india space", "chandrayaan", "mangalyaan"],
-    "answer": "ISRO is India's space agency. It works on missions like Chandrayaan, Mangalyaan, and many satellite launches."
-  },
-  "nasa": {
-    "keywords": ["nasa", "apollo", "artemis"],
-    "answer": "NASA is the space agency of the United States. It studies Earth, planets, stars, and sends missions into space."
-  },
-  "spacex": {
-    "keywords": ["spacex", "falcon", "starship"],
-    "answer": "SpaceX is a private space company. It builds rockets like Falcon 9 and Starship to make space travel more reusable."
+  "cybersecurity": {
+    "keywords": ["cybersecurity", "security"],
+    "answer": "Cybersecurity protects systems, networks, data, and users from attacks and mistakes."
   }
 }

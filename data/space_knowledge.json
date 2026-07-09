@@ -1,619 +1,140 @@
 {
-  "planets": [
+  "ai_foundations": [
     {
-      "name": "Mercury",
-      "keywords": ["mercury", "smallest planet", "closest planet"],
-      "answer": "Mercury is the smallest planet and the closest planet to the Sun. It has almost no atmosphere, so days are extremely hot and nights are extremely cold."
+      "keywords": ["artificial intelligence", "what is ai", "ai"],
+      "answer": "Artificial intelligence is software that can perform tasks that usually need human-like thinking, such as understanding language, recognizing images, making predictions, or helping write code. Modern AI is powered by data, algorithms, and models trained to find patterns."
     },
     {
-      "name": "Venus",
-      "keywords": ["venus", "hottest planet", "evening star", "morning star"],
-      "answer": "Venus is the hottest planet because its thick carbon dioxide atmosphere traps heat. It is similar in size to Earth, but its surface is far too hot and pressurized for humans."
+      "keywords": ["generative ai", "gen ai"],
+      "answer": "Generative AI creates new content such as text, code, images, audio, video, or designs. It learns patterns from training data and uses those patterns to generate useful outputs from prompts."
     },
     {
-      "name": "Earth",
-      "keywords": ["earth", "planet earth", "home planet", "blue planet"],
-      "answer": "Earth is our home planet. It has liquid water, breathable air, land, oceans, and life, which makes it very special in our solar system."
+      "keywords": ["large language model", "llm", "language model"],
+      "answer": "A large language model, or LLM, is an AI model trained on huge amounts of text and code. It predicts the next useful tokens in a response, which lets it answer questions, write, summarize, translate, and help with programming."
     },
     {
-      "name": "Mars",
-      "keywords": ["mars", "red planet"],
-      "answer": "Mars is called the Red Planet because iron-rich dust gives its surface a rusty red color. Scientists study Mars to learn whether life ever existed there."
+      "keywords": ["prompt engineering", "prompt"],
+      "answer": "Prompt engineering means writing clear instructions for an AI model. A strong prompt usually includes the goal, context, constraints, output format, and examples."
     },
     {
-      "name": "Jupiter",
-      "keywords": ["jupiter", "gas giant", "great red spot"],
-      "answer": "Jupiter is the largest planet in our solar system. It is a gas giant with many moons and a huge storm called the Great Red Spot."
+      "keywords": ["machine learning", "ml"],
+      "answer": "Machine learning is a way to build software that learns patterns from data instead of being programmed with every rule by hand. It is used for recommendations, predictions, vision, speech, fraud detection, and many AI systems."
     },
     {
-      "name": "Saturn",
-      "keywords": ["saturn", "rings of saturn", "ringed planet"],
-      "answer": "Saturn is famous for its bright rings made of ice, rock, and dust. It is a gas giant and is much larger than Earth."
+      "keywords": ["neural network", "neural networks"],
+      "answer": "A neural network is a machine learning model inspired by connected neurons. It uses layers of mathematical units to learn patterns from data, such as language, images, sound, or sensor readings."
     },
     {
-      "name": "Uranus",
-      "keywords": ["uranus", "ice giant", "sideways planet"],
-      "answer": "Uranus is an ice giant that rotates on its side. Its blue-green color comes from methane gas in its atmosphere."
+      "keywords": ["computer vision", "vision model"],
+      "answer": "Computer vision is AI that understands images or video. It can classify images, detect objects, read text, follow movement, inspect products, and help robots understand the physical world."
     },
     {
-      "name": "Neptune",
-      "keywords": ["neptune", "windy planet", "farthest planet"],
-      "answer": "Neptune is the farthest major planet from the Sun. It is an ice giant with powerful winds and a deep blue color."
-    },
-    {
-      "name": "Dwarf Planets",
-      "keywords": ["dwarf planet", "dwarf planets", "pluto", "ceres", "eris"],
-      "answer": "Dwarf planets are worlds that orbit the Sun but have not cleared their orbital path. Pluto, Ceres, Eris, Haumea, and Makemake are examples."
-    },
-    {
-      "name": "Solar System",
-      "keywords": ["solar system", "our solar system", "planets around the sun"],
-      "answer": "The solar system includes the Sun, eight planets, dwarf planets, moons, asteroids, comets, dust, and gas. Gravity keeps all these objects moving around the Sun."
-    },
-    {
-      "name": "Planet",
-      "keywords": ["what is a planet", "planet meaning", "define planet"],
-      "answer": "A planet is a large round object that orbits a star and does not make its own light. Planets shine because they reflect light from their star."
-    },
-    {
-      "name": "Terrestrial Planets",
-      "keywords": ["terrestrial planet", "rocky planet", "inner planets"],
-      "answer": "Terrestrial planets are rocky planets with solid surfaces. Mercury, Venus, Earth, and Mars are the rocky planets in our solar system."
-    },
-    {
-      "name": "Gas Giants",
-      "keywords": ["gas giant", "gas giants", "outer planets"],
-      "answer": "Gas giants are huge planets made mostly of hydrogen and helium. Jupiter and Saturn are gas giants in our solar system."
-    },
-    {
-      "name": "Ice Giants",
-      "keywords": ["ice giant", "ice giants"],
-      "answer": "Ice giants are large planets with gases plus icy materials like water, ammonia, and methane. Uranus and Neptune are ice giants."
-    },
-    {
-      "name": "Planetary Atmosphere",
-      "keywords": ["atmosphere", "planet atmosphere", "air on planets"],
-      "answer": "A planetary atmosphere is a layer of gases around a planet. Atmospheres can protect planets, affect temperature, and create weather."
+      "keywords": ["robotics", "robot"],
+      "answer": "Robotics combines hardware, software, sensors, control systems, and AI so machines can move and act in the real world. AI helps robots perceive, plan, and make decisions."
     }
   ],
-  "stars": [
+  "models_companies": [
     {
-      "name": "Sun",
-      "keywords": ["sun", "solar", "our star"],
-      "answer": "The Sun is a huge star at the center of our solar system. It gives Earth the light and heat needed for life."
+      "keywords": ["openai", "gpt", "chatgpt"],
+      "answer": "OpenAI builds AI models and products such as ChatGPT, GPT models, Codex, and Sora. GPT models are used for reasoning, writing, coding, analysis, tool use, and multimodal AI workflows."
     },
     {
-      "name": "Star",
-      "keywords": ["what is a star", "star", "stars"],
-      "answer": "A star is a giant ball of hot gas that makes light and heat through nuclear fusion. The Sun is the closest star to Earth."
+      "keywords": ["anthropic", "claude"],
+      "answer": "Anthropic builds Claude, a family of AI assistants known for writing, analysis, coding help, long-context tasks, and safety-focused design."
     },
     {
-      "name": "Nuclear Fusion",
-      "keywords": ["fusion", "nuclear fusion", "how stars shine"],
-      "answer": "Nuclear fusion is the process that powers stars. In a star's core, hydrogen atoms join to form helium and release a huge amount of energy."
+      "keywords": ["google deepmind", "gemini"],
+      "answer": "Google DeepMind builds advanced AI systems including Gemini, AlphaFold, and multimodal models. Gemini can work across text, code, images, audio, and video depending on the product and model."
     },
     {
-      "name": "Red Giant",
-      "keywords": ["red giant", "giant star"],
-      "answer": "A red giant is an older star that has expanded and cooled on the outside. Our Sun will become a red giant far in the future."
+      "keywords": ["xai", "grok"],
+      "answer": "xAI builds Grok, an AI model family designed for conversational AI and product integrations. Like other frontier systems, it should be used with verification for important facts."
     },
     {
-      "name": "White Dwarf",
-      "keywords": ["white dwarf", "dead star"],
-      "answer": "A white dwarf is the hot leftover core of a small or medium star after it runs out of fuel. It slowly cools over a very long time."
+      "keywords": ["hugging face"],
+      "answer": "Hugging Face is a major platform for open-source AI models, datasets, demos, and machine learning tools. Developers use it to discover models, host Spaces, and build AI applications."
     },
     {
-      "name": "Supernova",
-      "keywords": ["supernova", "exploding star", "star explosion"],
-      "answer": "A supernova is a giant star explosion. It can create heavy elements and leave behind a neutron star or black hole."
+      "keywords": ["llama", "meta ai"],
+      "answer": "Llama is Meta's open model family. Developers use Llama for local AI apps, private deployments, fine-tuning, research, and open-source experiments."
     },
     {
-      "name": "Neutron Star",
-      "keywords": ["neutron star", "pulsar"],
-      "answer": "A neutron star is an extremely dense leftover core from a massive star. A sugar-cube-sized piece would have enormous mass."
+      "keywords": ["mistral"],
+      "answer": "Mistral AI builds efficient open and commercial AI models. It is popular with developers who care about strong performance, lower latency, and flexible deployment."
     },
     {
-      "name": "Binary Stars",
-      "keywords": ["binary star", "binary stars", "double star"],
-      "answer": "Binary stars are two stars that orbit each other. Many stars in the galaxy are part of binary or multiple-star systems."
-    },
-    {
-      "name": "Sirius",
-      "keywords": ["sirius", "dog star", "brightest star"],
-      "answer": "Sirius, also called the Dog Star, is the brightest star in Earth's night sky. It is actually a two-star system."
-    },
-    {
-      "name": "Light Year",
-      "keywords": ["light year", "light-year", "distance in space"],
-      "answer": "A light-year is a distance, not a time. It is how far light travels in one year, about 9.46 trillion kilometers."
+      "keywords": ["deepseek"],
+      "answer": "DeepSeek models are known for coding, reasoning, and cost-conscious AI experimentation. For production, teams should review licensing, security, hosting, and compliance needs."
     }
   ],
-  "galaxies_and_cosmos": [
+  "programming": [
     {
-      "name": "Galaxy",
-      "keywords": ["galaxy", "galaxies"],
-      "answer": "A galaxy is a giant group of stars, gas, dust, planets, and dark matter held together by gravity. Our solar system is in the Milky Way galaxy."
+      "keywords": ["python"],
+      "answer": "Python is a beginner-friendly programming language used for AI, web apps, automation, data science, scripting, and backend services. Its simple syntax and huge library ecosystem make it a strong first language."
     },
     {
-      "name": "Milky Way",
-      "keywords": ["milky way", "our galaxy"],
-      "answer": "The Milky Way is our home galaxy. It is a spiral galaxy with billions of stars, including our Sun."
+      "keywords": ["javascript", "js"],
+      "answer": "JavaScript powers interactive websites and many full-stack applications. It runs in browsers and also on servers through Node.js."
     },
     {
-      "name": "Andromeda Galaxy",
-      "keywords": ["andromeda", "andromeda galaxy"],
-      "answer": "The Andromeda Galaxy is the nearest large spiral galaxy to the Milky Way. It is slowly moving toward our galaxy."
+      "keywords": ["flask"],
+      "answer": "Flask is a lightweight Python web framework. It is good for building APIs, dashboards, prototypes, and beginner-friendly web apps because routing and templates are easy to understand."
     },
     {
-      "name": "Spiral Galaxy",
-      "keywords": ["spiral galaxy", "spiral galaxies"],
-      "answer": "A spiral galaxy has a flat disk with curved arms of stars, gas, and dust. The Milky Way is a spiral galaxy."
+      "keywords": ["react"],
+      "answer": "React is a JavaScript library for building user interfaces with components. It is commonly used for dashboards, SaaS apps, AI tools, and mobile-like web experiences."
     },
     {
-      "name": "Elliptical Galaxy",
-      "keywords": ["elliptical galaxy", "oval galaxy"],
-      "answer": "An elliptical galaxy looks round or oval and often contains many older stars. It usually has less gas and dust than a spiral galaxy."
+      "keywords": ["api", "apis"],
+      "answer": "An API is a contract that lets software systems communicate. A web API usually exposes endpoints that send and receive data, often as JSON."
     },
     {
-      "name": "Nebula",
-      "keywords": ["nebula", "nebulae", "space cloud"],
-      "answer": "A nebula is a huge cloud of gas and dust in space. Some nebulae are star nurseries where new stars form."
-    },
-    {
-      "name": "Orion Nebula",
-      "keywords": ["orion nebula", "m42"],
-      "answer": "The Orion Nebula is a bright star-forming cloud in the Orion constellation. It is one of the easiest nebulae to see with binoculars or a small telescope."
-    },
-    {
-      "name": "Crab Nebula",
-      "keywords": ["crab nebula"],
-      "answer": "The Crab Nebula is the leftover cloud from a supernova seen from Earth in 1054. A fast-spinning neutron star sits near its center."
-    },
-    {
-      "name": "Planetary Nebula",
-      "keywords": ["planetary nebula", "ring nebula"],
-      "answer": "A planetary nebula forms when a dying Sun-like star sheds its outer layers. It is not actually a planet; early telescopes just made it look planet-shaped."
-    },
-    {
-      "name": "Dark Matter",
-      "keywords": ["dark matter", "invisible matter"],
-      "answer": "Dark matter is invisible material that does not give off light, but its gravity affects galaxies. Scientists know it exists because galaxies move as if extra mass is present."
-    },
-    {
-      "name": "Dark Energy",
-      "keywords": ["dark energy", "expanding universe"],
-      "answer": "Dark energy is the name for the mysterious cause of the universe's faster expansion. Scientists are still trying to understand what it really is."
-    },
-    {
-      "name": "Big Bang",
-      "keywords": ["big bang", "beginning of universe"],
-      "answer": "The Big Bang is the idea that the universe began in a very hot, dense state about 13.8 billion years ago and has been expanding ever since."
-    },
-    {
-      "name": "Universe",
-      "keywords": ["universe", "cosmos", "what is outer space"],
-      "answer": "The universe is everything that exists: space, time, matter, energy, planets, stars, galaxies, and more."
-    },
-    {
-      "name": "Cosmic Microwave Background",
-      "keywords": ["cosmic microwave background", "cmb"],
-      "answer": "The cosmic microwave background is faint leftover radiation from the early universe. It helps scientists study what the universe was like when it was young."
-    },
-    {
-      "name": "Gravity",
-      "keywords": ["gravity", "gravitational force"],
-      "answer": "Gravity is the force that pulls objects with mass toward each other. It keeps planets in orbit, holds galaxies together, and pulls us toward Earth."
+      "keywords": ["software engineering"],
+      "answer": "Software engineering is the discipline of building reliable software with good architecture, readable code, tests, version control, documentation, deployment, and maintenance."
     }
   ],
-  "constellations": [
+  "infrastructure": [
     {
-      "name": "Constellations",
-      "keywords": ["constellation", "constellations", "star pattern"],
-      "answer": "Constellations are official patterns or regions of stars in the sky. Astronomers use 88 constellations like a map for finding objects in space."
+      "keywords": ["linux"],
+      "answer": "Linux is an operating system widely used for servers, development, cloud infrastructure, cybersecurity, and DevOps. Learning the terminal, files, permissions, processes, and networking is very useful."
     },
     {
-      "name": "Orion",
-      "keywords": ["orion", "orion constellation", "hunter constellation"],
-      "answer": "Orion is a famous constellation that looks like a hunter. Its three bright belt stars are easy to spot in the night sky."
+      "keywords": ["docker"],
+      "answer": "Docker packages an application and its dependencies into containers. Containers help apps run consistently across laptops, servers, and cloud platforms."
     },
     {
-      "name": "Ursa Major",
-      "keywords": ["ursa major", "big dipper", "great bear"],
-      "answer": "Ursa Major means Great Bear. It contains the Big Dipper pattern, which can help people find the North Star."
+      "keywords": ["kubernetes", "k8s"],
+      "answer": "Kubernetes manages containers across clusters of machines. It handles deployment, scaling, service discovery, health checks, and rolling updates for production systems."
     },
     {
-      "name": "Ursa Minor",
-      "keywords": ["ursa minor", "little dipper", "north star", "polaris"],
-      "answer": "Ursa Minor means Little Bear. Polaris, the North Star, is part of this constellation and helps show the direction north."
+      "keywords": ["cloud computing", "cloud", "aws", "azure", "gcp"],
+      "answer": "Cloud computing lets teams rent servers, databases, storage, networking, and AI services instead of owning physical data centers. AWS, Azure, and Google Cloud are major cloud platforms."
     },
     {
-      "name": "Cassiopeia",
-      "keywords": ["cassiopeia", "w shaped constellation"],
-      "answer": "Cassiopeia is a constellation that often looks like a W or M in the sky. It is useful for finding your way around the northern sky."
+      "keywords": ["devops", "ci/cd"],
+      "answer": "DevOps combines development and operations practices so teams can ship software faster and more reliably. CI/CD pipelines automatically test, build, and deploy code."
     },
     {
-      "name": "Scorpius",
-      "keywords": ["scorpius", "scorpio constellation"],
-      "answer": "Scorpius is a constellation shaped like a scorpion. It contains Antares, a bright reddish star."
-    },
-    {
-      "name": "Leo",
-      "keywords": ["leo constellation", "leo"],
-      "answer": "Leo is a constellation named after a lion. It is one of the zodiac constellations and is easy to recognize by its sickle-shaped pattern."
-    },
-    {
-      "name": "Zodiac",
-      "keywords": ["zodiac", "zodiac constellations"],
-      "answer": "The zodiac is a band of constellations along the Sun's apparent path in the sky. Astronomers use it to describe positions, but astrology is not science."
+      "keywords": ["cybersecurity", "security"],
+      "answer": "Cybersecurity protects systems, networks, data, and users from attacks. Safe learning focuses on defensive skills, secure coding, permissions, encryption, authentication, and legal practice labs."
     }
   ],
-  "small_bodies": [
+  "productivity_startups": [
     {
-      "name": "Asteroid",
-      "keywords": ["asteroid", "asteroids"],
-      "answer": "Asteroids are rocky objects that orbit the Sun. Many are found in the asteroid belt between Mars and Jupiter."
+      "keywords": ["startup", "startups"],
+      "answer": "A startup is a company built to find a repeatable, scalable business model. Great startups usually focus on a painful problem, a clear user, fast learning, and strong execution."
     },
     {
-      "name": "Asteroid Belt",
-      "keywords": ["asteroid belt", "main belt"],
-      "answer": "The asteroid belt is a region between Mars and Jupiter where many rocky asteroids orbit the Sun."
+      "keywords": ["productivity tools", "productivity"],
+      "answer": "Productivity tools help people work faster and stay organized. AI productivity tools can summarize, draft, search, schedule, automate workflows, and help teams make decisions."
     },
     {
-      "name": "Comet",
-      "keywords": ["comet", "comets"],
-      "answer": "Comets are icy objects that orbit the Sun. When they get close to the Sun, ice turns to gas and can form a glowing tail."
+      "keywords": ["open source"],
+      "answer": "Open source projects share their source code publicly so people can use, inspect, improve, and contribute. It is a powerful way to learn real software engineering."
     },
     {
-      "name": "Kuiper Belt",
-      "keywords": ["kuiper belt", "pluto region"],
-      "answer": "The Kuiper Belt is a faraway region beyond Neptune filled with icy objects. Pluto is one of its most famous worlds."
-    },
-    {
-      "name": "Oort Cloud",
-      "keywords": ["oort cloud"],
-      "answer": "The Oort Cloud is a distant, icy cloud thought to surround the solar system. Many long-period comets may come from there."
-    },
-    {
-      "name": "Meteor",
-      "keywords": ["meteor", "shooting star"],
-      "answer": "A meteor is the bright streak of light you see when a small space rock burns up in Earth's atmosphere. People often call it a shooting star."
-    },
-    {
-      "name": "Meteoroid",
-      "keywords": ["meteoroid", "space rock"],
-      "answer": "A meteoroid is a small rock or metal object traveling through space. If it enters Earth's atmosphere and glows, it becomes a meteor."
-    },
-    {
-      "name": "Meteorite",
-      "keywords": ["meteorite", "space rock on earth"],
-      "answer": "A meteorite is a piece of space rock that survives its fall through the atmosphere and lands on Earth's surface."
-    },
-    {
-      "name": "Meteor Shower",
-      "keywords": ["meteor shower", "perseids", "leonids"],
-      "answer": "A meteor shower happens when Earth passes through dust left by a comet or asteroid. Many meteors can appear in the sky during the shower."
-    },
-    {
-      "name": "Near-Earth Object",
-      "keywords": ["near earth object", "neo", "near-earth object"],
-      "answer": "A near-Earth object is an asteroid or comet whose orbit brings it close to Earth. Scientists track them carefully for safety."
-    }
-  ],
-  "spaceflight": [
-    {
-      "name": "Rocket",
-      "keywords": ["rocket", "rockets"],
-      "answer": "A rocket is a vehicle that pushes itself forward by throwing hot gas backward. Rockets can work in space because they carry their own fuel and oxygen source."
-    },
-    {
-      "name": "Rocket Launch",
-      "keywords": ["rocket launch", "launch rocket", "space launch", "launches"],
-      "answer": "A rocket launch is when a rocket lifts off from Earth and carries people, satellites, cargo, or science tools into space."
-    },
-    {
-      "name": "Orbit",
-      "keywords": ["orbit", "orbits", "orbiting"],
-      "answer": "An orbit is the curved path one object follows around another because of gravity. Earth orbits the Sun, and the Moon orbits Earth."
-    },
-    {
-      "name": "Satellite",
-      "keywords": ["satellite", "satellites"],
-      "answer": "A satellite is an object that orbits a planet or moon. Some are natural, like the Moon, and some are human-made for communication, weather, navigation, and science."
-    },
-    {
-      "name": "Space Station",
-      "keywords": ["space station", "space stations", "orbital station", "space laboratory"],
-      "answer": "A space station is a large spacecraft where astronauts can live and work while orbiting Earth. It is like a laboratory in space."
-    },
-    {
-      "name": "International Space Station",
-      "keywords": ["iss", "international space station", "where is the iss", "iss location", "track iss"],
-      "answer": "The ISS, or International Space Station, is a science laboratory that orbits Earth. Astronauts live and work there while studying space, medicine, materials, and Earth."
-    },
-    {
-      "name": "Tiangong",
-      "keywords": ["tiangong", "chinese space station"],
-      "answer": "Tiangong is China's space station in low Earth orbit. Astronauts live there to perform science experiments and test space technology."
-    },
-    {
-      "name": "Astronaut",
-      "keywords": ["astronaut", "astronauts", "cosmonaut", "vyomanaut"],
-      "answer": "An astronaut is a person trained to travel and work in space. Different countries may also use words like cosmonaut or vyomanaut."
-    },
-    {
-      "name": "Spacesuit",
-      "keywords": ["spacesuit", "space suit"],
-      "answer": "A spacesuit protects astronauts from vacuum, extreme temperatures, and harmful radiation. It also provides oxygen and helps remove carbon dioxide."
-    },
-    {
-      "name": "Reentry",
-      "keywords": ["reentry", "re-entry", "return to earth"],
-      "answer": "Reentry is when a spacecraft comes back into Earth's atmosphere. Heat shields protect it from the intense heat caused by fast-moving air."
-    },
-    {
-      "name": "Reusable Rocket",
-      "keywords": ["reusable rocket", "rocket landing", "booster landing"],
-      "answer": "A reusable rocket can fly more than once. Landing and reusing boosters can reduce the cost of launching things into space."
-    },
-    {
-      "name": "Payload",
-      "keywords": ["payload", "rocket payload"],
-      "answer": "A payload is the cargo carried by a rocket, such as a satellite, spacecraft, telescope, or supplies for astronauts."
-    },
-    {
-      "name": "Launch Pad",
-      "keywords": ["launch pad", "launch site"],
-      "answer": "A launch pad is the place where a rocket stands before liftoff. It includes support towers, fuel systems, safety equipment, and control systems."
-    },
-    {
-      "name": "Low Earth Orbit",
-      "keywords": ["low earth orbit", "leo orbit", "leo"],
-      "answer": "Low Earth orbit is a region fairly close to Earth where many satellites and the ISS travel. It is commonly used for science, Earth observation, and communication."
-    }
-  ],
-  "missions_and_telescopes": [
-    {
-      "name": "Apollo",
-      "keywords": ["apollo", "apollo mission", "apollo 11", "moon landing"],
-      "answer": "Apollo was NASA's program that sent astronauts to the Moon. Apollo 11 landed humans on the Moon in 1969."
-    },
-    {
-      "name": "Artemis",
-      "keywords": ["artemis", "moon mission nasa", "nasa moon program"],
-      "answer": "Artemis is NASA's program to return astronauts to the Moon and prepare for future missions to Mars."
-    },
-    {
-      "name": "Voyager",
-      "keywords": ["voyager", "voyager 1", "voyager 2", "golden record"],
-      "answer": "Voyager 1 and Voyager 2 are NASA spacecraft launched in 1977. They explored outer planets and now travel through interstellar space or toward it."
-    },
-    {
-      "name": "James Webb Space Telescope",
-      "keywords": ["james webb", "jwst", "webb telescope", "james webb telescope"],
-      "answer": "The James Webb Space Telescope observes the universe mostly in infrared light. It studies early galaxies, star formation, exoplanets, and distant objects."
-    },
-    {
-      "name": "Hubble Space Telescope",
-      "keywords": ["hubble", "hubble telescope", "space telescope"],
-      "answer": "The Hubble Space Telescope has taken famous images of planets, nebulae, galaxies, and deep space. It observes mostly visible and ultraviolet light."
-    },
-    {
-      "name": "Chandrayaan",
-      "keywords": ["chandrayaan", "moon mission india", "chandrayaan 1", "chandrayaan 2", "chandrayaan 3"],
-      "answer": "Chandrayaan is India's Moon mission series by ISRO. These missions study the Moon's surface, minerals, and polar regions."
-    },
-    {
-      "name": "Mangalyaan",
-      "keywords": ["mangalyaan", "mars orbiter mission", "mom mission"],
-      "answer": "Mangalyaan, also called the Mars Orbiter Mission, was India's first mission to Mars. It showed ISRO could reach Mars orbit with smart engineering."
-    },
-    {
-      "name": "Gaganyaan",
-      "keywords": ["gaganyaan", "india human spaceflight", "indian astronaut mission"],
-      "answer": "Gaganyaan is ISRO's human spaceflight program. Its goal is to send Indian astronauts into space and bring them safely back to Earth."
-    },
-    {
-      "name": "Aditya-L1",
-      "keywords": ["aditya-l1", "aditya l1", "india sun mission", "solar mission india"],
-      "answer": "Aditya-L1 is India's solar mission to study the Sun. It observes solar activity, the solar wind, and space weather from a stable point in space."
-    },
-    {
-      "name": "PSLV",
-      "keywords": ["pslv", "polar satellite launch vehicle"],
-      "answer": "PSLV stands for Polar Satellite Launch Vehicle. It is one of ISRO's trusted rockets for launching satellites into different orbits."
-    },
-    {
-      "name": "GSLV",
-      "keywords": ["gslv", "geosynchronous satellite launch vehicle"],
-      "answer": "GSLV stands for Geosynchronous Satellite Launch Vehicle. ISRO uses it to launch heavier satellites, including communication satellites."
-    },
-    {
-      "name": "Falcon 9",
-      "keywords": ["falcon 9", "falcon rocket"],
-      "answer": "Falcon 9 is a SpaceX rocket with a reusable first stage. It launches satellites, cargo, and crew missions."
-    },
-    {
-      "name": "Starship",
-      "keywords": ["starship", "spacex starship"],
-      "answer": "Starship is SpaceX's large fully reusable rocket system under development. It is designed for carrying cargo and people to orbit, the Moon, and possibly Mars."
-    },
-    {
-      "name": "Blue Origin New Shepard",
-      "keywords": ["new shepard", "blue origin rocket"],
-      "answer": "New Shepard is Blue Origin's reusable suborbital rocket. It is designed to carry experiments and people briefly above the edge of space."
-    },
-    {
-      "name": "Parker Solar Probe",
-      "keywords": ["parker solar probe", "touch the sun"],
-      "answer": "Parker Solar Probe is a NASA spacecraft that flies very close to the Sun. It studies the solar corona and solar wind."
-    },
-    {
-      "name": "Mars Rovers",
-      "keywords": ["mars rover", "mars rovers", "curiosity", "perseverance"],
-      "answer": "Mars rovers are robotic vehicles that drive on Mars. They study rocks, soil, weather, and clues about ancient water."
-    },
-    {
-      "name": "Lunar Rover",
-      "keywords": ["lunar rover", "moon rover", "pragyan rover"],
-      "answer": "A lunar rover is a vehicle made to move on the Moon. Rovers can carry instruments, cameras, and sometimes astronauts."
-    }
-  ],
-  "agencies_and_companies": [
-    {
-      "name": "NASA",
-      "keywords": ["nasa", "national aeronautics and space administration"],
-      "answer": "NASA is the space agency of the United States. It studies Earth, planets, stars, galaxies, and sends spacecraft and astronauts into space."
-    },
-    {
-      "name": "ISRO",
-      "keywords": ["isro", "india space", "indian space", "indian space research organisation", "indian space research organization"],
-      "answer": "ISRO is India's space agency. It builds satellites, launches rockets, and runs missions like Chandrayaan, Mangalyaan, Gaganyaan, and Aditya-L1."
-    },
-    {
-      "name": "ESA",
-      "keywords": ["esa", "european space agency"],
-      "answer": "ESA is the European Space Agency. It works on rockets, satellites, Earth observation, science missions, and international space projects."
-    },
-    {
-      "name": "JAXA",
-      "keywords": ["jaxa", "japan aerospace exploration agency"],
-      "answer": "JAXA is Japan's space agency. It works on satellites, asteroid missions, rockets, science spacecraft, and astronaut activities."
-    },
-    {
-      "name": "Roscosmos",
-      "keywords": ["roscosmos", "russian space agency"],
-      "answer": "Roscosmos is Russia's space agency. It has worked on human spaceflight, rockets, satellites, and space station missions."
-    },
-    {
-      "name": "SpaceX",
-      "keywords": ["spacex", "space x"],
-      "answer": "SpaceX is a private space company known for Falcon 9, Dragon spacecraft, Starlink satellites, and the Starship rocket system."
-    },
-    {
-      "name": "Blue Origin",
-      "keywords": ["blue origin", "jeff bezos space company"],
-      "answer": "Blue Origin is a private space company that builds reusable rockets and space technology. Its vehicles include New Shepard and New Glenn."
-    },
-    {
-      "name": "Commercial Spaceflight",
-      "keywords": ["commercial spaceflight", "private space company", "private space companies"],
-      "answer": "Commercial spaceflight means private companies build or operate space vehicles and services. They can launch satellites, cargo, astronauts, and experiments."
-    }
-  ],
-  "black_holes_and_extreme_space": [
-    {
-      "name": "Black Hole",
-      "keywords": ["black hole", "black holes"],
-      "answer": "A black hole is a region in space where gravity is so strong that nothing, not even light, can escape after crossing the event horizon."
-    },
-    {
-      "name": "Event Horizon",
-      "keywords": ["event horizon", "black hole boundary"],
-      "answer": "The event horizon is the boundary around a black hole. Once something crosses it, it cannot escape the black hole's gravity."
-    },
-    {
-      "name": "Singularity",
-      "keywords": ["singularity", "black hole center"],
-      "answer": "A singularity is the extremely dense center predicted inside a black hole. Scientists use advanced physics to study what might happen there."
-    },
-    {
-      "name": "Supermassive Black Hole",
-      "keywords": ["supermassive black hole", "galaxy center black hole"],
-      "answer": "A supermassive black hole is a black hole with millions or billions of times the Sun's mass. Many large galaxies have one at their center."
-    },
-    {
-      "name": "Accretion Disk",
-      "keywords": ["accretion disk", "black hole disk"],
-      "answer": "An accretion disk is a spinning disk of hot gas and dust falling toward a compact object like a black hole. It can glow very brightly."
-    },
-    {
-      "name": "Quasar",
-      "keywords": ["quasar", "active galaxy"],
-      "answer": "A quasar is an extremely bright center of a distant galaxy powered by a supermassive black hole feeding on gas and dust."
-    }
-  ],
-  "earth_and_observation": [
-    {
-      "name": "Moon",
-      "keywords": ["moon", "lunar", "earth's moon"],
-      "answer": "The Moon is Earth's natural satellite. It reflects sunlight, affects ocean tides, and is the only world beyond Earth where humans have walked."
-    },
-    {
-      "name": "Moon Phases",
-      "keywords": ["moon phases", "phases of the moon", "new moon", "full moon"],
-      "answer": "Moon phases happen because we see different sunlit parts of the Moon as it orbits Earth. Main phases include new moon, first quarter, full moon, and last quarter."
-    },
-    {
-      "name": "Eclipse",
-      "keywords": ["eclipse", "solar eclipse", "lunar eclipse"],
-      "answer": "An eclipse happens when one space object blocks light from another. A solar eclipse involves the Moon blocking the Sun, and a lunar eclipse involves Earth shading the Moon."
-    },
-    {
-      "name": "Tides",
-      "keywords": ["tides", "ocean tides", "moon tides"],
-      "answer": "Tides are the rise and fall of ocean water mainly caused by the Moon's gravity and also affected by the Sun's gravity."
-    },
-    {
-      "name": "Aurora",
-      "keywords": ["aurora", "northern lights", "southern lights"],
-      "answer": "Auroras are colorful lights near Earth's poles. They happen when charged particles from the Sun interact with gases in Earth's atmosphere."
-    },
-    {
-      "name": "Space Weather",
-      "keywords": ["space weather", "solar storm", "geomagnetic storm"],
-      "answer": "Space weather is activity from the Sun that can affect Earth and satellites. Strong solar storms can disturb radio signals, power systems, and auroras."
-    },
-    {
-      "name": "Telescope",
-      "keywords": ["telescope", "telescopes"],
-      "answer": "A telescope gathers light to help us see faraway objects. Some telescopes use lenses, some use mirrors, and some work in space."
-    },
-    {
-      "name": "Radio Telescope",
-      "keywords": ["radio telescope", "radio astronomy"],
-      "answer": "A radio telescope detects radio waves from space. It can study objects that may be invisible to normal optical telescopes."
-    },
-    {
-      "name": "Spectroscopy",
-      "keywords": ["spectroscopy", "spectrum", "space rainbow"],
-      "answer": "Spectroscopy splits light into colors or wavelengths. Scientists use it to learn what stars, planets, and galaxies are made of."
-    },
-    {
-      "name": "NASA APOD",
-      "keywords": ["apod", "astronomy picture of the day"],
-      "answer": "NASA's Astronomy Picture of the Day, or APOD, shares a space image or video with an explanation. VERTEX shows APOD with a local backup if NASA data is unavailable."
-    }
-  ],
-  "exoplanets_and_life": [
-    {
-      "name": "Exoplanet",
-      "keywords": ["exoplanet", "exoplanets", "planet outside solar system", "planets outside our solar system"],
-      "answer": "Exoplanets are planets that orbit stars outside our solar system. Scientists have discovered thousands of them."
-    },
-    {
-      "name": "Habitable Zone",
-      "keywords": ["habitable zone", "goldilocks zone"],
-      "answer": "The habitable zone is the region around a star where temperatures could allow liquid water on a planet's surface. It does not automatically mean life exists there."
-    },
-    {
-      "name": "Transit Method",
-      "keywords": ["transit method", "planet transit", "how find exoplanets"],
-      "answer": "The transit method finds exoplanets by watching a star dim slightly when a planet crosses in front of it from our view."
-    },
-    {
-      "name": "Radial Velocity",
-      "keywords": ["radial velocity", "wobble method"],
-      "answer": "The radial velocity method finds planets by measuring tiny star wobbles caused by an orbiting planet's gravity."
-    },
-    {
-      "name": "Astrobiology",
-      "keywords": ["astrobiology", "life in space", "alien life"],
-      "answer": "Astrobiology is the study of possible life beyond Earth. Scientists look for water, useful chemistry, energy sources, and stable environments."
-    },
-    {
-      "name": "Biosignature",
-      "keywords": ["biosignature", "sign of life"],
-      "answer": "A biosignature is a possible sign of life, such as certain gases in a planet's atmosphere. Scientists must be careful because non-living processes can sometimes make similar signs."
+      "keywords": ["data science"],
+      "answer": "Data science uses statistics, programming, visualization, and machine learning to find insights in data and support better decisions."
     }
   ]
 }

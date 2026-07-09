@@ -1,47 +1,42 @@
 [
   {
-    "mission_name": "Artemis Science Cargo",
-    "agency": "NASA",
-    "rocket_name": "Space Launch System",
-    "launch_date": "2026-08-12",
-    "launch_site": "Kennedy Space Center, USA",
-    "status": "Demo upcoming",
-    "description": "A demo Moon mission carrying science tools for future Artemis explorers."
+    "mission_name": "AI Agents",
+    "agency": "Product Trend",
+    "status": "Accelerating",
+    "launch_date": "2026",
+    "launch_site": "Developer tools",
+    "description": "AI systems are moving from chat-only interfaces to agents that can use tools, edit files, browse, test, and complete workflows."
   },
   {
-    "mission_name": "Starlink Learning Launch",
-    "agency": "SpaceX",
-    "rocket_name": "Falcon 9",
-    "launch_date": "2026-08-25",
-    "launch_site": "Cape Canaveral, USA",
-    "status": "Demo upcoming",
-    "description": "A reusable rocket launch demo that explains how satellites reach orbit."
+    "mission_name": "Multimodal Models",
+    "agency": "Model Trend",
+    "status": "Expanding",
+    "launch_date": "2026",
+    "launch_site": "Consumer and enterprise apps",
+    "description": "The best AI products increasingly combine language, images, video, audio, and code in one interface."
   },
   {
-    "mission_name": "Gaganyaan Test Flight",
-    "agency": "ISRO",
-    "rocket_name": "LVM3",
-    "launch_date": "2026-09-10",
-    "launch_site": "Satish Dhawan Space Centre, India",
-    "status": "Demo upcoming",
-    "description": "A practice mission for India's human spaceflight program."
+    "mission_name": "Local AI",
+    "agency": "Infrastructure Trend",
+    "status": "Rising",
+    "launch_date": "2026",
+    "launch_site": "Phones, laptops, servers",
+    "description": "Smaller models make private, low-latency AI possible on local devices and company infrastructure."
   },
   {
-    "mission_name": "Ariane Earth Watch",
-    "agency": "ESA",
-    "rocket_name": "Ariane 6",
-    "launch_date": "2026-09-28",
-    "launch_site": "Guiana Space Centre, French Guiana",
-    "status": "Demo upcoming",
-    "description": "A European mission concept for studying weather, oceans, and forests."
+    "mission_name": "AI Security",
+    "agency": "Risk Trend",
+    "status": "Critical",
+    "launch_date": "2026",
+    "launch_site": "Production systems",
+    "description": "Prompt injection, data leakage, model abuse, and unsafe automation require strong security design."
   },
   {
-    "mission_name": "Hayabusa Classroom Probe",
-    "agency": "JAXA",
-    "rocket_name": "H3",
-    "launch_date": "2026-10-15",
-    "launch_site": "Tanegashima Space Center, Japan",
-    "status": "Demo upcoming",
-    "description": "A demo asteroid mission inspired by JAXA's sample-return spacecraft."
+    "mission_name": "MLOps",
+    "agency": "Engineering Trend",
+    "status": "Maturing",
+    "launch_date": "2026",
+    "launch_site": "AI teams",
+    "description": "Teams need repeatable testing, monitoring, versioning, and cost controls for AI systems."
   }
 ]

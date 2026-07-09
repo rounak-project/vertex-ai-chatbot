@@ -30,8 +30,6 @@ app = Flask(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
-NASA_APOD_URL = "https://api.nasa.gov/planetary/apod"
-ISS_API_URL = "http://api.open-notify.org/iss-now.json"
 APOD_CACHE_SECONDS = 60 * 60
 
 # This list stores the most recent chat messages while Flask is running.
@@ -39,44 +37,42 @@ APOD_CACHE_SECONDS = 60 * 60
 CHAT_HISTORY = []
 MAX_HISTORY_MESSAGES = 20
 
-# This dictionary remembers the latest NASA APOD answer for one hour.
-# It helps the app avoid asking NASA for the same data again and again.
+# This dictionary remembers the latest compatibility card for one hour.
 APOD_CACHE = {
     "saved_at": 0,
     "data": None
 }
 
 MISSION_COMMANDER_PROFILE = {
-    "role": "Mission Commander",
+    "role": "AI Engineer",
     "name": "Rounak Singh",
     "full_name": "Rounak Singh",
-    "subtitle": "Space Explorer • AI Innovator • Future Scientist",
+    "subtitle": "AI Builder • Frontend Creator • Future Technology Founder",
     "status": "ONLINE",
     "mission_day": "001",
     "class_name": "7 E",
     "school": "Delhi World Public School",
     "location": "Greater Noida, India",
     "age": "Class 7 Student",
-    "project": "VERTEX – Space AI Assistant",
+    "project": "VERTEX AI OS",
     "flag": "🇮🇳",
     "mission_status": {
         "status": "ONLINE",
         "clearance": "LEVEL 7",
-        "agency": "ISRO",
-        "mission": "Exploring the Universe using AI and Curiosity",
-        "chandrayaan_card": "Chandrayaan-3 Mission Profile"
+        "agency": "VERTEX LABS",
+        "mission": "Building premium AI software for learning, coding, and productivity",
+        "chandrayaan_card": "VERTEX AI OS Profile"
     },
     "mission_log": (
-        "Hello! I'm Rounak, a Class 7 student who loves space and technology. "
-        "I created VERTEX Space Assistant to make learning about the universe fun and interactive. "
-        "I hope this project inspires others to explore science, ask questions, and dream big! "
-        "Every great mission starts with curiosity!"
+        "Hello! I'm Rounak, a Class 7 student who loves artificial intelligence, coding, robotics, "
+        "and futuristic products. I created VERTEX AI OS to make advanced technology feel clear, "
+        "interactive, and inspiring. My goal is to become an AI engineer and build tools that help people learn faster."
     ),
     "interests": [
-        {"icon": "🚀", "title": "Space"},
-        {"icon": "🤖", "title": "AI"},
-        {"icon": "💻", "title": "Coding"},
-        {"icon": "🦾", "title": "Robotics"}
+        {"icon": "AI", "title": "Artificial Intelligence"},
+        {"icon": "CD", "title": "Coding"},
+        {"icon": "RB", "title": "Robotics"},
+        {"icon": "UX", "title": "Product Design"}
     ],
     "skills": [
         {"name": "Python", "value": 92},
@@ -86,25 +82,25 @@ MISSION_COMMANDER_PROFILE = {
         {"name": "Flask", "value": 88}
     ],
     "favorites": [
-        {"label": "Favorite Planet", "value": "Mars"},
-        {"label": "Favorite Mission", "value": "Chandrayaan-3"},
-        {"label": "Favorite Space Agency", "value": "ISRO"},
-        {"label": "Favorite Rocket", "value": "LVM3"},
-        {"label": "Favorite Telescope", "value": "James Webb Space Telescope"}
+        {"label": "Favorite AI Area", "value": "Generative AI"},
+        {"label": "Favorite Language", "value": "Python"},
+        {"label": "Favorite Tool", "value": "GitHub"},
+        {"label": "Favorite Platform", "value": "Linux"},
+        {"label": "Favorite Product Style", "value": "Apple-grade minimal UI"}
     ],
     "dream_careers": [
         {"title": "AI Engineer", "description": "Build intelligent systems that help people learn faster."},
-        {"title": "ISRO Scientist", "description": "Build missions that explore the Moon, Mars, and beyond."},
-        {"title": "Aerospace Engineer", "description": "Create rockets and spacecraft that can travel safely."},
-        {"title": "Space Technology Innovator", "description": "Build tools for the next generation of explorers."}
+        {"title": "Full Stack Engineer", "description": "Create polished software from frontend to backend."},
+        {"title": "Robotics Engineer", "description": "Build machines that can sense, plan, and act."},
+        {"title": "Startup Founder", "description": "Build useful technology products for the world."}
     ],
     "achievements": [
         "Built VERTEX",
-        "NASA API Integration",
-        "ISRO Dashboard",
-        "Mission Control",
-        "Space Quiz Academy",
-        "300+ Questions",
+        "AI OS Dashboard",
+        "Groq Integration",
+        "Voice Assistant",
+        "AI Academy",
+        "Local Knowledge Base",
         "Groq AI",
         "Render Deployment"
     ],
@@ -120,17 +116,17 @@ MISSION_COMMANDER_PROFILE = {
         {"year": "2024", "title": "Started learning programming.", "detail": "Built a foundation with Python, HTML, CSS, and simple projects."},
         {"year": "2024", "title": "Built first websites.", "detail": "Learned how to create interactive pages and connect them with data."},
         {"year": "2025", "title": "Started AI projects.", "detail": "Explored APIs, local knowledge bases, and smarter experiences."},
-        {"year": "2025", "title": "Built VERTEX Space Assistant.", "detail": "Created a space learning dashboard with chatbot, quiz, and mission control."},
-        {"year": "Future", "title": "Dreaming of joining ISRO.", "detail": "Continuing to study science, code, and space technology."}
+        {"year": "2025", "title": "Built VERTEX AI OS.", "detail": "Created an AI learning dashboard with chatbot, academy, models, companies, tools, and voice mode."},
+        {"year": "Future", "title": "Dreaming of becoming an AI engineer.", "detail": "Continuing to study code, product design, robotics, and advanced AI."}
     ],
     "contact": [
         {"label": "Email", "value": "rounak.singh1711@gmail.com", "href": "mailto:rounak.singh1711@gmail.com"},
         {"label": "GitHub", "value": "https://github.com/rounak-project", "href": "https://github.com/rounak-project"},
-        {"label": "Project", "value": "VERTEX – Space AI Assistant", "href": "/#project-summary"},
+        {"label": "Project", "value": "VERTEX AI OS", "href": "/#dashboard"},
         {"label": "LinkedIn", "value": "Coming Soon", "href": "#"},
         {"label": "Portfolio", "value": "Coming Soon", "href": "#"}
     ],
-    "mission_image": "images/rounak-astronaut.png"
+    "mission_image": "images/apod-backup.svg"
 }
 
 
@@ -179,7 +175,7 @@ def get_quiz_database():
 
 
 def get_sky_explorer_data():
-    """Load the local Stellarium companion data for the Sky Explorer page."""
+    """Load the local AI ecosystem companion data for the legacy explorer page."""
     return load_json_file_or_default(
         "sky_explorer.json",
         {"featured_objects": [], "control_actions": []}
@@ -276,17 +272,18 @@ def generate_ai_quiz_questions(topic, difficulty, limit):
                 {
                     "role": "system",
                     "content": (
-                        "You create beginner-friendly educational space quiz questions. "
+                        "You create beginner-friendly educational AI and technology quiz questions. "
                         "Return only valid JSON with a top-level questions array. Each question "
                         "must include id, category, type, difficulty, question, choices, answer, "
-                        "explanation, fact, and points. Use simple language for students."
+                        "explanation, fact, and points. Use simple language for students. "
+                        "Topics must stay within AI, programming, cloud, DevOps, cybersecurity, robotics, or data science."
                     )
                 },
                 {
                     "role": "user",
                     "content": (
-                        f"Generate {limit} {difficulty or 'mixed'} space quiz questions about "
-                        f"{topic or 'general space knowledge'}. Use multiple_choice questions."
+                        f"Generate {limit} {difficulty or 'mixed'} AI and technology quiz questions about "
+                        f"{topic or 'general artificial intelligence and programming'}. Use multiple_choice questions."
                     )
                 }
             ],
@@ -322,13 +319,13 @@ def add_to_chat_history(speaker, message):
 
 
 def get_backup_apod():
-    """Return a local APOD-style card when NASA is unavailable."""
+    """Return a local AI insight card for the legacy APOD endpoint."""
     return {
-        "title": "VERTEX Backup Space View",
-        "date": "Local demo image",
+        "title": "VERTEX Intelligence View",
+        "date": "Local AI OS signal",
         "explanation": (
-            "NASA data is not available right now, so VERTEX is showing a "
-            "local backup space image. The rest of the dashboard still works."
+            "VERTEX AI OS is focused on artificial intelligence, programming, cloud, "
+            "cybersecurity, robotics, and emerging technologies."
         ),
         "image_url": url_for("static", filename="images/apod-backup.svg"),
         "source": "local-backup"
@@ -336,73 +333,34 @@ def get_backup_apod():
 
 
 def get_nasa_apod():
-    """Fetch NASA's Astronomy Picture of the Day with a one-hour cache."""
+    """Return a cached AI insight through the legacy APOD-compatible endpoint."""
     current_time = time.time()
     cached_data = APOD_CACHE["data"]
 
     if cached_data and current_time - APOD_CACHE["saved_at"] < APOD_CACHE_SECONDS:
         return cached_data
 
-    try:
-        nasa_api_key = os.getenv("NASA_API_KEY", "DEMO_KEY")
-        response = requests.get(NASA_APOD_URL, params={"api_key": nasa_api_key}, timeout=8)
-        response.raise_for_status()
-        nasa_data = response.json()
-
-        apod_data = {
-            "title": nasa_data.get("title", "NASA Astronomy Picture of the Day"),
-            "date": nasa_data.get("date", "Unknown date"),
-            "explanation": nasa_data.get("explanation", "NASA shared a space image today."),
-            "image_url": nasa_data.get("url", url_for("static", filename="images/apod-backup.svg")),
-            "source": "nasa"
-        }
-
-        # APOD can sometimes be a video. For this beginner project, we use the
-        # local backup image when NASA gives us something that is not an image.
-        if nasa_data.get("media_type") != "image":
-            apod_data["image_url"] = url_for("static", filename="images/apod-backup.svg")
-            apod_data["source"] = "nasa-video-backup"
-
-        APOD_CACHE["saved_at"] = current_time
-        APOD_CACHE["data"] = apod_data
-        return apod_data
-    except (requests.RequestException, ValueError):
-        return get_backup_apod()
+    apod_data = get_backup_apod()
+    APOD_CACHE["saved_at"] = current_time
+    APOD_CACHE["data"] = apod_data
+    return apod_data
 
 
 def get_backup_iss_location():
-    """Return demo ISS data when the live tracker is unavailable."""
+    """Return demo runtime telemetry for the legacy tracker endpoint."""
     return {
-        "latitude": "20.5937",
-        "longitude": "78.9629",
-        "altitude": "408 km",
-        "speed": "27,600 km/h",
+        "latitude": "local",
+        "longitude": "runtime",
+        "altitude": "Flask",
+        "speed": "Ready",
         "last_updated": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
         "source": "demo-fallback"
     }
 
 
 def get_iss_location():
-    """Fetch the current ISS location or use simple fallback data."""
-    try:
-        response = requests.get(ISS_API_URL, timeout=6)
-        response.raise_for_status()
-        iss_data = response.json()
-        position = iss_data.get("iss_position", {})
-
-        if not position:
-            return get_backup_iss_location()
-
-        return {
-            "latitude": position.get("latitude", "Unknown"),
-            "longitude": position.get("longitude", "Unknown"),
-            "altitude": "408 km",
-            "speed": "27,600 km/h",
-            "last_updated": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
-            "source": "live"
-        }
-    except (requests.RequestException, ValueError):
-        return get_backup_iss_location()
+    """Return runtime telemetry through the legacy tracker endpoint."""
+    return get_backup_iss_location()
 
 
 @app.route("/")
@@ -443,72 +401,72 @@ def ai_test_page():
 
 @app.route("/api/nasa/apod")
 def nasa_apod():
-    """API route for the NASA Astronomy Picture of the Day card."""
+    """Compatibility API route for an AI insight card."""
     return jsonify(get_nasa_apod())
 
 
 @app.route("/api/space-news")
 def space_news():
-    """API route for local demo space news cards."""
+    """Compatibility API route for local AI news cards."""
     return jsonify(load_json_file_or_default("space_news.json", []))
 
 
 @app.route("/api/planets")
 def planets():
-    """API route for local planet information cards."""
+    """Compatibility API route for local AI model cards."""
     return jsonify(load_json_file_or_default("planets.json", []))
 
 
 @app.route("/api/sky-explorer-data")
 def sky_explorer_data():
-    """API route for the Sky Explorer Stellarium companion data."""
+    """Compatibility API route for AI landscape companion data."""
     return jsonify(get_sky_explorer_data())
 
 
 @app.route("/api/agencies")
 def agencies():
-    """API route for local space agency dashboard cards."""
+    """API route for local AI company dashboard cards."""
     return jsonify(load_json_file_or_default("agencies.json", []))
 
 
 @app.route("/api/iss")
 def iss_tracker():
-    """API route for the Mission Control ISS tracker card."""
+    """Compatibility API route for runtime telemetry."""
     return jsonify(get_iss_location())
 
 
 @app.route("/api/launches")
 def launches():
-    """API route for local demo rocket launch cards."""
+    """Compatibility API route for local AI trend cards."""
     return jsonify(load_json_file_or_default("launches.json", []))
 
 
 @app.route("/mission-commander")
 @app.route("/about")
 def mission_commander():
-    """Render the futuristic Mission Commander profile."""
+    """Render the futuristic creator profile."""
     return render_template(
         "about.html",
         profile=MISSION_COMMANDER_PROFILE,
         repo_code_lines=get_repo_code_lines(),
-        about_css=url_for("static", filename="about.css"),
-        about_js=url_for("static", filename="about.js")
+        about_css="",
+        about_js=""
     )
 
 
 @app.route("/sky-explorer")
 def sky_explorer():
-    """Render the Stellarium-powered Sky Explorer page."""
+    """Render the AI landscape explorer page."""
     return render_template(
         "sky_explorer.html",
-        sky_explorer_css=url_for("static", filename="sky-explorer.css"),
-        sky_explorer_js=url_for("static", filename="sky-explorer.js")
+        sky_explorer_css="",
+        sky_explorer_js=""
     )
 
 
 @app.route("/api/quiz-database")
 def quiz_database():
-    """API route for the local Space Quiz Academy database."""
+    """API route for the local AI Academy database."""
     return jsonify(get_quiz_database())
 
 

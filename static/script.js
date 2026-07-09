@@ -1,125 +1,107 @@
-const chatForm = document.querySelector("#chatForm");
-const userInput = document.querySelector("#userInput");
-const chatMessages = document.querySelector("#chatMessages");
-const sampleQuestions = document.querySelectorAll(".sample-question");
-const voiceButton = document.querySelector("#voiceButton");
-const voiceRetryButton = document.querySelector("#voiceRetryButton");
-const stopListeningButton = document.querySelector("#stopListeningButton");
-const voiceSpeakLastButton = document.querySelector("#voiceSpeakLastButton");
-const voiceStopSpeakingButton = document.querySelector("#voiceStopSpeakingButton");
-const apodCard = document.querySelector("#apodCard");
-const newsGrid = document.querySelector("#newsGrid");
-const planetGrid = document.querySelector("#planetGrid");
-const planetSearch = document.querySelector("#planetSearch");
-const agencyGrid = document.querySelector("#agencyGrid");
-const issCard = document.querySelector("#issCard");
-const launchList = document.querySelector("#launchList");
-const refreshMissionButton = document.querySelector("#refreshMissionButton");
-const missionUpdatedText = document.querySelector("#missionUpdatedText");
-const vertexAvatar = document.querySelector("#vertexAvatar");
-const avatarStatus = document.querySelector("#avatarStatus");
-const themeSelect = document.querySelector("#themeSelect");
-const muteButton = document.querySelector("#muteButton");
-const presentationButton = document.querySelector("#presentationButton");
-const exitPresentationButton = document.querySelector("#exitPresentationButton");
-const sidebarToggle = document.querySelector("#sidebarToggle");
-const sidebarOverlay = document.querySelector("#sidebarOverlay");
-const sidebarGroups = document.querySelectorAll(".nav-group");
-const sidebarGroupToggles = document.querySelectorAll(".nav-group-toggle");
-const sidebarLinks = document.querySelectorAll(".nav-link");
-const autoSpeakToggle = document.querySelector("#autoSpeakToggle");
-const voiceAutoSpeakToggle = document.querySelector("#voiceAutoSpeakToggle");
-const voiceModeStatus = document.querySelector("#voiceModeStatus");
-const voiceStatusText = document.querySelector("#voiceStatusText");
-const voiceWaveform = document.querySelector("#voiceWaveform");
-const missionClock = document.querySelector("#missionClock");
-const missionStatusText = document.querySelector("#missionStatusText");
-const quizPlayerName = document.querySelector("#quizPlayerName");
-const quizModeSelect = document.querySelector("#quizModeSelect");
-const quizDifficultySelect = document.querySelector("#quizDifficultySelect");
-const quizTypeSelect = document.querySelector("#quizTypeSelect");
-const quizCompletionSelect = document.querySelector("#quizCompletionSelect");
-const quizTimerSelect = document.querySelector("#quizTimerSelect");
-const quizSearchInput = document.querySelector("#quizSearchInput");
-const quizCategoryGrid = document.querySelector("#quizCategoryGrid");
-const startQuizButton = document.querySelector("#startQuizButton");
-const dailyQuizButton = document.querySelector("#dailyQuizButton");
-const randomQuizButton = document.querySelector("#randomQuizButton");
-const aiQuizButton = document.querySelector("#aiQuizButton");
-const hardAiQuizButton = document.querySelector("#hardAiQuizButton");
-const nasaAiQuizButton = document.querySelector("#nasaAiQuizButton");
-const marsAiQuizButton = document.querySelector("#marsAiQuizButton");
-const astronomyAiQuizButton = document.querySelector("#astronomyAiQuizButton");
-const quizProgress = document.querySelector("#quizProgress");
-const quizScore = document.querySelector("#quizScore");
-const quizScoreCircle = document.querySelector("#quizScoreCircle");
-const quizTimer = document.querySelector("#quizTimer");
-const quizTimerBar = document.querySelector("#quizTimerBar");
-const quizStreak = document.querySelector("#quizStreak");
-const quizBankCount = document.querySelector("#quizBankCount");
-const quizQuestionType = document.querySelector("#quizQuestionType");
-const quizDifficultyTag = document.querySelector("#quizDifficultyTag");
-const quizImage = document.querySelector("#quizImage");
-const quizQuestion = document.querySelector("#quizQuestion");
-const quizChoices = document.querySelector("#quizChoices");
-const fillBlankForm = document.querySelector("#fillBlankForm");
-const fillBlankInput = document.querySelector("#fillBlankInput");
-const quizFeedback = document.querySelector("#quizFeedback");
-const restartQuizButton = document.querySelector("#restartQuizButton");
-const reviewQuizButton = document.querySelector("#reviewQuizButton");
-const nextQuizButton = document.querySelector("#nextQuizButton");
-const achievementList = document.querySelector("#achievementList");
-const leaderboardList = document.querySelector("#leaderboardList");
-const progressTracker = document.querySelector("#progressTracker");
-const quizReviewPanel = document.querySelector("#quizReviewPanel");
-const quizReviewList = document.querySelector("#quizReviewList");
-const certificatePanel = document.querySelector("#certificatePanel");
-const certificateName = document.querySelector("#certificateName");
-const certificateDetails = document.querySelector("#certificateDetails");
-const printCertificateButton = document.querySelector("#printCertificateButton");
-const aiStatusMode = document.querySelector("#aiStatusMode");
-const aiStatusMessage = document.querySelector("#aiStatusMessage");
-const tenAiQuizButton = document.querySelector("#tenAiQuizButton");
-const backupSpaceImage = "/static/images/apod-backup.svg";
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => document.querySelectorAll(selector);
+
+const chatForm = $("#chatForm");
+const userInput = $("#userInput");
+const chatMessages = $("#chatMessages");
+const sampleQuestions = $$(".sample-question");
+const voiceButton = $("#voiceButton");
+const voiceRetryButton = $("#voiceRetryButton");
+const stopListeningButton = $("#stopListeningButton");
+const voiceSpeakLastButton = $("#voiceSpeakLastButton");
+const voiceStopSpeakingButton = $("#voiceStopSpeakingButton");
+const newsGrid = $("#newsGrid");
+const planetGrid = $("#planetGrid");
+const planetSearch = $("#planetSearch");
+const agencyGrid = $("#agencyGrid");
+const launchList = $("#launchList");
+const missionUpdatedText = $("#missionUpdatedText");
+const vertexAvatar = $("#vertexAvatar");
+const avatarStatus = $("#avatarStatus");
+const themeSelect = $("#themeSelect");
+const themeToggle = $("#themeToggle");
+const settingsButton = $("#settingsButton");
+const muteButton = $("#muteButton");
+const presentationButton = $("#presentationButton");
+const exitPresentationButton = $("#exitPresentationButton");
+const sidebarToggle = $("#sidebarToggle");
+const sidebarOverlay = $("#sidebarOverlay");
+const sidebarLinks = $$(".nav-link");
+const autoSpeakToggle = $("#autoSpeakToggle");
+const voiceAutoSpeakToggle = $("#voiceAutoSpeakToggle");
+const voiceModeStatus = $("#voiceModeStatus");
+const voiceStatusText = $("#voiceStatusText");
+const voiceWaveform = $("#voiceWaveform");
+const missionClock = $("#missionClock");
+const aiStatusMode = $("#aiStatusMode");
+const aiStatusMessage = $("#aiStatusMessage");
+const latencyMetric = $("#latencyMetric");
+
+const quizPlayerName = $("#quizPlayerName");
+const quizModeSelect = $("#quizModeSelect");
+const quizDifficultySelect = $("#quizDifficultySelect");
+const quizTypeSelect = $("#quizTypeSelect");
+const quizCompletionSelect = $("#quizCompletionSelect");
+const quizTimerSelect = $("#quizTimerSelect");
+const quizSearchInput = $("#quizSearchInput");
+const quizCategoryGrid = $("#quizCategoryGrid");
+const startQuizButton = $("#startQuizButton");
+const dailyQuizButton = $("#dailyQuizButton");
+const randomQuizButton = $("#randomQuizButton");
+const aiQuizButton = $("#aiQuizButton");
+const tenAiQuizButton = $("#tenAiQuizButton");
+const hardAiQuizButton = $("#hardAiQuizButton");
+const nasaAiQuizButton = $("#nasaAiQuizButton");
+const marsAiQuizButton = $("#marsAiQuizButton");
+const astronomyAiQuizButton = $("#astronomyAiQuizButton");
+const quizProgress = $("#quizProgress");
+const quizScore = $("#quizScore");
+const quizScoreCircle = $("#quizScoreCircle");
+const quizTimer = $("#quizTimer");
+const quizTimerBar = $("#quizTimerBar");
+const quizStreak = $("#quizStreak");
+const quizBankCount = $("#quizBankCount");
+const quizQuestionType = $("#quizQuestionType");
+const quizDifficultyTag = $("#quizDifficultyTag");
+const quizImage = $("#quizImage");
+const quizQuestion = $("#quizQuestion");
+const quizChoices = $("#quizChoices");
+const fillBlankForm = $("#fillBlankForm");
+const fillBlankInput = $("#fillBlankInput");
+const quizFeedback = $("#quizFeedback");
+const restartQuizButton = $("#restartQuizButton");
+const reviewQuizButton = $("#reviewQuizButton");
+const nextQuizButton = $("#nextQuizButton");
+const achievementList = $("#achievementList");
+const leaderboardList = $("#leaderboardList");
+const progressTracker = $("#progressTracker");
+const quizReviewPanel = $("#quizReviewPanel");
+const quizReviewList = $("#quizReviewList");
+const certificatePanel = $("#certificatePanel");
+const certificateName = $("#certificateName");
+const certificateDetails = $("#certificateDetails");
+const printCertificateButton = $("#printCertificateButton");
+
 const savedTheme = localStorage.getItem("vertex-theme") || "deep-space";
 const savedMute = localStorage.getItem("vertex-muted") === "true";
 const savedAutoSpeak = localStorage.getItem("vertex-auto-speak");
-const savedSidebarCollapsed = localStorage.getItem("vertex-sidebar-collapsed");
-const savedSidebarGroups = localStorage.getItem("vertex-sidebar-groups");
-const sidebarMediaQuery = window.matchMedia("(max-width: 980px)");
-let allPlanets = [];
+const quizStorageKey = "vertex-ai-academy";
+const quizLeaderboardKey = "vertex-ai-leaderboard";
+
+let allModels = [];
 let soundsMuted = savedMute;
 let autoSpeakEnabled = savedAutoSpeak === null ? true : savedAutoSpeak === "true";
-let sidebarCollapsed = savedSidebarCollapsed === null ? false : savedSidebarCollapsed === "true";
-let sidebarDrawerOpen = false;
-let sidebarGroupState = {};
 let preferredVoice = null;
-let activeReplyTurnId = 0;
-let activeThinkingCleanup = null;
-let activeTypingCleanup = null;
 let recognition = null;
 let recognitionActive = false;
 let recognitionStopRequested = false;
 let recognitionRestartTimer = null;
 let voiceMode = "ready";
 let lastCompletedReplyText = "";
-let missionClockTimer = null;
-
-const quizStorageKey = "vertex-quiz-academy";
-const quizLeaderboardKey = "vertex-quiz-leaderboard";
-const badgeRules = [
-  { id: "space-cadet", name: "🚀 Space Cadet", test: (stats) => stats.completed >= 1 },
-  { id: "mission-specialist", name: "🛰 Mission Specialist", test: (stats) => stats.correct >= 25 },
-  { id: "planet-explorer", name: "🌍 Planet Explorer", test: (stats) => stats.completedCategories.includes("solar-system") },
-  { id: "galaxy-explorer", name: "🌠 Galaxy Explorer", test: (stats) => stats.completedCategories.includes("galaxies") },
-  { id: "junior-astronaut", name: "👨‍🚀 Junior Astronaut", test: (stats) => stats.answered >= 50 },
-  { id: "space-scientist", name: "🌌 Space Scientist", test: (stats) => stats.correct >= 100 },
-  { id: "quiz-champion", name: "🏆 Quiz Champion", test: (stats) => stats.bestScore >= 300 },
-  { id: "space-master", name: "🌟 Space Master", test: (stats) => stats.bestPercent >= 80 }
-];
-const pointMap = { easy: 10, medium: 20, hard: 30, expert: 50 };
+let activeReplyTurnId = 0;
+let activeTypingCleanup = null;
 let quizDatabase = { categories: [], questions: [] };
-let selectedQuizCategory = "solar-system";
+let selectedQuizCategory = "prompt-engineering";
 let quizTimerInterval = null;
 let quizState = {
   questions: [],
@@ -127,344 +109,404 @@ let quizState = {
   score: 0,
   correct: 0,
   streak: 0,
-  bestStreak: 0,
   answered: false,
-  startedAt: 0,
   secondsLeft: 0,
   totalSeconds: 0,
-  results: [],
-  active: false
+  results: []
 };
 
-function playSound(soundName) {
-  if (soundsMuted) {
-    return;
-  }
+const badgeRules = [
+  { id: "prompt-builder", name: "Prompt Builder", test: (stats) => stats.completed >= 1 },
+  { id: "llm-operator", name: "LLM Operator", test: (stats) => stats.correct >= 10 },
+  { id: "systems-thinker", name: "Systems Thinker", test: (stats) => stats.answered >= 25 },
+  { id: "ai-architect", name: "AI Architect", test: (stats) => stats.bestPercent >= 80 }
+];
 
+function playSound(soundName) {
+  if (soundsMuted) return;
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) {
-      return;
-    }
-
+    if (!AudioContext) return;
     const audioContext = new AudioContext();
     const oscillator = audioContext.createOscillator();
     const volume = audioContext.createGain();
-    const soundMap = {
-      send: 520,
-      reply: 740,
-      click: 360
-    };
-
+    const soundMap = { send: 520, reply: 760, click: 360 };
     oscillator.frequency.value = soundMap[soundName] || 440;
     oscillator.type = "sine";
-    volume.gain.value = 0.04;
-
+    volume.gain.value = 0.035;
     oscillator.connect(volume);
     volume.connect(audioContext.destination);
     oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.08);
-
-    oscillator.addEventListener("ended", () => {
-      audioContext.close();
-    });
+    oscillator.stop(audioContext.currentTime + 0.07);
+    oscillator.addEventListener("ended", () => audioContext.close());
   } catch (error) {
-    // Some browsers block audio until the user interacts. VERTEX just stays quiet.
+    // Browser audio can be blocked until a user interaction.
   }
 }
 
+function updateClock() {
+  if (!missionClock) return;
+  missionClock.textContent = new Date().toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  });
+}
+
+function updateMuteButton() {
+  if (muteButton) {
+    muteButton.textContent = soundsMuted ? "Sound Off" : "Sound On";
+  }
+}
+
+function applyTheme(themeName) {
+  document.body.dataset.theme = themeName;
+  if (themeSelect) themeSelect.value = themeName;
+  localStorage.setItem("vertex-theme", themeName);
+}
+
+function syncAutoSpeak() {
+  if (autoSpeakToggle) autoSpeakToggle.checked = autoSpeakEnabled;
+  if (voiceAutoSpeakToggle) voiceAutoSpeakToggle.checked = autoSpeakEnabled;
+  localStorage.setItem("vertex-auto-speak", String(autoSpeakEnabled));
+}
+
+function getCurrentTimeText() {
+  return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function escapeHtml(text) {
+  return String(text || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function renderInlineMarkdown(text) {
+  return escapeHtml(text)
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, "<a href=\"$2\" target=\"_blank\" rel=\"noreferrer\">$1</a>")
+    .replace(/(https?:\/\/[^\s<]+)/g, "<a href=\"$1\" target=\"_blank\" rel=\"noreferrer\">$1</a>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+}
+
+function renderMarkdown(text) {
+  const lines = String(text || "").split("\n");
+  const html = [];
+  let listOpen = false;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+    if (!line) {
+      if (listOpen) {
+        html.push("</ul>");
+        listOpen = false;
+      }
+      continue;
+    }
+
+    if (line.startsWith("```")) {
+      const codeLines = [];
+      index += 1;
+      while (index < lines.length && !lines[index].trim().startsWith("```")) {
+        codeLines.push(lines[index]);
+        index += 1;
+      }
+      html.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+      continue;
+    }
+
+    if (line.startsWith("|") && line.endsWith("|")) {
+      const rows = [];
+      while (index < lines.length && lines[index].trim().startsWith("|")) {
+        const tableLine = lines[index].trim();
+        if (!/^\|\s*-/.test(tableLine)) {
+          rows.push(tableLine.split("|").slice(1, -1).map((cell) => renderInlineMarkdown(cell.trim())));
+        }
+        index += 1;
+      }
+      index -= 1;
+      if (rows.length) {
+        html.push("<table><tbody>");
+        rows.forEach((row, rowIndex) => {
+          const tag = rowIndex === 0 ? "th" : "td";
+          html.push(`<tr>${row.map((cell) => `<${tag}>${cell}</${tag}>`).join("")}</tr>`);
+        });
+        html.push("</tbody></table>");
+      }
+      continue;
+    }
+
+    if (/^[-*]\s/.test(line) || /^\d+\.\s/.test(line)) {
+      if (!listOpen) {
+        html.push("<ul>");
+        listOpen = true;
+      }
+      html.push(`<li>${renderInlineMarkdown(line.replace(/^[-*]\s/, "").replace(/^\d+\.\s/, ""))}</li>`);
+      continue;
+    }
+
+    if (listOpen) {
+      html.push("</ul>");
+      listOpen = false;
+    }
+    html.push(`<p>${renderInlineMarkdown(line)}</p>`);
+  }
+
+  if (listOpen) html.push("</ul>");
+  return html.join("");
+}
+
+function addMessage(speaker, text, type, options = {}) {
+  const message = document.createElement("div");
+  message.className = `message ${type}`;
+
+  const speakerLabel = document.createElement("span");
+  speakerLabel.className = "speaker";
+  speakerLabel.textContent = speaker;
+
+  const body = document.createElement("div");
+  body.className = "message-body";
+  body.textContent = text;
+
+  const timestamp = document.createElement("time");
+  timestamp.className = "message-time";
+  timestamp.dateTime = new Date().toISOString();
+  timestamp.textContent = getCurrentTimeText();
+
+  message.append(speakerLabel, body, timestamp);
+
+  if (type === "bot" && options.speakable !== false && "speechSynthesis" in window) {
+    const actions = document.createElement("div");
+    actions.className = "message-actions";
+
+    const speakButton = document.createElement("button");
+    speakButton.className = "secondary-button";
+    speakButton.type = "button";
+    speakButton.textContent = "Speak";
+    speakButton.addEventListener("click", () => speakCompletedReply(text));
+
+    const stopButton = document.createElement("button");
+    stopButton.className = "secondary-button";
+    stopButton.type = "button";
+    stopButton.textContent = "Stop";
+    stopButton.addEventListener("click", stopSpeaking);
+    actions.append(speakButton, stopButton);
+    message.appendChild(actions);
+  }
+
+  chatMessages.appendChild(message);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return { message, body };
+}
+
 function setThinkingState(isThinking) {
-  vertexAvatar.classList.toggle("is-thinking", isThinking);
-  avatarStatus.textContent = isThinking ? "Thinking about your question..." : "Ready for your next space question.";
+  vertexAvatar?.classList.toggle("is-thinking", isThinking);
+  if (avatarStatus) {
+    avatarStatus.textContent = isThinking ? "Processing with the AI core..." : "Ready for AI and technology questions.";
+  }
   if (isThinking) {
-    setVoiceMode("processing", "VERTEX is thinking about the answer.");
+    setVoiceMode("processing", "VERTEX is thinking.");
   } else if (!recognitionActive && voiceMode !== "speaking" && voiceMode !== "unsupported") {
     setVoiceMode("ready");
   }
 }
 
-function updateMissionClock() {
-  if (missionClock) {
-    missionClock.textContent = new Date().toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-      timeZone: "Asia/Kolkata"
-    });
-  }
+function beginNewReplyTurn() {
+  activeReplyTurnId += 1;
+  activeTypingCleanup?.();
+  activeTypingCleanup = null;
+  stopListening();
+  stopSpeaking();
+  return activeReplyTurnId;
+}
 
-  if (missionStatusText) {
-    missionStatusText.textContent = "ONLINE";
+function sleep(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+async function typeBotReply(messageNode, body, fullText, turnId) {
+  let index = 0;
+  body.textContent = "";
+
+  return new Promise((resolve) => {
+    const timer = window.setInterval(() => {
+      if (turnId !== activeReplyTurnId) {
+        window.clearInterval(timer);
+        resolve(false);
+        return;
+      }
+      body.textContent += fullText.charAt(index);
+      index += 1;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      if (index >= fullText.length) {
+        window.clearInterval(timer);
+        body.innerHTML = renderMarkdown(fullText);
+        resolve(true);
+      }
+    }, 16);
+    activeTypingCleanup = () => {
+      window.clearInterval(timer);
+      messageNode.remove();
+      resolve(false);
+    };
+  });
+}
+
+async function fetchJson(url, options = {}) {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), options.timeoutMs || 12000);
+  const startedAt = performance.now();
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
+    const data = await response.json();
+    if (latencyMetric && url === "/chat") {
+      latencyMetric.textContent = `${Math.round(performance.now() - startedAt)}ms`;
+    }
+    return data;
+  } catch (error) {
+    if (error.name === "AbortError") throw new Error("The request timed out.");
+    throw error;
+  } finally {
+    window.clearTimeout(timeoutId);
   }
 }
 
-function updateAutoSpeakToggle() {
-  if (!autoSpeakToggle) {
-    return;
-  }
+chatForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const message = userInput.value.trim();
+  if (!message) return;
 
-  autoSpeakToggle.checked = autoSpeakEnabled;
-  if (voiceAutoSpeakToggle) {
-    voiceAutoSpeakToggle.checked = autoSpeakEnabled;
-  }
-}
+  const turnId = beginNewReplyTurn();
+  addMessage("You", message, "user", { speakable: false });
+  userInput.value = "";
+  playSound("send");
+  setThinkingState(true);
 
-function isMobileSidebarLayout() {
-  return sidebarMediaQuery.matches;
-}
-
-function readSidebarGroups() {
-  if (!savedSidebarGroups) {
-    return {};
-  }
+  const thinking = addMessage("VERTEX", "Thinking...", "bot thinking", { speakable: false });
 
   try {
-    const parsed = JSON.parse(savedSidebarGroups);
-    return typeof parsed === "object" && parsed ? parsed : {};
+    const data = await fetchJson("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+    await sleep(240);
+    if (turnId !== activeReplyTurnId) return;
+    thinking.message.remove();
+    const reply = addMessage("VERTEX", data.response, "bot");
+    const finished = await typeBotReply(reply.message, reply.body, data.response, turnId);
+    activeTypingCleanup = null;
+    if (!finished || turnId !== activeReplyTurnId) return;
+    lastCompletedReplyText = data.response;
+    playSound("reply");
+    if (autoSpeakEnabled) {
+      await sleep(180);
+      if (turnId === activeReplyTurnId) speakCompletedReply(data.response);
+    }
   } catch (error) {
-    return {};
+    thinking.message.remove();
+    const text = error?.message || "Connection problem. Check if Flask is running.";
+    const reply = addMessage("VERTEX", text, "bot", { speakable: false });
+    await typeBotReply(reply.message, reply.body, text, turnId);
+  } finally {
+    if (turnId === activeReplyTurnId) setThinkingState(false);
   }
-}
+});
 
-function saveSidebarGroups() {
-  localStorage.setItem("vertex-sidebar-groups", JSON.stringify(sidebarGroupState));
-}
-
-function setSidebarGroupState(groupKey, isOpen, persist = true) {
-  sidebarGroupState[groupKey] = Boolean(isOpen);
-
-  const group = document.querySelector(`.nav-group[data-group="${groupKey}"]`);
-  const toggle = document.querySelector(`.nav-group-toggle[data-group-key="${groupKey}"]`);
-
-  if (group) {
-    group.classList.toggle("is-collapsed", !isOpen);
-  }
-
-  if (toggle) {
-    toggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
-  }
-
-  if (persist) {
-    saveSidebarGroups();
-  }
-}
-
-function openSidebarGroupForLink(link) {
-  const groupKey = link?.dataset?.navGroup;
-  if (!groupKey) {
-    return;
-  }
-
-  setSidebarGroupState(groupKey, true);
-}
-
-function updateSidebarLinks() {
-  const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
-  const currentHash = window.location.hash || "";
-
-  sidebarLinks.forEach((link) => {
-    const url = new URL(link.getAttribute("href"), window.location.origin);
-    const linkPath = url.pathname.replace(/\/+$/, "") || "/";
-    const linkHash = url.hash || "";
-    const isHashLink = link.getAttribute("href").startsWith("#");
-    let isActive = false;
-
-    if (isHashLink) {
-      if (currentPath === "/") {
-        isActive = linkHash === currentHash || (linkHash === "" && currentHash === "");
-      }
-    } else {
-      isActive = linkPath === currentPath;
-    }
-
-    link.classList.toggle("is-active", isActive);
-
-    if (isActive) {
-      openSidebarGroupForLink(link);
-    }
+sampleQuestions.forEach((button) => {
+  button.addEventListener("click", () => {
+    userInput.value = button.textContent;
+    chatForm.requestSubmit();
   });
+});
+
+function chooseBestVoice() {
+  if (!("speechSynthesis" in window)) return null;
+  const voices = window.speechSynthesis.getVoices();
+  return voices.find((voice) => String(voice.lang || "").toLowerCase().startsWith("en")) || voices[0] || null;
 }
 
-function updateSidebarToggleButton() {
-  if (!sidebarToggle) {
-    return;
-  }
-
-  const isMobile = isMobileSidebarLayout();
-  const isOpen = isMobile ? sidebarDrawerOpen : !sidebarCollapsed;
-  sidebarToggle.textContent = isOpen ? "✕" : "☰";
-  sidebarToggle.setAttribute("aria-expanded", String(isOpen));
-  sidebarToggle.setAttribute("aria-label", isOpen ? "Collapse navigation" : "Expand navigation");
-}
-
-function syncSidebarLayout() {
-  const isMobile = isMobileSidebarLayout();
-
-  document.body.classList.toggle("sidebar-collapsed", !isMobile && sidebarCollapsed);
-  document.body.classList.toggle("sidebar-open", isMobile && sidebarDrawerOpen);
-
-  if (sidebarOverlay) {
-    sidebarOverlay.hidden = !(isMobile && sidebarDrawerOpen);
-  }
-
-  if (isMobile) {
-    document.body.classList.remove("sidebar-collapsed");
-  }
-
-  updateSidebarToggleButton();
-}
-
-function toggleSidebarDrawer() {
-  if (isMobileSidebarLayout()) {
-    sidebarDrawerOpen = !sidebarDrawerOpen;
-    syncSidebarLayout();
-    return;
-  }
-
-  sidebarCollapsed = !sidebarCollapsed;
-  localStorage.setItem("vertex-sidebar-collapsed", String(sidebarCollapsed));
-  syncSidebarLayout();
-}
-
-function closeSidebarDrawer() {
-  if (!isMobileSidebarLayout() || !sidebarDrawerOpen) {
-    return;
-  }
-
-  sidebarDrawerOpen = false;
-  syncSidebarLayout();
-}
-
-function restoreSidebarState() {
-  sidebarGroupState = {
-    main: true,
-    space: true,
-    learning: true,
-    creator: true,
-    ...readSidebarGroups()
-  };
-
-  sidebarGroups.forEach((group) => {
-    const groupKey = group.dataset.group;
-    setSidebarGroupState(groupKey, sidebarGroupState[groupKey] !== false, false);
-  });
-
-  updateSidebarLinks();
-  syncSidebarLayout();
-}
-
-function bindSidebarNavigation() {
-  if (sidebarToggle) {
-    sidebarToggle.addEventListener("click", () => {
-      toggleSidebarDrawer();
-    });
-  }
-
-  if (sidebarOverlay) {
-    sidebarOverlay.addEventListener("click", () => {
-      closeSidebarDrawer();
-    });
-  }
-
-  sidebarGroupToggles.forEach((toggle) => {
-    toggle.addEventListener("click", () => {
-      const groupKey = toggle.dataset.groupKey;
-      const isOpen = toggle.getAttribute("aria-expanded") !== "true";
-      setSidebarGroupState(groupKey, isOpen);
-    });
-  });
-
-  sidebarLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      openSidebarGroupForLink(link);
-      if (isMobileSidebarLayout()) {
-        closeSidebarDrawer();
-      }
-    });
-  });
-
-  window.addEventListener("hashchange", updateSidebarLinks);
-  window.addEventListener("popstate", updateSidebarLinks);
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeSidebarDrawer();
-    }
-  });
-
-  const handleMediaChange = () => {
-    if (!isMobileSidebarLayout()) {
-      sidebarDrawerOpen = false;
-    }
-    syncSidebarLayout();
-  };
-
-  if (typeof sidebarMediaQuery.addEventListener === "function") {
-    sidebarMediaQuery.addEventListener("change", handleMediaChange);
-  } else if (typeof sidebarMediaQuery.addListener === "function") {
-    sidebarMediaQuery.addListener(handleMediaChange);
-  }
+function stripMarkdownForSpeech(text) {
+  return String(text || "")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, "$1")
+    .replace(/[*_`>#|]/g, " ")
+    .replace(/^\s*[-*]\s+/gm, "")
+    .replace(/^\s*\d+\.\s+/gm, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function setVoiceMode(mode, message) {
   voiceMode = mode;
-
-  if (voiceButton) {
-    voiceButton.classList.toggle("is-listening", mode === "listening");
-    voiceButton.classList.toggle("is-speaking", mode === "speaking");
-  }
-
-  if (voiceModeStatus) {
-    const labelMap = {
-      ready: "Voice Mode: Ready",
-      listening: "Voice Mode: Listening...",
-      processing: "Voice Mode: Processing...",
-      speaking: "Voice Mode: Speaking...",
-      "permission-denied": "Permission denied",
-      unsupported: "Unsupported browser"
-    };
-    voiceModeStatus.textContent = labelMap[mode] || "Voice Mode: Ready";
-  }
-
-  if (voiceStatusText) {
-    const messageMap = {
-      ready: "Tap Talk to Vertex and ask a question out loud.",
-      listening: "Speak your question now. VERTEX is listening.",
-      processing: "VERTEX is preparing an answer.",
-      speaking: "VERTEX is speaking the completed answer.",
-      "permission-denied": "Microphone permission is turned off. Open your browser settings, allow microphone access, then try again.",
-      unsupported: "Voice input is supported in Chrome and Microsoft Edge."
-    };
-    voiceStatusText.textContent = message || messageMap[mode] || messageMap.ready;
-  }
-
-  if (voiceRetryButton) {
-    const showRetry = mode === "permission-denied";
-    voiceRetryButton.hidden = !showRetry;
-    voiceRetryButton.disabled = !showRetry;
-  }
-
-  if (!voiceWaveform) {
-    return;
-  }
-
-  const activeModes = new Set(["listening", "processing", "speaking"]);
-  voiceWaveform.className = "voice-waveform";
-  if (activeModes.has(mode)) {
-    voiceWaveform.classList.add("is-active");
-    voiceWaveform.classList.add(`is-${mode}`);
+  const labels = {
+    ready: "Voice Mode: Ready",
+    listening: "Voice Mode: Listening",
+    processing: "Voice Mode: Thinking",
+    speaking: "Voice Mode: Speaking",
+    "permission-denied": "Microphone blocked",
+    unsupported: "Unsupported browser"
+  };
+  const messages = {
+    ready: "Tap Talk to Vertex and ask a technology question out loud.",
+    listening: "Speak now. VERTEX is listening.",
+    processing: "VERTEX is processing the question.",
+    speaking: "VERTEX is speaking the completed answer.",
+    "permission-denied": "Microphone permission is blocked. Allow microphone access in your browser settings.",
+    unsupported: "Voice input works best in Chrome or Microsoft Edge."
+  };
+  if (voiceModeStatus) voiceModeStatus.textContent = labels[mode] || labels.ready;
+  if (voiceStatusText) voiceStatusText.textContent = message || messages[mode] || messages.ready;
+  if (voiceRetryButton) voiceRetryButton.hidden = mode !== "permission-denied";
+  if (voiceWaveform) {
+    voiceWaveform.className = "voice-waveform";
+    if (["listening", "processing", "speaking"].includes(mode)) {
+      voiceWaveform.classList.add("is-active", `is-${mode}`);
+    }
   }
 }
 
-function ensureRecognition() {
-  if (recognition) {
-    return recognition;
+function speakCompletedReply(text) {
+  if (!("speechSynthesis" in window)) {
+    setVoiceMode("unsupported");
+    return;
   }
+  const speechText = stripMarkdownForSpeech(text);
+  if (!speechText) return;
+  preferredVoice = preferredVoice || chooseBestVoice();
+  const utterance = new SpeechSynthesisUtterance(speechText);
+  utterance.voice = preferredVoice;
+  utterance.lang = preferredVoice?.lang || "en-US";
+  utterance.rate = 0.96;
+  utterance.onstart = () => setVoiceMode("speaking");
+  utterance.onend = () => setVoiceMode("ready");
+  utterance.onerror = () => setVoiceMode("ready", "Speech output could not play.");
+  stopSpeaking();
+  window.speechSynthesis.speak(utterance);
+}
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    return null;
+function stopSpeaking() {
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  if (voiceMode === "speaking") setVoiceMode("ready", "Speech stopped.");
+}
+
+function speakLastAnswer() {
+  if (!lastCompletedReplyText) {
+    setVoiceMode("ready", "No completed answer is available yet.");
+    return;
   }
+  speakCompletedReply(lastCompletedReplyText);
+}
+
+function ensureRecognition() {
+  if (recognition) return recognition;
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return null;
 
   recognition = new SpeechRecognition();
   recognition.lang = "en-US";
@@ -474,77 +516,41 @@ function ensureRecognition() {
   recognition.addEventListener("start", () => {
     recognitionActive = true;
     recognitionStopRequested = false;
+    if (voiceButton) voiceButton.textContent = "Listening";
     setVoiceMode("listening");
-    if (voiceButton) {
-      voiceButton.textContent = "Listening...";
-    }
   });
 
   recognition.addEventListener("result", (event) => {
     const transcript = event.results?.[0]?.[0]?.transcript?.trim() || "";
-    if (!transcript) {
-      setVoiceMode("ready", "No speech was detected. Please try again.");
-      return;
-    }
-
-    userInput.value = transcript;
-    userInput.focus();
     recognitionStopRequested = true;
     stopListening();
-    chatForm.requestSubmit();
-  });
-
-  recognition.addEventListener("speechstart", () => {
-    if (recognitionActive) {
-      setVoiceMode("listening", "Speech detected. Keep speaking your question.");
+    if (transcript) {
+      userInput.value = transcript;
+      chatForm.requestSubmit();
+    } else {
+      setVoiceMode("ready", "No speech was detected. Try again.");
     }
   });
 
   recognition.addEventListener("end", () => {
     recognitionActive = false;
-    if (voiceButton) {
-      voiceButton.textContent = "🎤 Talk to Vertex";
-    }
-
+    if (voiceButton) voiceButton.textContent = "Talk to Vertex";
     if (!recognitionStopRequested && voiceMode === "listening") {
-      setVoiceMode("processing", "Microphone stopped unexpectedly. Trying again...");
-      clearTimeout(recognitionRestartTimer);
-      recognitionRestartTimer = window.setTimeout(() => {
-        if (!recognitionActive && !recognitionStopRequested) {
-          startListening();
-        }
-      }, 500);
-      return;
-    }
-
-    if (voiceMode === "listening" || voiceMode === "processing") {
-      setVoiceMode("ready");
+      setVoiceMode("ready", "Microphone stopped. Tap Talk to Vertex to retry.");
     }
   });
 
   recognition.addEventListener("error", (event) => {
     recognitionActive = false;
     recognitionStopRequested = true;
-    if (voiceButton) {
-      voiceButton.textContent = "🎤 Talk to Vertex";
-    }
     clearTimeout(recognitionRestartTimer);
-
-    const errorMap = {
-      "not-allowed": "Microphone permission is turned off. Open your browser settings, allow microphone access, then try again.",
-      "service-not-allowed": "Microphone access is blocked in this browser. Voice input is supported in Chrome and Microsoft Edge.",
-      "no-speech": "No speech was detected. Please try again.",
-      "audio-capture": "No microphone was found. Please check your device settings.",
-      "network": "Speech recognition could not reach the service right now.",
-      "aborted": "Voice recognition was stopped."
-    };
-    const friendly = errorMap[event.error] || "Voice recognition stopped because of an error.";
+    if (voiceButton) voiceButton.textContent = "Talk to Vertex";
     if (event.error === "not-allowed" || event.error === "service-not-allowed") {
-      setVoiceMode("permission-denied", friendly);
+      setVoiceMode("permission-denied");
     } else if (event.error === "no-speech") {
-      setVoiceMode("ready", friendly);
+      setVoiceMode("ready", "No speech was detected. Try again.");
     } else {
-      setVoiceMode("ready", friendly);
+      setVoiceMode("ready", "Voice recognition stopped.");
     }
   });
 
@@ -552,37 +558,20 @@ function ensureRecognition() {
 }
 
 function stopListening() {
-  if (!recognitionActive || !recognition) {
-    return;
-  }
-
+  if (!recognition || !recognitionActive) return;
   recognitionStopRequested = true;
   clearTimeout(recognitionRestartTimer);
-
   try {
     recognition.stop();
   } catch (error) {
-    try {
-      recognition.abort();
-    } catch (abortError) {
-      // Ignore abort failures. The browser may already have stopped recognition.
-    }
+    try { recognition.abort(); } catch (abortError) {}
   }
-
   recognitionActive = false;
-  if (voiceButton) {
-    voiceButton.textContent = "🎤 Talk to Vertex";
-  }
-  if (voiceMode === "listening" || voiceMode === "processing") {
-    setVoiceMode("ready", "Voice recognition stopped.");
-  }
+  if (voiceButton) voiceButton.textContent = "Talk to Vertex";
 }
 
 async function checkMicrophonePermission() {
-  if (!navigator.permissions?.query) {
-    return "unknown";
-  }
-
+  if (!navigator.permissions?.query) return "unknown";
   try {
     const result = await navigator.permissions.query({ name: "microphone" });
     return result.state || "unknown";
@@ -593,819 +582,169 @@ async function checkMicrophonePermission() {
 
 async function startListening() {
   const activeRecognition = ensureRecognition();
-
   if (!activeRecognition) {
     setVoiceMode("unsupported");
     addMessage("VERTEX", "Voice recognition is not supported in this browser. Please use Chrome or Edge.", "bot", { speakable: false });
     return;
   }
-
-  clearTimeout(recognitionRestartTimer);
   stopSpeaking();
   setVoiceMode("processing", "Checking microphone permission...");
-
-  const permissionState = await checkMicrophonePermission();
-  if (permissionState === "denied") {
-    recognitionStopRequested = true;
+  const permission = await checkMicrophonePermission();
+  if (permission === "denied") {
     setVoiceMode("permission-denied");
     return;
   }
-
   recognitionStopRequested = false;
-
   try {
     activeRecognition.start();
   } catch (error) {
-    // Some browsers throw if start is called twice quickly. We recover by resetting the state.
-    recognitionStopRequested = true;
     setVoiceMode("ready", "Voice recognition could not start. Please try again.");
   }
 }
 
-function updateMuteButton() {
-  muteButton.textContent = soundsMuted ? "Sound Off" : "Sound On";
-}
-
-function getCurrentTimeText() {
-  return new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-}
-
-function escapeHtml(text) {
-  return text
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll("\"", "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-function renderInlineMarkdown(text) {
-  let html = escapeHtml(text);
-  const savedItems = [];
-
-  html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g, (match, altText, imageUrl) => {
-    const token = `__VERTEX_ITEM_${savedItems.length}__`;
-    savedItems.push(`<img class="chat-image" src="${imageUrl}" alt="${altText}">`);
-    return token;
-  });
-
-  html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (match, linkText, linkUrl) => {
-    const token = `__VERTEX_ITEM_${savedItems.length}__`;
-    savedItems.push(`<a href="${linkUrl}" target="_blank" rel="noreferrer">${linkText}</a>`);
-    return token;
-  });
-
-  html = html.replace(/(https?:\/\/[^\s<]+)/g, "<a href=\"$1\" target=\"_blank\" rel=\"noreferrer\">$1</a>");
-  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
-  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-
-  savedItems.forEach((item, index) => {
-    html = html.replace(`__VERTEX_ITEM_${index}__`, item);
-  });
-
-  return html;
-}
-
-function renderMarkdown(text) {
-  const lines = text.split("\n");
-  const htmlParts = [];
-  let listOpen = false;
-
-  for (let index = 0; index < lines.length; index += 1) {
-    const line = lines[index].trim();
-
-    if (!line) {
-      if (listOpen) {
-        htmlParts.push("</ul>");
-        listOpen = false;
-      }
-      continue;
-    }
-
-    if (line.startsWith("|") && line.endsWith("|")) {
-      const tableLines = [];
-      while (index < lines.length && lines[index].trim().startsWith("|")) {
-        tableLines.push(lines[index].trim());
-        index += 1;
-      }
-      index -= 1;
-
-      const rows = tableLines
-        .filter((tableLine) => !/^\|\s*-/.test(tableLine))
-        .map((tableLine) => tableLine.split("|").slice(1, -1).map((cell) => renderInlineMarkdown(cell.trim())));
-
-      if (rows.length > 0) {
-        htmlParts.push("<table>");
-        htmlParts.push(`<thead><tr>${rows[0].map((cell) => `<th>${cell}</th>`).join("")}</tr></thead>`);
-        htmlParts.push("<tbody>");
-        rows.slice(1).forEach((row) => {
-          htmlParts.push(`<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`);
-        });
-        htmlParts.push("</tbody></table>");
-      }
-      continue;
-    }
-
-    if (line.startsWith("- ") || line.startsWith("* ")) {
-      if (!listOpen) {
-        htmlParts.push("<ul>");
-        listOpen = true;
-      }
-      htmlParts.push(`<li>${renderInlineMarkdown(line.slice(2))}</li>`);
-      continue;
-    }
-
-    if (/^\d+\.\s/.test(line)) {
-      if (!listOpen) {
-        htmlParts.push("<ul>");
-        listOpen = true;
-      }
-      htmlParts.push(`<li>${renderInlineMarkdown(line.replace(/^\d+\.\s/, ""))}</li>`);
-      continue;
-    }
-
-    if (listOpen) {
-      htmlParts.push("</ul>");
-      listOpen = false;
-    }
-
-    if (line.startsWith("```")) {
-      const codeLines = [];
-      index += 1;
-      while (index < lines.length && !lines[index].trim().startsWith("```")) {
-        codeLines.push(lines[index]);
-        index += 1;
-      }
-      htmlParts.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
-      continue;
-    }
-
-    htmlParts.push(`<p>${renderInlineMarkdown(line)}</p>`);
-  }
-
-  if (listOpen) {
-    htmlParts.push("</ul>");
-  }
-
-  return htmlParts.join("");
-}
-
-function chooseBestVoice() {
-  if (!("speechSynthesis" in window)) {
-    return null;
-  }
-
-  const voices = window.speechSynthesis.getVoices();
-  const preferredNames = [
-    "Microsoft Aria",
-    "Microsoft Jenny",
-    "Google UK English Female",
-    "Google US English",
-    "Any English voice"
-  ];
-
-  for (const voiceName of preferredNames) {
-    if (voiceName === "Any English voice") {
-      continue;
-    }
-
-    const match = voices.find((voice) => String(voice.name || "").includes(voiceName));
-    if (match) {
-      return match;
-    }
-  }
-
-  return voices.find((voice) => String(voice.lang || "").toLowerCase().startsWith("en")) || voices[0] || null;
-}
-
-function stopSpeaking() {
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
-  }
-  if (voiceMode === "speaking") {
-    setVoiceMode("ready", "Speech stopped.");
-  }
-}
-
-function shouldAutoSpeakReply(text) {
-  return autoSpeakEnabled && Boolean(String(text || "").trim());
-}
-
-function stripMarkdownForSpeech(text) {
-  return String(text || "")
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g, "$1")
-    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, "$1")
-    .replace(/[*_`>#]/g, " ")
-    .replace(/^\s*[-*]\s+/gm, "")
-    .replace(/^\s*\d+\.\s+/gm, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function speakCompletedReply(text) {
-  if (!("speechSynthesis" in window)) {
+function setupVoice() {
+  if (!ensureRecognition()) {
     setVoiceMode("unsupported");
+    if (voiceButton) voiceButton.disabled = true;
     return;
   }
-
-  const replyText = stripMarkdownForSpeech(text);
-  if (!replyText) {
-    return;
-  }
-
-  preferredVoice = preferredVoice || chooseBestVoice();
-  if (!preferredVoice) {
-    return;
-  }
-
-  const speech = new SpeechSynthesisUtterance(replyText);
-  speech.rate = 0.95;
-  speech.pitch = 1.0;
-  speech.volume = 1;
-  speech.voice = preferredVoice;
-  speech.lang = preferredVoice.lang || "en-US";
-  speech.onstart = () => {
-    setVoiceMode("speaking", "VERTEX is speaking the answer.");
-  };
-  speech.onend = () => {
-    if (voiceMode === "speaking") {
-      setVoiceMode("ready");
-    }
-  };
-  speech.onerror = () => {
-    setVoiceMode("ready", "Speech output could not play.");
-  };
-  stopSpeaking();
-  window.speechSynthesis.speak(speech);
-}
-
-function speakLastAnswer() {
-  if (!lastCompletedReplyText) {
-    setVoiceMode("ready", "No completed answer is available yet.");
-    return;
-  }
-
-  speakCompletedReply(lastCompletedReplyText);
-}
-
-function beginNewReplyTurn() {
-  activeReplyTurnId += 1;
-  activeThinkingCleanup?.();
-  activeThinkingCleanup = null;
-  activeTypingCleanup?.();
-  activeTypingCleanup = null;
-  stopListening();
-  stopSpeaking();
-  return activeReplyTurnId;
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => {
-    window.setTimeout(resolve, ms);
-  });
-}
-
-function setupSpeechVoices() {
-  if (!("speechSynthesis" in window)) {
-    return;
-  }
-
-  preferredVoice = chooseBestVoice();
-  window.speechSynthesis.addEventListener("voiceschanged", () => {
-    preferredVoice = chooseBestVoice();
-  });
-}
-
-// This function adds a new message bubble to the chat window.
-function addMessage(speaker, text, type, options = {}) {
-  const message = document.createElement("div");
-  message.className = `message ${type}`;
-
-  const speakerLabel = document.createElement("span");
-  speakerLabel.className = "speaker";
-  speakerLabel.textContent = speaker;
-
-  const paragraph = document.createElement("div");
-  paragraph.className = "message-body";
-  paragraph.textContent = text;
-
-  const timestamp = document.createElement("time");
-  timestamp.className = "message-time";
-  timestamp.dateTime = new Date().toISOString();
-  timestamp.textContent = getCurrentTimeText();
-
-  message.appendChild(speakerLabel);
-  message.appendChild(paragraph);
-  message.appendChild(timestamp);
-
-  // SpeechSynthesis is a browser feature. It lets VERTEX read replies aloud.
-  if (type === "bot" && !("speechSynthesis" in window)) {
-    const unavailable = document.createElement("span");
-    unavailable.className = "voice-unavailable";
-    unavailable.textContent = "Voice is not available in this browser.";
-    message.appendChild(unavailable);
-  }
-
-  if (type === "bot" && options.speakable !== false && "speechSynthesis" in window) {
-    const actions = document.createElement("div");
-    actions.className = "message-actions";
-
-    const speakButton = document.createElement("button");
-    speakButton.className = "speaker-button";
-    speakButton.type = "button";
-    speakButton.textContent = "Speak Again";
-    speakButton.title = "Read this Vertex reply";
-    speakButton.addEventListener("click", () => {
-      preferredVoice = preferredVoice || chooseBestVoice();
-
-      if (!preferredVoice) {
-        return;
-      }
-
-      speakCompletedReply(text);
-    });
-
-    const stopButton = document.createElement("button");
-    stopButton.className = "speaker-button stop-button";
-    stopButton.type = "button";
-    stopButton.textContent = "Stop Speaking";
-    stopButton.title = "Stop reading this Vertex reply";
-    stopButton.addEventListener("click", () => {
-      stopSpeaking();
-    });
-
-    actions.appendChild(speakButton);
-    actions.appendChild(stopButton);
-    message.appendChild(actions);
-  }
-
-  chatMessages.appendChild(message);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-
-  return { message, paragraph };
-}
-
-// This function types one VERTEX reply letter by letter.
-function typeBotReply(messageNode, paragraph, fullText, turnId) {
-  let letterIndex = 0;
-  paragraph.textContent = "";
-
-  return new Promise((resolve) => {
-    const typingTimer = setInterval(() => {
-      if (turnId !== activeReplyTurnId) {
-        clearInterval(typingTimer);
-        resolve(false);
-        return;
-      }
-
-      paragraph.textContent += fullText.charAt(letterIndex);
-      letterIndex += 1;
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-
-      if (letterIndex >= fullText.length) {
-        clearInterval(typingTimer);
-        paragraph.innerHTML = renderMarkdown(fullText);
-        resolve(true);
-      }
-    }, 28);
-
-    activeTypingCleanup = () => {
-      clearInterval(typingTimer);
-      messageNode.remove();
-      resolve(false);
-    };
-  });
-}
-
-// This small delay makes VERTEX feel like it is thinking.
-function waitOneSecond() {
-  return new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-}
-
-// This helper asks Flask for JSON data and reports errors clearly.
-async function fetchJson(url, options = {}) {
-  const controller = new AbortController();
-  const timeoutMs = options.timeoutMs || 10000;
-  const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
-
-  try {
-    const response = await fetch(url, {
-      ...options,
-      signal: controller.signal
-    });
-
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
-    }
-
-    const contentType = response.headers.get("content-type") || "";
-    if (!contentType.includes("application/json")) {
-      throw new Error("The server returned an unexpected response.");
-    }
-
-    return await response.json();
-  } catch (error) {
-    if (error.name === "AbortError") {
-      throw new Error("The request timed out. Please try again.");
-    }
-
-    if (!navigator.onLine) {
-      throw new Error("You appear to be offline. Check your connection and try again.");
-    }
-
-    throw error;
-  } finally {
-    window.clearTimeout(timeoutId);
-  }
-}
-
-chatForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  const message = userInput.value.trim();
-  if (!message) {
-    return;
-  }
-
-  const replyTurnId = beginNewReplyTurn();
-  addMessage("You", message, "user");
-  playSound("send");
-  userInput.value = "";
-
-  setThinkingState(true);
-  const thinkingMessage = addMessage("VERTEX", "Vertex is thinking...", "bot thinking");
-  activeThinkingCleanup = () => {
-    thinkingMessage.message.remove();
-  };
-
-  try {
-    const fetchReply = fetchJson("/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message })
-    });
-
-    const [data] = await Promise.all([fetchReply, waitOneSecond()]);
-    if (replyTurnId !== activeReplyTurnId) {
-      return;
-    }
-
-    thinkingMessage.message.remove();
-    activeThinkingCleanup = null;
-    const botReply = addMessage("VERTEX", data.response, "bot");
-    const finishedTyping = await typeBotReply(botReply.message, botReply.paragraph, data.response, replyTurnId);
-    activeTypingCleanup = null;
-    if (!finishedTyping || replyTurnId !== activeReplyTurnId) {
-      return;
-    }
-
-    lastCompletedReplyText = data.response;
-    playSound("reply");
-    await sleep(300);
-    if (replyTurnId === activeReplyTurnId && shouldAutoSpeakReply(data.response)) {
-      speakCompletedReply(data.response);
-    }
-  } catch (error) {
-    await waitOneSecond();
-    if (replyTurnId !== activeReplyTurnId) {
-      return;
-    }
-
-    thinkingMessage.message.remove();
-    activeThinkingCleanup = null;
-    const errorText = error?.message || "Connection problem. Please check if Flask is running.";
-    const botReply = addMessage("VERTEX", errorText, "bot", { speakable: false });
-    await typeBotReply(botReply.message, botReply.paragraph, errorText, replyTurnId);
-    activeTypingCleanup = null;
-  } finally {
-    if (replyTurnId === activeReplyTurnId) {
-      setThinkingState(false);
-      activeThinkingCleanup = null;
-    }
-  }
-});
-
-// Clicking a sample question puts it in the input box and sends it.
-sampleQuestions.forEach((button) => {
-  button.addEventListener("click", () => {
-    userInput.value = button.textContent;
-    chatForm.requestSubmit();
-  });
-});
-
-// The Web Speech API is a browser feature. It may not work in every browser.
-function setupVoiceInput() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  if (!SpeechRecognition) {
-    setVoiceMode("unsupported");
-    if (voiceButton) {
-      voiceButton.disabled = true;
-      voiceButton.setAttribute("aria-disabled", "true");
-    }
-    return;
-  }
-
-  ensureRecognition();
   setVoiceMode("ready");
-
-  voiceButton.addEventListener("click", () => {
-    if (recognitionActive) {
-      stopListening();
-      return;
-    }
-
-    startListening();
-  });
-
-  voiceRetryButton?.addEventListener("click", () => {
-    startListening();
-  });
-
-  stopListeningButton?.addEventListener("click", () => {
-    stopListening();
-  });
-
-  voiceStopSpeakingButton?.addEventListener("click", () => {
-    stopSpeaking();
-  });
-
-  voiceSpeakLastButton?.addEventListener("click", () => {
-    speakLastAnswer();
-  });
+  voiceButton?.addEventListener("click", () => recognitionActive ? stopListening() : startListening());
+  voiceRetryButton?.addEventListener("click", startListening);
+  stopListeningButton?.addEventListener("click", stopListening);
+  voiceStopSpeakingButton?.addEventListener("click", stopSpeaking);
+  voiceSpeakLastButton?.addEventListener("click", speakLastAnswer);
+  if ("speechSynthesis" in window) {
+    preferredVoice = chooseBestVoice();
+    window.speechSynthesis.addEventListener("voiceschanged", () => {
+      preferredVoice = chooseBestVoice();
+    });
+  }
 }
 
-// NASA APOD gets one large visual card.
-function renderApod(apod) {
-  apodCard.innerHTML = "";
-
-  const image = document.createElement("img");
-  image.src = apod.image_url;
-  image.alt = apod.title;
-  image.onerror = () => {
-    image.src = backupSpaceImage;
-  };
-
-  const content = document.createElement("div");
-  content.className = "apod-content";
-
-  const source = document.createElement("span");
-  source.className = "tag";
-  source.textContent = apod.source === "nasa" ? "NASA APOD" : "Local Backup";
-
-  const title = document.createElement("h3");
-  title.textContent = apod.title;
-
-  const date = document.createElement("p");
-  date.className = "card-meta";
-  date.textContent = apod.date;
-
-  const explanation = document.createElement("p");
-  explanation.textContent = apod.explanation;
-
-  content.appendChild(source);
-  content.appendChild(title);
-  content.appendChild(date);
-  content.appendChild(explanation);
-  apodCard.appendChild(image);
-  apodCard.appendChild(content);
+function showCardError(container, message) {
+  if (!container) return;
+  container.innerHTML = `<p class="error-text">${escapeHtml(message)}</p>`;
 }
 
-function renderNews(newsItems) {
+function renderNews(items) {
   newsGrid.innerHTML = "";
-
-  newsItems.forEach((item) => {
+  items.forEach((item) => {
     const card = document.createElement("article");
     card.className = "info-card glass-panel";
-
     card.innerHTML = `
-      <span class="tag">${item.agency}</span>
-      <h3>${item.title}</h3>
-      <p class="card-meta">${item.date}</p>
-      <p>${item.summary}</p>
+      <span class="tag">${escapeHtml(item.agency || item.source || "AI")}</span>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p class="card-meta">${escapeHtml(item.date || "Signal")}</p>
+      <p>${escapeHtml(item.summary)}</p>
     `;
-
     newsGrid.appendChild(card);
   });
 }
 
-function renderPlanets(planets) {
+function renderModels(models) {
   planetGrid.innerHTML = "";
-
-  if (planets.length === 0) {
-    planetGrid.innerHTML = "<p class=\"error-text\">No planet found.</p>";
+  if (!models.length) {
+    planetGrid.innerHTML = "<p class=\"error-text\">No model found.</p>";
     return;
   }
-
-  planets.forEach((planet) => {
+  models.forEach((model) => {
     const card = document.createElement("article");
-    card.className = "planet-card glass-panel";
-
+    card.className = "model-card glass-panel";
     card.innerHTML = `
-      <img src="${planet.image_url}" alt="${planet.name}">
-      <div class="planet-card-body">
-        <h3>${planet.name}</h3>
-        <p><strong>Diameter:</strong> ${planet.diameter}</p>
-        <p><strong>Distance:</strong> ${planet.distance_from_sun}</p>
-        <p><strong>Moons:</strong> ${planet.moons}</p>
-        <p>${planet.fact}</p>
+      <span class="tag">${escapeHtml(model.company)}</span>
+      <h3>${escapeHtml(model.name)}</h3>
+      <p>${escapeHtml(model.summary || model.fact || "")}</p>
+      <div class="model-stats">
+        <p><strong>Context</strong><span>${escapeHtml(model.context_window || "Varies")}</span></p>
+        <p><strong>Pricing</strong><span>${escapeHtml(model.pricing || "Varies")}</span></p>
+        <p><strong>Strengths</strong><span>${escapeHtml(model.strengths || "")}</span></p>
+        <p><strong>Weaknesses</strong><span>${escapeHtml(model.weaknesses || "")}</span></p>
       </div>
+      <p class="card-meta">Benchmarks: ${escapeHtml(model.benchmarks || "Use current evals before production choices.")}</p>
     `;
-
-    const image = card.querySelector("img");
-    image.onerror = () => {
-      image.src = backupSpaceImage;
-    };
-
     planetGrid.appendChild(card);
   });
 }
 
-function filterPlanets() {
-  const searchText = planetSearch.value.toLowerCase().trim();
-  const matchingPlanets = allPlanets.filter((planet) => {
-    return planet.name.toLowerCase().includes(searchText);
-  });
-
-  renderPlanets(matchingPlanets);
+function filterModels() {
+  const search = planetSearch.value.toLowerCase().trim();
+  renderModels(allModels.filter((model) => {
+    return [model.name, model.company, model.strengths, model.summary].join(" ").toLowerCase().includes(search);
+  }));
 }
 
-function renderAgencies(agencies) {
+function renderCompanies(companies) {
   agencyGrid.innerHTML = "";
-
-  agencies.forEach((agency) => {
+  companies.forEach((company) => {
     const card = document.createElement("article");
     card.className = "info-card glass-panel";
-
     card.innerHTML = `
-      <span class="tag">${agency.country}</span>
-      <h3>${agency.name}</h3>
-      <p class="card-meta">Founded: ${agency.founded}</p>
-      <p>${agency.description}</p>
-      <a class="card-link" href="${agency.website}" target="_blank" rel="noreferrer">Official website</a>
+      <span class="tag">${escapeHtml(company.country || company.category || "AI Company")}</span>
+      <h3>${escapeHtml(company.name)}</h3>
+      <p class="card-meta">Founded: ${escapeHtml(String(company.founded || "N/A"))}</p>
+      <p>${escapeHtml(company.description)}</p>
+      <a class="card-link" href="${company.website}" target="_blank" rel="noreferrer">Official website</a>
     `;
-
     agencyGrid.appendChild(card);
   });
 }
 
-function renderIss(iss) {
-  issCard.innerHTML = `
-    <span class="tag">${iss.source === "live" ? "Live ISS" : "Demo ISS"}</span>
-    <h3>International Space Station</h3>
-    <div class="stat-grid">
-      <p><strong>Latitude</strong><span>${iss.latitude}</span></p>
-      <p><strong>Longitude</strong><span>${iss.longitude}</span></p>
-      <p><strong>Altitude</strong><span>${iss.altitude}</span></p>
-      <p><strong>Speed</strong><span>${iss.speed}</span></p>
-    </div>
-    <p class="card-meta">Last updated: ${iss.last_updated}</p>
-  `;
-}
-
-function renderLaunches(launches) {
+function renderTrends(trends) {
   launchList.innerHTML = "";
-
-  launches.forEach((launch) => {
-    const launchCard = document.createElement("article");
-    launchCard.className = "launch-card";
-    launchCard.innerHTML = `
-      <div>
-        <span class="tag">${launch.status}</span>
-        <h4>${launch.mission_name}</h4>
-        <p class="card-meta">${launch.agency} - ${launch.rocket_name}</p>
-        <p>${launch.description}</p>
-      </div>
-      <div class="launch-details">
-        <p><strong>Date:</strong> ${launch.launch_date}</p>
-        <p><strong>Site:</strong> ${launch.launch_site}</p>
-      </div>
+  trends.forEach((trend) => {
+    const card = document.createElement("article");
+    card.className = "trend-card";
+    card.innerHTML = `
+      <span class="tag">${escapeHtml(trend.status || trend.category)}</span>
+      <h3>${escapeHtml(trend.mission_name || trend.title)}</h3>
+      <p class="card-meta">${escapeHtml(trend.agency || trend.signal || "")}</p>
+      <p>${escapeHtml(trend.description)}</p>
     `;
-
-    launchList.appendChild(launchCard);
+    launchList.appendChild(card);
   });
-}
-
-function showCardError(container, message) {
-  container.innerHTML = "";
-  const paragraph = document.createElement("p");
-  paragraph.className = "error-text";
-  paragraph.textContent = message;
-  container.appendChild(paragraph);
+  if (missionUpdatedText) {
+    missionUpdatedText.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+  }
 }
 
 async function loadDashboardData() {
   try {
-    const apod = await fetchJson("/api/nasa/apod");
-    renderApod(apod);
+    renderNews(await fetchJson("/api/space-news"));
   } catch (error) {
-    showCardError(apodCard, error?.message || "NASA data could not load, but the chatbot still works.");
+    showCardError(newsGrid, error?.message || "AI news could not load.");
   }
-
   try {
-    const news = await fetchJson("/api/space-news");
-    renderNews(news);
+    allModels = await fetchJson("/api/planets");
+    renderModels(allModels);
   } catch (error) {
-    showCardError(newsGrid, error?.message || "Space news could not load right now.");
+    showCardError(planetGrid, error?.message || "AI models could not load.");
   }
-
   try {
-    const planets = await fetchJson("/api/planets");
-    allPlanets = planets;
-    renderPlanets(allPlanets);
+    renderCompanies(await fetchJson("/api/agencies"));
   } catch (error) {
-    showCardError(planetGrid, error?.message || "Planet cards could not load right now.");
+    showCardError(agencyGrid, error?.message || "AI companies could not load.");
   }
-
   try {
-    const agencies = await fetchJson("/api/agencies");
-    renderAgencies(agencies);
+    renderTrends(await fetchJson("/api/launches"));
   } catch (error) {
-    showCardError(agencyGrid, error?.message || "Agency cards could not load right now.");
+    showCardError(launchList, error?.message || "AI trends could not load.");
   }
-}
-
-async function loadMissionControl() {
-  issCard.innerHTML = "<p class=\"loading-text\">Loading ISS location...</p>";
-  launchList.innerHTML = "<p class=\"loading-text\">Loading rocket launches...</p>";
-
-  try {
-    const iss = await fetchJson("/api/iss");
-    renderIss(iss);
-  } catch (error) {
-    showCardError(issCard, error?.message || "ISS location could not load right now.");
-  }
-
-  try {
-    const launches = await fetchJson("/api/launches");
-    renderLaunches(launches);
-  } catch (error) {
-    showCardError(launchList, error?.message || "Rocket launches could not load right now.");
-  }
-
-  missionUpdatedText.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
 }
 
 async function loadAiStatus() {
   try {
     const status = await fetchJson("/api/ai-status");
-    aiStatusMode.textContent = status.mode;
-    aiStatusMessage.textContent = status.message;
+    aiStatusMode.textContent = status.mode || "online";
+    aiStatusMessage.textContent = status.message || "VERTEX is ready.";
   } catch (error) {
-    aiStatusMode.textContent = "Offline Demo Mode";
-    aiStatusMessage.textContent = "AI status could not load, but the local demo can still run.";
+    aiStatusMode.textContent = "local";
+    aiStatusMessage.textContent = "AI status could not load, but local mode still works.";
   }
 }
 
-planetSearch.addEventListener("input", filterPlanets);
-refreshMissionButton.addEventListener("click", loadMissionControl);
-
-function applyTheme(themeName) {
-  document.body.dataset.theme = themeName;
-  themeSelect.value = themeName;
-  localStorage.setItem("vertex-theme", themeName);
-}
-
-themeSelect.addEventListener("change", () => {
-  applyTheme(themeSelect.value);
-});
-
-muteButton.addEventListener("click", () => {
-  soundsMuted = !soundsMuted;
-  localStorage.setItem("vertex-muted", String(soundsMuted));
-  updateMuteButton();
-});
-
-// A tiny click sound runs for normal buttons. Audio errors are ignored in playSound().
-document.addEventListener("click", (event) => {
-  if (event.target.closest("button")) {
-    playSound("click");
-  }
-});
-
-function enterPresentationMode() {
-  document.body.classList.add("presentation-mode");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function exitPresentationMode() {
-  document.body.classList.remove("presentation-mode");
-}
-
-presentationButton.addEventListener("click", enterPresentationMode);
-exitPresentationButton.addEventListener("click", exitPresentationMode);
-
-// The quiz saves progress in localStorage so it still works without a backend login.
 function getSavedQuizStats() {
-  const defaultStats = {
+  const fallback = {
     answered: 0,
     correct: 0,
     incorrect: 0,
@@ -1417,11 +756,10 @@ function getSavedQuizStats() {
     answeredQuestions: [],
     badges: []
   };
-
   try {
-    return { ...defaultStats, ...JSON.parse(localStorage.getItem(quizStorageKey) || "{}") };
+    return { ...fallback, ...JSON.parse(localStorage.getItem(quizStorageKey) || "{}") };
   } catch (error) {
-    return defaultStats;
+    return fallback;
   }
 }
 
@@ -1450,21 +788,14 @@ function normalizeAnswer(value) {
 }
 
 function getPlayerName() {
-  return quizPlayerName.value.trim() || "Explorer";
+  return quizPlayerName.value.trim() || "Builder";
 }
 
 function getCategoryName(categoryId) {
-  const category = quizDatabase.categories.find((item) => item.id === categoryId);
-  return category ? category.name : "Mixed Space";
+  return quizDatabase.categories.find((item) => item.id === categoryId)?.name || "Mixed AI";
 }
 
-function formatQuestionType(type) {
-  return String(type || "multiple_choice").replaceAll("_", " ");
-}
-
-// This function applies the student's category, difficulty, type, search, and progress filters.
 function getSelectedQuestions() {
-  const mode = quizModeSelect.value;
   const difficulty = quizDifficultySelect.value;
   const type = quizTypeSelect.value;
   const completion = quizCompletionSelect.value;
@@ -1472,105 +803,60 @@ function getSelectedQuestions() {
   const stats = getSavedQuizStats();
   let questions = quizDatabase.questions;
 
-  if (mode === "random") {
-    questions = shuffleItems(questions);
-  } else if (selectedQuizCategory && selectedQuizCategory !== "all") {
+  if (selectedQuizCategory && selectedQuizCategory !== "all") {
     questions = questions.filter((question) => question.category === selectedQuizCategory);
   }
-
   if (difficulty !== "all") {
     questions = questions.filter((question) => question.difficulty === difficulty);
   }
-
   if (type !== "all") {
     questions = questions.filter((question) => question.type === type);
   }
-
   if (completion === "completed") {
     questions = questions.filter((question) => stats.answeredQuestions.includes(question.id));
   }
-
   if (completion === "unanswered") {
     questions = questions.filter((question) => !stats.answeredQuestions.includes(question.id));
   }
-
   if (searchText) {
-    questions = questions.filter((question) => {
-      return question.question.toLowerCase().includes(searchText)
-        || question.topic.toLowerCase().includes(searchText)
-        || question.category.toLowerCase().includes(searchText)
-        || question.answer.toLowerCase().includes(searchText);
-    });
+    questions = questions.filter((question) => JSON.stringify(question).toLowerCase().includes(searchText));
   }
-
-  const limitMap = {
-    practice: 10,
-    challenge: 10,
-    exam: 20,
-    adventure: 8,
-    daily: 5
-  };
-
-  return shuffleItems(questions).slice(0, limitMap[mode] || 10);
+  const limitMap = { practice: 10, challenge: 10, exam: 20, adventure: 8, daily: 5 };
+  return shuffleItems(questions).slice(0, limitMap[quizModeSelect.value] || 10);
 }
 
-// Category cards make the quiz feel like an academy instead of a single question list.
 function renderQuizCategories() {
-  const searchText = quizSearchInput.value.toLowerCase().trim();
-  const stats = getSavedQuizStats();
-  const unlockedCount = quizModeSelect.value === "adventure"
-    ? Math.max(1, stats.completedCategories.length + 1)
-    : quizDatabase.categories.length;
   quizCategoryGrid.innerHTML = "";
-
-  quizDatabase.categories
-    .filter((category) => {
-      return !searchText
-        || category.name.toLowerCase().includes(searchText)
-        || category.description.toLowerCase().includes(searchText);
-    })
-    .forEach((category, index) => {
-      const locked = index >= unlockedCount;
-      const button = document.createElement("button");
-      button.type = "button";
-      button.disabled = locked;
-      button.className = `quiz-category-card${category.id === selectedQuizCategory ? " active" : ""}${locked ? " locked" : ""}`;
-      button.innerHTML = `
-        <span>${category.icon}</span>
-        <strong>${category.name}</strong>
-        <small>${locked ? "Locked in Adventure Mode" : category.description}</small>
-      `;
-      button.addEventListener("click", () => {
-        if (locked) {
-          return;
-        }
-        selectedQuizCategory = category.id;
-        renderQuizCategories();
-      });
-      quizCategoryGrid.appendChild(button);
+  quizDatabase.categories.forEach((category) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `quiz-category-card${category.id === selectedQuizCategory ? " active" : ""}`;
+    button.innerHTML = `<strong>${escapeHtml(category.name)}</strong><small>${escapeHtml(category.description)}</small>`;
+    button.addEventListener("click", () => {
+      selectedQuizCategory = category.id;
+      renderQuizCategories();
     });
+    quizCategoryGrid.appendChild(button);
+  });
 }
 
-// Badges, leaderboard, and progress tracker all refresh from localStorage.
 function updateQuizProgressViews() {
   const stats = getSavedQuizStats();
   const total = Math.max(stats.answered, 1);
-  const correctPercent = Math.round((stats.correct / total) * 100);
-  const incorrectPercent = Math.round((stats.incorrect / total) * 100);
-  const favoriteCategory = Object.entries(stats.categoryCounts)
-    .sort((left, right) => right[1] - left[1])[0];
+  const percent = Math.round((stats.correct / total) * 100);
+  const favorite = Object.entries(stats.categoryCounts).sort((a, b) => b[1] - a[1])[0];
 
   achievementList.innerHTML = "";
   badgeRules.forEach((badge) => {
-    const badgeElement = document.createElement("span");
-    badgeElement.className = `achievement-badge${stats.badges.includes(badge.id) ? " unlocked" : ""}`;
-    badgeElement.textContent = badge.name;
-    achievementList.appendChild(badgeElement);
+    const item = document.createElement("span");
+    item.className = `achievement-badge${stats.badges.includes(badge.id) ? " unlocked" : ""}`;
+    item.textContent = badge.name;
+    achievementList.appendChild(item);
   });
 
   leaderboardList.innerHTML = "";
   const leaderboard = getLeaderboard();
-  if (leaderboard.length === 0) {
+  if (!leaderboard.length) {
     leaderboardList.innerHTML = "<li>No scores yet. Start a quiz.</li>";
   } else {
     leaderboard.forEach((entry) => {
@@ -1582,50 +868,41 @@ function updateQuizProgressViews() {
 
   progressTracker.innerHTML = `
     <p><strong>Questions answered:</strong> ${stats.answered}</p>
-    <p><strong>Correct:</strong> ${correctPercent}%</p>
-    <p><strong>Incorrect:</strong> ${incorrectPercent}%</p>
-    <p><strong>Favorite category:</strong> ${favoriteCategory ? getCategoryName(favoriteCategory[0]) : "None yet"}</p>
-    <p><strong>Completed categories:</strong> ${stats.completedCategories.length}</p>
-    <p><strong>Total quizzes completed:</strong> ${stats.completed}</p>
+    <p><strong>Accuracy:</strong> ${percent}%</p>
+    <p><strong>Favorite category:</strong> ${favorite ? getCategoryName(favorite[0]) : "None yet"}</p>
+    <p><strong>Completed quizzes:</strong> ${stats.completed}</p>
   `;
 }
 
 function updateScoreDisplay() {
-  const totalQuestions = Math.max(quizState.questions.length, 1);
-  const percent = Math.round((quizState.correct / totalQuestions) * 100);
+  const percent = Math.round((quizState.correct / Math.max(quizState.questions.length, 1)) * 100);
   quizScore.textContent = `Score: ${quizState.score}`;
   quizScoreCircle.textContent = `${percent}%`;
-  quizScoreCircle.style.background = `conic-gradient(var(--accent-2) ${percent}%, rgba(255, 255, 255, 0.1) 0)`;
+  quizScoreCircle.style.background = `conic-gradient(var(--accent) ${percent}%, rgba(255,255,255,0.1) 0)`;
   quizStreak.textContent = `${quizState.streak} correct in a row`;
 }
 
 function stopQuizTimer() {
-  if (quizTimerInterval) {
-    clearInterval(quizTimerInterval);
-    quizTimerInterval = null;
-  }
+  if (quizTimerInterval) window.clearInterval(quizTimerInterval);
+  quizTimerInterval = null;
 }
 
-// Timed modes auto-submit the current question when the countdown reaches zero.
 function startQuizTimer(seconds) {
   stopQuizTimer();
   quizState.totalSeconds = seconds;
   quizState.secondsLeft = seconds;
-
   if (!seconds) {
     quizTimer.textContent = "No timer";
     quizTimerBar.style.width = "0%";
     return;
   }
-
   quizTimer.textContent = `${seconds}s`;
   quizTimerBar.style.width = "100%";
-  quizTimerInterval = setInterval(() => {
+  quizTimerInterval = window.setInterval(() => {
     quizState.secondsLeft -= 1;
-    const percentLeft = Math.max(0, (quizState.secondsLeft / quizState.totalSeconds) * 100);
+    const percent = Math.max(0, (quizState.secondsLeft / quizState.totalSeconds) * 100);
     quizTimer.textContent = `${Math.max(quizState.secondsLeft, 0)}s`;
-    quizTimerBar.style.width = `${percentLeft}%`;
-
+    quizTimerBar.style.width = `${percent}%`;
     if (quizState.secondsLeft <= 0) {
       stopQuizTimer();
       submitQuizAnswer("__timeout__");
@@ -1634,352 +911,281 @@ function startQuizTimer(seconds) {
 }
 
 function getTimerSecondsForMode() {
-  if (quizTimerSelect.value !== "0") {
-    return Number(quizTimerSelect.value);
-  }
-
-  if (quizModeSelect.value === "challenge") {
-    return 30;
-  }
-
-  return 0;
+  if (quizTimerSelect.value !== "0") return Number(quizTimerSelect.value);
+  return quizModeSelect.value === "challenge" ? 30 : 0;
 }
 
 function renderChoices(question) {
   quizChoices.innerHTML = "";
   fillBlankForm.hidden = question.type !== "fill_blank";
   nextQuizButton.hidden = true;
-
   if (question.type === "fill_blank") {
     fillBlankInput.value = "";
     fillBlankInput.focus();
     return;
   }
-
   const choices = question.type === "true_false" ? ["True", "False"] : question.choices;
   choices.forEach((choice) => {
-    const choiceButton = document.createElement("button");
-    choiceButton.type = "button";
-    choiceButton.className = "quiz-choice";
-    choiceButton.textContent = choice;
-    choiceButton.addEventListener("click", () => submitQuizAnswer(choice));
-    quizChoices.appendChild(choiceButton);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "quiz-choice";
+    button.textContent = choice;
+    button.addEventListener("click", () => submitQuizAnswer(choice));
+    quizChoices.appendChild(button);
   });
 }
 
 function showQuizQuestion() {
   const question = quizState.questions[quizState.index];
-
   if (!question) {
     finishQuiz();
     return;
   }
-
   quizState.answered = false;
   quizFeedback.textContent = "Choose an answer. VERTEX will explain it after you submit.";
   quizProgress.textContent = `Question ${quizState.index + 1} of ${quizState.questions.length}`;
-  quizQuestion.textContent = question.question;
-  quizQuestionType.textContent = formatQuestionType(question.type);
+  quizQuestionType.textContent = String(question.type || "multiple_choice").replaceAll("_", " ");
   quizDifficultyTag.textContent = question.difficulty;
-  quizImage.hidden = question.type !== "image_quiz";
-  quizImage.src = question.image_url || backupSpaceImage;
-  quizImage.alt = question.type === "image_quiz" ? question.question : "";
-  renderChoices(question);
-  updateScoreDisplay();
-  startQuizTimer(getTimerSecondsForMode());
-}
-
-function getQuestionPoints(question) {
-  const basePoints = question.points || pointMap[question.difficulty] || 10;
-  const speedBonus = quizState.secondsLeft > 10 ? 5 : 0;
-  const streakBonus = quizState.streak > 0 && quizState.streak % 3 === 0 ? 10 : 0;
-  const dailyBonus = quizModeSelect.value === "daily" ? 5 : 0;
-  return basePoints + speedBonus + streakBonus + dailyBonus;
-}
-
-// Every answer immediately shows the correct answer, explanation, and a fun fact.
-function submitQuizAnswer(answer) {
-  if (quizState.answered || !quizState.active) {
-    return;
-  }
-
-  stopQuizTimer();
-  const question = quizState.questions[quizState.index];
-  const isCorrect = normalizeAnswer(answer) === normalizeAnswer(question.answer);
-  quizState.answered = true;
-
-  quizChoices.querySelectorAll("button").forEach((button) => {
-    button.disabled = true;
-
-    if (normalizeAnswer(button.textContent) === normalizeAnswer(question.answer)) {
-      button.classList.add("correct");
-    }
-
-    if (normalizeAnswer(button.textContent) === normalizeAnswer(answer) && !isCorrect) {
-      button.classList.add("wrong");
-    }
-  });
-
-  if (isCorrect) {
-    quizState.correct += 1;
-    quizState.streak += 1;
-    quizState.bestStreak = Math.max(quizState.bestStreak, quizState.streak);
-    quizState.score += getQuestionPoints(question);
+  quizQuestion.textContent = question.question;
+  if (question.image_url) {
+    quizImage.src = question.image_url;
+    quizImage.alt = question.topic || "AI Academy image";
+    quizImage.hidden = false;
   } else {
-    quizState.streak = 0;
+    quizImage.hidden = true;
   }
-
-  quizState.results.push({
-    question: question.question,
-    answer,
-    correctAnswer: question.answer,
-    correct: isCorrect,
-    explanation: question.explanation,
-    fact: question.fact,
-    category: question.category
-  });
-
-  quizFeedback.innerHTML = `
-    <strong>${isCorrect ? "Correct!" : "Not quite."}</strong><br>
-    Correct Answer: ${escapeHtml(question.answer)}<br>
-    Explanation: ${escapeHtml(question.explanation)}<br>
-    Fun Fact: ${escapeHtml(question.fact)}
-  `;
-  nextQuizButton.hidden = false;
+  renderChoices(question);
+  startQuizTimer(getTimerSecondsForMode());
   updateScoreDisplay();
 }
 
-function goToNextQuestion() {
-  quizState.index += 1;
-
-  if (quizState.index >= quizState.questions.length) {
-    finishQuiz();
-    return;
-  }
-
-  showQuizQuestion();
-}
-
-function updateStatsAfterQuiz(percent) {
+function updateStatsAfterAnswer(question, isCorrect) {
   const stats = getSavedQuizStats();
-  const incorrect = quizState.questions.length - quizState.correct;
-  stats.answered += quizState.questions.length;
-  stats.correct += quizState.correct;
-  stats.incorrect += incorrect;
-  stats.completed += 1;
-  stats.bestScore = Math.max(stats.bestScore, quizState.score);
-  stats.bestPercent = Math.max(stats.bestPercent, percent);
-  stats.categoryCounts[selectedQuizCategory] = (stats.categoryCounts[selectedQuizCategory] || 0) + 1;
-
-  if (!stats.completedCategories.includes(selectedQuizCategory)) {
-    stats.completedCategories.push(selectedQuizCategory);
-  }
-
-  quizState.questions.forEach((question) => {
-    if (!stats.answeredQuestions.includes(question.id)) {
-      stats.answeredQuestions.push(question.id);
-    }
-  });
-
+  stats.answered += 1;
+  stats.correct += isCorrect ? 1 : 0;
+  stats.incorrect += isCorrect ? 0 : 1;
+  stats.categoryCounts[question.category] = (stats.categoryCounts[question.category] || 0) + 1;
+  if (!stats.answeredQuestions.includes(question.id)) stats.answeredQuestions.push(question.id);
   badgeRules.forEach((badge) => {
-    if (!stats.badges.includes(badge.id) && badge.test(stats)) {
-      stats.badges.push(badge.id);
-    }
+    if (!stats.badges.includes(badge.id) && badge.test(stats)) stats.badges.push(badge.id);
   });
-
   saveQuizStats(stats);
 }
 
-function updateLeaderboardAfterQuiz(percent) {
-  const leaderboard = getLeaderboard();
-  leaderboard.push({
-    name: getPlayerName(),
-    score: quizState.score,
-    percent,
-    completed: new Date().toLocaleDateString()
+function submitQuizAnswer(answer) {
+  const question = quizState.questions[quizState.index];
+  if (!question || quizState.answered) return;
+  stopQuizTimer();
+  quizState.answered = true;
+  const isCorrect = normalizeAnswer(answer) === normalizeAnswer(question.answer);
+  quizState.correct += isCorrect ? 1 : 0;
+  quizState.streak = isCorrect ? quizState.streak + 1 : 0;
+  quizState.score += isCorrect ? Number(question.points || 10) : 0;
+  quizState.results.push({ question, answer, isCorrect });
+  updateStatsAfterAnswer(question, isCorrect);
+  quizFeedback.textContent = `${isCorrect ? "Correct." : `Not quite. Correct answer: ${question.answer}.`} ${question.explanation || ""} ${question.fact || ""}`;
+  [...quizChoices.children].forEach((button) => {
+    button.disabled = true;
+    if (normalizeAnswer(button.textContent) === normalizeAnswer(question.answer)) {
+      button.classList.add("active");
+    }
   });
-  leaderboard.sort((left, right) => right.score - left.score);
-  saveLeaderboard(leaderboard);
+  nextQuizButton.hidden = false;
+  updateScoreDisplay();
+  updateQuizProgressViews();
 }
 
-function showCertificate(percent) {
-  if (percent < 80) {
-    certificatePanel.hidden = true;
-    return;
-  }
-
-  certificateName.textContent = getPlayerName();
-  certificateDetails.textContent = `${percent}% score in ${getCategoryName(selectedQuizCategory)} on ${new Date().toLocaleDateString()}.`;
-  certificatePanel.hidden = false;
-}
-
-// The final screen stores stats, updates badges, creates review mode, and shows a certificate.
 function finishQuiz() {
   stopQuizTimer();
-  quizState.active = false;
-  const total = Math.max(quizState.questions.length, 1);
-  const percent = Math.round((quizState.correct / total) * 100);
-  const timeTaken = Math.round((Date.now() - quizState.startedAt) / 1000);
-
-  quizProgress.textContent = "Quiz Complete";
-  quizQuestion.textContent = `Final Score: ${quizState.score} points`;
+  const percent = Math.round((quizState.correct / Math.max(quizState.questions.length, 1)) * 100);
+  quizQuestion.textContent = "AI Academy session complete.";
   quizChoices.innerHTML = "";
-  fillBlankForm.hidden = true;
   nextQuizButton.hidden = true;
-  quizFeedback.innerHTML = `
-    Correct: ${quizState.correct} of ${quizState.questions.length}<br>
-    Percentage: ${percent}%<br>
-    Time Taken: ${timeTaken}s<br>
-    Open Review Mode to study every answer.
-  `;
+  quizFeedback.textContent = `Final score: ${quizState.score} points, ${percent}% accuracy.`;
 
-  updateStatsAfterQuiz(percent);
-  updateLeaderboardAfterQuiz(percent);
+  const stats = getSavedQuizStats();
+  stats.completed += 1;
+  stats.bestScore = Math.max(stats.bestScore, quizState.score);
+  stats.bestPercent = Math.max(stats.bestPercent, percent);
+  if (!stats.completedCategories.includes(selectedQuizCategory)) stats.completedCategories.push(selectedQuizCategory);
+  badgeRules.forEach((badge) => {
+    if (!stats.badges.includes(badge.id) && badge.test(stats)) stats.badges.push(badge.id);
+  });
+  saveQuizStats(stats);
+
+  const leaderboard = getLeaderboard();
+  leaderboard.push({ name: getPlayerName(), score: quizState.score, percent, date: new Date().toISOString() });
+  leaderboard.sort((a, b) => b.score - a.score);
+  saveLeaderboard(leaderboard);
+
+  if (percent >= 80) {
+    certificatePanel.hidden = false;
+    certificateName.textContent = getPlayerName();
+    certificateDetails.textContent = `Completed AI Academy with ${percent}% accuracy and ${quizState.score} points.`;
+  }
   updateQuizProgressViews();
-  showReview();
-  showCertificate(percent);
 }
 
-function startQuiz(customQuestions) {
-  const questions = customQuestions || getSelectedQuestions();
-
-  if (questions.length === 0) {
-    quizQuestion.textContent = "No questions matched your filters. Try another category or difficulty.";
-    quizFeedback.textContent = "The local database is still loaded, but your filters were too narrow.";
-    return;
-  }
-
+function startQuiz() {
+  certificatePanel.hidden = true;
+  quizReviewPanel.hidden = true;
   quizState = {
-    questions,
+    questions: getSelectedQuestions(),
     index: 0,
     score: 0,
     correct: 0,
     streak: 0,
-    bestStreak: 0,
     answered: false,
-    startedAt: Date.now(),
     secondsLeft: 0,
     totalSeconds: 0,
-    results: [],
-    active: true
+    results: []
   };
-  quizReviewPanel.hidden = true;
-  certificatePanel.hidden = true;
+  if (!quizState.questions.length) {
+    quizQuestion.textContent = "No questions match these filters.";
+    quizChoices.innerHTML = "";
+    return;
+  }
   showQuizQuestion();
 }
 
 function showReview() {
   quizReviewPanel.hidden = false;
-  quizReviewList.innerHTML = "";
-
-  if (quizState.results.length === 0) {
-    quizReviewList.innerHTML = "<p>No answers to review yet.</p>";
-    return;
-  }
-
-  quizState.results.forEach((result, index) => {
-    const card = document.createElement("article");
-    card.className = `review-card ${result.correct ? "correct" : "wrong"}`;
-    card.innerHTML = `
-      <strong>${index + 1}. ${escapeHtml(result.question)}</strong>
-      <p>Your answer: ${escapeHtml(result.answer === "__timeout__" ? "Time ended" : result.answer)}</p>
-      <p>Correct answer: ${escapeHtml(result.correctAnswer)}</p>
-      <p>${escapeHtml(result.explanation)}</p>
-      <p><strong>Fun fact:</strong> ${escapeHtml(result.fact)}</p>
-    `;
-    quizReviewList.appendChild(card);
-  });
+  quizReviewList.innerHTML = quizState.results.map((result, index) => `
+    <article class="info-card">
+      <strong>${index + 1}. ${escapeHtml(result.question.question)}</strong>
+      <p>Your answer: ${escapeHtml(result.answer)}</p>
+      <p>Correct answer: ${escapeHtml(result.question.answer)}</p>
+      <p>${escapeHtml(result.question.explanation || "")}</p>
+    </article>
+  `).join("");
 }
 
-// Groq-generated quizzes are optional. If Groq is unavailable, local questions are used.
-async function generateQuiz(topic, difficulty) {
-  quizQuestion.textContent = "Generating quiz questions...";
-  quizFeedback.textContent = "VERTEX will use Groq if available, otherwise local questions.";
-
+async function generateQuiz(topic = "", difficulty = "", limit = 10) {
+  quizFeedback.textContent = "VERTEX is generating quiz questions...";
   try {
     const data = await fetchJson("/api/quiz-generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topic, difficulty, limit: 10 })
+      body: JSON.stringify({ topic, difficulty, limit }),
+      timeoutMs: 20000
     });
-    quizFeedback.textContent = data.source === "groq"
-      ? "Generated with Groq."
-      : "Groq is offline, so VERTEX used local questions.";
-    startQuiz(data.questions);
+    quizState.questions = data.questions || [];
+    quizState.index = 0;
+    quizState.score = 0;
+    quizState.correct = 0;
+    quizState.streak = 0;
+    quizState.results = [];
+    showQuizQuestion();
   } catch (error) {
-    const fallback = getSelectedQuestions().slice(0, 10);
-    quizFeedback.textContent = "AI generation is unavailable. Starting a local quiz.";
-    startQuiz(fallback);
+    quizFeedback.textContent = error?.message || "Quiz generation failed.";
   }
 }
 
 async function loadQuizDatabase() {
   try {
     quizDatabase = await fetchJson("/api/quiz-database");
+    selectedQuizCategory = quizDatabase.categories[0]?.id || "prompt-engineering";
     quizBankCount.textContent = `${quizDatabase.questions.length} questions`;
-    quizPlayerName.value = localStorage.getItem("vertex-quiz-player") || "";
     renderQuizCategories();
     updateQuizProgressViews();
   } catch (error) {
-    quizQuestion.textContent = "Quiz database could not load.";
-    quizFeedback.textContent = "Check data/quiz_database.json and the Flask route.";
+    quizCategoryGrid.innerHTML = "<p class=\"error-text\">AI Academy could not load.</p>";
   }
 }
 
-quizPlayerName.addEventListener("input", () => {
-  localStorage.setItem("vertex-quiz-player", quizPlayerName.value.trim());
-});
+function bindNavigation() {
+  sidebarToggle?.addEventListener("click", () => {
+    document.body.classList.toggle("sidebar-open");
+    sidebarToggle.setAttribute("aria-expanded", String(document.body.classList.contains("sidebar-open")));
+    sidebarOverlay.hidden = !document.body.classList.contains("sidebar-open");
+  });
+  sidebarOverlay?.addEventListener("click", () => {
+    document.body.classList.remove("sidebar-open");
+    sidebarOverlay.hidden = true;
+  });
+  sidebarLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      sidebarLinks.forEach((item) => item.classList.remove("is-active"));
+      link.classList.add("is-active");
+      document.body.classList.remove("sidebar-open");
+      if (sidebarOverlay) sidebarOverlay.hidden = true;
+    });
+  });
+}
 
-quizSearchInput.addEventListener("input", renderQuizCategories);
-quizModeSelect.addEventListener("change", renderQuizCategories);
-startQuizButton.addEventListener("click", () => startQuiz());
-restartQuizButton.addEventListener("click", () => startQuiz(quizState.questions.length ? quizState.questions : undefined));
-reviewQuizButton.addEventListener("click", showReview);
-nextQuizButton.addEventListener("click", goToNextQuestion);
-dailyQuizButton.addEventListener("click", () => {
-  quizModeSelect.value = "daily";
-  startQuiz();
-});
-randomQuizButton.addEventListener("click", () => {
-  selectedQuizCategory = "all";
-  startQuiz();
-});
-aiQuizButton.addEventListener("click", () => generateQuiz("", ""));
-tenAiQuizButton.addEventListener("click", () => generateQuiz("", ""));
-hardAiQuizButton.addEventListener("click", () => generateQuiz("", "hard"));
-nasaAiQuizButton.addEventListener("click", () => generateQuiz("NASA", ""));
-marsAiQuizButton.addEventListener("click", () => generateQuiz("Mars", ""));
-astronomyAiQuizButton.addEventListener("click", () => generateQuiz("Astronomy", ""));
-fillBlankForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  submitQuizAnswer(fillBlankInput.value);
-});
-printCertificateButton.addEventListener("click", () => window.print());
-
-applyTheme(savedTheme);
-updateAutoSpeakToggle();
-updateMuteButton();
-updateMissionClock();
-bindSidebarNavigation();
-restoreSidebarState();
-setupVoiceInput();
-setupSpeechVoices();
-if (autoSpeakToggle) {
-  autoSpeakToggle.addEventListener("change", () => {
+function bindControls() {
+  planetSearch?.addEventListener("input", filterModels);
+  themeSelect?.addEventListener("change", () => applyTheme(themeSelect.value));
+  themeToggle?.addEventListener("click", () => {
+    const next = document.body.dataset.theme === "blue-neon" ? "deep-space" : "blue-neon";
+    applyTheme(next);
+  });
+  settingsButton?.addEventListener("click", () => {
+    document.querySelector("#settings")?.scrollIntoView({ behavior: "smooth" });
+  });
+  muteButton?.addEventListener("click", () => {
+    soundsMuted = !soundsMuted;
+    localStorage.setItem("vertex-muted", String(soundsMuted));
+    updateMuteButton();
+  });
+  autoSpeakToggle?.addEventListener("change", () => {
     autoSpeakEnabled = autoSpeakToggle.checked;
-    localStorage.setItem("vertex-auto-speak", String(autoSpeakEnabled));
-    updateAutoSpeakToggle();
+    syncAutoSpeak();
   });
-}
-if (voiceAutoSpeakToggle) {
-  voiceAutoSpeakToggle.addEventListener("change", () => {
+  voiceAutoSpeakToggle?.addEventListener("change", () => {
     autoSpeakEnabled = voiceAutoSpeakToggle.checked;
-    localStorage.setItem("vertex-auto-speak", String(autoSpeakEnabled));
-    updateAutoSpeakToggle();
+    syncAutoSpeak();
+  });
+  presentationButton?.addEventListener("click", () => document.body.classList.add("presentation-mode"));
+  exitPresentationButton?.addEventListener("click", () => document.body.classList.remove("presentation-mode"));
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("button")) playSound("click");
   });
 }
-missionClockTimer = window.setInterval(updateMissionClock, 1000);
-loadAiStatus();
-loadDashboardData();
-loadMissionControl();
-loadQuizDatabase();
+
+function bindQuiz() {
+  startQuizButton?.addEventListener("click", startQuiz);
+  restartQuizButton?.addEventListener("click", startQuiz);
+  dailyQuizButton?.addEventListener("click", () => {
+    quizModeSelect.value = "daily";
+    startQuiz();
+  });
+  randomQuizButton?.addEventListener("click", () => {
+    selectedQuizCategory = "all";
+    startQuiz();
+  });
+  nextQuizButton?.addEventListener("click", () => {
+    quizState.index += 1;
+    showQuizQuestion();
+  });
+  fillBlankForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    submitQuizAnswer(fillBlankInput.value);
+  });
+  reviewQuizButton?.addEventListener("click", showReview);
+  printCertificateButton?.addEventListener("click", () => window.print());
+  quizSearchInput?.addEventListener("input", renderQuizCategories);
+  aiQuizButton?.addEventListener("click", () => generateQuiz("generative AI", "", 8));
+  tenAiQuizButton?.addEventListener("click", () => generateQuiz("AI and programming", "", 10));
+  hardAiQuizButton?.addEventListener("click", () => generateQuiz("machine learning and MLOps", "hard", 10));
+  nasaAiQuizButton?.addEventListener("click", () => generateQuiz("prompt engineering", "", 8));
+  marsAiQuizButton?.addEventListener("click", () => generateQuiz("large language models", "", 8));
+  astronomyAiQuizButton?.addEventListener("click", () => generateQuiz("MLOps", "", 8));
+}
+
+function init() {
+  applyTheme(savedTheme);
+  updateMuteButton();
+  syncAutoSpeak();
+  updateClock();
+  window.setInterval(updateClock, 1000);
+  bindNavigation();
+  bindControls();
+  setupVoice();
+  bindQuiz();
+  loadAiStatus();
+  loadDashboardData();
+  loadQuizDatabase();
+}
+
+init();

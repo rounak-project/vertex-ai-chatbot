@@ -1,8 +1,7 @@
-"""Simple chatbot brain for the VERTEX space chatbot.
+"""Chatbot brain for VERTEX AI OS.
 
-This file keeps the space-answer logic separate from Flask. That makes the
-project easier to understand because the web app and the chatbot brain each
-have their own job.
+This file keeps assistant policy, local knowledge lookup, and optional Groq
+support separate from Flask.
 """
 
 import json
@@ -22,12 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent
 KNOWLEDGE_FILE = BASE_DIR / "data" / "space_knowledge.json"
 UNKNOWN_REPLY = (
     "I'm currently offline, but here's what I know.\n\n"
-    "Space is huge, and I can still answer many beginner topics from my local knowledge base. "
-    "Try asking about planets, stars, galaxies, nebulae, constellations, exoplanets, black holes, "
-    "dark matter, rockets, NASA, ISRO, SpaceX, Apollo, Artemis, Chandrayaan, Mangalyaan, Gaganyaan, "
-    "Aditya-L1, the ISS, Hubble, James Webb, Voyager, asteroids, comets, meteors, or meteorites."
+    "VERTEX AI OS can still answer many technology topics from its local knowledge base. "
+    "Try asking about artificial intelligence, generative AI, LLMs, Python, JavaScript, Flask, React, "
+    "Docker, Kubernetes, AWS, Linux, DevOps, APIs, cybersecurity, machine learning, data science, "
+    "robotics, computer vision, startups, open source, or productivity tools."
 )
-EMPTY_REPLY = "Please type a space question for VERTEX."
+EMPTY_REPLY = "Please type an AI or technology question for VERTEX."
+OUT_OF_SCOPE_REPLY = (
+    "I'm designed as an AI and Technology specialist assistant. I can help with AI, programming, "
+    "cloud computing, software engineering, robotics, cybersecurity, data science, APIs, DevOps, "
+    "Linux, open source, productivity tools, and emerging technologies."
+)
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 GROQ_TIMEOUT_SECONDS = float(os.getenv("GROQ_TIMEOUT_SECONDS", "12"))
 GROQ_STATUS_CACHE_SECONDS = 60
@@ -54,17 +58,49 @@ GROQ_STATUS_CACHE = {
 
 
 def load_knowledge_base():
-    """Load space facts from the JSON knowledge base file."""
+    """Load technology facts from the JSON knowledge base file."""
     with KNOWLEDGE_FILE.open("r", encoding="utf-8") as file:
         return json.load(file)
 
 
-SPACE_KNOWLEDGE = load_knowledge_base()
+TECH_KNOWLEDGE = load_knowledge_base()
+
+IN_SCOPE_KEYWORDS = {
+    "ai", "artificial intelligence", "generative ai", "llm", "large language model", "model",
+    "machine learning", "deep learning", "neural", "prompt", "openai", "anthropic", "claude",
+    "gemini", "grok", "llama", "deepseek", "qwen", "mistral", "hugging face", "python",
+    "javascript", "typescript", "flask", "react", "next.js", "node", "api", "software",
+    "programming", "coding", "debug", "git", "github", "linux", "terminal", "cloud", "aws",
+    "azure", "gcp", "docker", "kubernetes", "devops", "ci/cd", "cybersecurity", "security",
+    "data science", "database", "sql", "robotics", "computer vision", "hardware", "startup",
+    "open source", "productivity", "web development", "mobile development", "app", "code"
+}
+
+OUT_OF_SCOPE_KEYWORDS = {
+    "sports", "cricket", "football", "basketball", "politics", "election", "religion",
+    "movie", "movies", "celebrity", "celebrities", "astrology", "horoscope", "geography",
+    "capital of", "medical advice", "doctor", "medicine", "legal advice", "lawyer",
+    "relationship", "dating", "personal life"
+}
 
 
 def get_local_knowledge_count():
     """Return the number of local knowledge topics loaded from JSON."""
-    return sum(len(category) for category in SPACE_KNOWLEDGE.values())
+    return sum(len(category) for category in TECH_KNOWLEDGE.values())
+
+
+def is_in_scope(user_message):
+    """Return True when a message belongs to VERTEX AI OS technology scope."""
+    message = str(user_message or "").lower().strip()
+    if not message:
+        return True
+    if any(keyword in message for keyword in IN_SCOPE_KEYWORDS):
+        return True
+    if any(keyword in message for keyword in OUT_OF_SCOPE_KEYWORDS):
+        return False
+    if message in {"hi", "hello", "hey", "help", "what can you do", "who are you"}:
+        return True
+    return False
 
 
 def get_configured_provider():
@@ -97,7 +133,7 @@ def find_local_answer(user_message):
     best_answer = None
     best_keyword_length = 0
 
-    for category in SPACE_KNOWLEDGE.values():
+    for category in TECH_KNOWLEDGE.values():
         for topic in category:
             keywords = topic["keywords"]
 
@@ -232,7 +268,7 @@ def check_groq_connection(force=False):
 
 
 def ask_groq_ai(user_message):
-    """Ask Groq for a short, safe, student-friendly space answer.
+    """Ask Groq for a concise technology-specialist answer.
 
     The import stays inside this function so the app can still run without the
     Groq package installed. That keeps offline school demo mode reliable.
@@ -261,13 +297,14 @@ def ask_groq_ai(user_message):
                 {
                     "role": "system",
                     "content": (
-                        "You are VERTEX, a friendly space AI for a Class 7 school project. "
-                        "Behave like a NASA assistant, ISRO assistant, space teacher, and "
-                        "friendly AI helper. Answer only space, astronomy, rocket, satellite, "
-                        "planet, and science-learning questions. Keep answers educational, "
-                        "safe, and easy for Class 7. Use 5 to 8 short lines maximum. Include "
-                        "one simple fun fact when useful. If you are unsure, say so clearly "
-                        "instead of guessing. Do not invent missions, dates, or discoveries."
+                        "You are VERTEX AI OS, a premium AI and technology specialist assistant. "
+                        "Only answer questions about artificial intelligence, generative AI, large language models, "
+                        "programming, software engineering, cloud computing, DevOps, Linux, cybersecurity, "
+                        "machine learning, data science, robotics, computer vision, startups, APIs, web development, "
+                        "mobile development, hardware, productivity tools, open source projects, and emerging technologies. "
+                        "If the question is outside that scope, politely redirect with this exact idea: "
+                        "I'm designed as an AI and Technology specialist assistant. "
+                        "Use clear structure, practical examples, markdown, code blocks when useful, and avoid guessing."
                     )
                 },
                 {
@@ -317,7 +354,7 @@ def get_ai_status():
             "api_key_loaded": True,
             "mode": "online" if connected else "offline",
             "message": (
-                "Local answers are checked first. Groq helps when VERTEX needs a real AI answer."
+                "Local technology knowledge is checked first. Groq helps when VERTEX needs a real AI answer."
                 if connected else
                 f"Groq is configured, but unavailable: {groq_status['error']}"
             ),
@@ -332,9 +369,9 @@ def get_ai_status():
         "api_key_loaded": api_key_loaded,
         "mode": "offline",
         "message": (
-            "Groq is selected, but no API key is set. VERTEX is using the local brain."
+            "Groq is selected, but no API key is set. VERTEX is using the local technology brain."
             if provider == "groq" else
-            "AI_PROVIDER is local. VERTEX is using the beginner-friendly JSON knowledge brain."
+            "AI_PROVIDER is local. VERTEX is using the JSON technology knowledge brain."
         ),
         "model": GROQ_MODEL,
         "key_status": mask_key_status(),
@@ -367,6 +404,10 @@ def get_vertex_response(user_message):
 
     if not clean_message:
         return EMPTY_REPLY
+
+    if not is_in_scope(clean_message):
+        update_last_ai_result("policy", OUT_OF_SCOPE_REPLY, time.perf_counter())
+        return OUT_OF_SCOPE_REPLY
 
     local_answer = find_local_answer(clean_message)
     if local_answer:

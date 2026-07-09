@@ -3,347 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mission Commander Profile - VERTEX</title>
+  <title>About Creator - VERTEX AI OS</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="{{ about_css }}">
 </head>
-<body class="mission-body">
-  <div class="mission-stars mission-stars-one"></div>
-  <div class="mission-stars mission-stars-two"></div>
-  <div class="mission-scan"></div>
+<body>
+  <div class="tech-bg" aria-hidden="true">
+    <div class="neural-field"></div>
+    <div class="data-grid"></div>
+  </div>
 
-  <div class="mission-orbit mission-orbit-one"></div>
-  <div class="mission-orbit mission-orbit-two"></div>
-  <div class="mission-earth"></div>
-  <div class="mission-moon"></div>
-  <div class="mission-rocket"></div>
+  <header class="topbar" aria-label="VERTEX profile header">
+    <a class="topbar-brand" href="{{ url_for('home') }}">
+      <span class="brand-mark">V</span>
+      <span>VERTEX AI OS</span>
+    </a>
+    <div class="topbar-actions">
+      <span class="online-pill"><span></span>{{ profile.status }}</span>
+      <a class="secondary-button" href="{{ url_for('home') }}">Dashboard</a>
+    </div>
+  </header>
 
-  <main class="mission-shell">
-    <aside class="mission-sidebar glass-panel">
-      <div class="mission-brand">
-        <span class="mission-brand-mark">V</span>
-        <div>
-          <strong>VERTEX</strong>
-          <small>Mission Profile</small>
+  <main class="content" style="margin:0 auto; padding-top:88px;">
+    <section class="hero-section" id="creator">
+      <div class="hero-copy">
+        <p class="eyebrow">About Creator</p>
+        <h1>{{ profile.full_name }}</h1>
+        <p>{{ profile.subtitle }}</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="{{ profile.contact[1].href }}" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="secondary-button" href="{{ profile.contact[0].href }}">Email</a>
         </div>
       </div>
 
-      <nav class="mission-nav" aria-label="Mission Commander sections">
-        <a href="#commander" class="mission-nav-card"><span>01</span>Mission Commander</a>
-        <a href="#personal-info" class="mission-nav-card"><span>02</span>Personal Information</a>
-        <a href="#skills" class="mission-nav-card"><span>03</span>Skills</a>
-        <a href="#interests" class="mission-nav-card"><span>04</span>Interests</a>
-        <a href="#mission-log" class="mission-nav-card"><span>05</span>Mission</a>
-        <a href="#achievements" class="mission-nav-card"><span>06</span>Achievements</a>
-        <a href="#timeline" class="mission-nav-card"><span>07</span>Timeline</a>
-        <a href="#contact" class="mission-nav-card"><span>08</span>Contact</a>
-      </nav>
-
-      <a class="mission-return" href="{{ url_for('home') }}">Return to VERTEX Dashboard</a>
-    </aside>
-
-    <section class="mission-stage">
-      <header class="mission-hero glass-panel" id="commander">
-        <div class="mission-hero-copy">
-          <p class="eyebrow">MISSION COMMANDER</p>
-          <h1>ROUNAK SINGH</h1>
-          <div class="mission-hero-badges">
-            <span class="mission-pill isro-pill">ISRO</span>
-            <span class="mission-pill flag-pill">{{ profile.flag }}</span>
-            <span class="mission-pill mission-pill-wide">Mission Commander Rounak Singh</span>
-          </div>
-          <p class="mission-subtitle">{{ profile.subtitle }}</p>
+      <div class="system-panel">
+        <div class="metric-grid">
+          <article><span>Class</span><strong>{{ profile.class_name }}</strong></article>
+          <article><span>School</span><strong>{{ profile.school }}</strong></article>
+          <article><span>Location</span><strong>{{ profile.location }}</strong></article>
+          <article><span>Project</span><strong>{{ profile.project }}</strong></article>
         </div>
+        <p class="muted" style="margin-top:16px;">{{ profile.mission_log }}</p>
+      </div>
+    </section>
 
-        <div class="mission-status-stack">
-          <div class="isro-seal" aria-label="ISRO logo inspired seal">
-            <span>ISRO</span>
-          </div>
-          <div class="mission-status-card mission-status-card--highlight">
-            <small>Chandrayaan-3</small>
-            <strong>{{ profile.mission_status.chandrayaan_card }}</strong>
-          </div>
-          <div class="mission-status-card">
-            <small>System Status</small>
-            <strong>{{ profile.status }}</strong>
-          </div>
-          <div class="mission-status-card">
-            <small>Mission Day</small>
-            <strong>{{ profile.mission_day }}</strong>
-          </div>
-        </div>
-      </header>
-
-      <section class="mission-grid-top">
-        <article class="mission-profile-frame glass-panel">
-          <img
-            src="{{ url_for('static', filename='images/rounak-astronaut.png') }}"
-            alt="Mission Commander Rounak Singh astronaut profile"
-            class="mission-profile-image"
-            loading="eager"
-            decoding="async"
-          />
+    <section class="section-grid">
+      <div class="section-heading">
+        <p class="eyebrow">Profile</p>
+        <h2>AI Engineer Track</h2>
+      </div>
+      <div class="card-grid">
+        {% for interest in profile.interests %}
+        <article class="info-card glass-panel">
+          <span class="tag">{{ interest.icon }}</span>
+          <h3>{{ interest.title }}</h3>
+          <p>Core interest area for the VERTEX AI OS project.</p>
         </article>
+        {% endfor %}
+      </div>
+    </section>
 
-        <article class="mission-status-panel glass-panel">
-          <div class="panel-heading">
-            <p class="eyebrow">Command Summary</p>
-            <h2>Flight Status</h2>
-          </div>
-
-          <div class="status-grid">
-            <div>
-              <span>FULL NAME</span>
-              <strong>{{ profile.full_name }}</strong>
-            </div>
-            <div>
-              <span>CLASS</span>
-              <strong>{{ profile.class_name }}</strong>
-            </div>
-            <div>
-              <span>SCHOOL</span>
-              <strong>{{ profile.school }}</strong>
-            </div>
-            <div>
-              <span>LOCATION</span>
-              <strong>{{ profile.location }}</strong>
-            </div>
-            <div>
-              <span>AGE</span>
-              <strong>{{ profile.age }}</strong>
-            </div>
-            <div>
-              <span>MISSION</span>
-              <strong>{{ profile.mission_status.mission }}</strong>
-            </div>
-            <div>
-              <span>PROJECT</span>
-              <strong>{{ profile.project }}</strong>
-            </div>
-          </div>
+    <section class="section-grid">
+      <div class="section-heading">
+        <p class="eyebrow">Capabilities</p>
+        <h2>Skills</h2>
+      </div>
+      <div class="card-grid">
+        {% for skill in profile.skills %}
+        <article class="info-card glass-panel">
+          <h3>{{ skill.name }}</h3>
+          <div class="progress-track"><span style="width: {{ skill.value }}%;"></span></div>
+          <p class="card-meta">{{ skill.value }}% learning progress</p>
         </article>
-      </section>
+        {% endfor %}
+      </div>
+    </section>
 
-      <section id="personal-info" class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Personal Information</p>
-          <h2>Commander Identity</h2>
-        </div>
+    <section class="section-grid">
+      <div class="section-heading">
+        <p class="eyebrow">Direction</p>
+        <h2>Dream Careers</h2>
+      </div>
+      <div class="card-grid">
+        {% for career in profile.dream_careers %}
+        <article class="info-card glass-panel">
+          <h3>{{ career.title }}</h3>
+          <p>{{ career.description }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
 
-        <div class="info-rail info-rail-full">
-          <article class="info-tile glass-panel">
-            <span>Full Name</span>
-            <strong>{{ profile.full_name }}</strong>
-          </article>
-          <article class="info-tile glass-panel">
-            <span>Class</span>
-            <strong>{{ profile.class_name }}</strong>
-          </article>
-          <article class="info-tile glass-panel">
-            <span>School</span>
-            <strong>{{ profile.school }}</strong>
-          </article>
-          <article class="info-tile glass-panel">
-            <span>Location</span>
-            <strong>{{ profile.location }} {{ profile.flag }}</strong>
-          </article>
-          <article class="info-tile glass-panel">
-            <span>Interests</span>
-            <strong>Space, AI, Coding, Robotics</strong>
-          </article>
-          <article class="info-tile glass-panel">
-            <span>Skills</span>
-            <strong>Python, HTML, CSS, JavaScript, Flask</strong>
-          </article>
-        </div>
-      </section>
-
-      <section class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Mission Status</p>
-          <h2>Clearance and Agency</h2>
-        </div>
-
-        <div class="status-strip">
-          <article class="status-chip glass-panel">
-            <span>Status</span>
-            <strong>{{ profile.mission_status.status }}</strong>
-          </article>
-          <article class="status-chip glass-panel">
-            <span>Clearance Level</span>
-            <strong>{{ profile.mission_status.clearance }}</strong>
-          </article>
-          <article class="status-chip glass-panel">
-            <span>Agency</span>
-            <strong>{{ profile.mission_status.agency }}</strong>
-          </article>
-          <article class="status-chip glass-panel wide">
-            <span>Mission</span>
-            <strong>{{ profile.mission_status.mission }}</strong>
-          </article>
-        </div>
-      </section>
-
-      <section id="interests" class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Interests</p>
-          <h2>Signal Strength</h2>
-        </div>
-
-        <div class="interest-grid">
-          {% for interest in profile.interests %}
-          <article class="interest-card glass-panel">
-            <span>{{ interest.icon }}</span>
-            <strong>{{ interest.title }}</strong>
-          </article>
-          {% endfor %}
-        </div>
-      </section>
-
-      <section id="skills" class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Skills</p>
-          <h2>Launch Capability</h2>
-        </div>
-
-        <div class="skill-grid">
-          {% for skill in profile.skills %}
-          <article class="skill-card glass-panel">
-            <div class="skill-head">
-              <strong>{{ skill.name }}</strong>
-              <span data-counter="{{ skill.value }}" data-suffix="%">0%</span>
-            </div>
-            <div class="skill-bar"><span data-width="{{ skill.value }}"></span></div>
-          </article>
-          {% endfor %}
-        </div>
-      </section>
-
-      <section class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Favorites</p>
-          <h2>Mission Preferences</h2>
-        </div>
-
-        <div class="favorite-grid">
-          {% for favorite in profile.favorites %}
-          <article class="favorite-card glass-panel">
-            <span>{{ favorite.label }}</span>
-            <strong>{{ favorite.value }}</strong>
-          </article>
-          {% endfor %}
-        </div>
-      </section>
-
-      <section id="mission-log" class="mission-section mission-log-section">
-        <div class="section-heading">
-          <p class="eyebrow">Mission Log</p>
-          <h2>Mission Message</h2>
-        </div>
-
-        <div class="terminal-shell glass-panel">
-          <div class="terminal-bar">
-            <span></span>
-            <span></span>
-            <span></span>
-            <strong>VERTEX / Mission Log</strong>
-          </div>
-          <pre id="missionLog" class="terminal-text" data-typing="{{ profile.mission_log | e }}">{{ profile.mission_log }}</pre>
-        </div>
-      </section>
-
-      <section class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Dream Career</p>
-          <h2>Future Missions</h2>
-        </div>
-
-        <div class="dream-grid">
-          {% for career in profile.dream_careers %}
-          <article class="dream-card glass-panel">
-            <strong>{{ career.title }}</strong>
-            <p>{{ career.description }}</p>
-          </article>
-          {% endfor %}
-        </div>
-      </section>
-
-      <section id="achievements" class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Achievements</p>
-          <h2>Mission Highlights</h2>
-        </div>
-
-        <div class="badge-grid">
-          {% for achievement in profile.achievements %}
-          <span class="mission-badge">{{ achievement }}</span>
-          {% endfor %}
-        </div>
-      </section>
-
-      <section class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Mission Stats</p>
-          <h2>Command Metrics</h2>
-        </div>
-
-        <div class="stats-grid">
-          {% for stat in profile.mission_stats %}
-          <article class="stat-card glass-panel">
-            <span>{{ stat.label }}</span>
-            <strong><span data-counter="{{ stat.value }}">0</span>{{ stat.suffix }}</strong>
-          </article>
-          {% endfor %}
-        </div>
-      </section>
-
-      <section id="timeline" class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Timeline</p>
-          <h2>Mission Chronology</h2>
-        </div>
-
-        <div class="timeline">
-          {% for item in profile.timeline %}
-          <article class="timeline-item glass-panel">
-            <div class="timeline-year">{{ item.year }}</div>
-            <div>
-              <strong>{{ item.title }}</strong>
-              <p>{{ item.detail }}</p>
-            </div>
-          </article>
-          {% endfor %}
-        </div>
-      </section>
-
-      <section id="contact" class="mission-section">
-        <div class="section-heading">
-          <p class="eyebrow">Contact</p>
-          <h2>Mission Channels</h2>
-        </div>
-
-        <div class="contact-grid">
-          {% for entry in profile.contact %}
-          <a class="contact-card glass-panel" href="{{ entry.href }}" {% if entry.href.startswith('http') %}target="_blank" rel="noreferrer"{% endif %}>
-            <span>{{ entry.label }}</span>
-            <strong>{{ entry.value }}</strong>
-          </a>
-          {% endfor %}
-        </div>
-      </section>
+    <section class="section-grid">
+      <div class="section-heading">
+        <p class="eyebrow">Contact</p>
+        <h2>Links</h2>
+      </div>
+      <div class="tool-grid">
+        {% for item in profile.contact %}
+        <article>
+          <strong>{{ item.label }}</strong>
+          <a class="card-link" href="{{ item.href }}" {% if item.href.startswith('http') %}target="_blank" rel="noreferrer"{% endif %}>{{ item.value }}</a>
+        </article>
+        {% endfor %}
+      </div>
     </section>
   </main>
-
-  <script>
-    window.MISSION_COMMANDER_STATS = {
-      repoCodeLines: {{ repo_code_lines }},
-      features: 18,
-      quizQuestions: 300,
-      apisIntegrated: 8,
-      aiModels: 1,
-      version: "3.0"
-    };
-  </script>
-  <script src="{{ about_js }}"></script>
 </body>
 </html>

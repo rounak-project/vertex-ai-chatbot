@@ -1,66 +1,102 @@
 [
   {
-    "name": "Mercury",
-    "diameter": "4,879 km",
-    "distance_from_sun": "57.9 million km",
-    "moons": 0,
-    "fact": "Mercury is the smallest planet and the closest planet to the Sun.",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg"
+    "name": "GPT",
+    "company": "OpenAI",
+    "context_window": "Varies by model",
+    "strengths": "Reasoning, coding, tool use, multimodal work",
+    "weaknesses": "Requires careful prompts and current verification",
+    "pricing": "API pricing varies by model",
+    "benchmarks": "Strong general reasoning and coding performance",
+    "summary": "GPT models are general-purpose AI systems used for chat, coding, analysis, automation, and multimodal assistants."
   },
   {
-    "name": "Venus",
-    "diameter": "12,104 km",
-    "distance_from_sun": "108.2 million km",
-    "moons": 0,
-    "fact": "Venus is the hottest planet because its thick atmosphere traps heat.",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg"
+    "name": "Claude",
+    "company": "Anthropic",
+    "context_window": "Large context options",
+    "strengths": "Writing, analysis, coding, long document reasoning",
+    "weaknesses": "Model availability and pricing vary by tier",
+    "pricing": "API pricing varies by model",
+    "benchmarks": "Strong long-context and reasoning performance",
+    "summary": "Claude is a family of assistant models focused on helpfulness, safety, writing quality, and developer workflows."
   },
   {
-    "name": "Earth",
-    "diameter": "12,742 km",
-    "distance_from_sun": "149.6 million km",
-    "moons": 1,
-    "fact": "Earth is the only planet we know that has life.",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg"
+    "name": "Gemini",
+    "company": "Google DeepMind",
+    "context_window": "Large context options",
+    "strengths": "Multimodal reasoning, Google ecosystem integration",
+    "weaknesses": "Best results depend on model and product surface",
+    "pricing": "Free and paid tiers vary",
+    "benchmarks": "Competitive multimodal and reasoning performance",
+    "summary": "Gemini powers Google AI products and supports text, code, image, audio, and video understanding."
   },
   {
-    "name": "Mars",
-    "diameter": "6,779 km",
-    "distance_from_sun": "227.9 million km",
-    "moons": 2,
-    "fact": "Mars is called the Red Planet because of rusty iron dust on its surface.",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg"
+    "name": "Grok",
+    "company": "xAI",
+    "context_window": "Varies by release",
+    "strengths": "Fast chat, real-time product integrations",
+    "weaknesses": "Ecosystem is newer than some competitors",
+    "pricing": "Product and API access varies",
+    "benchmarks": "Competitive frontier-model positioning",
+    "summary": "Grok is xAI's model family designed for conversational AI and integrations across xAI and X products."
   },
   {
-    "name": "Jupiter",
-    "diameter": "139,820 km",
-    "distance_from_sun": "778.5 million km",
-    "moons": 95,
-    "fact": "Jupiter is the largest planet and has a giant storm called the Great Red Spot.",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg"
+    "name": "Llama",
+    "company": "Meta AI",
+    "context_window": "Varies by open model",
+    "strengths": "Open ecosystem, fine-tuning, local deployment",
+    "weaknesses": "Requires engineering effort for production hosting",
+    "pricing": "Open model licensing and hosting costs",
+    "benchmarks": "Strong open-weight model performance",
+    "summary": "Llama models are widely used for open-source AI applications, private deployments, and research."
   },
   {
-    "name": "Saturn",
-    "diameter": "116,460 km",
-    "distance_from_sun": "1.4 billion km",
-    "moons": 146,
-    "fact": "Saturn is famous for its beautiful rings made of ice and rock.",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg"
+    "name": "DeepSeek",
+    "company": "DeepSeek",
+    "context_window": "Varies by model",
+    "strengths": "Reasoning, coding, efficient open models",
+    "weaknesses": "Deployment and compliance need review",
+    "pricing": "Open and hosted options vary",
+    "benchmarks": "Strong coding and reasoning results",
+    "summary": "DeepSeek models are popular for code, reasoning, and cost-conscious AI experimentation."
   },
   {
-    "name": "Uranus",
-    "diameter": "50,724 km",
-    "distance_from_sun": "2.9 billion km",
-    "moons": 28,
-    "fact": "Uranus spins on its side, almost like it rolled over.",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg"
+    "name": "Qwen",
+    "company": "Alibaba Cloud",
+    "context_window": "Varies by model",
+    "strengths": "Multilingual ability, open model ecosystem",
+    "weaknesses": "Production suitability depends on region and license",
+    "pricing": "Open and cloud-hosted options vary",
+    "benchmarks": "Strong multilingual and coding capabilities",
+    "summary": "Qwen is a broad model family used for chat, coding, multilingual applications, and multimodal tasks."
   },
   {
-    "name": "Neptune",
-    "diameter": "49,244 km",
-    "distance_from_sun": "4.5 billion km",
-    "moons": 16,
-    "fact": "Neptune is very windy and is the farthest planet from the Sun.",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg"
+    "name": "Mistral",
+    "company": "Mistral AI",
+    "context_window": "Varies by model",
+    "strengths": "Efficient models, European AI ecosystem, open options",
+    "weaknesses": "Model choice matters for complex reasoning",
+    "pricing": "Open and hosted options vary",
+    "benchmarks": "Strong efficiency and developer adoption",
+    "summary": "Mistral models are known for efficient deployment, strong open models, and enterprise-friendly AI products."
+  },
+  {
+    "name": "Phi",
+    "company": "Microsoft",
+    "context_window": "Varies by small model",
+    "strengths": "Small-model efficiency, local and edge use cases",
+    "weaknesses": "Less capable than large frontier models",
+    "pricing": "Depends on hosting platform",
+    "benchmarks": "Strong small-model results",
+    "summary": "Phi models are compact language models useful for local apps, education, and constrained hardware."
+  },
+  {
+    "name": "Command R",
+    "company": "Cohere",
+    "context_window": "Large retrieval-oriented context",
+    "strengths": "Enterprise search, RAG, tool use",
+    "weaknesses": "Most valuable in retrieval-heavy systems",
+    "pricing": "API pricing varies",
+    "benchmarks": "Strong retrieval and enterprise assistant focus",
+    "summary": "Command R models are designed for enterprise AI, retrieval augmented generation, and knowledge workflows."
   }
 ]

@@ -1,37 +1,65 @@
 [
   {
-    "name": "NASA",
+    "name": "OpenAI",
     "country": "United States",
-    "founded": 1958,
-    "description": "NASA explores space, studies Earth, and sends astronauts and spacecraft on science missions.",
-    "website": "https://www.nasa.gov"
+    "founded": 2015,
+    "description": "Builds frontier AI models and products such as ChatGPT, GPT models, Codex, and Sora.",
+    "website": "https://openai.com"
   },
   {
-    "name": "ISRO",
-    "country": "India",
-    "founded": 1969,
-    "description": "ISRO builds rockets and satellites and leads Indian missions such as Chandrayaan and Mangalyaan.",
-    "website": "https://www.isro.gov.in"
-  },
-  {
-    "name": "SpaceX",
+    "name": "Anthropic",
     "country": "United States",
-    "founded": 2002,
-    "description": "SpaceX is a private company that builds reusable rockets and spacecraft.",
-    "website": "https://www.spacex.com"
+    "founded": 2021,
+    "description": "Develops Claude models with a focus on helpful, reliable, and safer AI systems.",
+    "website": "https://www.anthropic.com"
   },
   {
-    "name": "ESA",
-    "country": "Europe",
-    "founded": 1975,
-    "description": "The European Space Agency works with many European countries on space science and exploration.",
-    "website": "https://www.esa.int"
+    "name": "Google DeepMind",
+    "country": "United Kingdom / United States",
+    "founded": 2010,
+    "description": "Researches and builds advanced AI systems including Gemini, AlphaFold, Veo, and robotics work.",
+    "website": "https://deepmind.google"
   },
   {
-    "name": "JAXA",
-    "country": "Japan",
-    "founded": 2003,
-    "description": "JAXA is Japan's space agency and works on rockets, satellites, astronauts, and asteroid missions.",
-    "website": "https://global.jaxa.jp"
+    "name": "xAI",
+    "country": "United States",
+    "founded": 2023,
+    "description": "Builds Grok and AI systems connected to real-time consumer and developer products.",
+    "website": "https://x.ai"
+  },
+  {
+    "name": "Meta AI",
+    "country": "United States",
+    "founded": 2013,
+    "description": "Creates AI research, open models such as Llama, and AI experiences across Meta products.",
+    "website": "https://ai.meta.com"
+  },
+  {
+    "name": "Hugging Face",
+    "country": "United States / France",
+    "founded": 2016,
+    "description": "Hosts open-source models, datasets, Spaces, and tools for the machine learning community.",
+    "website": "https://huggingface.co"
+  },
+  {
+    "name": "Mistral AI",
+    "country": "France",
+    "founded": 2023,
+    "description": "Builds efficient open and commercial AI models for developers and enterprises.",
+    "website": "https://mistral.ai"
+  },
+  {
+    "name": "Cohere",
+    "country": "Canada",
+    "founded": 2019,
+    "description": "Focuses on enterprise language models, retrieval, search, and private AI deployments.",
+    "website": "https://cohere.com"
+  },
+  {
+    "name": "Perplexity",
+    "country": "United States",
+    "founded": 2022,
+    "description": "Builds AI answer engines for research, search, citations, and knowledge discovery.",
+    "website": "https://www.perplexity.ai"
   }
 ]
