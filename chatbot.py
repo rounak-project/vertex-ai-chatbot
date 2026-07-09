@@ -20,11 +20,9 @@ logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parent
 KNOWLEDGE_FILE = BASE_DIR / "data" / "space_knowledge.json"
 UNKNOWN_REPLY = (
-    "I'm currently offline, but here's what I know.\n\n"
-    "VERTEX AI OS can still answer many technology topics from its local knowledge base. "
-    "Try asking about artificial intelligence, generative AI, LLMs, Python, JavaScript, Flask, React, "
-    "Docker, Kubernetes, AWS, Linux, DevOps, APIs, cybersecurity, machine learning, data science, "
-    "robotics, computer vision, startups, open source, or productivity tools."
+    "I'm VERTEX AI OS and specialize in AI and technology topics. Could you rephrase your "
+    "question or ask about AI, programming, cloud, DevOps, cybersecurity, robotics, "
+    "software engineering, or emerging technologies?"
 )
 EMPTY_REPLY = "Please type an AI or technology question for VERTEX."
 OUT_OF_SCOPE_REPLY = (
@@ -73,7 +71,8 @@ IN_SCOPE_KEYWORDS = {
     "programming", "coding", "debug", "git", "github", "linux", "terminal", "cloud", "aws",
     "azure", "gcp", "docker", "kubernetes", "devops", "ci/cd", "cybersecurity", "security",
     "data science", "database", "sql", "robotics", "computer vision", "hardware", "startup",
-    "open source", "productivity", "web development", "mobile development", "app", "code"
+    "open source", "productivity", "web development", "mobile development", "app", "code",
+    "technology", "computer", "computers", "internet", "server", "backend", "frontend"
 }
 
 OUT_OF_SCOPE_KEYWORDS = {
@@ -271,23 +270,24 @@ def ask_groq_ai(user_message):
     """Ask Groq for a concise technology-specialist answer.
 
     The import stays inside this function so the app can still run without the
-    Groq package installed. That keeps offline school demo mode reliable.
+    Groq package installed. Return None when Groq cannot provide a valid answer
+    so the caller can use the local fallback.
     """
     started_at = time.perf_counter()
 
     if get_configured_provider() != "groq":
         message = "AI_PROVIDER is set to local, so Groq was not used."
-        reply = make_offline_reply(message)
-        update_last_ai_result("local", reply, started_at, message)
-        return reply
+        update_last_ai_result("groq", "", started_at, message)
+        logger.info("GROQ_FAILURE question=%r reason=%s", user_message, message)
+        return None
 
     if not has_groq_key():
         key_status = mask_key_status()
         message = "GROQ_API_KEY is missing in Render." if key_status == "missing" else "GROQ_API_KEY is still a placeholder."
-        reply = make_offline_reply(message)
-        update_last_ai_result("local", reply, started_at, message)
+        update_last_ai_result("groq", "", started_at, message)
+        logger.info("GROQ_FAILURE question=%r reason=%s", user_message, message)
         logger.warning("Groq skipped key_status=%s provider=%s", key_status, get_configured_provider())
-        return reply
+        return None
 
     try:
         client = create_groq_client()
@@ -313,11 +313,15 @@ def ask_groq_ai(user_message):
                 }
             ],
             temperature=0.4,
-            max_tokens=220
+            max_tokens=800
         )
 
         answer = response.choices[0].message.content.strip()
+        if not answer:
+            raise ValueError("Groq returned an empty answer")
+
         update_last_ai_result("groq", answer, started_at)
+        logger.info("GROQ_USED question=%r", user_message)
         logger.info(
             "Groq answer succeeded provider=%s model=%s response_time_ms=%s",
             get_configured_provider(),
@@ -327,8 +331,8 @@ def ask_groq_ai(user_message):
         return answer
     except Exception as error:
         message = groq_error_message(error)
-        reply = make_offline_reply(message)
-        update_last_ai_result("groq", reply, started_at, message)
+        update_last_ai_result("groq", "", started_at, message)
+        logger.info("GROQ_FAILURE question=%r reason=%s", user_message, message)
         logger.exception(
             "Groq answer failed provider=%s model=%s key_status=%s user_message_length=%s friendly_error=%s",
             get_configured_provider(),
@@ -337,7 +341,7 @@ def ask_groq_ai(user_message):
             len(str(user_message or "")),
             message
         )
-        return reply
+        return None
 
 
 def get_ai_status():
@@ -354,7 +358,7 @@ def get_ai_status():
             "api_key_loaded": True,
             "mode": "online" if connected else "offline",
             "message": (
-                "Local technology knowledge is checked first. Groq helps when VERTEX needs a real AI answer."
+                "Groq is the primary AI engine. Local technology knowledge is used only as fallback."
                 if connected else
                 f"Groq is configured, but unavailable: {groq_status['error']}"
             ),
@@ -399,7 +403,7 @@ def get_ai_diagnostics(force=False):
 
 
 def get_vertex_response(user_message):
-    """Return a local answer first, then optional Groq AI, then fallback."""
+    """Return a Groq answer first, then local fallback, then a rephrase prompt."""
     clean_message = str(user_message or "").strip()
 
     if not clean_message:
@@ -409,29 +413,24 @@ def get_vertex_response(user_message):
         update_last_ai_result("policy", OUT_OF_SCOPE_REPLY, time.perf_counter())
         return OUT_OF_SCOPE_REPLY
 
+    if should_use_groq():
+        groq_answer = ask_groq_ai(clean_message)
+        if groq_answer:
+            return groq_answer
+    else:
+        logger.info(
+            "GROQ_FAILURE question=%r reason=%s key_status=%s",
+            clean_message,
+            "Groq is not available",
+            mask_key_status()
+        )
+
     local_answer = find_local_answer(clean_message)
     if local_answer:
         update_last_ai_result("local", local_answer, time.perf_counter())
+        logger.info("LOCAL_FALLBACK_USED question=%r", clean_message)
         return local_answer
 
-    # The local brain always gets first chance. If it does not know the answer,
-    # VERTEX tries Groq only when the provider and key are both ready.
-    if should_use_groq():
-        return ask_groq_ai(clean_message)
-
     started_at = time.perf_counter()
-    if get_configured_provider() == "groq":
-        key_status = mask_key_status()
-        reason = "GROQ_API_KEY is missing in Render." if key_status == "missing" else "GROQ_API_KEY is not usable."
-    else:
-        reason = "AI_PROVIDER is set to local."
-
-    reply = make_offline_reply(reason)
-    update_last_ai_result("local", reply, started_at, reason)
-    logger.warning(
-        "Groq unavailable after local miss provider=%s key_status=%s local_knowledge_count=%s",
-        get_configured_provider(),
-        mask_key_status(),
-        get_local_knowledge_count()
-    )
-    return reply
+    update_last_ai_result("local", UNKNOWN_REPLY, started_at, "no Groq or local answer")
+    return UNKNOWN_REPLY
