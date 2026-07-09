@@ -10,6 +10,15 @@
   <div class="tech-bg" aria-hidden="true">
     <div class="neural-field"></div>
     <div class="data-grid"></div>
+    <div class="matrix-rain"></div>
+    <div class="circuit-field"></div>
+    <div class="energy-stream stream-one"></div>
+    <div class="energy-stream stream-two"></div>
+    <div class="pulse-wave pulse-one"></div>
+    <div class="pulse-wave pulse-two"></div>
+    <div class="floating-node node-one"></div>
+    <div class="floating-node node-two"></div>
+    <div class="floating-node node-three"></div>
   </div>
 
   <header class="topbar" aria-label="VERTEX system header">
@@ -70,8 +79,13 @@
           </div>
         </div>
         <div class="system-panel" aria-label="System status">
-          <div class="orbital-core">
-            <span></span><span></span><span></span>
+          <div id="heroAiCore" class="ai-core orbital-core" aria-hidden="true">
+            <span class="core-ring ring-one"></span>
+            <span class="core-ring ring-two"></span>
+            <span class="core-ring ring-three"></span>
+            <span class="core-synapse synapse-one"></span>
+            <span class="core-synapse synapse-two"></span>
+            <span class="core-synapse synapse-three"></span>
             <strong>AI</strong>
           </div>
           <div class="metric-grid">
@@ -92,7 +106,10 @@
 
         <div class="chat-panel glass-panel" aria-label="VERTEX chatbot">
           <div class="chat-header">
-            <div id="vertexAvatar" class="vertex-avatar" aria-hidden="true"><span>V</span></div>
+            <div id="vertexAvatar" class="vertex-avatar ai-core-mini" aria-hidden="true">
+              <span class="mini-ring"></span>
+              <span class="mini-core">V</span>
+            </div>
             <div>
               <h3>VERTEX AI Core</h3>
               <p id="avatarStatus">Ready for AI and technology questions.</p>

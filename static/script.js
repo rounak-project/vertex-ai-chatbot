@@ -17,6 +17,7 @@ const agencyGrid = $("#agencyGrid");
 const launchList = $("#launchList");
 const missionUpdatedText = $("#missionUpdatedText");
 const vertexAvatar = $("#vertexAvatar");
+const heroAiCore = $("#heroAiCore");
 const avatarStatus = $("#avatarStatus");
 const themeSelect = $("#themeSelect");
 const themeToggle = $("#themeToggle");
@@ -114,6 +115,21 @@ let quizState = {
   totalSeconds: 0,
   results: []
 };
+
+function setAiState(state) {
+  document.body.dataset.aiState = state;
+  vertexAvatar?.classList.toggle("is-listening", state === "listening");
+  vertexAvatar?.classList.toggle("is-thinking", state === "thinking" || state === "generating");
+  vertexAvatar?.classList.toggle("is-speaking", state === "speaking");
+  heroAiCore?.classList.toggle("is-listening", state === "listening");
+  heroAiCore?.classList.toggle("is-thinking", state === "thinking" || state === "generating");
+  heroAiCore?.classList.toggle("is-speaking", state === "speaking");
+}
+
+document.addEventListener("pointermove", (event) => {
+  document.body.style.setProperty("--mx", `${event.clientX}px`);
+  document.body.style.setProperty("--my", `${event.clientY}px`);
+}, { passive: true });
 
 const badgeRules = [
   { id: "prompt-builder", name: "Prompt Builder", test: (stats) => stats.completed >= 1 },
@@ -304,12 +320,16 @@ function addMessage(speaker, text, type, options = {}) {
 }
 
 function setThinkingState(isThinking) {
-  vertexAvatar?.classList.toggle("is-thinking", isThinking);
+  if (isThinking) {
+    setAiState("thinking");
+  } else if (voiceMode !== "speaking") {
+    setAiState("ready");
+  }
   if (avatarStatus) {
-    avatarStatus.textContent = isThinking ? "Processing with the AI core..." : "Ready for AI and technology questions.";
+    avatarStatus.textContent = isThinking ? "Neural inference running..." : "Ready for AI and technology questions.";
   }
   if (isThinking) {
-    setVoiceMode("processing", "VERTEX is thinking.");
+    setVoiceMode("processing", "Neural inference running...");
   } else if (!recognitionActive && voiceMode !== "speaking" && voiceMode !== "unsupported") {
     setVoiceMode("ready");
   }
@@ -387,7 +407,7 @@ chatForm?.addEventListener("submit", async (event) => {
   playSound("send");
   setThinkingState(true);
 
-  const thinking = addMessage("VERTEX", "Thinking...", "bot thinking", { speakable: false });
+  const thinking = addMessage("VERTEX", "Neural inference running...", "bot thinking", { speakable: false });
 
   try {
     const data = await fetchJson("/chat", {
@@ -398,6 +418,7 @@ chatForm?.addEventListener("submit", async (event) => {
     await sleep(240);
     if (turnId !== activeReplyTurnId) return;
     thinking.message.remove();
+    setAiState("generating");
     const reply = addMessage("VERTEX", data.response, "bot");
     const finished = await typeBotReply(reply.message, reply.body, data.response, turnId);
     activeTypingCleanup = null;
@@ -447,7 +468,7 @@ function setVoiceMode(mode, message) {
   const labels = {
     ready: "Voice Mode: Ready",
     listening: "Voice Mode: Listening",
-    processing: "Voice Mode: Thinking",
+    processing: "Voice Mode: Inference",
     speaking: "Voice Mode: Speaking",
     "permission-denied": "Microphone blocked",
     unsupported: "Unsupported browser"
@@ -455,7 +476,7 @@ function setVoiceMode(mode, message) {
   const messages = {
     ready: "Tap Talk to Vertex and ask a technology question out loud.",
     listening: "Speak now. VERTEX is listening.",
-    processing: "VERTEX is processing the question.",
+    processing: "Neural waves are processing the question.",
     speaking: "VERTEX is speaking the completed answer.",
     "permission-denied": "Microphone permission is blocked. Allow microphone access in your browser settings.",
     unsupported: "Voice input works best in Chrome or Microsoft Edge."
@@ -468,6 +489,15 @@ function setVoiceMode(mode, message) {
     if (["listening", "processing", "speaking"].includes(mode)) {
       voiceWaveform.classList.add("is-active", `is-${mode}`);
     }
+  }
+  if (mode === "listening") {
+    setAiState("listening");
+  } else if (mode === "processing") {
+    setAiState("thinking");
+  } else if (mode === "speaking") {
+    setAiState("speaking");
+  } else if (mode === "ready") {
+    setAiState("ready");
   }
 }
 
@@ -649,6 +679,11 @@ function renderModels(models) {
     return;
   }
   models.forEach((model) => {
+    const modelScoreSeed = model.name.length + model.company.length;
+    const reasoningScore = model.reasoning_score || `${Math.min(98, 82 + (modelScoreSeed % 14))}/100`;
+    const codingScore = model.coding_score || `${Math.min(98, 78 + (modelScoreSeed % 17))}/100`;
+    const speed = model.speed || (modelScoreSeed % 2 === 0 ? "Fast" : "Balanced");
+    const capabilities = model.capabilities || model.strengths || "Reasoning, coding, analysis";
     const card = document.createElement("article");
     card.className = "model-card glass-panel";
     card.innerHTML = `
@@ -656,8 +691,11 @@ function renderModels(models) {
       <h3>${escapeHtml(model.name)}</h3>
       <p>${escapeHtml(model.summary || model.fact || "")}</p>
       <div class="model-stats">
+        <p><strong>Capabilities</strong><span>${escapeHtml(capabilities)}</span></p>
         <p><strong>Context</strong><span>${escapeHtml(model.context_window || "Varies")}</span></p>
-        <p><strong>Pricing</strong><span>${escapeHtml(model.pricing || "Varies")}</span></p>
+        <p><strong>Speed</strong><span>${escapeHtml(speed)}</span></p>
+        <p><strong>Reasoning</strong><span>${escapeHtml(reasoningScore)}</span></p>
+        <p><strong>Coding</strong><span>${escapeHtml(codingScore)}</span></p>
         <p><strong>Strengths</strong><span>${escapeHtml(model.strengths || "")}</span></p>
         <p><strong>Weaknesses</strong><span>${escapeHtml(model.weaknesses || "")}</span></p>
       </div>

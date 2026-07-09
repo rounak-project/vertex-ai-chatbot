@@ -30,6 +30,30 @@
     "agency": "Robotics"
   },
   {
+    "title": "Meta AI expands open model adoption",
+    "summary": "Open model ecosystems help developers run private AI systems, tune models, and experiment with new product ideas.",
+    "date": "2026-07-09",
+    "agency": "Meta AI"
+  },
+  {
+    "title": "Mistral advances efficient enterprise AI",
+    "summary": "Efficient model design is becoming important for lower latency, lower cost, and private AI deployments.",
+    "date": "2026-07-09",
+    "agency": "Mistral"
+  },
+  {
+    "title": "Hugging Face remains the open AI hub",
+    "summary": "Developers use shared models, datasets, and Spaces to learn, prototype, and deploy machine learning systems.",
+    "date": "2026-07-09",
+    "agency": "Hugging Face"
+  },
+  {
+    "title": "Quantum computing research intersects with AI",
+    "summary": "Quantum computing is still early, but researchers are exploring how future systems could influence optimization and scientific AI.",
+    "date": "2026-07-09",
+    "agency": "Quantum Computing"
+  },
+  {
     "title": "AI regulation becomes a product requirement",
     "summary": "Teams building AI products need stronger privacy, security, evaluation, logging, and human oversight practices.",
     "date": "2026-07-09",
