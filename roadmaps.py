@@ -1,14 +1,17 @@
 """Isolated AI Roadmaps module for VERTEX AI OS."""
 
 import json
+import logging
 import re
 
 from flask import Blueprint, jsonify, render_template, request
 
+from ai_response_utils import parse_ai_json
 from chatbot import GROQ_MODEL, create_groq_client, should_use_groq
 
 
 roadmaps_bp = Blueprint("roadmaps", __name__)
+logger = logging.getLogger(__name__)
 
 ROLES = [
     "AI Engineer", "Machine Learning Engineer", "Python Developer", "Frontend Developer",
@@ -64,18 +67,10 @@ ROADMAPS = [make_roadmap(role) for role in ROLES]
 
 
 def extract_json(content):
-    text = str(content or "").strip()
-    fence = re.search(r"```(?:json)?\s*(.*?)```", text, flags=re.IGNORECASE | re.DOTALL)
-    if fence:
-        text = fence.group(1).strip()
-    decoder = json.JSONDecoder()
-    for start in [0] + [m.start() for m in re.finditer(r"\{", text)]:
-        try:
-            parsed, _ = decoder.raw_decode(text[start:])
-            return parsed
-        except json.JSONDecodeError:
-            continue
-    raise ValueError("No valid roadmap JSON found")
+    parsed = parse_ai_json(content, "roadmap response")
+    if not isinstance(parsed, dict):
+        raise ValueError("Roadmap JSON must be an object")
+    return parsed
 
 
 def validate_roadmap(value):
@@ -89,13 +84,62 @@ def validate_roadmap(value):
             raise ValueError("Invalid stage")
         stage.setdefault("id", f"custom-{index + 1}")
         stage.setdefault("title", f"Stage {index + 1}")
-        stage.setdefault("skills", [])
+        stage.setdefault("skills", stage.get("learning_goals", []))
+        stage.setdefault("projects", stage.get("recommended_projects", []))
+        stage.setdefault("duration", "2-4 weeks")
+        stage.setdefault("learning_goals", stage.get("skills", []))
+        stage.setdefault("recommended_projects", stage.get("projects", []))
+        stage.setdefault("practice_tasks", stage.get("practice_tasks", [f"Practice {stage['title']} with a small build"]))
+        stage.setdefault("useful_tools", stage.get("useful_tools", ["Documentation", "GitHub", "VS Code"]))
         stage.setdefault("checklist", [])
     value.setdefault("id", "custom-roadmap")
     value.setdefault("title", "Custom Roadmap")
+    value.setdefault("description", f"A practical roadmap for {value['title']}.")
     value.setdefault("difficulty", "Mixed")
     value.setdefault("suggested_next_step", stages[0].get("title", "Start learning"))
     return value
+
+
+def infer_role_from_prompt(prompt):
+    text = str(prompt or "").lower()
+    for role in ROLES:
+        if role.lower() in text:
+            return role
+    if "devops" in text:
+        return "DevOps Engineer"
+    if "cyber" in text or "security" in text:
+        return "Cybersecurity Engineer"
+    if "frontend" in text:
+        return "Frontend Developer"
+    if "backend" in text:
+        return "Backend Developer"
+    if "cloud" in text or "aws" in text:
+        return "Cloud Engineer"
+    if "data" in text:
+        return "Data Scientist"
+    if "python" in text:
+        return "Python Developer"
+    return "AI Engineer"
+
+
+def generate_roadmap_fallback(prompt):
+    role = infer_role_from_prompt(prompt)
+    roadmap = json.loads(json.dumps(make_roadmap(role)))
+    roadmap["id"] = f"custom-{role.lower().replace(' ', '-')}"
+    roadmap["title"] = f"{role} Roadmap"
+    roadmap["description"] = f"A prompt-specific learning path for: {prompt or role}."
+    for index, stage in enumerate(roadmap["stages"], start=1):
+        stage["skills"] = stage.get("learning_goals", [])
+        stage["projects"] = stage.get("recommended_projects", [])
+        stage["duration"] = "1 week" if index <= 3 else "2 weeks" if index <= 7 else "3 weeks"
+    return validate_roadmap(roadmap)
+
+
+def roadmap_response(source, roadmap, error=None):
+    payload = {"source": source, "roadmap": roadmap, **roadmap}
+    if error:
+        payload["error"] = error
+    return payload
 
 
 @roadmaps_bp.route("/roadmaps")
@@ -115,16 +159,29 @@ def roadmaps_generate_api():
     if should_use_groq():
         try:
             client = create_groq_client()
-            response = client.chat.completions.create(
-                model=GROQ_MODEL,
-                messages=[
-                    {"role": "system", "content": "Return only valid JSON for a learning roadmap with title, difficulty, suggested_next_step, and stages. Each stage must include title, prerequisites, learning_goals, recommended_projects, practice_tasks, useful_tools, difficulty, and checklist."},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.4,
-                max_tokens=2600
-            )
-            return jsonify({"source": "groq", "roadmap": validate_roadmap(extract_json(response.choices[0].message.content))})
+            parsed = None
+            last_error = None
+            for attempt in range(2):
+                response = client.chat.completions.create(
+                    model=GROQ_MODEL,
+                    messages=[
+                        {"role": "system", "content": "Return only valid JSON for one learning roadmap with title, description, difficulty, suggested_next_step, and stages. Each stage must include title, skills, projects, duration, prerequisites, learning_goals, recommended_projects, practice_tasks, useful_tools, difficulty, and checklist. No markdown."},
+                        {"role": "user", "content": prompt if attempt == 0 else f"STRICT JSON ONLY. Roadmap prompt: {prompt}"}
+                    ],
+                    temperature=0.4 if attempt == 0 else 0.2,
+                    max_tokens=2600
+                )
+                try:
+                    parsed = validate_roadmap(extract_json(response.choices[0].message.content))
+                    break
+                except Exception as error:
+                    last_error = error
+            if parsed is None:
+                raise last_error or ValueError("Roadmap generation failed")
+            logger.info("ROADMAP_GROQ_USED prompt_length=%s", len(prompt))
+            return jsonify(roadmap_response("groq", parsed))
         except Exception as error:
-            return jsonify({"source": "local", "roadmap": ROADMAPS[0], "error": str(error)})
-    return jsonify({"source": "local", "roadmap": ROADMAPS[0], "error": "Groq is unavailable"})
+            logger.info("ROADMAP_FALLBACK_USED prompt_length=%s error=%s", len(prompt), error)
+            return jsonify(roadmap_response("local", generate_roadmap_fallback(prompt), str(error)))
+    logger.info("ROADMAP_FALLBACK_USED prompt_length=%s error=Groq unavailable", len(prompt))
+    return jsonify(roadmap_response("local", generate_roadmap_fallback(prompt), "Groq is unavailable"))

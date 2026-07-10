@@ -99,6 +99,12 @@ function escapeHtml(text) {
     .replaceAll("\"", "&quot;");
 }
 
+function logBuilderError(message, payload) {
+  if (location.hostname === "127.0.0.1" || location.hostname === "localhost") {
+    console.error(`[WebsiteBuilder] ${message}`, payload);
+  }
+}
+
 function updateFileTabs() {
   document.querySelectorAll(".file-tab").forEach((tab) => {
     const file = tab.dataset.file;
@@ -114,26 +120,48 @@ function renderEditor() {
   updateFileTabs();
 }
 
-function buildPreviewLocally(files) {
-  return String(files["index.html"] || "")
-    .replace(/<link[^>]+href=["']style\.css["'][^>]*>/i, `<style>${files["style.css"] || ""}</style>`)
-    .replace(/<script[^>]+src=["']script\.js["'][^>]*>\s*<\/script>/i, `<script>${files["script.js"] || ""}<\/script>`);
+function stripUnsafePreviewHtml(html) {
+  return String(html || "")
+    .replace(/<script[^>]+src\s*=\s*["'](?!script\.js["'])[^"']+["'][^>]*>\s*<\/script>/gi, "")
+    .replace(/<iframe\b[\s\S]*?<\/iframe>/gi, "")
+    .replace(/<object\b[\s\S]*?<\/object>/gi, "")
+    .replace(/<embed\b[^>]*>/gi, "")
+    .replace(/\son[a-z]+\s*=\s*["'][^"']*["']/gi, "")
+    .replace(/javascript\s*:/gi, "");
+}
+
+function stripLinkedAssets(html) {
+  return stripUnsafePreviewHtml(html)
+    .replace(/<link[^>]+href=["']style\.css["'][^>]*>/gi, "")
+    .replace(/<script[^>]+src=["']script\.js["'][^>]*>\s*<\/script>/gi, "");
+}
+
+function buildPreviewDocument(files = {}) {
+  const html = stripLinkedAssets(files["index.html"] || "");
+  const css = String(files["style.css"] || "");
+  const js = String(files["script.js"] || "").replace(/<\/script/gi, "<\\/script");
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  const body = bodyMatch ? bodyMatch[1] : html;
+  const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  const title = escapeHtml(titleMatch ? titleMatch[1] : currentProject.project_name || "Generated Website");
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title}</title>
+<style>${css}</style>
+</head>
+<body>
+${body}
+<script>${js}<\/script>
+</body>
+</html>`;
 }
 
 async function updatePreview() {
   if (!previewFrame) return;
-  try {
-    const response = await fetch("/api/website-builder/preview", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ files: currentProject.files })
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Preview failed");
-    previewFrame.srcdoc = data.html;
-  } catch (error) {
-    previewFrame.srcdoc = buildPreviewLocally(currentProject.files);
-  }
+  previewFrame.srcdoc = buildPreviewDocument(currentProject.files);
 }
 
 function updatePlanView() {
@@ -173,9 +201,23 @@ async function validateProject() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ files: currentProject.files })
   });
+  const contentType = response.headers.get("content-type") || "";
+  if (!response.ok || !contentType.includes("application/json")) {
+    throw new Error("Validation failed");
+  }
   const validation = await response.json();
   currentProject.validation = validation;
   renderValidation(validation);
+}
+
+function validateGeneratedProject(data) {
+  const files = data?.files || {};
+  const missing = ["index.html", "style.css", "script.js"].filter((name) => typeof files[name] !== "string" || !files[name].trim());
+  if (missing.length) {
+    logBuilderError("Invalid response schema", data);
+    throw new Error(`Generated project is missing ${missing.join(", ")}`);
+  }
+  return data;
 }
 
 function setProject(project, shouldSaveUndo = true) {
@@ -267,9 +309,11 @@ async function generateWebsite(surprise = false) {
         surprise
       })
     });
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) throw new Error("Website Builder returned a non-JSON response");
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || "Generation failed");
-    setProject(data, false);
+    setProject(validateGeneratedProject(data), false);
     saveHistory(`Generated ${data.project_name || "website"}`);
     hideProgress(data.source === "groq" ? "Generated with Groq" : "Generated locally");
   } catch (error) {
@@ -298,9 +342,11 @@ async function editWithAi() {
         project: currentProject
       })
     });
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) throw new Error("Website edit returned a non-JSON response");
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || "Edit failed");
-    setProject(data);
+    setProject(validateGeneratedProject(data));
     saveHistory(`Edited: ${instruction.slice(0, 32)}`);
     hideProgress("Edit applied");
   } catch (error) {
@@ -505,7 +551,7 @@ document.querySelector("#openPreviewButton")?.addEventListener("click", () => {
     return;
   }
   win.document.open();
-  win.document.write(previewFrame.srcdoc || buildPreviewLocally(currentProject.files));
+  win.document.write(previewFrame.srcdoc || buildPreviewDocument(currentProject.files));
   win.document.close();
 });
 document.querySelector("#fullscreenPreviewButton")?.addEventListener("click", () => {

@@ -1,15 +1,18 @@
 """Isolated AI Interviewer module for VERTEX AI OS."""
 
 import json
+import logging
 import random
 import re
 
 from flask import Blueprint, jsonify, render_template, request
 
+from ai_response_utils import parse_ai_json
 from chatbot import GROQ_MODEL, create_groq_client, should_use_groq
 
 
 interviewer_bp = Blueprint("interviewer", __name__)
+logger = logging.getLogger(__name__)
 
 DOMAINS = [
     "Python", "JavaScript", "Flask", "HTML/CSS", "AWS", "Cloud", "DevOps",
@@ -32,18 +35,10 @@ LOCAL_QUESTIONS = {
 
 
 def extract_json(content):
-    text = str(content or "").strip()
-    fence = re.search(r"```(?:json)?\s*(.*?)```", text, flags=re.IGNORECASE | re.DOTALL)
-    if fence:
-        text = fence.group(1).strip()
-    decoder = json.JSONDecoder()
-    for start in [0] + [m.start() for m in re.finditer(r"\{", text)]:
-        try:
-            parsed, _ = decoder.raw_decode(text[start:])
-            return parsed
-        except json.JSONDecodeError:
-            continue
-    raise ValueError("No valid interview JSON found")
+    parsed = parse_ai_json(content, "interview response")
+    if not isinstance(parsed, dict):
+        raise ValueError("Interview JSON must be an object")
+    return parsed
 
 
 def local_question(domain, used=None):
@@ -56,12 +51,40 @@ def local_question(domain, used=None):
 def local_evaluation(answer, question):
     words = len(str(answer or "").split())
     score = 3 if words < 12 else 6 if words < 40 else 8
+    follow_up = "Can you give a concrete project example and explain what you would improve next?"
     return {
         "score": score,
         "strengths": ["Clear effort", "Relevant direction"] if words >= 12 else ["You started the answer"],
         "missing_points": ["Add specific examples", "Mention tradeoffs", "Explain verification steps"],
+        "improved_answer": f"A strong answer to '{question}' should define the concept, give a practical example, discuss tradeoffs, and explain how you would validate the result.",
         "sample_answer": f"A strong answer to '{question}' should define the concept, give a practical example, discuss tradeoffs, and explain how you would validate the result.",
-        "follow_up": "Can you give a concrete project example and explain what you would improve next?"
+        "next_question": follow_up,
+        "follow_up": follow_up
+    }
+
+
+def validate_evaluation(value, session=None):
+    if not isinstance(value, dict):
+        raise ValueError("Interview evaluation must be an object")
+    score = value.get("score", 0)
+    try:
+        score = max(0, min(10, int(float(score))))
+    except (TypeError, ValueError):
+        score = 0
+    strengths = value.get("strengths") if isinstance(value.get("strengths"), list) else []
+    missing = value.get("missing_points") if isinstance(value.get("missing_points"), list) else []
+    next_question = str(value.get("next_question") or value.get("follow_up") or "").strip()
+    if not next_question and session:
+        next_question = local_question(session.get("domain", "Python"), session.get("asked", []))
+    improved = str(value.get("improved_answer") or value.get("sample_answer") or "").strip()
+    return {
+        "score": score,
+        "strengths": [str(item) for item in strengths] or ["Relevant answer direction"],
+        "missing_points": [str(item) for item in missing] or ["Add a concrete example"],
+        "improved_answer": improved or "Add context, an example, tradeoffs, and verification steps.",
+        "sample_answer": improved or "Add context, an example, tradeoffs, and verification steps.",
+        "next_question": next_question or "What tradeoff would you consider next?",
+        "follow_up": next_question or "What tradeoff would you consider next?",
     }
 
 
@@ -105,27 +128,38 @@ def interview_evaluate_api():
     data = request.get_json(silent=True) or {}
     question = str(data.get("question", ""))
     answer = str(data.get("answer", ""))
+    session = data.get("session", {}) if isinstance(data.get("session"), dict) else {}
     if should_use_groq():
         try:
             client = create_groq_client()
-            response = client.chat.completions.create(
-                model=GROQ_MODEL,
-                messages=[
-                    {"role": "system", "content": "Evaluate mock interview answers fairly and educationally. Return only JSON with score, strengths, missing_points, sample_answer, follow_up. Do not claim certainty for subjective answers."},
-                    {"role": "user", "content": json.dumps({"question": question, "answer": answer})}
-                ],
-                temperature=0.35,
-                max_tokens=1200
-            )
-            parsed = extract_json(response.choices[0].message.content)
+            parsed = None
+            last_error = None
+            for attempt in range(2):
+                response = client.chat.completions.create(
+                    model=GROQ_MODEL,
+                    messages=[
+                        {"role": "system", "content": "Evaluate mock interview answers fairly and educationally. Return only JSON with score, strengths, missing_points, improved_answer, next_question. Do not claim certainty for subjective answers."},
+                        {"role": "user", "content": json.dumps({"question": question, "answer": answer, "session": session, "retry": attempt == 1})}
+                    ],
+                    temperature=0.35 if attempt == 0 else 0.2,
+                    max_tokens=1200
+                )
+                try:
+                    parsed = validate_evaluation(extract_json(response.choices[0].message.content), session)
+                    break
+                except Exception as error:
+                    last_error = error
+            if parsed is None:
+                raise last_error or ValueError("Interview evaluation failed")
             parsed["source"] = "groq"
+            logger.info("INTERVIEWER_GROQ_USED question_length=%s answer_length=%s", len(question), len(answer))
             return jsonify(parsed)
         except Exception as error:
-            local = local_evaluation(answer, question)
+            local = validate_evaluation(local_evaluation(answer, question), session)
             local["source"] = "local"
             local["error"] = str(error)
             return jsonify(local)
-    local = local_evaluation(answer, question)
+    local = validate_evaluation(local_evaluation(answer, question), session)
     local["source"] = "local"
     local["error"] = "Groq is unavailable"
     return jsonify(local)

@@ -6,13 +6,16 @@ import re
 import textwrap
 import zipfile
 from datetime import datetime
+import logging
 
 from flask import Blueprint, jsonify, render_template, request, send_file
 
+from ai_response_utils import parse_ai_json
 from chatbot import GROQ_MODEL, create_groq_client, should_use_groq
 
 
 website_builder_bp = Blueprint("website_builder", __name__)
+logger = logging.getLogger(__name__)
 
 WEBSITE_STYLES = {
     "auto", "premium-saas", "minimal", "editorial", "corporate", "luxury",
@@ -56,29 +59,10 @@ def normalize_style(style):
 
 
 def extract_json_from_ai_response(content):
-    text = str(content or "").strip()
-    if not text:
-        raise ValueError("Website generator response was empty")
-
-    fence_match = re.search(r"```(?:json)?\s*(.*?)```", text, flags=re.IGNORECASE | re.DOTALL)
-    if fence_match:
-        text = fence_match.group(1).strip()
-
-    decoder = json.JSONDecoder()
-    try:
-        parsed, _ = decoder.raw_decode(text)
-        return parsed
-    except json.JSONDecodeError:
-        pass
-
-    for match in re.finditer(r"\{", text):
-        try:
-            parsed, _ = decoder.raw_decode(text[match.start():])
-            return parsed
-        except json.JSONDecodeError:
-            continue
-
-    raise ValueError("No valid JSON object found in website generator response")
+    parsed = parse_ai_json(content, "website generator response")
+    if not isinstance(parsed, dict):
+        raise ValueError("Website generator JSON must be an object")
+    return parsed
 
 
 def infer_website_type(prompt, template="auto"):
@@ -907,36 +891,42 @@ def generate_ai_website(prompt, style, template, colors, sections, surprise):
     if not should_use_groq():
         return None
     plan = build_plan(prompt, template, style, colors, surprise)
+    user_payload = json.dumps({
+        "request": prompt,
+        "plan": plan,
+        "selected_sections": sections,
+        "instruction": "Create a distinct, polished static website matching the plan. Keep code compact enough for browser preview."
+    })
+    system_prompt = (
+        "You are VERTEX AI Website Studio. Return only valid JSON with keys: "
+        "project_name, summary, plan, design_system, files. files must include index.html, style.css, script.js. "
+        "Generate meaningful original copy, varied sections, semantic HTML, responsive CSS variables, accessible controls, "
+        "alt text, mobile navigation, tasteful animations, no lorem ipsum, no placeholders, no external scripts, no iframes, "
+        "and no unsafe user-content injection. Link style.css and script.js from HTML."
+    )
     try:
         client = create_groq_client()
-        response = client.chat.completions.create(
-            model=GROQ_MODEL,
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are VERTEX AI Website Studio. Return only valid JSON with keys: "
-                        "project_name, summary, plan, design_system, files. files must include index.html, style.css, script.js. "
-                        "Generate meaningful original copy, varied sections, semantic HTML, responsive CSS variables, accessible controls, "
-                        "alt text, mobile navigation, tasteful animations, no lorem ipsum, no placeholders, no external scripts, no iframes, "
-                        "and no unsafe user-content injection. Link style.css and script.js from HTML."
-                    )
-                },
-                {
-                    "role": "user",
-                    "content": json.dumps({
-                        "request": prompt,
-                        "plan": plan,
-                        "selected_sections": sections,
-                        "instruction": "Create a distinct, polished static website matching the plan. Keep code compact enough for browser preview."
-                    })
-                }
-            ],
-            temperature=0.72,
-            max_tokens=6500
-        )
-        parsed = extract_json_from_ai_response(response.choices[0].message.content)
+        parsed = None
+        last_error = None
+        for attempt in range(2):
+            response = client.chat.completions.create(
+                model=GROQ_MODEL,
+                messages=[
+                    {"role": "system", "content": system_prompt if attempt == 0 else system_prompt + " STRICT RETRY: output JSON only, no prose, no markdown fences."},
+                    {"role": "user", "content": user_payload}
+                ],
+                temperature=0.72 if attempt == 0 else 0.35,
+                max_tokens=6500
+            )
+            try:
+                parsed = extract_json_from_ai_response(response.choices[0].message.content)
+                break
+            except Exception as error:
+                last_error = error
+        if parsed is None:
+            raise last_error or ValueError("Website generator failed")
         files, validation = require_valid_files(parsed.get("files", {}))
+        logger.info("WEBSITE_BUILDER_GROQ_USED prompt_length=%s template=%s style=%s", len(prompt), template, style)
         return {
             "source": "groq",
             "project_name": parsed.get("project_name") or plan["project_name"],
@@ -947,7 +937,8 @@ def generate_ai_website(prompt, style, template, colors, sections, surprise):
             "readme": build_readme(plan),
             "validation": validation,
         }
-    except Exception:
+    except Exception as error:
+        logger.info("WEBSITE_BUILDER_FALLBACK_USED prompt_length=%s template=%s style=%s error=%s", len(prompt), template, style, error)
         return None
 
 
@@ -1038,6 +1029,8 @@ def website_builder_generate():
         generate_ai_website(prompt, style, template, colors, sections, surprise)
         or build_local_website(prompt, style, template, colors, sections, surprise)
     )
+    if generated.get("source") == "local":
+        logger.info("WEBSITE_BUILDER_FALLBACK_USED prompt_length=%s template=%s style=%s", len(prompt), template, style)
     return jsonify(generated)
 
 

@@ -8,6 +8,7 @@ import zipfile
 
 from flask import Blueprint, jsonify, render_template, request, send_file
 
+from ai_response_utils import parse_ai_json
 from chatbot import GROQ_MODEL, create_groq_client, should_use_groq
 
 
@@ -96,23 +97,10 @@ def clean_language(value):
 
 
 def extract_json(content):
-    text = str(content or "").strip()
-    fence = re.search(r"```(?:json)?\s*(.*?)```", text, flags=re.IGNORECASE | re.DOTALL)
-    if fence:
-        text = fence.group(1).strip()
-    decoder = json.JSONDecoder()
-    try:
-        parsed, _ = decoder.raw_decode(text)
-        return parsed
-    except json.JSONDecodeError:
-        pass
-    for match in re.finditer(r"[\{\[]", text):
-        try:
-            parsed, _ = decoder.raw_decode(text[match.start():])
-            return parsed
-        except json.JSONDecodeError:
-            continue
-    raise ValueError("AI response did not contain valid JSON")
+    parsed = parse_ai_json(content, "coding workspace response")
+    if not isinstance(parsed, dict):
+        raise ValueError("Coding response JSON must be an object")
+    return parsed
 
 
 def groq_json(system_prompt, user_prompt, max_tokens=2600):

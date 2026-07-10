@@ -1,6 +1,7 @@
 """Isolated AI Whiteboard module for VERTEX AI OS."""
 
 import re
+import logging
 
 from flask import Blueprint, jsonify, render_template, request
 
@@ -8,6 +9,7 @@ from chatbot import GROQ_MODEL, create_groq_client, should_use_groq
 
 
 whiteboard_bp = Blueprint("whiteboard", __name__)
+logger = logging.getLogger(__name__)
 
 DIAGRAM_TYPES = [
     "Flowchart", "Sequence diagram", "Architecture diagram", "Mind map",
@@ -65,10 +67,14 @@ def whiteboard_generate_api():
                 temperature=0.25,
                 max_tokens=1600
             )
-            return jsonify({"source": "groq", "mermaid": sanitize_mermaid(response.choices[0].message.content)})
+            diagram = sanitize_mermaid(response.choices[0].message.content)
+            logger.info("WHITEBOARD_GROQ_USED prompt_length=%s diagram_type=%s", len(prompt), diagram_type)
+            return jsonify({"source": "groq", "diagram": diagram, "mermaid": diagram, "explanation": "Generated Mermaid diagram."})
         except Exception as error:
-            return jsonify({"source": "local", "mermaid": local_diagram(prompt, diagram_type), "error": str(error)})
-    return jsonify({"source": "local", "mermaid": local_diagram(prompt, diagram_type), "error": "Groq is unavailable"})
+            diagram = local_diagram(prompt, diagram_type)
+            return jsonify({"source": "local", "diagram": diagram, "mermaid": diagram, "explanation": "Local Mermaid diagram generated.", "error": str(error)})
+    diagram = local_diagram(prompt, diagram_type)
+    return jsonify({"source": "local", "diagram": diagram, "mermaid": diagram, "explanation": "Local Mermaid diagram generated.", "error": "Groq is unavailable"})
 
 
 @whiteboard_bp.route("/api/whiteboard/explain", methods=["POST"])
