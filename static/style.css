@@ -536,6 +536,26 @@ select {
 }
 
 .message-body p { margin: 0 0 10px; }
+
+.message-body h1,
+.message-body h2,
+.message-body h3 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.message-body ul,
+.message-body ol {
+  margin: 0 0 10px;
+  padding-left: 22px;
+}
+
+.message-body li {
+  margin: 4px 0;
+}
+
 .message-body pre,
 .code-card pre {
   overflow-x: auto;

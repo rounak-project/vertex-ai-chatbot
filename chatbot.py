@@ -82,6 +82,93 @@ OUT_OF_SCOPE_KEYWORDS = {
     "relationship", "dating", "personal life"
 }
 
+DETAILED_MODE_TRIGGERS = {
+    "explain in detail", "tell me more", "detailed explanation", "deep dive",
+    "elaborate", "advanced explanation", "full explanation", "teach me",
+    "explain step by step"
+}
+
+
+def wants_detailed_answer(user_message):
+    """Return True when the user explicitly asks for a longer lesson."""
+    message = str(user_message or "").lower()
+    return (
+        any(trigger in message for trigger in DETAILED_MODE_TRIGGERS)
+        or ("explain" in message and "in detail" in message)
+        or ("explain" in message and "step by step" in message)
+    )
+
+
+def wants_comparison(user_message):
+    """Return True when a compact comparison table is the clearest format."""
+    message = str(user_message or "").lower()
+    return any(word in message for word in {"compare", "comparison", "versus", " vs "})
+
+
+def wants_code_example(user_message):
+    """Return True when the user asks for source code or an implementation example."""
+    message = str(user_message or "").lower()
+    return any(word in message for word in {"write", "code", "example", "snippet", "implement"})
+
+
+def get_local_intent_answer(user_message):
+    """Handle common structured requests without requiring online AI."""
+    message = str(user_message or "").lower()
+
+    if wants_comparison(user_message) and "gpt" in message and "claude" in message:
+        return (
+            "| Area | GPT | Claude |\n"
+            "| --- | --- | --- |\n"
+            "| Strength | Strong reasoning, coding, tool use, and multimodal workflows | Strong writing, analysis, coding help, and long-context work |\n"
+            "| Best for | Building AI apps, coding, automation, and product workflows | Research, writing, document analysis, and careful explanations |\n"
+            "| Style | Direct and flexible | Careful and structured |"
+        )
+
+    if wants_code_example(user_message) and "flask" in message and "api" in message:
+        return (
+            "Here is a simple Flask API example:\n\n"
+            "```python\n"
+            "from flask import Flask, jsonify\n\n"
+            "app = Flask(__name__)\n\n"
+            "@app.get('/api/health')\n"
+            "def health():\n"
+            "    return jsonify({'status': 'ok'})\n\n"
+            "if __name__ == '__main__':\n"
+            "    app.run(debug=True)\n"
+            "```"
+        )
+
+    if wants_detailed_answer(user_message) and "kubernetes" in message:
+        return (
+            "# Kubernetes Overview\n\n"
+            "Kubernetes is a container orchestration platform for running apps across many servers.\n\n"
+            "- It schedules containers onto machines.\n"
+            "- It restarts failed containers automatically.\n"
+            "- It scales apps up or down.\n"
+            "- It exposes services through stable networking.\n\n"
+            "Example workflow:\n\n"
+            "1. Build a Docker image.\n"
+            "2. Push it to a registry.\n"
+            "3. Deploy it with Kubernetes.\n"
+            "4. Scale and monitor the app."
+        )
+
+    if wants_detailed_answer(user_message) and "docker" in message:
+        return (
+            "# Docker Overview\n\n"
+            "Docker packages apps and their dependencies into portable containers.\n\n"
+            "- Images are the app blueprint.\n"
+            "- Containers are running image instances.\n"
+            "- Volumes store persistent data.\n"
+            "- Networks let containers communicate.\n\n"
+            "```bash\n"
+            "docker build -t my-app .\n"
+            "docker run -p 5000:5000 my-app\n"
+            "```"
+        )
+
+    return None
+
 
 def get_local_knowledge_count():
     """Return the number of local knowledge topics loaded from JSON."""
@@ -304,7 +391,11 @@ def ask_groq_ai(user_message):
                         "mobile development, hardware, productivity tools, open source projects, and emerging technologies. "
                         "If the question is outside that scope, politely redirect with this exact idea: "
                         "I'm designed as an AI and Technology specialist assistant. "
-                        "Use clear structure, practical examples, markdown, code blocks when useful, and avoid guessing."
+                        "Default to 2 to 5 short lines with concise, direct answers and minimal explanation. "
+                        "Only provide a detailed, sectioned answer when the user explicitly asks for detail, a deep dive, "
+                        "step-by-step teaching, or an advanced/full explanation. "
+                        "Use markdown only when it improves clarity: tables for comparisons, bullets for lists, "
+                        "numbered lists for steps, and fenced code blocks for code. Avoid guessing."
                     )
                 },
                 {
@@ -412,6 +503,12 @@ def get_vertex_response(user_message):
     if not is_in_scope(clean_message):
         update_last_ai_result("policy", OUT_OF_SCOPE_REPLY, time.perf_counter())
         return OUT_OF_SCOPE_REPLY
+
+    local_intent_answer = get_local_intent_answer(clean_message)
+    if local_intent_answer:
+        update_last_ai_result("local", local_intent_answer, time.perf_counter())
+        logger.info("LOCAL_INTENT_USED question=%r", clean_message)
+        return local_intent_answer
 
     if should_use_groq():
         groq_answer = ask_groq_ai(clean_message)

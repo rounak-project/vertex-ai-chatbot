@@ -221,19 +221,30 @@ function renderInlineMarkdown(text) {
 function renderMarkdown(text) {
   const lines = String(text || "").split("\n");
   const html = [];
-  let listOpen = false;
+  let activeList = null;
+
+  const closeList = () => {
+    if (!activeList) return;
+    html.push(`</${activeList}>`);
+    activeList = null;
+  };
+
+  const openList = (tag) => {
+    if (activeList === tag) return;
+    closeList();
+    html.push(`<${tag}>`);
+    activeList = tag;
+  };
 
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index].trim();
     if (!line) {
-      if (listOpen) {
-        html.push("</ul>");
-        listOpen = false;
-      }
+      closeList();
       continue;
     }
 
     if (line.startsWith("```")) {
+      closeList();
       const codeLines = [];
       index += 1;
       while (index < lines.length && !lines[index].trim().startsWith("```")) {
@@ -245,6 +256,7 @@ function renderMarkdown(text) {
     }
 
     if (line.startsWith("|") && line.endsWith("|")) {
+      closeList();
       const rows = [];
       while (index < lines.length && lines[index].trim().startsWith("|")) {
         const tableLine = lines[index].trim();
@@ -265,23 +277,30 @@ function renderMarkdown(text) {
       continue;
     }
 
-    if (/^[-*]\s/.test(line) || /^\d+\.\s/.test(line)) {
-      if (!listOpen) {
-        html.push("<ul>");
-        listOpen = true;
-      }
-      html.push(`<li>${renderInlineMarkdown(line.replace(/^[-*]\s/, "").replace(/^\d+\.\s/, ""))}</li>`);
+    if (/^#{1,6}\s/.test(line)) {
+      closeList();
+      const depth = Math.min(3, line.match(/^#{1,6}/)[0].length);
+      html.push(`<h${depth}>${renderInlineMarkdown(line.replace(/^#{1,6}\s+/, ""))}</h${depth}>`);
       continue;
     }
 
-    if (listOpen) {
-      html.push("</ul>");
-      listOpen = false;
+    if (/^[-*]\s/.test(line)) {
+      openList("ul");
+      html.push(`<li>${renderInlineMarkdown(line.replace(/^[-*]\s/, ""))}</li>`);
+      continue;
     }
+
+    if (/^\d+\.\s/.test(line)) {
+      openList("ol");
+      html.push(`<li>${renderInlineMarkdown(line.replace(/^\d+\.\s/, ""))}</li>`);
+      continue;
+    }
+
+    closeList();
     html.push(`<p>${renderInlineMarkdown(line)}</p>`);
   }
 
-  if (listOpen) html.push("</ul>");
+  closeList();
   return html.join("");
 }
 
@@ -362,7 +381,8 @@ function sleep(ms) {
 
 async function typeBotReply(messageNode, body, fullText, turnId) {
   let index = 0;
-  body.textContent = "";
+  let visibleText = "";
+  body.innerHTML = "";
 
   return new Promise((resolve) => {
     const timer = window.setInterval(() => {
@@ -371,7 +391,8 @@ async function typeBotReply(messageNode, body, fullText, turnId) {
         resolve(false);
         return;
       }
-      body.textContent += fullText.charAt(index);
+      visibleText = fullText.slice(0, index + 1);
+      body.innerHTML = renderMarkdown(visibleText);
       index += 1;
       chatMessages.scrollTop = chatMessages.scrollHeight;
       if (index >= fullText.length) {
