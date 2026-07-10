@@ -37,6 +37,7 @@ const missionClock = $("#missionClock");
 const aiStatusMode = $("#aiStatusMode");
 const aiStatusMessage = $("#aiStatusMessage");
 const latencyMetric = $("#latencyMetric");
+const bootOverlay = $("#boot");
 
 const quizPlayerName = $("#quizPlayerName");
 const quizModeSelect = $("#quizModeSelect");
@@ -134,6 +135,19 @@ document.addEventListener("pointermove", (event) => {
   document.body.style.setProperty("--mx", `${event.clientX}px`);
   document.body.style.setProperty("--my", `${event.clientY}px`);
 }, { passive: true });
+
+function hideBootOverlay() {
+  bootOverlay?.classList.add("hide");
+}
+
+window.addEventListener("load", () => {
+  window.setTimeout(hideBootOverlay, 2800);
+});
+
+bootOverlay?.addEventListener("click", hideBootOverlay);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") hideBootOverlay();
+});
 
 const badgeRules = [
   { id: "prompt-builder", name: "Prompt Builder", test: (stats) => stats.completed >= 1 },
