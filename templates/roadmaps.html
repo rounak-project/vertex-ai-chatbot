@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Roadmaps | VERTEX AI OS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='roadmaps.css') }}">
+</head>
+<body>
+  <header class="module-topbar">
+    <a class="topbar-brand" href="{{ url_for('home') }}"><span class="brand-mark">V</span><span>VERTEX AI OS</span></a>
+    <a class="secondary-button" href="{{ url_for('home') }}">Dashboard</a>
+  </header>
+  <main class="roadmap-shell">
+    <aside class="module-panel roadmap-controls">
+      <p class="eyebrow">AI Roadmaps</p>
+      <h1>Follow connected learning paths and track progress.</h1>
+      <select id="roadmapSelect"></select>
+      <select id="trackSelect"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select>
+      <textarea id="customRoadmapPrompt" rows="5" placeholder="Create a six-month AI Engineer roadmap for a beginner."></textarea>
+      <button id="generateRoadmap" class="primary-button" type="button">Generate Custom Roadmap</button>
+      <button id="resetRoadmap" type="button">Reset Progress</button>
+      <button id="printRoadmap" type="button">Export / Print</button>
+      <div class="progress-card"><strong id="progressPercent">0%</strong><span>complete</span></div>
+      <p id="nextStep" class="muted">Loading...</p>
+    </aside>
+    <section class="module-panel roadmap-view">
+      <div id="roadmapTimeline" class="roadmap-timeline"></div>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='roadmaps.js') }}"></script>
+</body>
+</html>

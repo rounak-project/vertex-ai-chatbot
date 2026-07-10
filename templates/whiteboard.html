@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Whiteboard | VERTEX AI OS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='whiteboard.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <header class="module-topbar">
+    <a class="topbar-brand" href="{{ url_for('home') }}"><span class="brand-mark">V</span><span>VERTEX AI OS</span></a>
+    <a class="secondary-button" href="{{ url_for('home') }}">Dashboard</a>
+  </header>
+  <main class="whiteboard-shell">
+    <aside class="module-panel whiteboard-controls">
+      <p class="eyebrow">AI Whiteboard</p>
+      <h1>Generate, edit, explain, and export Mermaid diagrams.</h1>
+      <textarea id="diagramPrompt" rows="5" placeholder="Draw a Kubernetes architecture"></textarea>
+      <select id="diagramType">{% for item in diagram_types %}<option>{{ item }}</option>{% endfor %}</select>
+      <button id="generateDiagram" class="primary-button" type="button">Generate Diagram</button>
+      <button id="explainDiagram" type="button">Explain Diagram</button>
+      <div class="button-grid">
+        <button id="zoomIn" type="button">Zoom +</button><button id="zoomOut" type="button">Zoom -</button><button id="resetView" type="button">Reset</button><button id="fullscreenBoard" type="button">Fullscreen</button>
+        <button id="copyMermaid" type="button">Copy</button><button id="downloadMermaid" type="button">Download .mmd</button><button id="exportSvg" type="button">SVG</button><button id="exportPng" type="button">PNG</button>
+        <button id="undoDiagram" type="button">Undo</button><button id="redoDiagram" type="button">Redo</button>
+      </div>
+      <label class="toggle-row"><span>Dark theme</span><input id="diagramTheme" type="checkbox" checked></label>
+      <div id="diagramHistory" class="history-list"></div>
+    </aside>
+    <section class="module-panel whiteboard-canvas">
+      <textarea id="mermaidEditor" spellcheck="false"></textarea>
+      <div id="diagramViewport"><div id="diagramRender"></div></div>
+      <pre id="diagramExplanation">Diagram explanation will appear here.</pre>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='whiteboard.js') }}"></script>
+</body>
+</html>

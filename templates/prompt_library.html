@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Library | VERTEX AI OS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='prompt_library.css') }}">
+</head>
+<body>
+  <header class="module-topbar">
+    <a class="topbar-brand" href="{{ url_for('home') }}"><span class="brand-mark">V</span><span>VERTEX AI OS</span></a>
+    <a class="secondary-button" href="{{ url_for('home') }}">Dashboard</a>
+  </header>
+  <main class="prompt-shell">
+    <section class="module-panel prompt-main">
+      <div class="module-hero">
+        <p class="eyebrow">Prompt Library</p>
+        <h1>Search, improve, save, and reuse professional AI prompts.</h1>
+      </div>
+      <div class="prompt-tools">
+        <input id="promptSearch" type="search" placeholder="Search prompts">
+        <select id="categoryFilter"><option value="">All categories</option>{% for category in categories %}<option>{{ category }}</option>{% endfor %}</select>
+        <input id="tagFilter" type="search" placeholder="Filter by tag">
+        <select id="sortPrompts"><option value="popularity">Popularity</option><option value="newest">Newest</option><option value="favorites">Favorites</option></select>
+      </div>
+      <div id="promptGrid" class="prompt-grid"></div>
+    </section>
+    <aside class="module-panel prompt-side">
+      <h2>Prompt Improver</h2>
+      <textarea id="roughPrompt" rows="5" placeholder="make a website"></textarea>
+      <button id="improvePrompt" class="primary-button" type="button">Improve Prompt</button>
+      <textarea id="promptEditor" rows="10" placeholder="Select or create a prompt."></textarea>
+      <input id="promptTitle" type="text" placeholder="Prompt title">
+      <select id="promptCategory">{% for category in categories %}<option>{{ category }}</option>{% endfor %}</select>
+      <input id="promptTags" type="text" placeholder="tags, comma, separated">
+      <div class="button-grid">
+        <button id="savePrompt" type="button">Save</button>
+        <button id="copyPrompt" type="button">Copy</button>
+        <button id="duplicatePrompt" type="button">Duplicate</button>
+        <button id="deletePrompt" type="button">Delete</button>
+        <button id="exportPrompts" type="button">Export JSON</button>
+        <label class="import-button">Import JSON<input id="importPrompts" type="file" accept="application/json" hidden></label>
+      </div>
+      <div class="button-grid">
+        <a id="sendChat" href="/#chat">Send to VERTEX Chat</a>
+        <a id="sendBuilder" href="/website-builder">Send to Website Builder</a>
+      </div>
+      <h3>Recently Used</h3>
+      <div id="recentPrompts" class="recent-list"></div>
+      <p id="promptStatus" class="muted">Loading prompt library...</p>
+    </aside>
+  </main>
+  <script src="{{ url_for('static', filename='prompt_library.js') }}"></script>
+</body>
+</html>

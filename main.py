@@ -26,9 +26,19 @@ from chatbot import (
     should_use_groq
 )
 from website_builder import website_builder_bp
+from coding_workspace import coding_workspace_bp
+from prompt_library import prompt_library_bp
+from roadmaps import roadmaps_bp
+from whiteboard import whiteboard_bp
+from interviewer import interviewer_bp
 
 app = Flask(__name__)
 app.register_blueprint(website_builder_bp)
+app.register_blueprint(coding_workspace_bp)
+app.register_blueprint(prompt_library_bp)
+app.register_blueprint(roadmaps_bp)
+app.register_blueprint(whiteboard_bp)
+app.register_blueprint(interviewer_bp)
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"

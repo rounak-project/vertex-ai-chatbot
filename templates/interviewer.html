@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Interviewer | VERTEX AI OS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='interviewer.css') }}">
+</head>
+<body>
+  <header class="module-topbar">
+    <a class="topbar-brand" href="{{ url_for('home') }}"><span class="brand-mark">V</span><span>VERTEX AI OS</span></a>
+    <a class="secondary-button" href="{{ url_for('home') }}">Dashboard</a>
+  </header>
+  <main class="interview-shell">
+    <aside class="module-panel interview-controls">
+      <p class="eyebrow">AI Interviewer</p>
+      <h1>Practice realistic technical and behavioral interviews.</h1>
+      <input id="roleInput" type="text" value="Software Engineer" placeholder="Role">
+      <select id="domainSelect">{% for item in domains %}<option>{{ item }}</option>{% endfor %}</select>
+      <select id="difficultySelect">{% for item in difficulties %}<option>{{ item }}</option>{% endfor %}</select>
+      <select id="modeSelect">{% for item in modes %}<option>{{ item }}</option>{% endfor %}</select>
+      <input id="questionCount" type="number" min="1" max="20" value="5">
+      <button id="startInterview" class="primary-button" type="button">Start Interview</button>
+      <button id="voiceAnswer" type="button">Voice Answer</button>
+      <button id="exportReport" type="button">Export Report</button>
+      <div class="score-card"><strong id="totalScore">0.0</strong><span>average score</span></div>
+      <div id="interviewHistory" class="history-list"></div>
+    </aside>
+    <section class="module-panel interview-stage">
+      <div id="questionBox" class="question-box">Start an interview to receive the first question.</div>
+      <textarea id="answerInput" rows="8" placeholder="Type your answer here."></textarea>
+      <div class="button-row">
+        <button id="evaluateAnswer" class="primary-button" type="button">Evaluate</button>
+        <button id="nextQuestion" type="button">Next Question</button>
+        <button id="retryQuestion" type="button">Retry Incorrect</button>
+        <button id="finishInterview" type="button">Final Report</button>
+      </div>
+      <div id="evaluationPanel" class="evaluation-panel"></div>
+      <pre id="summaryPanel">Your final report will appear here.</pre>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='interviewer.js') }}"></script>
+</body>
+</html>

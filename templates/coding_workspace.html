@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Coding Workspace | VERTEX AI OS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='coding_workspace.css') }}">
+</head>
+<body>
+  <header class="module-topbar">
+    <a class="topbar-brand" href="{{ url_for('home') }}"><span class="brand-mark">V</span><span>VERTEX AI OS</span></a>
+    <a class="secondary-button" href="{{ url_for('home') }}">Dashboard</a>
+  </header>
+  <main class="coding-shell">
+    <aside class="module-panel controls">
+      <p class="eyebrow">AI Coding Workspace</p>
+      <h1>Generate, inspect, refactor, test, and document code safely.</h1>
+      <label>Instruction<textarea id="codingPrompt" rows="6" placeholder="Create a Flask REST API with CRUD routes and a README."></textarea></label>
+      <div class="two-col">
+        <label>Language<select id="codingLanguage"></select></label>
+        <label>Convert to<select id="targetLanguage"></select></label>
+      </div>
+      <label>Action<select id="codingAction">
+        <option value="generate">Generate code</option>
+        <option value="explain">Explain code</option>
+        <option value="debug">Find bugs</option>
+        <option value="refactor">Refactor</option>
+        <option value="tests">Generate tests</option>
+        <option value="convert">Convert language</option>
+        <option value="document">Generate docs</option>
+      </select></label>
+      <button id="runCodingAction" class="primary-button" type="button">Run VERTEX</button>
+      <div class="starter-grid" id="starterGrid"></div>
+    </aside>
+    <section class="module-panel editor-panel">
+      <div class="panel-heading">
+        <div id="fileTabs" class="file-tabs"></div>
+        <div class="toolbar">
+          <input id="codeSearch" type="search" placeholder="Search code">
+          <button id="undoCode" type="button">Undo</button>
+          <button id="redoCode" type="button">Redo</button>
+          <button id="copyCode" type="button">Copy</button>
+          <button id="downloadFile" type="button">Download</button>
+          <button id="downloadProject" type="button">ZIP</button>
+          <button id="resetCode" type="button">Reset</button>
+        </div>
+      </div>
+      <div class="code-wrap">
+        <pre id="lineNumbers">1</pre>
+        <textarea id="codeEditor" spellcheck="false"></textarea>
+      </div>
+      <div class="preview-switch">
+        <button data-preview="desktop" class="is-active">Desktop</button>
+        <button data-preview="tablet">Tablet</button>
+        <button data-preview="mobile">Mobile</button>
+      </div>
+      <div id="frontendPreview" class="frontend-preview" data-preview="desktop">
+        <iframe id="previewFrame" title="Sandboxed frontend preview" sandbox="allow-scripts"></iframe>
+      </div>
+    </section>
+    <aside class="module-panel response-panel">
+      <h2>AI Response</h2>
+      <div id="codingStatus" class="status-chip">Ready</div>
+      <pre id="aiResponse">Choose an action and run VERTEX.</pre>
+    </aside>
+  </main>
+  <script id="starterData" type="application/json">{{ examples | tojson }}</script>
+  <script src="{{ url_for('static', filename='coding_workspace.js') }}"></script>
+</body>
+</html>
