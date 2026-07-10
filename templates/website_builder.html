@@ -3,124 +3,211 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Website Builder | VERTEX AI OS</title>
+  <title>AI Website Studio | VERTEX AI OS</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='website_builder.css') }}">
 </head>
 <body>
-  <div class="tech-bg" aria-hidden="true">
-    <div class="neural-field"></div>
-    <div class="data-grid"></div>
-    <div class="matrix-rain"></div>
-    <div class="circuit-field"></div>
-    <div class="energy-stream stream-one"></div>
-    <div class="energy-stream stream-two"></div>
-    <div class="pulse-wave pulse-one"></div>
-    <div class="pulse-wave pulse-two"></div>
-    <div class="floating-node node-one"></div>
-    <div class="floating-node node-two"></div>
-    <div class="floating-node node-three"></div>
+  <div class="studio-bg" aria-hidden="true">
+    <span></span><span></span><span></span>
   </div>
 
-  <header class="topbar" aria-label="VERTEX system header">
+  <header class="studio-topbar">
     <a class="topbar-brand" href="{{ url_for('home') }}" aria-label="VERTEX AI OS dashboard">
       <span class="brand-mark">V</span>
       <span>VERTEX AI OS</span>
     </a>
-    <div class="topbar-actions">
-      <span class="online-pill"><span></span>BUILDER ONLINE</span>
+    <div class="studio-topbar-actions">
+      <span id="builderStatus" class="studio-status">Studio Ready</span>
       <a class="secondary-button" href="{{ url_for('home') }}">Dashboard</a>
     </div>
   </header>
 
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="VERTEX navigation">
-      <div class="sidebar-brand">
-        <span class="brand-mark">V</span>
+  <main class="studio-layout" aria-label="VERTEX AI Website Studio">
+    <aside class="studio-panel control-panel">
+      <div class="studio-title">
+        <p class="eyebrow">AI Website Studio</p>
+        <h1>Design, generate, edit, and export static websites.</h1>
+      </div>
+
+      <form id="websiteBuilderForm" class="studio-form">
+        <label>
+          <span>Describe the website</span>
+          <textarea id="websitePrompt" rows="8" placeholder="Create a premium website for an AI cybersecurity startup with threat monitoring, integrations, pricing, FAQ, and CTA."></textarea>
+        </label>
+
+        <div id="promptAssistant" class="prompt-assistant" hidden>
+          <strong>Prompt assistant</strong>
+          <p>Add website type, audience, style, sections, brand name, and preferred colors for sharper results.</p>
+          <button id="surpriseButton" type="button">Surprise me</button>
+        </div>
+
+        <label>
+          <span>Starter template</span>
+          <select id="templateSelect">
+            <option value="auto">Auto detect</option>
+            <option value="ai-startup">AI Startup</option>
+            <option value="saas-product">SaaS Product</option>
+            <option value="developer-portfolio">Developer Portfolio</option>
+            <option value="cloud-engineer-portfolio">Cloud Engineer Portfolio</option>
+            <option value="restaurant">Restaurant</option>
+            <option value="ecommerce-store">E-commerce Store</option>
+            <option value="education-platform">Education Platform</option>
+            <option value="creative-agency">Creative Agency</option>
+            <option value="cybersecurity-company">Cybersecurity Company</option>
+            <option value="personal-blog">Personal Blog</option>
+            <option value="mobile-app-landing-page">Mobile App Landing Page</option>
+            <option value="consulting-company">Consulting Company</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Visual style</span>
+          <select id="styleSelect">
+            <option value="auto">Auto</option>
+            <option value="premium-saas">Premium SaaS</option>
+            <option value="minimal">Minimal</option>
+            <option value="editorial">Editorial</option>
+            <option value="corporate">Corporate</option>
+            <option value="luxury">Luxury</option>
+            <option value="startup">Startup</option>
+            <option value="futuristic-ai">Futuristic AI</option>
+            <option value="glassmorphism">Glassmorphism</option>
+            <option value="neo-brutalist">Neo-brutalist</option>
+            <option value="creative-agency">Creative Agency</option>
+            <option value="dark-professional">Dark Professional</option>
+            <option value="light-modern">Light Modern</option>
+            <option value="gradient-rich">Gradient-rich</option>
+            <option value="developer-focused">Developer-focused</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Accent color</span>
+          <input id="colorInput" type="color" value="#38bdf8">
+        </label>
+
+        <fieldset class="section-options">
+          <legend>Section options</legend>
+          <label><input type="checkbox" value="pricing"> Pricing</label>
+          <label><input type="checkbox" value="faq"> FAQ</label>
+          <label><input type="checkbox" value="gallery"> Gallery</label>
+          <label><input type="checkbox" value="testimonials"> Testimonials</label>
+          <label><input type="checkbox" value="contact"> Contact</label>
+        </fieldset>
+
+        <button id="generateWebsiteButton" class="primary-button" type="submit">Generate Website</button>
+      </form>
+
+      <div class="edit-box">
+        <label>
+          <span>Tell VERTEX what to change</span>
+          <textarea id="editInstruction" rows="4" placeholder="Make the hero more premium, add pricing, or use blue and purple."></textarea>
+        </label>
+        <label>
+          <span>Selected section</span>
+          <select id="sectionSelect">
+            <option value="">No section selected</option>
+          </select>
+        </label>
+        <button id="editWithAiButton" class="secondary-button" type="button">Edit Existing Site</button>
+      </div>
+
+      <div class="history-box">
+        <div class="panel-heading">
+          <h2>Version History</h2>
+          <button id="saveVersionButton" type="button">Save</button>
+        </div>
+        <div class="history-actions">
+          <button id="undoButton" type="button">Undo</button>
+          <button id="redoButton" type="button">Redo</button>
+        </div>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </aside>
+
+    <section class="preview-panel">
+      <div class="preview-header">
         <div>
-          <strong>VERTEX</strong>
-          <small>The Intelligence Operating System</small>
+          <p class="eyebrow">Live Preview</p>
+          <h2 id="projectName">Untitled Website</h2>
+        </div>
+        <div class="preview-actions">
+          <div class="viewport-switch" role="group" aria-label="Preview size">
+            <button class="is-active" type="button" data-viewport="desktop">Desktop</button>
+            <button type="button" data-viewport="tablet">Tablet</button>
+            <button type="button" data-viewport="mobile">Mobile</button>
+          </div>
+          <button id="fitPreviewButton" type="button">Fit</button>
+          <button id="refreshPreviewButton" type="button">Refresh</button>
+          <button id="openPreviewButton" type="button">Open</button>
+          <button id="fullscreenPreviewButton" type="button">Fullscreen</button>
         </div>
       </div>
 
-      <nav class="nav-list" aria-label="Primary navigation">
-        <a class="nav-link" href="{{ url_for('home') }}#dashboard"><span>01</span>Dashboard</a>
-        <a class="nav-link" href="{{ url_for('home') }}#chat"><span>02</span>Vertex Chat</a>
-        <a class="nav-link" href="{{ url_for('home') }}#voice"><span>09</span>Voice Assistant</a>
-        <a class="nav-link is-active" href="{{ url_for('website_builder.website_builder_page') }}"><span>12</span>🌐 Website Builder</a>
-        <a class="nav-link" href="{{ url_for('mission_commander') }}"><span>13</span>About Creator</a>
-      </nav>
-    </aside>
+      <div id="generationProgress" class="generation-progress" hidden>
+        <div class="progress-track"><span></span></div>
+        <ol>
+          <li>Understanding your idea</li>
+          <li>Planning the website</li>
+          <li>Writing content</li>
+          <li>Designing components</li>
+          <li>Generating code</li>
+          <li>Preparing preview</li>
+        </ol>
+      </div>
 
-    <main class="content website-builder-content">
-      <section class="builder-shell" aria-label="AI Website Builder">
-        <div class="builder-panel builder-controls glass-panel">
-          <div class="section-heading builder-heading">
-            <div>
-              <p class="eyebrow">AI Website Builder</p>
-              <h1>Generate static websites from plain English.</h1>
-            </div>
-            <span id="builderStatus" class="status-chip">Ready</span>
-          </div>
+      <div id="previewCanvas" class="preview-canvas is-fit" data-viewport="desktop">
+        <iframe id="websitePreview" title="Generated website preview" sandbox="allow-scripts allow-forms"></iframe>
+      </div>
+    </section>
 
-          <form id="websiteBuilderForm" class="builder-form">
-            <label for="websitePrompt">
-              <span>Website prompt</span>
-              <textarea id="websitePrompt" name="prompt" rows="9" placeholder="Create a landing page for an AI startup." required></textarea>
-            </label>
+    <aside class="studio-panel inspector-panel">
+      <div class="inspector-tabs" role="tablist" aria-label="Studio inspector">
+        <button class="is-active" type="button" data-inspector="files">Files</button>
+        <button type="button" data-inspector="plan">Plan</button>
+        <button type="button" data-inspector="validate">Validate</button>
+        <button type="button" data-inspector="export">Export</button>
+      </div>
 
-            <label for="websiteTheme">
-              <span>Theme</span>
-              <select id="websiteTheme" name="theme">
-                <option value="modern">Modern</option>
-                <option value="minimal">Minimal</option>
-                <option value="startup">Startup</option>
-                <option value="portfolio">Portfolio</option>
-                <option value="dark">Dark</option>
-                <option value="glassmorphism">Glassmorphism</option>
-              </select>
-            </label>
-
-            <div class="builder-actions">
-              <button id="generateWebsiteButton" class="primary-button" type="submit">Generate</button>
-              <button id="regenerateWebsiteButton" class="secondary-button" type="button">Regenerate</button>
-            </div>
-          </form>
-
-          <div class="builder-quick-prompts" aria-label="Example prompts">
-            <button type="button" data-prompt="Build a portfolio website.">Portfolio</button>
-            <button type="button" data-prompt="Create a restaurant website.">Restaurant</button>
-            <button type="button" data-prompt="Create a landing page for an AI startup.">AI Startup</button>
-            <button type="button" data-prompt="Build a personal blog.">Blog</button>
-          </div>
+      <section class="inspector-view is-active" data-view="files">
+        <div class="file-tabs" role="tablist" aria-label="Generated files">
+          <button class="file-tab is-active" type="button" data-file="index.html">index.html <span></span></button>
+          <button class="file-tab" type="button" data-file="style.css">style.css <span></span></button>
+          <button class="file-tab" type="button" data-file="script.js">script.js <span></span></button>
         </div>
+        <div class="editor-tools">
+          <input id="findInput" type="search" placeholder="Find in file">
+          <button id="copyFileButton" type="button">Copy File</button>
+          <button id="downloadFileButton" type="button">Download File</button>
+          <button id="resetFileButton" type="button">Reset File</button>
+        </div>
+        <textarea id="codeEditor" spellcheck="false" aria-label="Code editor"></textarea>
+      </section>
 
-        <div class="builder-panel builder-output glass-panel">
-          <div class="preview-toolbar">
-            <div>
-              <p class="eyebrow">Live Preview</p>
-              <h2>Generated Website</h2>
-            </div>
-            <div class="file-actions">
-              <button id="copyCodeButton" class="secondary-button" type="button">Copy Code</button>
-              <button id="downloadFilesButton" class="secondary-button" type="button">Download Files</button>
-            </div>
-          </div>
+      <section class="inspector-view" data-view="plan">
+        <pre id="planOutput">Generate a website to see the plan.</pre>
+      </section>
 
-          <iframe id="websitePreview" class="website-preview" title="Generated website preview" sandbox="allow-scripts"></iframe>
+      <section class="inspector-view" data-view="validate">
+        <div id="validationOutput" class="validation-output">No validation results yet.</div>
+      </section>
 
-          <div class="generated-files">
-            <div class="file-tabs" role="tablist" aria-label="Generated files">
-              <button class="file-tab is-active" type="button" data-file="index.html">index.html</button>
-              <button class="file-tab" type="button" data-file="style.css">style.css</button>
-              <button class="file-tab" type="button" data-file="script.js">script.js</button>
-            </div>
-            <pre class="code-output"><code id="generatedCode">// Generated code will appear here.</code></pre>
-          </div>
+      <section class="inspector-view" data-view="export">
+        <div class="export-grid">
+          <button id="downloadZipButton" class="primary-button" type="button">Download ZIP</button>
+          <button id="copyAllButton" type="button">Copy All Code</button>
+          <button id="downloadHtmlButton" type="button">Download HTML</button>
+          <button id="downloadCssButton" type="button">Download CSS</button>
+          <button id="downloadJsButton" type="button">Download JavaScript</button>
+        </div>
+        <div class="deploy-note">
+          <strong>Deployment notes</strong>
+          <p>Export the ZIP, then upload the static files to Netlify, Vercel, GitHub Pages, or any static host. No deployment happens automatically.</p>
         </div>
       </section>
-    </main>
-  </div>
+    </aside>
+  </main>
 
   <script src="{{ url_for('static', filename='website_builder.js') }}"></script>
 </body>
