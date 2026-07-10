@@ -279,7 +279,67 @@
   padding: 12px;
   border: 1px solid rgba(0, 229, 255, 0.18);
   border-radius: 8px;
-  background: rgba(0, 229, 255, 0.06);
+  background:
+    linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(139, 92, 246, 0.08)),
+    rgba(2, 6, 23, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.loader-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loader-head strong,
+.preview-loader strong {
+  display: block;
+  color: #e0fbff;
+  font-size: 0.9rem;
+}
+
+.loader-head p,
+.preview-loader p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.vertex-loader {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+}
+
+.vertex-loader.large {
+  width: 72px;
+  height: 72px;
+}
+
+.vertex-loader span {
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-top-color: #00e5ff;
+  border-right-color: rgba(139, 92, 246, 0.78);
+  border-radius: 50%;
+  animation: vertexLoaderSpin 1.1s linear infinite;
+}
+
+.vertex-loader span:nth-child(2) {
+  inset: 7px;
+  border-top-color: #a7f3d0;
+  border-right-color: rgba(0, 229, 255, 0.62);
+  animation-duration: 0.82s;
+  animation-direction: reverse;
+}
+
+.vertex-loader span:nth-child(3) {
+  inset: 15px;
+  border-top-color: #fef08a;
+  border-right-color: rgba(255, 255, 255, 0.5);
+  animation-duration: 1.38s;
 }
 
 .progress-track {
@@ -318,6 +378,7 @@
 }
 
 .preview-canvas {
+  position: relative;
   display: grid;
   place-items: start center;
   min-height: 0;
@@ -339,6 +400,38 @@
   background: #ffffff;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
   transform-origin: top center;
+  transition: filter 0.24s ease, opacity 0.24s ease;
+}
+
+.preview-canvas.is-loading iframe {
+  filter: blur(2px) saturate(0.72);
+  opacity: 0.36;
+}
+
+.preview-loader {
+  position: absolute;
+  inset: 18px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  min-height: 280px;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(0, 229, 255, 0.18), transparent 18rem),
+    rgba(2, 6, 23, 0.72);
+  opacity: 0;
+  pointer-events: none;
+  text-align: center;
+  transform: scale(0.98);
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.preview-canvas.is-loading .preview-loader {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .preview-canvas[data-viewport="tablet"] iframe { width: 768px; height: 900px; }
@@ -433,6 +526,10 @@
 @keyframes studioPulse {
   0%, 100% { transform: scale(0.92); opacity: 0.42; }
   50% { transform: scale(1.06); opacity: 0.82; }
+}
+
+@keyframes vertexLoaderSpin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 1480px) {

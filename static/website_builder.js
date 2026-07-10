@@ -9,6 +9,11 @@ const previewCanvas = document.querySelector("#previewCanvas");
 const projectName = document.querySelector("#projectName");
 const generateButton = document.querySelector("#generateWebsiteButton");
 const progressPanel = document.querySelector("#generationProgress");
+const progressTitle = document.querySelector("#generationProgressTitle");
+const progressText = document.querySelector("#generationProgressText");
+const previewLoader = document.querySelector("#previewLoader");
+const previewLoaderTitle = document.querySelector("#previewLoaderTitle");
+const previewLoaderText = document.querySelector("#previewLoaderText");
 const promptAssistant = document.querySelector("#promptAssistant");
 const surpriseButton = document.querySelector("#surpriseButton");
 const editInstruction = document.querySelector("#editInstruction");
@@ -37,12 +42,20 @@ const defaultFiles = {
   "script.js": "// Generate a website to edit script.js."
 };
 
-const stageLabels = [
+const generationStages = [
   "Understanding your idea",
   "Planning the website",
   "Writing content",
   "Designing components",
   "Generating code",
+  "Preparing preview"
+];
+const editStages = [
+  "Reading current site",
+  "Applying requested edit",
+  "Updating sections",
+  "Refreshing code",
+  "Validating changes",
   "Preparing preview"
 ];
 
@@ -183,24 +196,51 @@ function setProject(project, shouldSaveUndo = true) {
   updatePreview();
 }
 
-function showProgress() {
+function setBusyState(isBusy, activeButton = generateButton) {
+  if (generateButton) generateButton.disabled = isBusy;
+  if (editWithAiButton) editWithAiButton.disabled = isBusy;
+  if (surpriseButton) surpriseButton.disabled = isBusy;
+  if (activeButton) activeButton.dataset.loading = isBusy ? "true" : "false";
+}
+
+function updateLoaderStage(stages, index, title) {
+  const label = stages[index] || stages[stages.length - 1] || "Working";
+  const percent = Math.min(100, ((index + 1) / stages.length) * 100);
+  const items = Array.from(progressPanel?.querySelectorAll("li") || []);
+  const bar = progressPanel?.querySelector(".progress-track span");
+
+  items.forEach((item, itemIndex) => {
+    item.classList.toggle("is-active", itemIndex <= index);
+    item.textContent = stages[itemIndex] || item.textContent;
+  });
+  if (bar) bar.style.width = `${percent}%`;
+  if (progressTitle) progressTitle.textContent = title;
+  if (progressText) progressText.textContent = label;
+  if (previewLoaderTitle) previewLoaderTitle.textContent = title;
+  if (previewLoaderText) previewLoaderText.textContent = label;
+  setStatus(label);
+}
+
+function showProgress(title = "VERTEX is building", stages = generationStages) {
   if (!progressPanel) return;
+  window.clearInterval(stageTimer);
   progressPanel.hidden = false;
+  previewCanvas?.classList.add("is-loading");
+  previewLoader?.setAttribute("aria-hidden", "false");
   let index = 0;
-  const items = Array.from(progressPanel.querySelectorAll("li"));
-  const bar = progressPanel.querySelector(".progress-track span");
+  updateLoaderStage(stages, index, title);
   stageTimer = window.setInterval(() => {
-    items.forEach((item, itemIndex) => item.classList.toggle("is-active", itemIndex <= index));
-    if (bar) bar.style.width = `${Math.min(100, ((index + 1) / stageLabels.length) * 100)}%`;
-    setStatus(stageLabels[index] || "Generating");
-    index = Math.min(index + 1, stageLabels.length - 1);
-  }, 420);
+    index = Math.min(index + 1, stages.length - 1);
+    updateLoaderStage(stages, index, title);
+  }, 520);
 }
 
 function hideProgress(message) {
   window.clearInterval(stageTimer);
   stageTimer = null;
   if (progressPanel) progressPanel.hidden = true;
+  previewCanvas?.classList.remove("is-loading");
+  previewLoader?.setAttribute("aria-hidden", "true");
   setStatus(message);
 }
 
@@ -212,8 +252,8 @@ async function generateWebsite(surprise = false) {
     promptInput.focus();
     return;
   }
-  generateButton.disabled = true;
-  showProgress();
+  setBusyState(true, generateButton);
+  showProgress("VERTEX is building", generationStages);
   try {
     const response = await fetch("/api/website-builder/generate", {
       method: "POST",
@@ -235,7 +275,7 @@ async function generateWebsite(surprise = false) {
   } catch (error) {
     hideProgress(error?.message || "Generation failed");
   } finally {
-    generateButton.disabled = false;
+    setBusyState(false, generateButton);
   }
 }
 
@@ -246,8 +286,8 @@ async function editWithAi() {
     editInstruction.focus();
     return;
   }
-  editWithAiButton.disabled = true;
-  setStatus("Editing existing site");
+  setBusyState(true, editWithAiButton);
+  showProgress("VERTEX is editing", editStages);
   try {
     const response = await fetch("/api/website-builder/edit", {
       method: "POST",
@@ -262,11 +302,11 @@ async function editWithAi() {
     if (!response.ok) throw new Error(data.error || "Edit failed");
     setProject(data);
     saveHistory(`Edited: ${instruction.slice(0, 32)}`);
-    setStatus("Edit applied");
+    hideProgress("Edit applied");
   } catch (error) {
-    setStatus(error?.message || "Edit failed");
+    hideProgress(error?.message || "Edit failed");
   } finally {
-    editWithAiButton.disabled = false;
+    setBusyState(false, editWithAiButton);
   }
 }
 

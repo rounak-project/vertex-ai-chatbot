@@ -145,7 +145,16 @@
         </div>
       </div>
 
-      <div id="generationProgress" class="generation-progress" hidden>
+      <div id="generationProgress" class="generation-progress" role="status" aria-live="polite" hidden>
+        <div class="loader-head">
+          <div class="vertex-loader" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div>
+            <strong id="generationProgressTitle">VERTEX is building</strong>
+            <p id="generationProgressText">Understanding your idea</p>
+          </div>
+        </div>
         <div class="progress-track"><span></span></div>
         <ol>
           <li>Understanding your idea</li>
@@ -159,6 +168,13 @@
 
       <div id="previewCanvas" class="preview-canvas is-fit" data-viewport="desktop">
         <iframe id="websitePreview" title="Generated website preview" sandbox="allow-scripts allow-forms"></iframe>
+        <div id="previewLoader" class="preview-loader" aria-hidden="true">
+          <div class="vertex-loader large" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <strong id="previewLoaderTitle">VERTEX is building</strong>
+          <p id="previewLoaderText">Understanding your idea</p>
+        </div>
       </div>
     </section>
 
