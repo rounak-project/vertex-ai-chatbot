@@ -93,3 +93,22 @@ git diff --check
 ```
 
 In this environment, `.venv/bin/python -m py_compile main.py chatbot.py` also works.
+
+## Deploy on Vercel
+
+VERTEX exports `app` from `main.py`, which is a supported Flask entrypoint on Vercel. The included `vercel.json` configures that Flask app as a Vercel Function.
+
+Set these environment variables in Vercel Project Settings:
+
+```env
+GROQ_API_KEY=your_real_groq_key
+AI_PROVIDER=groq
+GROQ_MODEL=llama-3.1-8b-instant
+FLASK_ENV=production
+```
+
+Then deploy from GitHub or with:
+
+```bash
+vercel deploy
+```

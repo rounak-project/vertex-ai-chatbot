@@ -2,8 +2,10 @@ __pycache__/
 *.py[cod]
 .venv/
 .env
+.vercel/
 .pytest_cache/
 instance/
 .DS_Store
 node_modules/
 npm-debug.log*
+.vercel

@@ -20,15 +20,13 @@ logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parent
 KNOWLEDGE_FILE = BASE_DIR / "data" / "space_knowledge.json"
 UNKNOWN_REPLY = (
-    "I'm VERTEX AI OS and specialize in AI and technology topics. Could you rephrase your "
-    "question or ask about AI, programming, cloud, DevOps, cybersecurity, robotics, "
-    "software engineering, or emerging technologies?"
+    "I can help with that. Ask me the question again with one specific goal, and I will give "
+    "a short, clear answer."
 )
-EMPTY_REPLY = "Please type an AI or technology question for VERTEX."
-OUT_OF_SCOPE_REPLY = (
-    "I'm designed as an AI and Technology specialist assistant. I can help with AI, programming, "
-    "cloud computing, software engineering, robotics, cybersecurity, data science, APIs, DevOps, "
-    "Linux, open source, productivity tools, and emerging technologies."
+EMPTY_REPLY = "Please type a question for VERTEX."
+SAFETY_REPLY = (
+    "I can share general learning information, but this topic needs a trusted adult or qualified "
+    "professional for real decisions. Tell me what you want to understand, and I will keep it safe and simple."
 )
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 GROQ_TIMEOUT_SECONDS = float(os.getenv("GROQ_TIMEOUT_SECONDS", "12"))
@@ -63,7 +61,15 @@ def load_knowledge_base():
 
 TECH_KNOWLEDGE = load_knowledge_base()
 
-IN_SCOPE_KEYWORDS = {
+GENERAL_ASSISTANT_TOPICS = {
+    "school", "homework", "math", "maths", "science", "english", "hindi", "history",
+    "geography", "sst", "exam", "study", "learn", "project", "productivity", "schedule",
+    "plan", "idea", "creative", "story", "essay", "presentation", "quiz", "notes",
+    "coding", "games", "game", "website", "websites", "ai project", "space", "nasa",
+    "physics", "chemistry", "biology", "everyday", "question"
+}
+
+TECH_KNOWLEDGE_KEYWORDS = {
     "ai", "artificial intelligence", "generative ai", "llm", "large language model", "model",
     "machine learning", "deep learning", "neural", "prompt", "openai", "anthropic", "claude",
     "gemini", "grok", "llama", "deepseek", "qwen", "mistral", "hugging face", "python",
@@ -75,11 +81,9 @@ IN_SCOPE_KEYWORDS = {
     "technology", "computer", "computers", "internet", "server", "backend", "frontend"
 }
 
-OUT_OF_SCOPE_KEYWORDS = {
-    "sports", "cricket", "football", "basketball", "politics", "election", "religion",
-    "movie", "movies", "celebrity", "celebrities", "astrology", "horoscope", "geography",
-    "capital of", "medical advice", "doctor", "medicine", "legal advice", "lawyer",
-    "relationship", "dating", "personal life"
+SAFETY_KEYWORDS = {
+    "medical advice", "doctor", "medicine", "legal advice", "lawyer", "self harm",
+    "suicide", "hurt myself", "password", "hack someone's", "steal", "cheat in exam"
 }
 
 DETAILED_MODE_TRIGGERS = {
@@ -114,6 +118,74 @@ def wants_code_example(user_message):
 def get_local_intent_answer(user_message):
     """Handle common structured requests without requiring online AI."""
     message = str(user_message or "").lower()
+
+    if any(word in message for word in {"what can you do", "help", "who are you"}):
+        return (
+            "I am VERTEX, your general AI assistant. I can help with school subjects, coding, "
+            "games, websites, AI projects, science, space, creative ideas, planning, and everyday questions."
+        )
+
+    if "photosynthesis" in message:
+        return (
+            "Photosynthesis is how plants make food.\n\n"
+            "They use sunlight, water, and carbon dioxide to make glucose. Oxygen is released as a bonus."
+        )
+
+    if "capital of france" in message:
+        return "The capital of France is Paris."
+
+    if "water cycle" in message:
+        return (
+            "The water cycle is how water moves around Earth.\n\n"
+            "Water evaporates, forms clouds, falls as rain, and flows back into rivers, lakes, and oceans."
+        )
+
+    if "gravity" in message:
+        return (
+            "Gravity is the force that pulls objects toward each other.\n\n"
+            "On Earth, it pulls us toward the ground and keeps the Moon moving around Earth."
+        )
+
+    if "nasa" in message or "space" in message:
+        return (
+            "Cool space fact: NASA's Voyager 1 is the farthest human-made spacecraft from Earth.\n\n"
+            "It launched in 1977 and is now traveling through interstellar space."
+        )
+
+    if "fraction" in message or "fractions" in message:
+        return (
+            "A fraction shows part of a whole.\n\n"
+            "`3/4` means 3 parts out of 4 equal parts. The top number is the numerator, "
+            "and the bottom number is the denominator."
+        )
+
+    if "study plan" in message or "study schedule" in message:
+        return (
+            "Try this simple study plan:\n\n"
+            "1. Study one topic for 25 minutes.\n"
+            "2. Take a 5 minute break.\n"
+            "3. Write 3 key points from memory.\n"
+            "4. Practice 3 questions before moving on."
+        )
+
+    if ("game" in message or "games" in message) and any(word in message for word in {"idea", "ideas", "make", "build"}):
+        return (
+            "Build a simple browser game first: a space dodger, quiz game, memory cards, or platform jumper.\n\n"
+            "Use HTML for the page, CSS for style, and JavaScript for movement and scoring."
+        )
+
+    if "website" in message and any(word in message for word in {"idea", "ideas", "make", "build"}):
+        return (
+            "Good website ideas: a study planner, portfolio, quiz app, AI tools directory, habit tracker, "
+            "or a school project showcase.\n\n"
+            "Start with one page, clear sections, and one useful interactive feature."
+        )
+
+    if "everyday" in message or "productive" in message or "productivity" in message:
+        return (
+            "Use a simple 3-task rule: choose 3 important tasks, finish the smallest one first, "
+            "then work on the hardest one with a timer."
+        )
 
     if wants_comparison(user_message) and "gpt" in message and "claude" in message:
         return (
@@ -175,18 +247,14 @@ def get_local_knowledge_count():
     return sum(len(category) for category in TECH_KNOWLEDGE.values())
 
 
-def is_in_scope(user_message):
-    """Return True when a message belongs to VERTEX AI OS technology scope."""
+def is_safe_request(user_message):
+    """Return False for high-stakes or unsafe requests that need special handling."""
     message = str(user_message or "").lower().strip()
     if not message:
         return True
-    if any(keyword in message for keyword in IN_SCOPE_KEYWORDS):
-        return True
-    if any(keyword in message for keyword in OUT_OF_SCOPE_KEYWORDS):
+    if any(keyword in message for keyword in SAFETY_KEYWORDS):
         return False
-    if message in {"hi", "hello", "hey", "help", "what can you do", "who are you"}:
-        return True
-    return False
+    return True
 
 
 def get_configured_provider():
@@ -354,7 +422,7 @@ def check_groq_connection(force=False):
 
 
 def ask_groq_ai(user_message):
-    """Ask Groq for a concise technology-specialist answer.
+    """Ask Groq for a concise general-assistant answer.
 
     The import stays inside this function so the app can still run without the
     Groq package installed. Return None when Groq cannot provide a valid answer
@@ -384,16 +452,16 @@ def ask_groq_ai(user_message):
                 {
                     "role": "system",
                     "content": (
-                        "You are VERTEX AI OS, a premium AI and technology specialist assistant. "
-                        "Only answer questions about artificial intelligence, generative AI, large language models, "
-                        "programming, software engineering, cloud computing, DevOps, Linux, cybersecurity, "
-                        "machine learning, data science, robotics, computer vision, startups, APIs, web development, "
-                        "mobile development, hardware, productivity tools, open source projects, and emerging technologies. "
-                        "If the question is outside that scope, politely redirect with this exact idea: "
-                        "I'm designed as an AI and Technology specialist assistant. "
+                        "You are VERTEX AI OS, a helpful general personal assistant for a Class 7 student. "
+                        "You can help with school subjects, coding, games, websites, AI projects, science, space, "
+                        "creative ideas, everyday questions, productivity, and learning. Keep NASA and space help "
+                        "available when the user asks about space, but do not force unrelated questions back to space. "
                         "Default to 2 to 5 short lines with concise, direct answers and minimal explanation. "
+                        "Explain in a friendly, easy way for a Class 7 student. "
                         "Only provide a detailed, sectioned answer when the user explicitly asks for detail, a deep dive, "
                         "step-by-step teaching, or an advanced/full explanation. "
+                        "For medical, legal, financial, dangerous, or private-account topics, give safe general guidance "
+                        "and suggest asking a trusted adult or qualified professional. "
                         "Use markdown only when it improves clarity: tables for comparisons, bullets for lists, "
                         "numbered lists for steps, and fenced code blocks for code. Avoid guessing."
                     )
@@ -449,7 +517,7 @@ def get_ai_status():
             "api_key_loaded": True,
             "mode": "online" if connected else "offline",
             "message": (
-                "Groq is the primary AI engine. Local technology knowledge is used only as fallback."
+                "Groq is the primary AI engine. Local general and technology knowledge is used as fallback."
                 if connected else
                 f"Groq is configured, but unavailable: {groq_status['error']}"
             ),
@@ -464,9 +532,9 @@ def get_ai_status():
         "api_key_loaded": api_key_loaded,
         "mode": "offline",
         "message": (
-            "Groq is selected, but no API key is set. VERTEX is using the local technology brain."
+            "Groq is selected, but no API key is set. VERTEX is using the local general assistant brain."
             if provider == "groq" else
-            "AI_PROVIDER is local. VERTEX is using the JSON technology knowledge brain."
+            "AI_PROVIDER is local. VERTEX is using the local general assistant brain."
         ),
         "model": GROQ_MODEL,
         "key_status": mask_key_status(),
@@ -500,9 +568,9 @@ def get_vertex_response(user_message):
     if not clean_message:
         return EMPTY_REPLY
 
-    if not is_in_scope(clean_message):
-        update_last_ai_result("policy", OUT_OF_SCOPE_REPLY, time.perf_counter())
-        return OUT_OF_SCOPE_REPLY
+    if not is_safe_request(clean_message):
+        update_last_ai_result("policy", SAFETY_REPLY, time.perf_counter())
+        return SAFETY_REPLY
 
     local_intent_answer = get_local_intent_answer(clean_message)
     if local_intent_answer:

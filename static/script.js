@@ -38,6 +38,13 @@ const aiStatusMode = $("#aiStatusMode");
 const aiStatusMessage = $("#aiStatusMessage");
 const latencyMetric = $("#latencyMetric");
 const bootOverlay = $("#boot");
+const browserControlStatus = $("#browserControlStatus");
+const browserControlFeedback = $("#browserControlFeedback");
+const browserExtensionIdInput = $("#browserExtensionId");
+const browserControlConnect = $("#browserControlConnect");
+const browserControlReconnect = $("#browserControlReconnect");
+const browserControlDisconnect = $("#browserControlDisconnect");
+const browserCommandButtons = $$("[data-browser-command]");
 
 const quizPlayerName = $("#quizPlayerName");
 const quizModeSelect = $("#quizModeSelect");
@@ -89,6 +96,11 @@ const savedMute = localStorage.getItem("vertex-muted") === "true";
 const savedAutoSpeak = localStorage.getItem("vertex-auto-speak");
 const quizStorageKey = "vertex-ai-academy";
 const quizLeaderboardKey = "vertex-ai-leaderboard";
+const browserControlSource = "vertex-browser-control";
+const browserExtensionIdKey = "vertex-browser-extension-id";
+const browserConnectedKey = "vertex-browser-control-connected";
+const defaultBrowserExtensionId = "pcdieoppchlfedcohfhoaacdaokgjngi";
+const browserMessageTimeoutMs = 6500;
 
 let allModels = [];
 let soundsMuted = savedMute;
@@ -106,6 +118,7 @@ let currentSpeakingMessageId = null;
 let speakingLock = false;
 let activeReplyTurnId = 0;
 let activeTypingCleanup = null;
+let browserControlConnected = localStorage.getItem(browserConnectedKey) === "true";
 let quizDatabase = { categories: [], questions: [] };
 let selectedQuizCategory = "prompt-engineering";
 let quizTimerInterval = null;
@@ -364,6 +377,245 @@ function addMessage(speaker, text, type, options = {}) {
   return { message, body, messageId };
 }
 
+function getBrowserExtensionId() {
+  return String(browserExtensionIdInput?.value || localStorage.getItem(browserExtensionIdKey) || defaultBrowserExtensionId).trim();
+}
+
+function setBrowserControlState(connected, feedback, status = {}) {
+  browserControlConnected = Boolean(connected);
+  localStorage.setItem(browserConnectedKey, String(browserControlConnected));
+  if (browserControlStatus) {
+    browserControlStatus.textContent = browserControlConnected
+      ? "Browser Control Connected"
+      : "Browser Control Not Connected";
+    browserControlStatus.classList.toggle("is-online", browserControlConnected);
+    browserControlStatus.classList.toggle("is-offline", !browserControlConnected);
+  }
+  if (browserControlFeedback && feedback) {
+    const contentText = status.vertexBrowserContentReady === false
+      ? " Active page needs reconnect or reload."
+      : "";
+    browserControlFeedback.textContent = `${feedback}${contentText}`;
+  }
+}
+
+function validateExtensionId(extensionId) {
+  return /^[a-p]{32}$/.test(extensionId);
+}
+
+function commandNeedsConfirmation(command) {
+  return [
+    "open_site",
+    "search_google",
+    "search_youtube",
+    "go_back",
+    "go_forward",
+    "reload_tab",
+    "click_first_result"
+  ].includes(command.name);
+}
+
+function describeBrowserCommand(command) {
+  const args = command.args || {};
+  const labels = {
+    open_site: `Open ${args.site === "youtube" ? "YouTube" : "Google"}`,
+    search_google: `Search Google for "${args.query || ""}"`,
+    search_youtube: `Search YouTube for "${args.query || ""}"`,
+    open_side_panel: "Open Vertex in Chrome Side Panel",
+    go_back: "Go back in the active tab",
+    go_forward: "Go forward in the active tab",
+    reload_tab: "Reload the active tab",
+    scroll_up: "Scroll up on Google or YouTube",
+    scroll_down: "Scroll down on Google or YouTube",
+    click_first_result: "Click the first visible Google or YouTube result"
+  };
+  return labels[command.name] || "Run browser command";
+}
+
+function parseBrowserCommand(text) {
+  const value = String(text || "").trim();
+  const lower = value.toLowerCase();
+
+  if (/^(open|go to|launch)\s+google$/.test(lower)) {
+    return { name: "open_site", args: { site: "google" } };
+  }
+  if (/^(open|go to|launch)\s+(youtube|you tube)$/.test(lower)) {
+    return { name: "open_site", args: { site: "youtube" } };
+  }
+  if (/^(go\s+)?back$/.test(lower)) return { name: "go_back", args: {} };
+  if (/^(go\s+)?forward$/.test(lower)) return { name: "go_forward", args: {} };
+  if (/^(reload|refresh)(\s+tab)?$/.test(lower)) return { name: "reload_tab", args: {} };
+  if (/^open\s+(vertex\s+)?side\s+panel$/.test(lower)) return { name: "open_side_panel", args: {} };
+  if (/^scroll\s+up$/.test(lower)) return { name: "scroll_up", args: {} };
+  if (/^scroll\s+down$/.test(lower)) return { name: "scroll_down", args: {} };
+  if (/^click\s+(the\s+)?first\s+result$/.test(lower)) return { name: "click_first_result", args: {} };
+
+  const googleMatch = value.match(/^(?:search\s+google(?:\s+for)?|google)\s+(.+)$/i);
+  if (googleMatch?.[1]) return { name: "search_google", args: { query: googleMatch[1].trim() } };
+
+  const youtubeMatch = value.match(/^(?:search\s+(?:youtube|you tube)(?:\s+for)?|(?:youtube|you tube))\s+(.+)$/i);
+  if (youtubeMatch?.[1]) return { name: "search_youtube", args: { query: youtubeMatch[1].trim() } };
+
+  return null;
+}
+
+function normalizeBrowserCommand(command) {
+  if (!command || typeof command !== "object") throw new Error("Invalid browser command.");
+  const name = String(command.name || "");
+  const args = command.args && typeof command.args === "object" ? command.args : {};
+  const allowed = new Set([
+    "ping",
+    "open_side_panel",
+    "open_site",
+    "search_google",
+    "search_youtube",
+    "go_back",
+    "go_forward",
+    "reload_tab",
+    "scroll_up",
+    "scroll_down",
+    "click_first_result",
+    "disconnect"
+  ]);
+  if (!allowed.has(name)) throw new Error("Unsupported browser command.");
+
+  if (name === "open_site") {
+    const site = String(args.site || "").toLowerCase();
+    if (!["google", "youtube"].includes(site)) throw new Error("Only Google and YouTube are allowed.");
+    return { name, args: { site } };
+  }
+
+  if (name === "search_google" || name === "search_youtube") {
+    const query = String(args.query || "").trim().replace(/\s+/g, " ");
+    if (!query) throw new Error("Search query is required.");
+    if (query.length > 160) throw new Error("Search query is too long.");
+    return { name, args: { query } };
+  }
+
+  return { name, args: {} };
+}
+
+function sendBrowserCommand(command) {
+  const extensionId = getBrowserExtensionId();
+  if (!validateExtensionId(extensionId)) {
+    throw new Error("Chrome extension ID is missing or invalid. Load the Vertex extension, then paste its ID once.");
+  }
+  if (!window.chrome?.runtime?.sendMessage) {
+    throw new Error("Chrome extension messaging is not available. Open this page in Chrome or Edge with the Vertex extension enabled.");
+  }
+
+  const safeCommand = normalizeBrowserCommand(command);
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const timeoutId = window.setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      reject(new Error("Browser Control connection timed out. Reload the active page, then click Reconnect Browser."));
+    }, browserMessageTimeoutMs);
+
+    window.chrome.runtime.sendMessage(
+      extensionId,
+      {
+        source: browserControlSource,
+        type: "browser_command",
+        id: getNextMessageId(),
+        command: safeCommand
+      },
+      (response) => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timeoutId);
+        const runtimeError = window.chrome.runtime.lastError;
+        if (runtimeError) {
+          reject(new Error(runtimeError.message || "Browser Control did not respond. Check that the extension is enabled."));
+          return;
+        }
+        if (!response?.ok) {
+          reject(new Error(response?.error || "Browser command failed."));
+          return;
+        }
+        resolve(response);
+      }
+    );
+  });
+}
+
+async function pingBrowserControl(options = {}) {
+  const result = await sendBrowserCommand({ name: "ping", args: {} });
+  const message = result?.message || "Vertex Browser Control is connected.";
+  setBrowserControlState(true, message, result?.status || {});
+  if (options.showChatFeedback) {
+    addMessage("VERTEX", "Browser Control Connected.", "bot", { speakable: false });
+  }
+  return result;
+}
+
+async function executeBrowserCommand(command, options = {}) {
+  try {
+    const safeCommand = normalizeBrowserCommand(command);
+    if (!browserControlConnected && safeCommand.name !== "ping" && safeCommand.name !== "disconnect") {
+      await pingBrowserControl({ showChatFeedback: false });
+    }
+    const result = await sendBrowserCommand(safeCommand);
+    const message = result?.message || `${describeBrowserCommand(safeCommand)} completed.`;
+    setBrowserControlState(safeCommand.name !== "disconnect", message, result?.status || {});
+    if (options.showChatFeedback !== false) {
+      addMessage("VERTEX", `Browser Control: ${message}`, "bot", { speakable: false });
+    }
+    return result;
+  } catch (error) {
+    const message = error?.message || "Browser command failed.";
+    setBrowserControlState(false, message);
+    if (options.showChatFeedback !== false) {
+      addMessage("VERTEX", `Browser Control failed: ${message}`, "bot", { speakable: false });
+    }
+    throw error;
+  }
+}
+
+function addBrowserConfirmation(command) {
+  const safeCommand = normalizeBrowserCommand(command);
+  const { message, body } = addMessage("VERTEX", "", "bot browser-confirmation", { speakable: false });
+  body.innerHTML = `
+    <div class="browser-confirm-card">
+      <strong>Confirm Browser Control</strong>
+      <p>${escapeHtml(describeBrowserCommand(safeCommand))}</p>
+      <div class="browser-confirm-actions">
+        <button type="button" class="primary-button" data-confirm-browser-command>Allow</button>
+        <button type="button" class="secondary-button" data-cancel-browser-command>Cancel</button>
+      </div>
+    </div>
+  `;
+  const allow = body.querySelector("[data-confirm-browser-command]");
+  const cancel = body.querySelector("[data-cancel-browser-command]");
+  allow?.addEventListener("click", async () => {
+    allow.disabled = true;
+    cancel.disabled = true;
+    body.querySelector("p").textContent = "Sending command to Vertex Browser Control...";
+    try {
+      await executeBrowserCommand(safeCommand);
+      message.remove();
+    } catch (error) {
+      allow.disabled = false;
+      cancel.disabled = false;
+      body.querySelector("p").textContent = error?.message || "Browser command failed.";
+    }
+  });
+  cancel?.addEventListener("click", () => {
+    message.remove();
+    addMessage("VERTEX", "Browser Control command cancelled.", "bot", { speakable: false });
+  });
+}
+
+function requestBrowserCommand(command) {
+  const safeCommand = normalizeBrowserCommand(command);
+  if (commandNeedsConfirmation(safeCommand)) {
+    addBrowserConfirmation(safeCommand);
+    return;
+  }
+  executeBrowserCommand(safeCommand).catch(() => {});
+}
+
 function setThinkingState(isThinking) {
   if (isThinking) {
     setAiState("thinking");
@@ -371,7 +623,9 @@ function setThinkingState(isThinking) {
     setAiState("ready");
   }
   if (avatarStatus) {
-    avatarStatus.textContent = isThinking ? "Neural inference running..." : "Ready for AI and technology questions.";
+    avatarStatus.textContent = isThinking
+      ? "Neural inference running..."
+      : "Ready for school, coding, creative, science, and everyday questions.";
   }
   if (isThinking) {
     setVoiceMode("processing", "Neural inference running...");
@@ -443,10 +697,82 @@ async function fetchJson(url, options = {}) {
   }
 }
 
+if (browserExtensionIdInput) {
+  browserExtensionIdInput.value = localStorage.getItem(browserExtensionIdKey) || defaultBrowserExtensionId;
+  localStorage.setItem(browserExtensionIdKey, browserExtensionIdInput.value.trim());
+  browserExtensionIdInput.addEventListener("input", () => {
+    localStorage.setItem(browserExtensionIdKey, browserExtensionIdInput.value.trim());
+  });
+}
+
+setBrowserControlState(
+  false,
+  "Checking Vertex Browser Control..."
+);
+
+browserControlConnect?.addEventListener("click", async () => {
+  const extensionId = getBrowserExtensionId();
+  localStorage.setItem(browserExtensionIdKey, extensionId);
+  setBrowserControlState(false, "Checking Browser Control...");
+  try {
+    await pingBrowserControl({ showChatFeedback: true });
+  } catch (error) {
+    setBrowserControlState(false, error?.message || "Browser Control connection failed.");
+  }
+});
+
+browserControlReconnect?.addEventListener("click", async () => {
+  setBrowserControlState(false, "Reconnecting Browser Control...");
+  try {
+    await pingBrowserControl({ showChatFeedback: true });
+  } catch (error) {
+    setBrowserControlState(false, error?.message || "Reconnect failed.");
+    addMessage("VERTEX", `Browser Control reconnect failed: ${error?.message || "Unknown error."}`, "bot", { speakable: false });
+  }
+});
+
+browserControlDisconnect?.addEventListener("click", async () => {
+  if (browserControlConnected) {
+    await executeBrowserCommand({ name: "disconnect", args: {} }).catch(() => {});
+  }
+  setBrowserControlState(false, "Browser Control stopped.");
+});
+
+browserCommandButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const name = button.dataset.browserCommand;
+    if (name === "search_google" || name === "search_youtube") {
+      const query = window.prompt(name === "search_google" ? "Search Google for:" : "Search YouTube for:");
+      if (!query) return;
+      requestBrowserCommand({ name, args: { query } });
+      return;
+    }
+    requestBrowserCommand({ name, args: { site: button.dataset.site } });
+  });
+});
+
+window.addEventListener("focus", () => {
+  pingBrowserControl({ showChatFeedback: false }).catch((error) => {
+    setBrowserControlState(false, error?.message || "Browser Control is not connected.");
+  });
+});
+
+pingBrowserControl({ showChatFeedback: false }).catch((error) => {
+  setBrowserControlState(false, error?.message || "Install or enable Vertex Browser Control, then click Connect.");
+});
+
 chatForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const message = userInput.value.trim();
   if (!message) return;
+
+  const browserCommand = parseBrowserCommand(message);
+  if (browserCommand) {
+    addMessage("You", message, "user", { speakable: false });
+    userInput.value = "";
+    requestBrowserCommand(browserCommand);
+    return;
+  }
 
   const turnId = beginNewReplyTurn();
   addMessage("You", message, "user", { speakable: false });

@@ -90,8 +90,8 @@
           <p class="eyebrow">VERTEX AI OS</p>
           <h1>The Intelligence Operating System</h1>
           <p>
-            A premium operating layer for AI chat, voice assistance, coding,
-            AI Academy, model intelligence, and the VERTEX Website Studio.
+            A premium operating layer for personal AI chat, learning, coding,
+            creative projects, browser control, and the VERTEX Website Studio.
           </p>
           <div class="hero-actions">
             <a class="primary-button" href="#chat">Launch Vertex Chat</a>
@@ -144,7 +144,7 @@
             </div>
             <div>
               <h3>VERTEX AI Core</h3>
-              <p id="avatarStatus">Ready for AI and technology questions.</p>
+              <p id="avatarStatus">Ready for school, coding, creative, science, and everyday questions.</p>
             </div>
             <div id="voiceWaveform" class="voice-waveform" aria-hidden="true">
               <span></span><span></span><span></span><span></span><span></span>
@@ -155,17 +155,50 @@
             <div class="message bot">
               <span class="speaker">VERTEX</span>
               <div class="message-body">
-                <p>I am VERTEX AI OS. Ask me about AI, programming, cloud, DevOps, Linux, cybersecurity, robotics, data science, APIs, or emerging technology.</p>
+                <p>I am VERTEX AI OS. Ask me about school, coding, games, websites, AI projects, science, space, creative ideas, productivity, or everyday questions.</p>
               </div>
             </div>
           </div>
 
           <div class="sample-panel" aria-label="Sample prompts">
-            <button type="button" class="sample-question">Explain LLMs in simple terms</button>
+            <button type="button" class="sample-question">Explain photosynthesis simply</button>
             <button type="button" class="sample-question">Write a Python Flask API example</button>
-            <button type="button" class="sample-question">Compare GPT, Claude, Gemini, and Llama</button>
-            <button type="button" class="sample-question">What is Docker used for?</button>
-            <button type="button" class="sample-question">How do I learn cybersecurity safely?</button>
+            <button type="button" class="sample-question">Give me a game idea to build</button>
+            <button type="button" class="sample-question">Make a 30 minute study plan</button>
+            <button type="button" class="sample-question">Tell me one cool NASA fact</button>
+          </div>
+
+          <div class="browser-control-panel" aria-label="Browser Control">
+            <div class="browser-control-header">
+              <div>
+                <span id="browserControlStatus" class="status-chip browser-control-status is-offline">Browser Control Not Connected</span>
+                <p id="browserControlFeedback">Install Vertex Browser Control, paste the extension ID, then connect.</p>
+              </div>
+              <div class="browser-control-actions">
+                <button id="browserControlReconnect" class="secondary-button" type="button">Reconnect Browser</button>
+                <button id="browserControlDisconnect" class="secondary-button" type="button">Stop Browser Control</button>
+              </div>
+            </div>
+            <div class="browser-control-connect">
+              <label for="browserExtensionId">
+                <span>Extension ID</span>
+                <input id="browserExtensionId" type="text" value="pcdieoppchlfedcohfhoaacdaokgjngi" placeholder="Chrome extension ID" spellcheck="false" autocomplete="off">
+              </label>
+              <button id="browserControlConnect" class="primary-button" type="button">Connect</button>
+            </div>
+            <div class="browser-command-grid" aria-label="Safe browser commands">
+              <button type="button" data-browser-command="open_site" data-site="google">Open Google</button>
+              <button type="button" data-browser-command="open_site" data-site="youtube">Open YouTube</button>
+              <button type="button" data-browser-command="search_google">Search Google</button>
+              <button type="button" data-browser-command="search_youtube">Search YouTube</button>
+              <button type="button" data-browser-command="open_side_panel">Open Vertex Side Panel</button>
+              <button type="button" data-browser-command="go_back">Back</button>
+              <button type="button" data-browser-command="go_forward">Forward</button>
+              <button type="button" data-browser-command="reload_tab">Reload</button>
+              <button type="button" data-browser-command="scroll_up">Scroll Up</button>
+              <button type="button" data-browser-command="scroll_down">Scroll Down</button>
+              <button type="button" data-browser-command="click_first_result">Click First Result</button>
+            </div>
           </div>
 
           <form id="chatForm" class="chat-form">

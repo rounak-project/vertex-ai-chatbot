@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vertex AI</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup-shell">
+    <header class="brand">
+      <div class="mark">V</div>
+      <div>
+        <h1>Vertex AI</h1>
+        <p id="status">Checking setup...</p>
+      </div>
+    </header>
+
+    <section class="connection-card" aria-label="Browser connection">
+      <strong id="browserStatus">Browser Control: Checking...</strong>
+      <p id="browserDetail">Waiting for the background worker.</p>
+      <button id="reconnectBrowser" class="ghost" type="button">Reconnect Browser</button>
+    </section>
+
+    <section id="setupCard" class="setup-card" hidden>
+      <strong>API key needed for AI tools</strong>
+      <p>Add your Groq API key to summarize, explain, translate, create notes, and quiz pages.</p>
+      <button id="openOptionsSetup" class="primary" type="button">Open Vertex Settings</button>
+    </section>
+
+    <button id="togglePanel" class="primary" type="button">Open floating assistant</button>
+
+    <section class="quick-grid" aria-label="Quick actions">
+      <button type="button" data-command="summarize">Current Page Summary</button>
+      <button type="button" data-command="selected">Selected Text Assistant</button>
+      <button type="button" data-command="google">Search Google</button>
+      <button type="button" data-command="youtube">Open YouTube</button>
+    </section>
+
+    <button id="openOptions" class="ghost" type="button">Settings</button>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

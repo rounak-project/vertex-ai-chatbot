@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vertex Side Panel</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <main class="panel-shell">
+    <header class="panel-header">
+      <div class="brand-mark">V</div>
+      <div>
+        <h1>Vertex</h1>
+        <p id="panelStatus">Browser Control Connected</p>
+      </div>
+    </header>
+
+    <section id="feedback" class="feedback" role="status" aria-live="polite">
+      Ready for Google and YouTube controls.
+    </section>
+
+    <section id="confirmCard" class="confirm-card" hidden>
+      <strong>Confirm Browser Control</strong>
+      <p id="confirmText">Run command?</p>
+      <div class="button-row">
+        <button id="confirmAllow" class="primary" type="button">Allow</button>
+        <button id="confirmCancel" type="button">Cancel</button>
+      </div>
+    </section>
+
+    <form id="commandForm" class="command-form">
+      <label for="commandInput">Command</label>
+      <div class="input-row">
+        <input id="commandInput" type="text" placeholder="search youtube robot car" autocomplete="off">
+        <button id="micButton" type="button" title="Voice command" hidden>Mic</button>
+      </div>
+      <button class="primary" type="submit">Prepare Command</button>
+    </form>
+
+    <section class="quick-actions" aria-label="Quick actions">
+      <button type="button" data-command="open_site" data-site="youtube">Open YouTube</button>
+      <button type="button" data-command="open_site" data-site="google">Open Google</button>
+      <button type="button" data-command="search_youtube">Search YouTube</button>
+      <button type="button" data-command="go_back">Go Back</button>
+      <button type="button" data-command="disconnect">Stop</button>
+    </section>
+
+    <a class="full-app-link" href="https://vertexai-five.vercel.app/" target="_blank" rel="noreferrer">
+      Open full Vertex app
+    </a>
+  </main>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

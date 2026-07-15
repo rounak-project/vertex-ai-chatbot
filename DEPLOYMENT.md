@@ -19,7 +19,36 @@ Open:
 http://127.0.0.1:5000
 ```
 
-## Option 2: Render
+## Option 2: Vercel
+
+Vercel can host this Flask app with the Python runtime. `main.py` already exports a Flask instance named `app`, and `vercel.json` configures the function duration.
+
+1. Push the project to GitHub.
+2. Import the GitHub repository into Vercel.
+3. Keep the root directory as the repository root.
+4. Vercel installs Python packages from `requirements.txt`.
+5. Add environment variables in Vercel Project Settings:
+
+```env
+GROQ_API_KEY=your_real_groq_key
+AI_PROVIDER=groq
+GROQ_MODEL=llama-3.1-8b-instant
+FLASK_ENV=production
+```
+
+6. Deploy the project.
+7. Verify `/api/ai-status` shows `"provider": "groq"`, `"api_key_loaded": true`, and `"mode": "online"` when the Groq key is configured.
+8. Open `/admin/ai-test` to confirm API key loading, Groq connectivity, AI provider, last AI response, response time, and local knowledge count.
+
+You can also deploy with the Vercel CLI:
+
+```bash
+vercel deploy
+```
+
+Vercel's Flask runtime expects the Flask `app` object at a supported entrypoint such as `main.py`, which this project uses.
+
+## Option 3: Render
 
 Render can host Flask apps online.
 
@@ -55,7 +84,7 @@ FLASK_ENV=production
 
 This project also includes `render.yaml`, `Procfile`, and `runtime.txt` so it is ready for Render deployment.
 
-## Option 3: PythonAnywhere
+## Option 4: PythonAnywhere
 
 PythonAnywhere is beginner-friendly for Python projects.
 
@@ -66,7 +95,7 @@ PythonAnywhere is beginner-friendly for Python projects.
 5. Point the WSGI file to `main.py` and `app`.
 6. Add secret API keys in the PythonAnywhere environment, not in GitHub.
 
-## Option 4: Replit
+## Option 5: Replit
 
 Replit is useful for simple classroom demos.
 

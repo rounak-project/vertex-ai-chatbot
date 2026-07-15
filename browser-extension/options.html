@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vertex Extension Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main class="settings-shell">
+    <header class="hero">
+      <div class="mark">V</div>
+      <div>
+        <h1>Vertex AI Extension Settings</h1>
+        <p>Configure AI access for page summaries, selected text help, notes, quizzes, translation, and browser tools.</p>
+      </div>
+    </header>
+
+    <form id="settingsForm" class="settings-card">
+      <section class="connection-panel" aria-label="Browser connection status">
+        <div>
+          <strong id="browserStatus">Browser Control: Checking...</strong>
+          <p id="browserDetail">Waiting for the background worker.</p>
+        </div>
+        <button id="reconnectBrowser" type="button">Reconnect Browser</button>
+      </section>
+
+      <label>
+        Groq API key
+        <input id="groqApiKey" type="password" autocomplete="off" placeholder="gsk_..." spellcheck="false">
+      </label>
+
+      <label>
+        Groq model
+        <input id="groqModel" type="text" autocomplete="off" spellcheck="false">
+      </label>
+
+      <label>
+        Vertex app URL
+        <input id="vertexAppUrl" type="url" autocomplete="off" spellcheck="false">
+      </label>
+
+      <label class="check-row">
+        <input id="useVertexEndpoint" type="checkbox">
+        Use the Vertex app `/chat` endpoint instead of direct Groq calls
+      </label>
+
+      <div class="button-row">
+        <button class="primary" type="submit">Save Settings</button>
+        <button id="clearKey" type="button">Clear Key</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <section class="privacy-card">
+      <h2>Privacy</h2>
+      <p>Vertex reads page content only after you click a page-aware tool or send a message. Password, payment, file, and sensitive form fields are skipped.</p>
+      <p>Your Groq API key is saved in Chrome local extension storage and is never hardcoded into the project.</p>
+    </section>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>
