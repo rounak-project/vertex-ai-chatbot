@@ -352,7 +352,7 @@ def groq_error_message(error):
     error_text = str(error).lower()
 
     if status_code == 401 or "401" in error_text or "invalid api key" in error_text:
-        return "The Groq API key was rejected. Please check GROQ_API_KEY in Render."
+        return "The Groq API key was rejected. Please check the key in Vertex settings or Vercel environment variables."
     if status_code == 403 or "403" in error_text:
         return "Groq refused access for this key or model. Check account permissions."
     if status_code == 429 or "429" in error_text or "rate limit" in error_text:
