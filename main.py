@@ -3,13 +3,14 @@ import logging
 import os
 import random
 import re
+import secrets
 import time
 from functools import lru_cache
 from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
-from flask import Flask, jsonify, render_template, request, url_for
+from flask import Flask, jsonify, render_template, request, session, url_for
 
 load_dotenv()
 logging.basicConfig(
@@ -19,10 +20,13 @@ logging.basicConfig(
 
 from chatbot import (
     GROQ_MODEL,
+    check_groq_connection,
     create_groq_client,
     get_ai_diagnostics,
     get_ai_status,
     get_vertex_response,
+    has_groq_key,
+    mask_key_status,
     should_use_groq
 )
 from website_builder import website_builder_bp
@@ -33,6 +37,7 @@ from whiteboard import whiteboard_bp
 from interviewer import interviewer_bp
 
 app = Flask(__name__)
+app.secret_key = os.getenv("FLASK_SECRET_KEY") or os.getenv("SECRET_KEY") or secrets.token_hex(32)
 app.register_blueprint(website_builder_bp)
 app.register_blueprint(coding_workspace_bp)
 app.register_blueprint(prompt_library_bp)
@@ -54,6 +59,9 @@ APOD_CACHE = {
     "saved_at": 0,
     "data": None
 }
+GROQ_SESSION_KEYS = {}
+GROQ_SESSION_KEY_NAME = "vertex_groq_key_id"
+GROQ_KEY_PATTERN = re.compile(r"^gsk_[A-Za-z0-9_-]{20,}$")
 
 MISSION_COMMANDER_PROFILE = {
     "role": "AI Engineer",
@@ -375,6 +383,60 @@ def get_iss_location():
     return get_backup_iss_location()
 
 
+def get_session_groq_key():
+    """Return the server-held Groq key for this browser session, if connected."""
+    key_id = session.get(GROQ_SESSION_KEY_NAME)
+    if not key_id:
+        return ""
+    return GROQ_SESSION_KEYS.get(key_id, "")
+
+
+def set_session_groq_key(api_key):
+    """Store a Groq key server-side and keep only an opaque id in the cookie."""
+    old_key_id = session.get(GROQ_SESSION_KEY_NAME)
+    if old_key_id:
+        GROQ_SESSION_KEYS.pop(old_key_id, None)
+
+    key_id = secrets.token_urlsafe(24)
+    GROQ_SESSION_KEYS[key_id] = api_key
+    session[GROQ_SESSION_KEY_NAME] = key_id
+
+
+def clear_session_groq_key():
+    """Remove the connected Groq key for this browser session."""
+    key_id = session.pop(GROQ_SESSION_KEY_NAME, None)
+    if key_id:
+        GROQ_SESSION_KEYS.pop(key_id, None)
+
+
+def validate_groq_key_shape(api_key):
+    """Validate key shape without making a network call or exposing the value."""
+    clean_key = str(api_key or "").strip()
+    if not clean_key:
+        return False, "Enter a Groq API key."
+    if not GROQ_KEY_PATTERN.match(clean_key):
+        return False, "Groq API keys must start with gsk_ and contain only key-safe characters."
+    return True, "Key format looks valid."
+
+
+def groq_settings_status(message=None):
+    """Return UI-safe Groq settings state."""
+    session_key = get_session_groq_key()
+    env_key_loaded = has_groq_key()
+    connected = bool(session_key)
+    return {
+        "connected": connected,
+        "source": "session" if connected else ("environment" if env_key_loaded else "none"),
+        "message": message or (
+            "Groq API key connected for this browser session."
+            if connected else
+            "Connect Groq API Key to use Groq for chat."
+        ),
+        "model": GROQ_MODEL,
+        "key_status": mask_key_status(session_key) if connected else ("environment configured" if env_key_loaded else "missing")
+    }
+
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -384,7 +446,7 @@ def home():
 def chat():
     data = request.get_json(silent=True) or {}
     user_message = data.get("message", "")
-    vertex_response = get_vertex_response(user_message)
+    vertex_response = get_vertex_response(user_message, api_key=get_session_groq_key() or None)
 
     add_to_chat_history("user", user_message)
     add_to_chat_history("vertex", vertex_response)
@@ -395,7 +457,73 @@ def chat():
 @app.route("/api/ai-status")
 def ai_status():
     """API route that tells the frontend which VERTEX brain is active."""
-    return jsonify(get_ai_status())
+    return jsonify(get_ai_status(api_key=get_session_groq_key() or None))
+
+
+@app.get("/api/groq/status")
+def groq_status():
+    """Return safe Groq settings state for the current browser session."""
+    return jsonify(groq_settings_status())
+
+
+@app.post("/api/groq/validate")
+def groq_validate():
+    """Validate key format without storing or logging the key."""
+    data = request.get_json(silent=True) or {}
+    valid, message = validate_groq_key_shape(data.get("api_key", ""))
+    return jsonify({"valid": valid, "message": message, "model": GROQ_MODEL}), 200 if valid else 400
+
+
+@app.post("/api/groq/test")
+def groq_test():
+    """Test a submitted key or the connected session key against Groq."""
+    data = request.get_json(silent=True) or {}
+    api_key = str(data.get("api_key") or get_session_groq_key() or "").strip()
+    valid, message = validate_groq_key_shape(api_key)
+    if not valid:
+        return jsonify({"connected": False, "message": message, "model": GROQ_MODEL}), 400
+
+    result = check_groq_connection(force=True, api_key=api_key)
+    if result["connected"]:
+        return jsonify({
+            "connected": True,
+            "message": "Groq connection test passed.",
+            "model": GROQ_MODEL
+        })
+
+    return jsonify({
+        "connected": False,
+        "message": result["error"] or "Groq connection test failed.",
+        "model": GROQ_MODEL
+    }), 400
+
+
+@app.post("/api/groq/connect")
+def groq_connect():
+    """Validate, test, and store a Groq key server-side for this browser session."""
+    data = request.get_json(silent=True) or {}
+    api_key = str(data.get("api_key", "")).strip()
+    valid, message = validate_groq_key_shape(api_key)
+    if not valid:
+        return jsonify({"connected": False, "message": message, "model": GROQ_MODEL}), 400
+
+    result = check_groq_connection(force=True, api_key=api_key)
+    if not result["connected"]:
+        return jsonify({
+            "connected": False,
+            "message": result["error"] or "Groq connection test failed.",
+            "model": GROQ_MODEL
+        }), 400
+
+    set_session_groq_key(api_key)
+    return jsonify(groq_settings_status("Groq API key connected. Chat will use Groq for this session."))
+
+
+@app.post("/api/groq/disconnect")
+def groq_disconnect():
+    """Disconnect the session Groq key."""
+    clear_session_groq_key()
+    return jsonify(groq_settings_status("Groq API key disconnected."))
 
 
 @app.route("/api/ai-test")

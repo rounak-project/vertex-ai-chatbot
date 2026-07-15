@@ -891,6 +891,58 @@ select {
   flex-wrap: wrap;
 }
 
+.groq-settings-card {
+  flex: 1 1 100%;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.groq-settings-card h3,
+.groq-settings-card p {
+  margin: 0;
+}
+
+.groq-settings-card h3 {
+  color: var(--text);
+}
+
+#groqSettingsStatus {
+  color: var(--muted);
+}
+
+#groqSettingsStatus[data-status="success"] {
+  color: var(--success);
+}
+
+#groqSettingsStatus[data-status="error"] {
+  color: #fecaca;
+}
+
+.groq-settings-card label {
+  display: grid;
+  gap: 6px;
+  max-width: 560px;
+}
+
+.groq-settings-card input {
+  font-family: "JetBrains Mono", monospace;
+}
+
+.groq-settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.settings-note {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
 .toggle-row {
   display: inline-flex;
   align-items: center;

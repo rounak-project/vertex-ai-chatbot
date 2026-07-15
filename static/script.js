@@ -25,6 +25,12 @@ const settingsButton = $("#settingsButton");
 const muteButton = $("#muteButton");
 const presentationButton = $("#presentationButton");
 const exitPresentationButton = $("#exitPresentationButton");
+const groqApiKeyInput = $("#groqApiKeyInput");
+const groqSettingsStatus = $("#groqSettingsStatus");
+const groqValidateButton = $("#groqValidateButton");
+const groqTestButton = $("#groqTestButton");
+const groqConnectButton = $("#groqConnectButton");
+const groqDisconnectButton = $("#groqDisconnectButton");
 const sidebarToggle = $("#sidebarToggle");
 const sidebarOverlay = $("#sidebarOverlay");
 const sidebarLinks = $$(".nav-link");
@@ -683,8 +689,8 @@ async function fetchJson(url, options = {}) {
   const startedAt = performance.now();
   try {
     const response = await fetch(url, { ...options, signal: controller.signal });
-    if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
     const data = await response.json();
+    if (!response.ok) throw new Error(data?.message || data?.error || `Request failed with status ${response.status}`);
     if (latencyMetric && url === "/chat") {
       latencyMetric.textContent = `${Math.round(performance.now() - startedAt)}ms`;
     }
@@ -694,6 +700,68 @@ async function fetchJson(url, options = {}) {
     throw error;
   } finally {
     window.clearTimeout(timeoutId);
+  }
+}
+
+function setGroqSettingsStatus(message, mode = "neutral") {
+  if (!groqSettingsStatus) return;
+  groqSettingsStatus.textContent = message;
+  groqSettingsStatus.dataset.status = mode;
+}
+
+function getGroqInputKey() {
+  return String(groqApiKeyInput?.value || "").trim();
+}
+
+async function refreshGroqSettingsStatus() {
+  if (!groqSettingsStatus) return;
+  try {
+    const data = await fetchJson("/api/groq/status", { timeoutMs: 8000 });
+    const mode = data.connected ? "success" : "neutral";
+    setGroqSettingsStatus(`${data.message} Model: ${data.model}. Key status: ${data.key_status}.`, mode);
+  } catch (error) {
+    setGroqSettingsStatus(error?.message || "Could not load Groq settings.", "error");
+  }
+}
+
+async function runGroqSettingsAction(action) {
+  const endpoints = {
+    validate: "/api/groq/validate",
+    test: "/api/groq/test",
+    connect: "/api/groq/connect",
+    disconnect: "/api/groq/disconnect"
+  };
+  const labels = {
+    validate: "Validating Groq key...",
+    test: "Testing Groq connection...",
+    connect: "Connecting Groq...",
+    disconnect: "Disconnecting Groq..."
+  };
+  const endpoint = endpoints[action];
+  if (!endpoint) return;
+
+  setGroqSettingsStatus(labels[action], "neutral");
+  [groqValidateButton, groqTestButton, groqConnectButton, groqDisconnectButton].forEach((button) => {
+    if (button) button.disabled = true;
+  });
+
+  try {
+    const body = action === "disconnect" ? {} : { api_key: getGroqInputKey() };
+    const data = await fetchJson(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      timeoutMs: action === "validate" ? 8000 : 16000
+    });
+    if (action === "connect" && groqApiKeyInput) groqApiKeyInput.value = "";
+    setGroqSettingsStatus(data.message || "Groq action completed.", data.connected || data.valid ? "success" : "neutral");
+    await loadAiStatus();
+  } catch (error) {
+    setGroqSettingsStatus(error?.message || "Groq action failed.", "error");
+  } finally {
+    [groqValidateButton, groqTestButton, groqConnectButton, groqDisconnectButton].forEach((button) => {
+      if (button) button.disabled = false;
+    });
   }
 }
 
@@ -1577,6 +1645,10 @@ function bindControls() {
   settingsButton?.addEventListener("click", () => {
     document.querySelector("#settings")?.scrollIntoView({ behavior: "smooth" });
   });
+  groqValidateButton?.addEventListener("click", () => runGroqSettingsAction("validate"));
+  groqTestButton?.addEventListener("click", () => runGroqSettingsAction("test"));
+  groqConnectButton?.addEventListener("click", () => runGroqSettingsAction("connect"));
+  groqDisconnectButton?.addEventListener("click", () => runGroqSettingsAction("disconnect"));
   muteButton?.addEventListener("click", () => {
     soundsMuted = !soundsMuted;
     localStorage.setItem("vertex-muted", String(soundsMuted));
@@ -1638,6 +1710,7 @@ function init() {
   setupVoice();
   bindQuiz();
   loadAiStatus();
+  refreshGroqSettingsStatus();
   loadDashboardData();
   loadQuizDatabase();
 }

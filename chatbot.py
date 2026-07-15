@@ -263,9 +263,9 @@ def get_configured_provider():
     return provider or "groq"
 
 
-def get_groq_api_key():
+def get_groq_api_key(api_key=None):
     """Return a usable Groq API key or an empty string."""
-    api_key = os.getenv("GROQ_API_KEY", "").strip()
+    api_key = (api_key if api_key is not None else os.getenv("GROQ_API_KEY", "")).strip()
 
     if not api_key or api_key.lower() in PLACEHOLDER_KEYS:
         return ""
@@ -302,20 +302,20 @@ def find_local_answer(user_message):
     return None
 
 
-def has_groq_key():
+def has_groq_key(api_key=None):
     """Return True when the optional Groq AI key exists in the environment."""
-    return bool(get_groq_api_key())
+    return bool(get_groq_api_key(api_key))
 
 
-def should_use_groq():
+def should_use_groq(api_key=None):
     """Return True when configuration allows Groq after local search fails."""
     provider = get_configured_provider()
-    return provider == "groq" and has_groq_key()
+    return provider == "groq" and has_groq_key(api_key)
 
 
-def mask_key_status():
+def mask_key_status(api_key=None):
     """Give useful key diagnostics without exposing the secret."""
-    raw_key = os.getenv("GROQ_API_KEY", "")
+    raw_key = api_key if api_key is not None else os.getenv("GROQ_API_KEY", "")
     stripped_key = raw_key.strip()
 
     if not stripped_key:
@@ -367,17 +367,23 @@ def groq_error_message(error):
     return "Groq is unavailable right now."
 
 
-def create_groq_client():
+def create_groq_client(api_key=None):
     """Create the Groq SDK client with a validated API key."""
     from groq import Groq
 
-    return Groq(api_key=get_groq_api_key(), timeout=GROQ_TIMEOUT_SECONDS)
+    return Groq(api_key=get_groq_api_key(api_key), timeout=GROQ_TIMEOUT_SECONDS)
 
 
-def check_groq_connection(force=False):
+def check_groq_connection(force=False, api_key=None):
     """Check Groq connectivity and cache the result briefly."""
-    if not should_use_groq():
+    if not should_use_groq(api_key):
         reason = "missing API key" if get_configured_provider() == "groq" else "AI_PROVIDER is not groq"
+        if api_key is not None:
+            return {
+                "checked_at": time.time(),
+                "connected": False,
+                "error": reason
+            }
         GROQ_STATUS_CACHE.update({
             "checked_at": time.time(),
             "connected": False,
@@ -386,42 +392,46 @@ def check_groq_connection(force=False):
         return GROQ_STATUS_CACHE
 
     now = time.time()
-    if not force and now - GROQ_STATUS_CACHE["checked_at"] < GROQ_STATUS_CACHE_SECONDS:
+    if api_key is None and not force and now - GROQ_STATUS_CACHE["checked_at"] < GROQ_STATUS_CACHE_SECONDS:
         return GROQ_STATUS_CACHE
 
     try:
-        client = create_groq_client()
+        client = create_groq_client(api_key)
         client.models.list()
-        GROQ_STATUS_CACHE.update({
+        result = {
             "checked_at": now,
             "connected": True,
             "error": None
-        })
+        }
+        if api_key is None:
+            GROQ_STATUS_CACHE.update(result)
         logger.info(
             "Groq connectivity check succeeded provider=%s model=%s key_status=%s",
             get_configured_provider(),
             GROQ_MODEL,
-            mask_key_status()
+            mask_key_status(api_key)
         )
     except Exception as error:
         message = groq_error_message(error)
-        GROQ_STATUS_CACHE.update({
+        result = {
             "checked_at": now,
             "connected": False,
             "error": message
-        })
+        }
+        if api_key is None:
+            GROQ_STATUS_CACHE.update(result)
         logger.warning(
             "Groq connectivity check failed provider=%s model=%s key_status=%s error=%s",
             get_configured_provider(),
             GROQ_MODEL,
-            mask_key_status(),
+            mask_key_status(api_key),
             message
         )
 
-    return GROQ_STATUS_CACHE
+    return result if api_key is not None else GROQ_STATUS_CACHE
 
 
-def ask_groq_ai(user_message):
+def ask_groq_ai(user_message, api_key=None):
     """Ask Groq for a concise general-assistant answer.
 
     The import stays inside this function so the app can still run without the
@@ -436,16 +446,16 @@ def ask_groq_ai(user_message):
         logger.info("GROQ_FAILURE question=%r reason=%s", user_message, message)
         return None
 
-    if not has_groq_key():
-        key_status = mask_key_status()
-        message = "GROQ_API_KEY is missing in Render." if key_status == "missing" else "GROQ_API_KEY is still a placeholder."
+    if not has_groq_key(api_key):
+        key_status = mask_key_status(api_key)
+        message = "GROQ_API_KEY is missing." if key_status == "missing" else "GROQ_API_KEY is still a placeholder."
         update_last_ai_result("groq", "", started_at, message)
         logger.info("GROQ_FAILURE question=%r reason=%s", user_message, message)
         logger.warning("Groq skipped key_status=%s provider=%s", key_status, get_configured_provider())
         return None
 
     try:
-        client = create_groq_client()
+        client = create_groq_client(api_key)
         response = client.chat.completions.create(
             model=GROQ_MODEL,
             messages=[
@@ -496,20 +506,20 @@ def ask_groq_ai(user_message):
             "Groq answer failed provider=%s model=%s key_status=%s user_message_length=%s friendly_error=%s",
             get_configured_provider(),
             GROQ_MODEL,
-            mask_key_status(),
+            mask_key_status(api_key),
             len(str(user_message or "")),
             message
         )
         return None
 
 
-def get_ai_status():
+def get_ai_status(api_key=None):
     """Explain which VERTEX brain mode is currently available."""
     provider = get_configured_provider()
-    api_key_loaded = has_groq_key()
+    api_key_loaded = has_groq_key(api_key)
 
     if provider == "groq" and api_key_loaded:
-        groq_status = check_groq_connection()
+        groq_status = check_groq_connection(api_key=api_key)
         connected = bool(groq_status["connected"])
         return {
             "provider": "groq",
@@ -522,7 +532,7 @@ def get_ai_status():
                 f"Groq is configured, but unavailable: {groq_status['error']}"
             ),
             "model": GROQ_MODEL,
-            "key_status": mask_key_status(),
+            "key_status": mask_key_status(api_key),
             "local_knowledge_count": get_local_knowledge_count()
         }
 
@@ -537,7 +547,7 @@ def get_ai_status():
             "AI_PROVIDER is local. VERTEX is using the local general assistant brain."
         ),
         "model": GROQ_MODEL,
-        "key_status": mask_key_status(),
+        "key_status": mask_key_status(api_key),
         "local_knowledge_count": get_local_knowledge_count()
     }
 
@@ -561,7 +571,7 @@ def get_ai_diagnostics(force=False):
     }
 
 
-def get_vertex_response(user_message):
+def get_vertex_response(user_message, api_key=None):
     """Return a Groq answer first, then local fallback, then a rephrase prompt."""
     clean_message = str(user_message or "").strip()
 
@@ -578,8 +588,8 @@ def get_vertex_response(user_message):
         logger.info("LOCAL_INTENT_USED question=%r", clean_message)
         return local_intent_answer
 
-    if should_use_groq():
-        groq_answer = ask_groq_ai(clean_message)
+    if should_use_groq(api_key):
+        groq_answer = ask_groq_ai(clean_message, api_key=api_key)
         if groq_answer:
             return groq_answer
     else:
@@ -587,7 +597,7 @@ def get_vertex_response(user_message):
             "GROQ_FAILURE question=%r reason=%s key_status=%s",
             clean_message,
             "Groq is not available",
-            mask_key_status()
+            mask_key_status(api_key)
         )
 
     local_answer = find_local_answer(clean_message)
