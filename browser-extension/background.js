@@ -1,7 +1,7 @@
 const VERTEX_DEFAULTS = {
   groqApiKey: "",
   groqModel: "llama-3.1-8b-instant",
-  vertexAppUrl: "https://vertexai-five.vercel.app/",
+  vertexAppUrl: "https://vertex-ai-chatbot-self.vercel.app/",
   useVertexEndpoint: false
 };
 
@@ -25,6 +25,7 @@ const CONNECTION_DEFAULTS = {
   vertexBrowserContentReady: false
 };
 const ALLOWED_EXTERNAL_ORIGINS = new Set([
+  "https://vertex-ai-chatbot-self.vercel.app",
   "https://vertexai-five.vercel.app",
   "http://127.0.0.1:5000",
   "http://localhost:5000"

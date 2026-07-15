@@ -1,7 +1,7 @@
 const defaults = {
   groqApiKey: "",
   groqModel: "llama-3.1-8b-instant",
-  vertexAppUrl: "https://vertexai-five.vercel.app/",
+  vertexAppUrl: "https://vertex-ai-chatbot-self.vercel.app/",
   useVertexEndpoint: false
 };
 

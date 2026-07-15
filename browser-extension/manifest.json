@@ -16,6 +16,7 @@
   ],
   "externally_connectable": {
     "matches": [
+      "https://vertex-ai-chatbot-self.vercel.app/*",
       "https://vertexai-five.vercel.app/*",
       "http://127.0.0.1/*",
       "http://localhost/*"
